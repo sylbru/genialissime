@@ -1,4 +1,4 @@
-package com.um2.projetl3.tarotandroid;
+package com.um2.projetl3.tarotandroid.jeu;
 
 import android.app.Activity;
 import android.os.Bundle;
