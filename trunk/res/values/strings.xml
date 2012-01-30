@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Bienvenue dans ce génialissime jeu de tarot pour Android !</string>
+    <string name="app_name">TarotAndroid</string>
+    <string name="exit">Quitter</string>
+
+</resources>
