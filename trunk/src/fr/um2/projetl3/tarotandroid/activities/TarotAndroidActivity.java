@@ -1,4 +1,4 @@
-package fr.um2.projetl3.tarotandroid.jeu;
+package fr.um2.projetl3.tarotandroid.activities;
 
 import android.app.Activity;
 import android.app.Notification;
