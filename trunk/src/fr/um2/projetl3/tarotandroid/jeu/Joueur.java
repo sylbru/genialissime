@@ -1,6 +1,10 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
-public class Joueur
+abstract public class Joueur
 {
-	private Main main; // Test
+	//! Classe icomplète, ne pas encore utiliser cette interface!
+	//TODO Finir l'interface Joueur
+	public abstract void setID(int pID);
+	public abstract void setMain(Main pMain);
+	
 }
