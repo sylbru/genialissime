@@ -37,7 +37,7 @@ public class TarotAndroidActivity extends Activity
     	Notification notification = new Notification(icon, notifTexte, when);
     	
     	Context context = getApplicationContext();
-    	CharSequence contentTitle = "Vous avez quittÃ© ?";
+    	CharSequence contentTitle = "Vous avez quitté ?";
     	CharSequence contentText = "Pourquoi ?";
     	Intent notificationIntent = new Intent(this, TarotAndroidActivity.class);
     	PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
