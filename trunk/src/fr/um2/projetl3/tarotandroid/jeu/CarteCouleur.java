@@ -4,10 +4,12 @@ public class CarteCouleur extends Carte
 {
 	
 	private Couleur couleur;
-	//private … id; //?  IdCarteCouleur ? enum ? int ?
+	private int id; 
 	
-	public CarteCouleur()
+	
+	public CarteCouleur(Couleur couleur, int id)
 	{
-		// TODO
+		this.couleur = couleur;
+		this.id = id;
 	}
 }
