@@ -17,4 +17,9 @@ public class Donne
 	{
 		// TODO
 	}
+	
+	public void calculScore()
+	{
+		// TODO
+	}
 }
