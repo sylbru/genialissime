@@ -27,7 +27,7 @@ public class TarotAndroidActivity extends Activity
     {
     	super.onPause();
     	
-    	String ns = Context.NOTIFICATION_SERVICE;
+    	/*String ns = Context.NOTIFICATION_SERVICE;
     	NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
 
     	int icon = R.drawable.ic_launcher;
@@ -37,7 +37,7 @@ public class TarotAndroidActivity extends Activity
     	Notification notification = new Notification(icon, notifTexte, when);
     	
     	Context context = getApplicationContext();
-    	CharSequence contentTitle = "Vous avez quitté ?";
+    	CharSequence contentTitle = "Vous avez quittï¿½ ?";
     	CharSequence contentText = "Pourquoi ?";
     	Intent notificationIntent = new Intent(this, TarotAndroidActivity.class);
     	PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
@@ -45,5 +45,8 @@ public class TarotAndroidActivity extends Activity
     	notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
 
     	mNotificationManager.notify(SAD_ID, notification);
+    	*/
+    	
+    	this.stopService(getIntent());
     }
 }
