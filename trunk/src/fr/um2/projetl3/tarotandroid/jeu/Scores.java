@@ -10,4 +10,16 @@ public class Scores
 class LigneScore
 {
 	Integer[] lscore;
+	
+	public int calculScore(int reussite, Contrat typeDuContrat)
+	{
+		int resultat;
+		
+		// ! faire les types de contrats 
+		
+		
+		return resultat;
+		//TODO
+	}
+
 }
