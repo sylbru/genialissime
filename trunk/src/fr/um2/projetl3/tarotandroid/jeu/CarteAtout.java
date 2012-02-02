@@ -5,7 +5,7 @@ import fr.um2.projetl3.tarotandroid.exceptions.IdAtoutInvalideException;
 public class CarteAtout extends Carte
 {
 
-	private Integer id;
+	private Integer id;//? pourquoi un integer et pas un int 
 	
 	public Integer getId()
 	{
@@ -19,6 +19,10 @@ public class CarteAtout extends Carte
 			this.id = id;
 		}
 		else throw new IdAtoutInvalideException();
+		/**
+		 * id represente l'atout en question
+		 * 0 etant l'excuse
+		 */
 	}
 	
 	private boolean isBout()
