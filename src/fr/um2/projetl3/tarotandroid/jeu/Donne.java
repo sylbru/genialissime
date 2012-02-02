@@ -6,6 +6,7 @@ public class Donne
 	public void donne()
 	{
 		// TODO
+		int i = 0;
 	}
 	
 	public void annonces()
