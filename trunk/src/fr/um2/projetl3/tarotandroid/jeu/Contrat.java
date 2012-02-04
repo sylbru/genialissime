@@ -9,7 +9,12 @@ public class Contrat {
 		private boolean chienRevele;// on voit le chien ou pas ?
 		private boolean chienPourAttaque;// le chien est pour l'attaque
 		
-		public Contrat(NomDesContats nom)
+		public Contrat()
+		{
+			this.nom = NomDesContrats.AucuneGarde;
+		}
+		
+		public Contrat(NomDesContrats nom)
 		{
 			this.nom=nom;
 		}
@@ -28,12 +33,13 @@ public class Contrat {
 		}
 		public int getPoids() 
 		{
-			if (nom==AucuneGarde) return 0;
-			if (nom==Pouce) return 1;
-			if (nom==Petite) return 2;
-			if (nom==Garde) return 3;
-			if (nom==GardeSans) return 4;
-			if (nom==GardeContre) return 5;
+			if (nom==NomDesContrats.AucuneGarde) return 0;
+			if (nom==NomDesContrats.Pouce) return 1;
+			if (nom==NomDesContrats.Petite) return 2;
+			if (nom==NomDesContrats.Garde) return 3;
+			if (nom==NomDesContrats.GardeSans) return 4;
+			if (nom==NomDesContrats.GardeContre) return 5;
+			return 0;
 		}
 /* remplace par une methode qui renvoit le poids en fonction du nom
 * il faut avoir le poids par contrat quelquepart et ici me semble le

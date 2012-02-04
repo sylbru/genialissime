@@ -3,21 +3,21 @@ package fr.um2.projetl3.tarotandroid.jeu;
 
 public class Annonces 
 {
-	public annonce4joueurs()
+	public void annonce4joueurs()
 	{
 	
 		Contrat con = new Contrat(NomDesContrats.AucuneGarde);
 		Contrat controle = new Contrat();
-		for(int i; i<8 ; i++ )
+		for(int i=0; i<8 ; i++ )
 		{
 			controle = demandejouer(con,i%4);
 			if	(controleContrats(con,controle))
 			{
-				if (controle=="AucuneGarde"){
+				if (controle.getName()==NomDesContrats.AucuneGarde){
 					informejoueurs(con,controle);
 				}
 				con=controle;
-				informejouers(con);
+				informejoueurs(con);
 			}
 			else
 			{
@@ -27,6 +27,13 @@ public class Annonces
 	}
 	
 	
+	private Contrat demandejouer(Contrat con, int i)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	public boolean controleContrats(Contrat a,Contrat b)
 	{
 		if(b.getPoids()==0)
@@ -34,13 +41,16 @@ public class Annonces
 			return true;
 		}
 		else if(a.getPoids()==5) return false;//?ce cas ne devrait jamais arriver on arrete de demander les jouers une fois le plus grand contract fait
-		else if(agetPoids()<bgetPoids()) return true;
+		else if(a.getPoids()<b.getPoids()) return true;
 		else return false;
 		
 	}
 
 	
-	public void informejoueurs(){
+	public void informejoueurs(Contrat ancien, Contrat nouveau){
+		//TO-DO informe tous les joueurs si le jouer n'a pas pris de contrats ou si le contrats a augmente
+	}
+	public void informejoueurs(Contrat con){
 		//TO-DO informe tous les joueurs si le jouer n'a pas pris de contrats ou si le contrats a augmente
 	}
 	
