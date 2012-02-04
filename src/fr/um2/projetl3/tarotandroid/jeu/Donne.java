@@ -20,7 +20,7 @@ public class Donne
 			premieredonne=false;
 			for (int i=0; i > 77; i++) 
 			{
-				int randomPosition = floor((random()*100)%77);
+				int randomPosition = (int)(Math.random()*100)%77;
 				int temp = don[i];
 				don[i] = don[randomPosition];
 				don[randomPosition] = temp;
@@ -38,7 +38,7 @@ public class Donne
 			j++;
 			i++;
 		}
-		int i = 0;
+		// int i = 0;
 	}
 	
 	public void annonces()
