@@ -6,25 +6,33 @@ public class Scores
 {
 	private Vector<LigneScore> scores;
 	
-	static public int getScore(NomDesContrats c){
-		if (c==NomDesContrats.Pouce) {
-			return 10;
-		} else {
-			return 20;
-		}
-	}
+
 }
 
 class LigneScore
 {
-	Integer[] lscore;
+	//Integer[] lscore = new Integer[Partie.getNombreDeJoueur()];
 	
-	public int calculScore(int reussite, Contrat typeDuContrat)
+
+	public void ScoreLigne(Integer[] lscore, int valeurScore, int joueurReussie){
+		
+	}
+	
+	public int calculScore(Contrat typeDuContrat, int Gain)
 	{
-		int resultat = 0;
+		int resultat = 25;
+		resultat = resultat + Gain ;
 		
 		// ! faire les types de contrats 
-		resultat = Scores.getScore(typeDuContrat.getName());
+		if( typeDuContrat.getName() == NomDesContrats.Garde){
+			resultat*=2;
+		}
+		else if( typeDuContrat.getName() == NomDesContrats.GardeSans){
+			resultat*=4;
+		}
+		else if( typeDuContrat.getName() == NomDesContrats.GardeContre){
+			resultat*=6;
+		}
 		
 		return resultat;
 		//TODO
