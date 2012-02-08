@@ -12,7 +12,7 @@ public class Scores
 	 /**/
 	public Scores()
 	{
-		int J = Partie.getNombreDeJoueur();
+		int J = Partie.getNombreDeJoueurs();
 		scores = new Vector<Integer[]>();
 		Integer[] derniereLigne = new Integer[J];
 		for(int i =0; i<J;i++)
@@ -26,7 +26,7 @@ public class Scores
 	
 	public void calculDerniereLigneScore(Contrat typeDuContrat, int Gain,boolean joueurReussie, int joueurContrat)
 	{
-		int J = Partie.getNombreDeJoueur();
+		int J = Partie.getNombreDeJoueurs();
 		int valeurScore = calculScore(typeDuContrat, Gain);
 		Integer[] dernierResultat = new Integer[J];
 		Integer[] derniereLigne = new Integer[J];
@@ -41,7 +41,7 @@ public class Scores
 	
 	public void affiche(){
 		System.out.println("Scores : ");
-		int J = Partie.getNombreDeJoueur();
+		int J = Partie.getNombreDeJoueurs();
 		int I = scores.size();
 		/*
 		pour afficher les noms de joueurs en debut de tableau 
@@ -70,14 +70,14 @@ public class Scores
 
 	public Integer[] ScoreLigne(int valeurScore, boolean joueurReussie, int joueurContrat)
 	{
-		Integer[] lscore = new Integer[Partie.getNombreDeJoueur()];
+		Integer[] lscore = new Integer[Partie.getNombreDeJoueurs()];
 		if(joueurReussie)
 		{
-			for(int i=0; i < Partie.getNombreDeJoueur(); i++)
+			for(int i=0; i < Partie.getNombreDeJoueurs(); i++)
 			{
 				if(i == joueurContrat)
 				{
-					lscore[i] = valeurScore * Partie.getNombreDeJoueur();
+					lscore[i] = valeurScore * Partie.getNombreDeJoueurs();
 				}
 				else
 				{
@@ -87,11 +87,11 @@ public class Scores
 		}
 		else 
 		{
-			for(int i=0; i < Partie.getNombreDeJoueur(); i++)
+			for(int i=0; i < Partie.getNombreDeJoueurs(); i++)
 			{
 				if(i == joueurContrat)
 				{
-					lscore[i] = -valeurScore * Partie.getNombreDeJoueur();
+					lscore[i] = -valeurScore * Partie.getNombreDeJoueurs();
 				}
 				else
 				{

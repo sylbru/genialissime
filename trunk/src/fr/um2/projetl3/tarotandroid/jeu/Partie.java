@@ -1,29 +1,22 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
 import java.util.Vector;
-
-import fr.um2.projetl3.tarotandroid.exceptions.NombreDeJoueursInvalideException;
-
+@SuppressWarnings("all")
 public class Partie
 {
+
 	private Joueur[] joueurs; // ? initialisé de taille 3, 4 ou 5 selon type de
-								// partie (bien ?)
 	private Scores scores;
-
-	private int nombreDeJoueurs;	 // ? initialiser la taille du tableu de joeur en
-									// fonction de cette valeur	
+	private static int nombreDeJoueurs;
 	private Carte[] tas;
-	
 	private Donne donneEnCours;
-
+	
+	private Vector<Carte> chien[];
+	private static int nombreDeCartesPourLeChien;
+	
 	public Joueur[] getJoueurs()
 	{
 		return joueurs;
-	}
-
-	public void setJoueurs(Joueur[] joueurs)
-	{
-		this.joueurs = joueurs;
 	}
 	
 	public void setJoueur(int i, Joueur joueur)
@@ -41,9 +34,14 @@ public class Partie
 		this.scores = scores;
 	}
 
-	public int getNombreDeJoueur()
+	public static int getNombreDeJoueurs()
 	{
 		return nombreDeJoueurs;
+	}
+
+	public static int getnombreDeCartesPourLeChien() 
+	{
+		return nombreDeCartesPourLeChien;
 	}
 
 	public void setNombreDeJoueur(int nombreDeJoueurs)
@@ -56,9 +54,9 @@ public class Partie
 			
 			this.nombreDeJoueurs = 4;
 		}
+
 	}
-	
-	private void init()
+	private void initialisationDunePartie()
 	{
 		scores = new Scores();
 		
@@ -67,7 +65,7 @@ public class Partie
 	public Partie(int nombreDeJoueurs)
 	{
 		setNombreDeJoueur(nombreDeJoueurs);
-		init();
+		initialisationDunePartie();
 	}
 	
 	public Partie()

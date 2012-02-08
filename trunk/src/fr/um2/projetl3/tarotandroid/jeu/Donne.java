@@ -33,7 +33,7 @@ public class Donne
 		 int NOMBRE_CARTES_TOTALES=78; 
 		 int CARTES_DISTRIBU_PAR_JOUEUR = 3;
 		 
-		 int nombreDeJoueur = Partie.getNombreDeJoueur(); 
+		 int nombreDeJoueur = Partie.getNombreDeJoueurs(); 
 		 int numeroDuJoueur = 0; // ! j'en ai besoin pour savoir � quel joueur je vais donner les cartes
 		 
 		 int possibilitesMisesAuChien = 0;		 
