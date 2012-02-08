@@ -12,8 +12,6 @@ public class Donne
 	/**
 	 * @author JB
 	 * 
-	 * ne sachant pas si le code compile je vais le mettre en commentaire (chez moi m�me sans rien ajouter j'ai une centaine d'erreur)
-	 * 
 	 * methode de disbrution des cartes
 	 * 
 	 * sauf erreur de ma part les calcules devrait �tre bon, je verifir� avec quelqu'un
@@ -21,11 +19,10 @@ public class Donne
 	 *  // ? je ne sais pas ou mettre les constantes
 	 *  
 	 *  // ! Chose � modifier :
-	 *  		j est l'indice du tableau de la donne pr�cedente ( une fois la coupe effectu�)
 	 *  		mettre les constantes au bon endroit
 	 *  		changer la valeur 6 par Chien.getNombreDeCartes() 
-	 *  		pareil pour le nombre de joueur remplacer 4 par Partie.getNombreDeJoueur()
 	 *  		� la fin il faut affecter les mains qui sont dans le tableau aux joeur
+	 *  			=> suivant le sens des aiguille d'une montre ou non 
 	 *  	
 	 */
 	
@@ -36,20 +33,21 @@ public class Donne
 		 int NOMBRE_CARTES_TOTALES=78; 
 		 int CARTES_DISTRIBU_PAR_JOUEUR = 3;
 		 
-		 donneAvant = new Carte[NOMBRE_CARTES_TOTALES-1];
-		 //mainDesJoueur = new int ;
+		 int nombreDeJoueur = Partie.getNombreDeJoueur(); 
+		 int numeroDuJoueur = 0; // ! j'en ai besoin pour savoir � quel joueur je vais donner les cartes
 		 
+		 int possibilitesMisesAuChien = 0;		 
+		 int nombreDeCartesMisesAuChien = 0;
+		 int nombreDeCartesPourLeChien = 6;
+		
+		 donneAvant = new Carte[NOMBRE_CARTES_TOTALES-1];
+		 mainDesJoueur = new Main[nombreDeJoueur] ;
+		 chien = new Carte[nombreDeCartesPourLeChien];
 		 /*
 		  * à voir pour la donne précedente les cartes seront distribué par rapport à l'indice j du tableau de la donne précedente
 		  */
 		 
-		 int nombreDeJoueur = Partie.getNombreDeJoueur(); 
-		 int numeroDuJoueur = 0; // ! j'en ai besoin pour savoir � quel joueur je vais donner les cartes
-		 
-		 int possibilitesMisesAuChien;		 
-		 int nombreDeCartesMisesAuChien = 0;
-		 int nombreDeCartesPourLeChien = 6;
-		 
+ 
 		 int randomMin = 1;
 		 int randomMax;
 		 // random(Min/Max) permette de savoir sur quel intervalle on doit faire le random
@@ -106,6 +104,7 @@ public class Donne
 			 numeroDuJoueur++;
 		 }
 		 
+		 // affectation des mains aux joueurs
 	 }
 	 /**
 	
@@ -152,8 +151,4 @@ public class Donne
 		// TODO
 	}
 	
-	public void calculScore()
-	{
-		// TODO
-	}
 }
