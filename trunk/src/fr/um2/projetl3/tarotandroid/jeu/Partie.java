@@ -6,7 +6,7 @@ public class Partie
 {
 	private Joueur[] joueurs; // ? initialisé de taille 3, 4 ou 5 selon type de partie (bien ?)
 	private Scores scores;
-	private int NombreDeJoueur; // ? initialiser la taille du tableu de joeur en fonction de cette valeur
+	private static int NombreDeJoueur; // ? initialiser la taille du tableu de joeur en fonction de cette valeur
 	
 	
 	public Joueur[] getJoueurs() {
@@ -21,7 +21,7 @@ public class Partie
 	public void setScores(Scores scores) {
 		this.scores = scores;
 	}
-	public int getNombreDeJoueur() {
+	public static int getNombreDeJoueur() {
 		return NombreDeJoueur;
 	}
 	public void setNombreDeJoueur(int nombreDeJoueur) {

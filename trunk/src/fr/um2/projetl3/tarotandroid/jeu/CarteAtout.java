@@ -5,7 +5,7 @@ import fr.um2.projetl3.tarotandroid.exceptions.IdAtoutInvalideException;
 public class CarteAtout extends Carte
 {
 
-	private Integer id;//? pourquoi un integer et pas un int 
+	private Integer id;// ? pourquoi un integer et pas un int 
 	
 	public Integer getId()
 	{
@@ -25,6 +25,10 @@ public class CarteAtout extends Carte
 		 */
 	}
 	
+	/**
+	 * 
+	 * @return boolean si c'est un bout true sinon false
+	 */
 	private boolean isBout()
 	{
 		switch(id)

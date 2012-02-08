@@ -3,10 +3,10 @@ import java.lang.Math;
 
 public class Donne
 {
-	int don[]= new int[78];
-	int mains[][]= new int[4][18];
-	int chien[]= new int [6];
-	boolean premieredonne=true;
+	private Carte donneAvant[];
+	private Main mainDesJoueur[];
+	private Carte chien[];
+	
 	
 	
 	/**
@@ -32,10 +32,18 @@ public class Donne
 	/**/
 	 public void donne()
 	 {
+		 
 		 int NOMBRE_CARTES_TOTALES=78; 
 		 int CARTES_DISTRIBU_PAR_JOUEUR = 3;
 		 
-		 int nombreDeJoueur = 4; 
+		 donneAvant = new Carte[NOMBRE_CARTES_TOTALES-1];
+		 //mainDesJoueur = new int ;
+		 
+		 /*
+		  * à voir pour la donne précedente les cartes seront distribué par rapport à l'indice j du tableau de la donne précedente
+		  */
+		 
+		 int nombreDeJoueur = Partie.getNombreDeJoueur(); 
 		 int numeroDuJoueur = 0; // ! j'en ai besoin pour savoir � quel joueur je vais donner les cartes
 		 
 		 int possibilitesMisesAuChien;		 
@@ -47,9 +55,8 @@ public class Donne
 		 // random(Min/Max) permette de savoir sur quel intervalle on doit faire le random
 		 
 		 int j=0,l,k=0;
-		 int a=0,b=1,c=2; // represente les trois cartes distribu� � chaque fois pour chaque joeur
 		 		 
-		 possibilitesMisesAuChien = ( NOMBRE_CARTES_TOTALES - nombreDeCartesPourLeChien ) / CARTES_DISTRIBU_PAR_JOUEUR;
+		 possibilitesMisesAuChien = (( NOMBRE_CARTES_TOTALES - nombreDeCartesPourLeChien ) / CARTES_DISTRIBU_PAR_JOUEUR) ;
 		 
 		 
 		 while(( nombreDeCartesPourLeChien - nombreDeCartesMisesAuChien ) == 0) 
@@ -59,27 +66,24 @@ public class Donne
 			 randomMin = randomMin + (int)(Math.random() * ((randomMax - randomMin)+1));
 			 // ! il faut que la valeur de retour soit comprise entre ]randomMin,randomMax] !
 			 
-			 // nombreDeCartesMisesAuChien = (int) Math.random()*100 % 3; 
+			 //nombreDeCartesMisesAuChien = (int) Math.random()*100 % 3; 
 			 
-			 for(j=0;j<(randomMin*3);j++) // ? j'ai un doute sur le inferieur strict
+			 while(j<=(randomMin*CARTES_DISTRIBU_PAR_JOUEUR))
 			 {
 				 if (numeroDuJoueur == nombreDeJoueur)
 				 {
 					 numeroDuJoueur = 0;
-					 a++;
-					 b++;
-					 c++;
 				 }
 				 
-				 mains[numeroDuJoueur][a] = j;
-				 mains[numeroDuJoueur][b] = ++j;
-				 mains[numeroDuJoueur][c] = ++j;
+				 mainDesJoueur[numeroDuJoueur].addCarte(donneAvant[j++]);
+				 mainDesJoueur[numeroDuJoueur].addCarte(donneAvant[j++]);
+				 mainDesJoueur[numeroDuJoueur].addCarte(donneAvant[j++]);				 
 				 // l'incrementation du j doit se faire avant l'affectation au tableau
 				 numeroDuJoueur++;
 			 }
 			 for(l=0;l<=nombreDeCartesMisesAuChien;l++)
 			 {
-				 chien[k]=j;
+				 chien[k]=donneAvant[j];
 				 j++;
 				 k++;
 				 randomMin++;
@@ -91,21 +95,19 @@ public class Donne
 		 {
 			 if (numeroDuJoueur == nombreDeJoueur) 
 			 {
-				 numeroDuJoueur = 0;
-				 a++;
-				 b++;
-				 c++;
+				 numeroDuJoueur = 0;	
 			 }
 			 
-			 mains[numeroDuJoueur][a] = j;
-			 mains[numeroDuJoueur][b] = ++j;
-			 mains[numeroDuJoueur][c] = ++j;
+			 mainDesJoueur[numeroDuJoueur].addCarte(donneAvant[j++]);
+			 mainDesJoueur[numeroDuJoueur].addCarte(donneAvant[j++]);
+			 mainDesJoueur[numeroDuJoueur].addCarte(donneAvant[j++]);	
 			 // l'incrementation du j doit se faire avant
+			 
 			 numeroDuJoueur++;
 		 }
 		 
 	 }
-	 /**/
+	 /**
 	
 	public void donne4jouers()
 	{
@@ -139,7 +141,7 @@ public class Donne
 		}
 		// int i = 0;
 	}
-	
+	/**/
 	public void annonces()
 	{
 		// TODO
