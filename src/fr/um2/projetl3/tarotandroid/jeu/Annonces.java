@@ -6,14 +6,14 @@ public class Annonces
 	public void annonce4joueurs()
 	{
 	
-		Contrat con = new Contrat(NomDesContrats.AucuneGarde);
-		Contrat controle = new Contrat();
+		Contrat con = Contrat.PASSE;
+		Contrat controle = Contrat.PASSE;
 		for(int i=0; i<8 ; i++ )
 		{
 			controle = demandejouer(con,i%4);
 			if	(controleContrats(con,controle))
 			{
-				if (controle.getName()==NomDesContrats.AucuneGarde){
+				if (controle.getName()=="Passe"){
 					informejoueurs(con,controle);
 				}
 				con=controle;
