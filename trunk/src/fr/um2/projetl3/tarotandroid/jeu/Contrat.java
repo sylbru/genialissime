@@ -36,28 +36,12 @@ public class Contrat
 		return nom;
 	}
 	
-	/*
+
 	public int getPoids()
-	{
-		if (nom == NomDesContrats.AucunePrise)
-			return 0;
-		if (nom == NomDesContrats.Pouce)
-			return 1;
-		if (nom == NomDesContrats.Petite)
-			return 2;
-		if (nom == NomDesContrats.Garde)
-			return 3;
-		if (nom == NomDesContrats.GardeSans)
-			return 4;
-		if (nom == NomDesContrats.GardeContre)
-			return 5;
-		return 0;
-	}*/
-	/*
-	 * remplace par une methode qui renvoit le poids en fonction du nom il faut
-	 * avoir le poids par contrat quelquepart et ici me semble le plus intuitif,
-	 * public void setPoids(int poids) { this.poids = poids; }
-	 */
+	{	
+		return poids;
+	}
+
 	
 	public boolean isChienRevele()
 	{

@@ -34,7 +34,7 @@ public class Scores
 		dernierResultat = ScoreLigne(valeurScore, joueurReussie, joueurContrat);
 		for(int i = 0; i<J; i++)
 		{
-			derniereLigne[i]+=dernierResultat[i];
+			derniereLigne[i] = derniereLigne[i] + dernierResultat[i];
 		}
 		scores.add(derniereLigne);
 	}
@@ -108,33 +108,34 @@ public class Scores
 		resultat = resultat + Gain ;
 		
 		// ! faire les types de contrats 
-		if( typeDuContrat.getName() == NomDesContrats.Garde){
+		if( typeDuContrat.getName() == "Garde"){
 			resultat*=2;
 		}
-		else if( typeDuContrat.getName() == NomDesContrats.GardeSans){
+		else if( typeDuContrat.getName() == "Garde sans"){
 			resultat*=4;
 		}
-		else if( typeDuContrat.getName() == NomDesContrats.GardeContre){
+		else if( typeDuContrat.getName() == "Garde contre"){
 			resultat*=6;
 		}
 		
 		return resultat;
 	}
-}
-/* test de classe	
+
+/* test de classe	*/
 	public static void main(String[] args)
 	{
 		Scores S = new Scores();
-		Contrat C = new Contrat(NomDesContrats.Garde);
+		S.affiche();
+		Contrat C = Contrat.GARDE_SANS;
 		S.calculDerniereLigneScore(C,10,true,2);
-		C.setName(NomDesContrats.GardeSans);
+		C = Contrat.PETITE;
 		S.calculDerniereLigneScore(C,20,false,0);
 	
 		S.affiche();
 
 	}
 
-*/
+}
 
 
  
