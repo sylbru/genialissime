@@ -30,13 +30,25 @@ public class Scores
 		int valeurScore = calculScore(typeDuContrat, Gain);
 		Integer[] dernierResultat = new Integer[J];
 		Integer[] derniereLigne = new Integer[J];
+		Integer[] nouvelleLigne = new Integer[J];
 		derniereLigne = scores.lastElement();
 		dernierResultat = ScoreLigne(valeurScore, joueurReussie, joueurContrat);
 		for(int i = 0; i<J; i++)
 		{
-			derniereLigne[i] = derniereLigne[i] + dernierResultat[i];
+			nouvelleLigne[i] = derniereLigne[i] + dernierResultat[i];
 		}
-		scores.add(derniereLigne);
+		assert(sommePointsNul(nouvelleLigne));
+		scores.add(nouvelleLigne);
+	}
+	
+	public boolean sommePointsNul(Integer[] ligneScore){
+		int s=0;
+		for(int i = 0; i<Partie.getNombreDeJoueurs(); i++)
+		{
+			s = s + ligneScore[i]; 
+		}
+		if(s==0) return true;
+		else return false;
 	}
 	
 	public void affiche(){
@@ -77,7 +89,7 @@ public class Scores
 			{
 				if(i == joueurContrat)
 				{
-					lscore[i] = valeurScore * Partie.getNombreDeJoueurs();
+					lscore[i] = valeurScore * (Partie.getNombreDeJoueurs()-1);
 				}
 				else
 				{
@@ -91,7 +103,7 @@ public class Scores
 			{
 				if(i == joueurContrat)
 				{
-					lscore[i] = -valeurScore * Partie.getNombreDeJoueurs();
+					lscore[i] = -valeurScore * (Partie.getNombreDeJoueurs()-1);
 				}
 				else
 				{
@@ -120,12 +132,12 @@ public class Scores
 		
 		return resultat;
 	}
-
+}
 /* test de classe	*/
+	/*
 	public static void main(String[] args)
 	{
 		Scores S = new Scores();
-		S.affiche();
 		Contrat C = Contrat.GARDE_SANS;
 		S.calculDerniereLigneScore(C,10,true,2);
 		C = Contrat.PETITE;
@@ -136,7 +148,7 @@ public class Scores
 	}
 
 }
-
+*/
 
  
 /**
