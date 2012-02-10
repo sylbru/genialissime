@@ -1,11 +1,6 @@
 package fr.um2.projetl3.tarotandroid.activities;
 
 import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.um2.projetl3.tarotandroid.R;
