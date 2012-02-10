@@ -56,7 +56,7 @@ public class Partie
 		}
 
 	}
-	private void initialisationDunePartie()
+	private void initialisationPartie()
 	{
 		scores = new Scores();
 		
@@ -65,7 +65,7 @@ public class Partie
 	public Partie(int nombreDeJoueurs)
 	{
 		setNombreDeJoueur(nombreDeJoueurs);
-		initialisationDunePartie();
+		initialisationPartie();
 	}
 	
 	public Partie()
