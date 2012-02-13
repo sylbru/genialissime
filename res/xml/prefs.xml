@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android" android:title="@string/preferencesTitre" >
+
+    <CheckBoxPreference
+        android:summaryOff="La préférence n’est pas activée"
+        android:summaryOn="La préférence est activée" android:title="Test de préférence"/>
+
+</PreferenceScreen>
