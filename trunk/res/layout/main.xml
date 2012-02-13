@@ -2,7 +2,8 @@
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:title="@string/app_name" >
 
         <LinearLayout
             android:id="@+id/linearLayout1"
@@ -16,6 +17,12 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/hello" />
+
+            <Button
+                android:id="@+id/boutontest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bouton test" />
 
             <RadioGroup
                 android:id="@+id/radioGroup1"
@@ -52,6 +59,7 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
 
         </LinearLayout>
 

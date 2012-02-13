@@ -4,5 +4,7 @@
     <string name="hello">Hello, World!</string>
     <string name="app_name">TarotAndroid</string>
     <string name="exit">Quitter</string>
+    <string name="preferencesTitre">Préférences</string>
+    <string name="itemprefs">Préférences</string>
 
 </resources>
