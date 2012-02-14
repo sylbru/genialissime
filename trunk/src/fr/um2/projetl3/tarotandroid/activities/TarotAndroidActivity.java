@@ -26,7 +26,6 @@ public class TarotAndroidActivity extends Activity
 		Button boutonTest = (Button) findViewById(R.id.boutontest);
 		boutonTest.setOnClickListener(new View.OnClickListener()
 		{
-			@Override
 			public void onClick(View v)
 			{
 				Toast myToast = Toast.makeText(getApplicationContext(),

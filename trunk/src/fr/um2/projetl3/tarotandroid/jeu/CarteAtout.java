@@ -29,19 +29,19 @@ public class CarteAtout implements Carte
 		}
 	}
 
-	@Override
+	// @Override
 	public boolean isCouleur()
 	{
 		return false;
 	}
 	
-	@Override
+	// @Override
 	public boolean isAtout()
 	{
 		return true;
 	}
 
-	@Override
+	// @Override
 	public int valeur()
 	{
 		if(isBout())
