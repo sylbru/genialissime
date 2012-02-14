@@ -5,11 +5,7 @@ import java.util.Vector;
 public class Scores
 {
 	private Vector<Integer[]> scores;
-	/*
-	 * cette fonction actualise le tableau de score en calculant la derniere ligne
-	 * les variables en paramettre sont le type du contrat, le gain(de combien le jouer la remporte ou perdu, valeur toujour positive)
-	 * si le joueur qui a fait le contrat l'a remporte, et finalament quel est le jouer qui a fait le contrat
-	 /**/
+
 	public Scores()
 	{
 		int J = Partie.getNombreDeJoueurs();
@@ -23,7 +19,11 @@ public class Scores
 
 	}
 	
-	
+	/*
+	 * cette fonction actualise le tableau de score en calculant la derniere ligne
+	 * les variables en paramettre sont le type du contrat, le gain(de combien le jouer la remporte ou perdu, valeur toujour positive)
+	 * si le joueur qui a fait le contrat l'a remporte, et finalament quel est le jouer qui a fait le contrat
+	 /**/
 	public void calculDerniereLigneScore(Contrat typeDuContrat, int Gain,boolean joueurReussie, int joueurContrat)
 	{
 		int J = Partie.getNombreDeJoueurs();
@@ -41,6 +41,7 @@ public class Scores
 		scores.add(nouvelleLigne);
 	}
 	
+	//pour lassertion que la somme des points d'une ligne soit toujours nulle
 	public boolean sommePointsNul(Integer[] ligneScore){
 		int s=0;
 		for(int i = 0; i<Partie.getNombreDeJoueurs(); i++)
@@ -51,6 +52,7 @@ public class Scores
 		else return false;
 	}
 	
+	// affiche chaque ligne de score de la partie
 	public void affiche(){
 		System.out.println("Scores : ");
 		int J = Partie.getNombreDeJoueurs();
@@ -79,7 +81,7 @@ public class Scores
 
 
 
-
+	// calcule une ligne de score en fonction des points que chaque joueur gangen ou pert et du contrat et du jouer qui a prit le contrat 
 	public Integer[] ScoreLigne(int valeurScore, boolean joueurReussie, int joueurContrat)
 	{
 		Integer[] lscore = new Integer[Partie.getNombreDeJoueurs()];
@@ -114,6 +116,42 @@ public class Scores
 		return lscore;
 	}
 	
+	//calcule le nombre de points remporte a la fin d'un tour
+	public int calculePoints(CartesRemportes a)
+	{
+		int Points=0;
+		for(int i=0; i<a.getsize(); i++)
+		{
+			Carte c =  a.getCarte(i);
+			Points = Points +c.valeur();
+		}
+		Points = Points / 2;
+				
+		return Points;
+	}
+
+	//calcule de combien le tour a ete remporte en fonction du nombre de points fait par le prenneur de contrat et le nombre de bouts qu'il possedait
+	// le gain peut etre possitif, ou negatif si le joueur ne la pas remporte
+	public int calculGain(Contrat typeDuContrat, int Points, int nbrdebouts)
+	{
+		switch(nbrdebouts)
+		{
+		case 0:  //aucun bout
+			return Points - 56;
+		case 1:  //1 bout 
+			return Points - 51;
+		case 2: //
+			return Points - 41;
+		case 3: //
+			return Points - 36;
+		default:
+			System.out.println("nombre de bouts incorrect");
+			return 0;
+		}
+
+	}
+	
+	//calcule la valeur du score en fonction du type de contrat et de combien la partie a ete remporte
 	public int calculScore(Contrat typeDuContrat, int Gain)
 	{
 		int resultat = 25;
