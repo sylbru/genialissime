@@ -22,19 +22,19 @@ public class CarteCouleur implements Carte
 		return uid;
 	}
 
-	@Override
+	// @Override
 	public boolean isCouleur()
 	{
 		return true;
 	}
 
-	@Override
+	// @Override
 	public boolean isAtout()
 	{
 		return false;
 	}
 	
-	@Override
+	// @Override
 	public int valeur()
 	{
 		if(ordre >=1 && ordre <= 10)
