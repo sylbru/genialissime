@@ -6,7 +6,7 @@ public interface Carte
 {
 	boolean isCouleur();
 	boolean isAtout();
-	string affiche();
+	public void affiche();
 	int valeur(); // en demi-points
 	
 	// TODO: méthodes concernant les relations entre les cartes (?)

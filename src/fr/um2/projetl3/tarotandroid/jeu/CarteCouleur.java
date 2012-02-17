@@ -82,8 +82,8 @@ public class CarteCouleur implements Carte
 	}
 
 	@Override
-	public string affiche() {
+	public void affiche() 
+	{
 		// TODO Auto-generated method stub
-		return null;
 	}	
 }
