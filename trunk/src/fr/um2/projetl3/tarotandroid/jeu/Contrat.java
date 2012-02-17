@@ -4,29 +4,29 @@ public class Contrat
 {
 
 	private String nom;
-	private int ordre;
+	private int poids;
 	private boolean chienRevele;// on voit le chien ou pas ?
 	private boolean chienPourAttaque;// le chien est pour l'attaque
 
-	public Contrat(String nom, int ordre)
+	public Contrat(String nom, int poids)
 	{
 		this.nom = nom;
 		chienRevele = true;
 		chienPourAttaque = false;
 	}
 	
-	public Contrat(String nom, int ordre, boolean chienRevele)
+	public Contrat(String nom, int poids, boolean chienRevele)
 	{
 		this.nom = nom;
-		this.ordre = ordre;
+		this.poids = poids;
 		this.chienRevele = chienRevele;
 		chienPourAttaque = false;
 	}
 	
-	public Contrat(String nom, int ordre, boolean chienRevele, boolean chienPourAttaque)
+	public Contrat(String nom, int poids, boolean chienRevele, boolean chienPourAttaque)
 	{
 		this.nom = nom;
-		this.ordre = ordre;
+		this.poids = poids;
 		this.chienRevele = chienRevele;
 		this.chienPourAttaque = chienPourAttaque;
 	}
@@ -37,9 +37,9 @@ public class Contrat
 	}
 	
 
-	public int getOrdre()
+	public int getPoids()
 	{	
-		return ordre;
+		return poids;
 	}
 
 	
