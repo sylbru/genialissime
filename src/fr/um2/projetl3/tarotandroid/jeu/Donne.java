@@ -135,6 +135,7 @@ public class Donne
 		// int i = 0;
 	}
 	/**/
+	/*
 	public static Contrat annonces() // ? faut-il renvoyer un Contrat ou void et setter des attributs (Contrat, preneur…)
 									 // (ou encore rajouter une classe Prise, contenant Contrat, preneur…)
 	{
@@ -152,7 +153,7 @@ public class Donne
 			{
 				annonceTempJoueur = Partie.getJoueurs()[ordreJoueur].demanderAnnonce();
 				
-				if(annonceTempJoueur.getOrdre() == 0 || annonceTempJoueur.getOrdre()>annonceMaximale.getOrdre())
+				if(annonceTempJoueur.getPoids() == 0 || annonceTempJoueur.getPoids()>annonceMaximale.getPoids())
 				{
 					System.out.println("Annonce "+annonceTempJoueur+" valide ");
 					annonceTempValide = true;
@@ -166,7 +167,7 @@ public class Donne
 			// …
 		}
 		
-	}
+	}*/
 	
 	public void jeuDeLaCarte()
 	{

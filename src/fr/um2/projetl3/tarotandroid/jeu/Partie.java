@@ -97,6 +97,7 @@ public class Partie
 		Collections.shuffle(Arrays.asList(tas)); // on mélange (avant la première donne)
 	}
 	
+	/*
 	public void lancerPartie()
 	{
 		initialisationPartie();
@@ -113,7 +114,7 @@ public class Partie
 			}
 			
 		}
-	}
+	}*/
 	
 	public boolean partieFinie()
 	{
