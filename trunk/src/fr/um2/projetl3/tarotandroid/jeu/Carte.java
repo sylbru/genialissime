@@ -1,10 +1,12 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
+import android.R.string;
+
 public interface Carte
 {
 	boolean isCouleur();
 	boolean isAtout();
-	
+	string affiche();
 	int valeur(); // en demi-points
 	
 	// TODO: méthodes concernant les relations entre les cartes (?)

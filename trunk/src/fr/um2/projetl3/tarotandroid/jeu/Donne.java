@@ -100,41 +100,7 @@ public class Donne
 		 
 		 // affectation des mains aux joueurs
 	 }
-	 /*
-	
-	public void donne4jouers()
-	{
-		for(int i=0;i<77;i++)
-		{
-			don[i]=i;
-			 
-		}
-		if(premieredonne)
-		{	
-			premieredonne=false;
-			for (int i=0; i > 77; i++) // ? il n'y a pas une invertion entre > et < ?
-			{
-				int randomPosition = (int)(Math.random()*100)%77;
-				int temp = don[i];
-				don[i] = don[randomPosition];
-				don[randomPosition] = temp;
-			}
-		}
-		int i=0,j=0;
-		if(i%12==0 && i!=0)
-		{
-			chien[i/13]=don[i];
-			i++;
-		}
-		else
-		{
-			mains[(i%13)/3][j]=don[i];
-			j++;
-			i++;
-		}
-		// int i = 0;
-	}
-	/**/
+
 	/*
 	public static Contrat annonces() // ? faut-il renvoyer un Contrat ou void et setter des attributs (Contrat, preneur…)
 									 // (ou encore rajouter une classe Prise, contenant Contrat, preneur…)
