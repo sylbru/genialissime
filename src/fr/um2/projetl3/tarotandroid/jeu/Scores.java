@@ -119,15 +119,15 @@ public class Scores
 	//calcule le nombre de points remporte a la fin d'un tour
 	public int calculePoints(CartesRemportes a)
 	{
-		int Points=0;
+		int demipoints=0;
 		for(int i=0; i<a.getsize(); i++)
 		{
 			Carte c =  a.getCarte(i);
-			Points = Points +c.valeur();
+			demipoints = demipoints + c.valeur();
 		}
-		Points = Points / 2;
+		demipoints = demipoints / 2; // ! perd un demi-point si nombre impair de demi-points
 				
-		return Points;
+		return demipoints;
 	}
 
 	//calcule de combien le tour a ete remporte en fonction du nombre de points fait par le prenneur de contrat et le nombre de bouts qu'il possedait
@@ -158,21 +158,20 @@ public class Scores
 		resultat = resultat + Gain ;
 		
 		// ! faire les types de contrats 
-		if( typeDuContrat.getName() == "Garde"){
+		if( typeDuContrat == Contrat.GARDE){
 			resultat*=2;
 		}
-		else if( typeDuContrat.getName() == "Garde sans"){
+		else if( typeDuContrat == Contrat.GARDE_SANS){
 			resultat*=4;
 		}
-		else if( typeDuContrat.getName() == "Garde contre"){
+		else if( typeDuContrat == Contrat.GARDE_CONTRE){
 			resultat*=6;
 		}
 		
 		return resultat;
 	}
-}
+
 /* test de classe	*/
-	/*
 	public static void main(String[] args)
 	{
 		Scores S = new Scores();
@@ -186,7 +185,6 @@ public class Scores
 	}
 
 }
-*/
 
  
 /**
