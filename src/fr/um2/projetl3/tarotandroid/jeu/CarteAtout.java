@@ -1,5 +1,7 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
+import android.R.string;
+
 
 public class CarteAtout implements Carte
 {
@@ -47,7 +49,7 @@ public class CarteAtout implements Carte
 		if(isBout())
 			return 9; // = 4.5 points
 		else
-			return 1;
+			return 1; // = 0.5 points
 	}
 	
 	@Override
@@ -62,6 +64,12 @@ public class CarteAtout implements Carte
 	public CarteAtout(int num)
 	{
 		this.num = num;
+	}
+
+	@Override
+	public string affiche() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

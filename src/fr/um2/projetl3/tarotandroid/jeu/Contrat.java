@@ -6,7 +6,7 @@ public class Contrat
 	private String nom;
 	private int poids;
 	private boolean chienRevele;// on voit le chien ou pas ?
-	private boolean chienPourAttaque;// le chien est pour l'attaque
+	private boolean chienPourAttaque;// le chien est pour l'attaque ?
 
 	public Contrat(String nom, int poids)
 	{

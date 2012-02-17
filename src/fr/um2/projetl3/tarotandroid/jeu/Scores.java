@@ -185,9 +185,3 @@ public class Scores
 	}
 
 }
-
- 
-/**
- * @author jbsubils
- */
-// ! gros bordel dans cette class je vais la modifier

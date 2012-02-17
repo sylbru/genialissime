@@ -1,5 +1,7 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
+import android.R.string;
+
 public class CarteCouleur implements Carte
 {
 	
@@ -77,5 +79,11 @@ public class CarteCouleur implements Carte
 		this.couleur = couleur;
 		this.ordre = ordre;
 		// TODO: rajouter uid
+	}
+
+	@Override
+	public string affiche() {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 }
