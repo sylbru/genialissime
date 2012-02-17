@@ -2,40 +2,42 @@ package fr.um2.projetl3.tarotandroid.jeu;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Vector;
 
 @SuppressWarnings("all")
 public class Partie
 {
-
-	private Joueur[] joueurs; // ? initialisé de taille 3, 4 ou 5 selon type de
-	private Scores scores;
+	private static Joueur[] joueurs; // ? initialisé de taille 3, 4 ou 5 selon type partie
+	private static Scores scores;
 	private static int nombreDeJoueurs;
-	private Carte[] tas;
-	private Donne donneEnCours;
+	private static Carte[] tas; // le tas de carte, repris à la fin d’une donne pour être redistribué
+	private static Donne donneEnCours;
 
-	private Vector<Carte> chien[];
 	private static int nombreDeCartesPourLeChien;
+	private static Vector<Carte> chien[];
+	private static Vector<Carte> plisAttaque;
+	private static Vector<Carte> plisDefense;
+	
+	private static Contrat contratEnCours;
 
-	public Joueur[] getJoueurs()
+	public static Joueur[] getJoueurs()
 	{
 		return joueurs;
 	}
 
-	public void setJoueur(int i, Joueur joueur)
+	public static void setJoueur(int i, Joueur joueur)
 	{
-		this.joueurs[i] = joueur;
+		joueurs[i] = joueur;
 	}
 
-	public Scores getScores()
+	public static Scores getScores()
 	{
 		return scores;
 	}
 
-	public void setScores(Scores scores)
+	public static void setScores(Scores scores)
 	{
-		this.scores = scores;
+		Partie.scores = scores;
 	}
 
 	public static int getNombreDeJoueurs()
@@ -48,21 +50,21 @@ public class Partie
 		return nombreDeCartesPourLeChien;
 	}
 
-	public void setNombreDeJoueur(int nombreDeJoueurs)
+	public static void setNombreDeJoueurs(int nombreDeJoueurs)
 	{
 		if (nombreDeJoueurs >= 3 || nombreDeJoueurs <= 5)
-			this.nombreDeJoueurs = nombreDeJoueurs;
+			Partie.nombreDeJoueurs = nombreDeJoueurs;
 		else
 		{
 			System.out.println("Nombre de joueurs " + nombreDeJoueurs
 					+ " invalide, on met à 4.");
 
-			this.nombreDeJoueurs = 4;
+			Partie.nombreDeJoueurs = 4;
 		}
 
 	}
 
-	private void initialisationPartie()
+	private static void initialisationPartie()
 	{
 		scores = new Scores();
 
@@ -92,19 +94,41 @@ public class Partie
 			System.out.print(tas[i].toString() + ", ");
 		System.out.println();
 		
-		Collections.shuffle(Arrays.asList(tas));
-		// Le tas est mélangé (début de la partie).
+		Collections.shuffle(Arrays.asList(tas)); // on mélange (avant la première donne)
+	}
+	
+	public void lancerPartie()
+	{
+		initialisationPartie();
+		while(!partieFinie())
+		{
+			Donne.distribution(); // distribution (à renommer ?)
+			contratEnCours = Donne.annonces();
+			if(contratEnCours != Contrat.AUCUN)
+			{
+				// jeuDeLaCarte(); // pas de meilleur nom pour l’instant, on dit comme ça au bridge, mais au tarot ?
+				// comptePoints(); // (à voir avec méthodes de scores, peut-être les modifier pour qu’elles lisent
+								   // directement dans Partie le contrat, les cartes remportées… ?)
+				// regrouperTas();
+			}
+			
+		}
+	}
+	
+	public boolean partieFinie()
+	{
+		return false; // temporaire
 	}
 
 	public Partie(int nombreDeJoueurs)
 	{
-		setNombreDeJoueur(nombreDeJoueurs);
+		setNombreDeJoueurs(nombreDeJoueurs);
 		initialisationPartie();
 	}
 
 	public Partie()
 	{
-		setNombreDeJoueur(4);
+		setNombreDeJoueurs(4);
 		initialisationPartie();
 	}
 
