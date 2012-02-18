@@ -3,10 +3,11 @@ import java.lang.Math;
 
 public class Donne
 {
+
 	private static Carte donneAvant[];
 	private static Main mainsDesJoueurs[];
 	private static Carte chien[];
-	
+
 	/**
 	 * @author JB
 	 * 
@@ -75,6 +76,7 @@ public class Donne
 			 }
 			 for(l=0;l<=nombreDeCartesMisesAuChien;l++)
 			 {
+
 				 chien[k]=donneAvant[j];
 				 j++;
 				 k++;
@@ -100,10 +102,16 @@ public class Donne
 		 
 		 // affectation des mains aux joueurs
 	 }
+// ! <<<<<<< .mine
+	 /**
+	
+	public void donne4jouers()
+=======
 
 	/*
 	public static Contrat annonces() // ? faut-il renvoyer un Contrat ou void et setter des attributs (Contrat, preneur…)
 									 // (ou encore rajouter une classe Prise, contenant Contrat, preneur…)
+>>>>>>> .r43
 	{
 		//while(!annoncesFinies()) // si tout le monde a passé, ou 
 		int ordreJoueur = 0; // 0 pour le premier à parler
@@ -134,7 +142,7 @@ public class Donne
 		}
 		
 	}*/
-	
+	/**/
 	public void jeuDeLaCarte()
 	{
 		// TODO

@@ -5,7 +5,7 @@ public class CarteCouleur implements Carte
 {
 	
 	private Couleur couleur;
-	private int ordre; // ? ou ordre (à renommer ?)
+	private int ordre; 
 	private int uid; // id « universel » (pour les communications) 
 	
 	public int getOrdre()
@@ -80,22 +80,25 @@ public class CarteCouleur implements Carte
 		// TODO: rajouter uid
 	}
 
-	@Override
+
 	public void affiche() 
 	{
-		String s;
+		String s = "( ";
+		
 		if(ordre <= 10)
-			s = Integer.toString(ordre);
+			s += Integer.toString(ordre);
 		else if(ordre == 11)
-			s = "V";
+			s += "V";
 		else if(ordre == 12)
-			s = "C";
+			s += "C";
 		else if(ordre == 13)
-			s = "D";
+			s += "D";
 		else if(ordre == 14)
-			s = "R";
+			s += "R";
 		else
-			s = "?";
+			s += "?";
+		
+		s += ",";
 		
 		switch(couleur)
 		{
@@ -113,6 +116,9 @@ public class CarteCouleur implements Carte
 			break;
 		}
 		
+		s += " )";
+		
 		System.out.print(s+" ");
+		// ? Comment faire pour afficher les carect�re speciaux
 	}	
 }

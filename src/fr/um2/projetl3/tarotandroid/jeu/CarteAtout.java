@@ -65,7 +65,7 @@ public class CarteAtout implements Carte
 		if(num == 0)
 			System.out.print("*Ex ");
 		else
-			System.out.print(num+"A ");
+			System.out.print("( "+num+","+"A ) ");
 	}
 	
 	public CarteAtout(int num)
