@@ -1,6 +1,5 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
-import android.R.string;
 
 public class CarteCouleur implements Carte
 {
@@ -84,6 +83,24 @@ public class CarteCouleur implements Carte
 	@Override
 	public void affiche() 
 	{
-		// TODO Auto-generated method stub
+		String s = ""+ordre;
+		
+		switch(couleur)
+		{
+		case Trefle:
+			s += "♣";
+			break;
+		case Carreau:
+			s += "♦";
+			break;
+		case Coeur:
+			s += "♥";
+			break;
+		case Pique:
+			s += "♠";
+			break;
+		}
+		
+		System.out.print(s+" ");
 	}	
 }
