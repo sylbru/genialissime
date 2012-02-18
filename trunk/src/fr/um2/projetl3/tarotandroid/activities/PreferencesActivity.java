@@ -27,11 +27,11 @@ public class PreferencesActivity extends PreferenceActivity implements
 	protected void onPause(){
 		super.onPause();
 		getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+		
 	}	
 	public void onSharedPreferenceChanged(SharedPreferences arg0, String arg1)
 	{
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }

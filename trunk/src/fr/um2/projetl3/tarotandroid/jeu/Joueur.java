@@ -10,5 +10,9 @@ abstract public class Joueur
 	public abstract void setMain(Main pMain);
 
 	public abstract Contrat demanderAnnonce();
+	
+	public abstract Carte demanderCarte();
+	
+	public abstract String nom();
 
 }
