@@ -83,7 +83,19 @@ public class CarteCouleur implements Carte
 	@Override
 	public void affiche() 
 	{
-		String s = ""+ordre;
+		String s;
+		if(ordre <= 10)
+			s = Integer.toString(ordre);
+		else if(ordre == 11)
+			s = "V";
+		else if(ordre == 12)
+			s = "C";
+		else if(ordre == 13)
+			s = "D";
+		else if(ordre == 14)
+			s = "R";
+		else
+			s = "?";
 		
 		switch(couleur)
 		{
