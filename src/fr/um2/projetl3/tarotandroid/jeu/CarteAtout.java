@@ -1,6 +1,5 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
-import android.R.string;
 
 
 public class CarteAtout implements Carte
@@ -61,15 +60,17 @@ public class CarteAtout implements Carte
 			return Integer.toString(num) + "Atout";
 	}
 	
+	public void affiche()
+	{
+		if(num == 0)
+			System.out.print("*Ex ");
+		else
+			System.out.print(num+"A ");
+	}
+	
 	public CarteAtout(int num)
 	{
 		this.num = num;
-	}
-
-	@Override
-	public void affiche() 
-	{
-		// TODO Auto-generated method stub
 	}
 
 }
