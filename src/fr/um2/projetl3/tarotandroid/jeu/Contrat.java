@@ -11,6 +11,7 @@ public class Contrat
 	public Contrat(String nom, int poids)
 	{
 		this.nom = nom;
+		// ! la valeur de chienRevele et de chienPourAttaque depende du nom de contrat à modifier :
 		chienRevele = true;
 		chienPourAttaque = false;
 	}
@@ -20,6 +21,7 @@ public class Contrat
 		this.nom = nom;
 		this.poids = poids;
 		this.chienRevele = chienRevele;
+		// ! pareil que pour le constructeur précédent.
 		chienPourAttaque = false;
 	}
 	
@@ -30,7 +32,31 @@ public class Contrat
 		this.chienRevele = chienRevele;
 		this.chienPourAttaque = chienPourAttaque;
 	}
-
+	// ! Proposition d'un constructeur alternatif mais finalement je pense que ça sert à rien à voir pour plus tard
+	/**
+	public Contrat(String nom)
+	{
+		this.nom = nom;
+		this.poids = poids;
+		
+		switch(nom)
+		{
+			case AUCUN :  
+				
+			case PETITE :  
+				
+			case POUCE : 
+			
+			case GARDE :
+			
+			case GARDE_SANS :
+			
+			case GARDE_CONTRE :
+				
+			
+		}
+	}
+	/**/
 	public String getName()
 	{
 		return nom;
