@@ -7,6 +7,7 @@ public class Donne
 	private static Carte donneAvant[];
 	private static Main mainsDesJoueurs[];
 	private static Carte chien[];
+	private static Contrat contratEnCours;
 
 	/**
 	 * @author JB
@@ -151,6 +152,12 @@ public class Donne
 	public static void main(String[] args)
 	{
 		
+	}
+	public static Contrat getContratEnCours() {
+		return contratEnCours;
+	}
+	public static void setContratEnCours(Contrat contratEnCours) {
+		Donne.contratEnCours = contratEnCours;
 	}
 	
 }

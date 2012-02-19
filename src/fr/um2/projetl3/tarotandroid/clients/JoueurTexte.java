@@ -86,4 +86,10 @@ public class JoueurTexte extends Joueur // implements Joueur (quand Joueur sera 
 		this.nom = nom;
 	}
 
+	@Override
+	public int getID() {
+		// TODO Auto-generated method stub
+		return pID;
+	}
+
 }
