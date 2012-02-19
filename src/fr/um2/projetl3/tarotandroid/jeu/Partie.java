@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Vector;
 
+import fr.um2.projetl3.tarotandroid.clients.Joueur;
+
 @SuppressWarnings("all")
 public class Partie
 {
