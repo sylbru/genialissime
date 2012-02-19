@@ -119,6 +119,6 @@ public class CarteCouleur implements Carte
 		s += " )";
 		
 		System.out.print(s+" ");
-		// ? Comment faire pour afficher les carectère speciaux
+		// ? Comment faire pour afficher les carectï¿½re speciaux
 	}	
 }

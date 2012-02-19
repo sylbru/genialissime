@@ -27,7 +27,6 @@ public class Annonces
 		Contrat controle = new Contrat("Aucune prise", -1);
 		int numeroDuJoueur = 0;
 		Contrat tableauDesContrat[] = new Contrat[nombreDeJoueur]; 
-		boolean mauvais_Contrat=true;
 		
 		for(int i=0;i<nombreDeJoueur;i++){
 			tableauDesContrat[i]=Contrat.AUCUN;
@@ -47,22 +46,8 @@ public class Annonces
 					conditionArret = false ;
 				}
 				/**        ICI il manque un tru important expliquer dans les ligne suivantes                 **/
-				controle = Partie.getJoueur(numeroDuJoueur).demanderAnnonce();  // demande au joueur quel contrat il veut faire
-				
-				while(mauvais_Contrat){
-					if(controleContrats(controle,contrat))
-					{
-						contrat=controle;
-						mauvais_Contrat=false;
-					}
-					else
-					{
-						//on redemande un contrat au joueurs parceque son dernier contrat etait invalide il faudrait y inclure un messege d'erreur?
-						controle = Partie.getJoueur(numeroDuJoueur).demanderAnnonce();
-					}
-				}
-				mauvais_Contrat=true;
-				
+				contrat = Partie.getJoueur(numeroDuJoueur).demanderAnnonce(contrat);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
+							
 				
 				tableauDesContrat[numeroDuJoueur] = contrat ; // on stocke les contrat que les joueur veulent faire
 
@@ -105,7 +90,7 @@ public class Annonces
 		Donne.setContratEnCours(contrat);
 		Donne.setPreneur(joueurQuiVaPrendre);
 	}
-	
+	/*
 	public void annonce4joueurs()
 	{
 	
@@ -128,7 +113,7 @@ public class Annonces
 			}
 		}
 	}
-	
+	*/
 	
 	private Contrat demandejouer(Contrat con, int i) // ! m�thode d�ja existante dan Joueur
 	{
@@ -136,18 +121,6 @@ public class Annonces
 		return null;
 	}
 
-
-	public boolean controleContrats(Contrat a,Contrat b)
-	{
-		if(b.getPoids()==0)
-		{
-			return true;
-		}
-		else if(a.getPoids()==5) return false;//?ce cas ne devrait jamais arriver on arrete de demander les jouers une fois le plus grand contract fait
-		else if(a.getPoids()<b.getPoids()) return true;
-		else return false;
-		
-	}
 
 	
 	public void informejoueurs(Contrat ancien, Contrat nouveau){
