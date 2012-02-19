@@ -6,6 +6,7 @@ abstract public class Joueur
 	// TODO Finir l'interface Joueur
 	// TODO En faire une vraie interface (au sens Java) [?]
 	public abstract void setID(int pID);
+	public abstract int getID();
 
 	public abstract void setMain(Main pMain);
 

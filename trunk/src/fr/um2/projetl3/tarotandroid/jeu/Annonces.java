@@ -3,6 +3,53 @@ package fr.um2.projetl3.tarotandroid.jeu;
 
 public class Annonces 
 {
+	
+	public void phaseAnnonce()
+	{
+		boolean conditionArret = true;
+		int compteurPourToutLeMondePasse = 0;
+		int nombreDeJoueur=Partie.getNombreDeJoueurs(); // ? pourquoi il y a un warning ?
+		Contrat contrat = new Contrat("Aucune prise", -1);;
+		int numeroDuJoueur = 0;
+		Contrat tableauDesContrat[] = null; // ! devra etre initialisé au nombre de joeur dans la partie 
+		
+		
+		while(conditionArret)
+		{
+			
+			contrat = Partie.getJoueur(numeroDuJoueur).demanderAnnonce(); 
+			
+			tableauDesContrat[numeroDuJoueur] = contrat ;
+			
+			if(contrat == Contrat.PASSE)
+			{
+				compteurPourToutLeMondePasse++;
+			}
+			
+			/**
+			 * 		 
+			si passe, petite, garde ou garde sans  on continue à demander
+				sauf si on est arriver au dernier joeur là cas particulier
+			
+			/**/
+			if (compteurPourToutLeMondePasse+1 == nombreDeJoueur)
+			{
+				contrat = Contrat.AUCUN;
+				conditionArret = false ;
+			}
+			if(contrat.getPoids() == 5) // alors c'est une garde_sans => la phase d'annonce est finit 
+			{
+				conditionArret = false;
+			}
+			else
+			{
+
+			}
+		}
+		
+		Donne.setContratEnCours(contrat);
+	}
+	
 	public void annonce4joueurs()
 	{
 	
@@ -27,7 +74,7 @@ public class Annonces
 	}
 	
 	
-	private Contrat demandejouer(Contrat con, int i)
+	private Contrat demandejouer(Contrat con, int i) // ! méthode déja existante dan Joueur
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -56,5 +103,6 @@ public class Annonces
 	
 	public void gardeillegale(int i){
 		//TO-DO informe le jouer i que sa garde est illegale
+		// ! je comprend pas cette méthode en quoi une garde est illegale ( àquel moment une garde peut être illégale) ?
 	}
 }

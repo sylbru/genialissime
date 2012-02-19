@@ -24,6 +24,10 @@ public class Partie
 	{
 		return joueurs;
 	}
+	public static Joueur getJoueur(int i)
+	{
+		return joueurs[i];
+	}
 
 	public static void setJoueur(int i, Joueur joueur)
 	{
@@ -138,5 +142,6 @@ public class Partie
 		Partie partie = new Partie(2);
 		partie.getJoueurs();
 	}
+
 
 }
