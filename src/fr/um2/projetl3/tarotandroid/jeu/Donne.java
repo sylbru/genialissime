@@ -8,6 +8,7 @@ public class Donne
 	private static Main mainsDesJoueurs[];
 	private static Carte chien[];
 	private static Contrat contratEnCours;
+	private static Joueur preneur;
 
 	/**
 	 * @author JB
@@ -160,4 +161,10 @@ public class Donne
 		Donne.contratEnCours = contratEnCours;
 	}
 	
+	public static Joueur getPreneur() {
+		return preneur;
+	}
+	public static void setPreneur(Joueur preneur) {
+		Donne.preneur = preneur;
+	}
 }

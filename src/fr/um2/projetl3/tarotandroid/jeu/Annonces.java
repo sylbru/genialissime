@@ -3,25 +3,36 @@ package fr.um2.projetl3.tarotandroid.jeu;
 
 public class Annonces 
 {
-	
+	/**
+	 * @author JB
+	 * 
+	 *   phase d'annonce pas encore fini
+	 *   
+	 *   permet de connaitre le preneur
+	 * 
+	 */
 	public void phaseAnnonce()
 	{
 		boolean conditionArret = true;
 		int compteurPourToutLeMondePasse = 0;
-		int nombreDeJoueur=Partie.getNombreDeJoueurs(); // ? pourquoi il y a un warning ?
+		int nombreDeJoueur=Partie.getNombreDeJoueurs(); 
 		Contrat contrat = new Contrat("Aucune prise", -1);;
 		int numeroDuJoueur = 0;
-		Contrat tableauDesContrat[] = null; // ! devra etre initialisé au nombre de joeur dans la partie 
+		Contrat tableauDesContrat[] = null; 
+		Joueur joueurQuiVaPrendre = null;
+		// ! devra etre initialisé au nombre de joeur dans la partie j'ai était obligé d'initialiser à null pour pas avoir d'erreur
 		
 		
 		while(conditionArret)
 		{
 			
-			contrat = Partie.getJoueur(numeroDuJoueur).demanderAnnonce(); 
+			contrat = Partie.getJoueur(numeroDuJoueur).demanderAnnonce();  // demande au joueur quel contrat il veut faire
 			
-			tableauDesContrat[numeroDuJoueur] = contrat ;
+			// ! ici il faut faire en sorte que le contrat que choisit le preneur soit superieur au contrat pris par un prédécesseur
 			
-			if(contrat == Contrat.PASSE)
+			tableauDesContrat[numeroDuJoueur] = contrat ; // on stock les contrat que les joueur veulent faire
+			
+			if(contrat == Contrat.PASSE) // si un joeur passe on le prend en compte dans un compteur utile plus loin.
 			{
 				compteurPourToutLeMondePasse++;
 			}
@@ -30,24 +41,28 @@ public class Annonces
 			 * 		 
 			si passe, petite, garde ou garde sans  on continue à demander
 				sauf si on est arriver au dernier joeur là cas particulier
+				
+				
 			
 			/**/
-			if (compteurPourToutLeMondePasse+1 == nombreDeJoueur)
+			if (compteurPourToutLeMondePasse == nombreDeJoueur) // dans ce cas là ça veux dire que tout le monde à passer
 			{
 				contrat = Contrat.AUCUN;
 				conditionArret = false ;
 			}
 			if(contrat.getPoids() == 5) // alors c'est une garde_sans => la phase d'annonce est finit 
 			{
+				joueurQuiVaPrendre = Partie.getJoueur(numeroDuJoueur);
 				conditionArret = false;
 			}
-			else
+			else if((0 < contrat.getPoids()) && (contrat.getPoids() < 5))// cas où c'est un contrat valble mais pas une garde_sans
 			{
-
+				joueurQuiVaPrendre = Partie.getJoueur(numeroDuJoueur);
 			}
 		}
 		
 		Donne.setContratEnCours(contrat);
+		Donne.setPreneur(joueurQuiVaPrendre);
 	}
 	
 	public void annonce4joueurs()
