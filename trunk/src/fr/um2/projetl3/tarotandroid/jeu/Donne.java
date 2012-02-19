@@ -1,6 +1,8 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 import java.lang.Math;
 
+import fr.um2.projetl3.tarotandroid.clients.Joueur;
+
 public class Donne
 {
 
