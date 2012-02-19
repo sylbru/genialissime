@@ -119,6 +119,11 @@ public class CarteCouleur implements Carte
 		s += " )";
 		
 		System.out.print(s+" ");
-		// ? Comment faire pour afficher les carect�re speciaux
+		
+	}
+
+	public boolean isExcuse() {
+		// TODO Auto-generated method stub
+		return false;
 	}	
 }

@@ -41,7 +41,7 @@ public class Annonces
 			{
 				if(joueurQuiVaPrendre==Partie.getJoueur(numeroDuJoueur)) 
 				{
-					conditionArret = false ;
+					conditionArret = false;
 				}
 				
 				contrat = Partie.getJoueur(numeroDuJoueur).demanderAnnonce(contrat);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide

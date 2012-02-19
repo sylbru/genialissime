@@ -9,6 +9,8 @@ public class Donne
 	private static Carte chien[];
 	private static Contrat contratEnCours;
 	private static Joueur preneur;
+	private static Carte plisEnCours[] = new Carte[4];
+	private static Carte plisPrecedent[] = new Carte[4];
 
 	/**
 	 * @author JB
@@ -104,8 +106,37 @@ public class Donne
 		 
 		 // affectation des mains aux joueurs
 	 }
-// ! <<<<<<< .mine
+
 	 /**
+	  * 
+	  * @author JB
+	  * méthode inachever car j'etais fatigué
+	  * 
+	  * @param tableauContenantLePlis
+	  * @return l'indice du tableau ou se trouve la carte qui remporte le plis grâce à ça on peut retrouver qui remporte le plis
+	  */
+	 public int vainqueurDuPlis(Carte[] tableauContenantLePlis)
+	 {
+		int indice = -1;
+		Couleur couleurDemander = null;
+		
+		if(tableauContenantLePlis[1].isExcuse())
+		{			
+			couleurDemander = ((CarteCouleur)tableauContenantLePlis[2]).getCouleur();
+		}
+		else if(! tableauContenantLePlis[2].isAtout())
+		{
+			couleurDemander = ((CarteCouleur)tableauContenantLePlis[2]).getCouleur();
+		}
+		
+		// ici il faut faire en sorte de renvoyer l'indice de latout le plus fort sinon la carte la plus forte de mla couleur demander
+
+		return indice;
+		 
+	 }
+
+
+	/**
 	
 	public void donne4jouers()
 =======
@@ -167,4 +198,19 @@ public class Donne
 	public static void setPreneur(Joueur preneur) {
 		Donne.preneur = preneur;
 	}
+	
+	public static Carte[] getPlisPrecedent() {
+		return plisPrecedent;
+	}
+	public static void setPlisPrecedent(Carte plisPrecedent[]) {
+		Donne.plisPrecedent = plisPrecedent;
+	}
+	
+	public static Carte[] getPlisEnCours() {
+		return plisEnCours;
+	}
+	public static void setPlisEnCours(Carte plisEnCours[]) {
+		Donne.plisEnCours = plisEnCours;
+	}
+
 }
