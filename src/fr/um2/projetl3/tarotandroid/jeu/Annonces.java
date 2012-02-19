@@ -7,7 +7,7 @@ public class Annonces
 	 * @author JB
 	 * 
 	 *   phase d'annonce pas encore fini
-	 *   	� modifier :
+	 *   	à modifier :
 	 *   		pour l'instant on peut faire une petite m�me si le joueur pr�cedent � fait une garde
 	 *   				il faut modifier la m�thode controlContrat pour qu'elle v�rifie que le joeur demande bien un contrat sup�tieur au pr�cedent
 	 *   				ou passer directement dans demande annonce le dernier contrat le plus fort pour pas que le joueur est le choix de prendre un contrat inferieur
@@ -18,7 +18,7 @@ public class Annonces
 	 *   permet de connaitre le preneur et le type de contrat fait par le joueur
 	 * 
 	 */
-	public void phaseAnnonce()
+	public static void phaseAnnonce()
 	{
 		boolean conditionArret = true;
 		int compteurPourToutLeMondePasse = 0;
@@ -117,22 +117,14 @@ public class Annonces
 	}
 	*/
 	
-	private Contrat demandejouer(Contrat con, int i) // ! m�thode d�ja existante dan Joueur
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	
-	public void informejoueurs(Contrat ancien, Contrat nouveau){
+	public static void informejoueurs(Contrat ancien, Contrat nouveau){
 		//TO-DO informe tous les joueurs si le jouer n'a pas pris de contrats ou si le contrats a augmente
 	}
-	public void informejoueurs(Contrat con){
+	public static void informejoueurs(Contrat con){
 		//TO-DO informe tous les joueurs si le jouer n'a pas pris de contrats ou si le contrats a augmente
 	}
 	
-	public void gardeillegale(int i){
+	public static void gardeillegale(int i){
 		//TO-DO informe le jouer i que sa garde est illegale
 		// ! je comprend pas cette m�thode en quoi une garde est illegale ( �quel moment une garde peut �tre ill�gale) ?
 	}

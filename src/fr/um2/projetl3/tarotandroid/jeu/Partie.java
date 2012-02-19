@@ -18,8 +18,8 @@ public class Partie
 	private static Vector<Carte> plisAttaque;
 	private static Vector<Carte> plisDefense;
 	
-	private static Contrat contratEnCours;
-
+	private static boolean stopPartie; 
+	
 	public static Joueur[] getJoueurs()
 	{
 		return joueurs;
@@ -101,15 +101,17 @@ public class Partie
 		Collections.shuffle(Arrays.asList(tas)); // on mélange (avant la première donne)
 	}
 	
-	/*
+	/**/
 	public void lancerPartie()
 	{
 		initialisationPartie();
 		while(!partieFinie())
 		{
 			Donne.distribution(); // distribution (à renommer ?)
-			contratEnCours = Donne.annonces();
-			if(contratEnCours != Contrat.AUCUN)
+			Annonces.phaseAnnonce();
+			Carte c = new CarteCouleur(Couleur.Coeur, 3);
+			
+			if(donneEnCours.getContratEnCours() != Contrat.AUCUN)
 			{
 				// jeuDeLaCarte(); // pas de meilleur nom pour l’instant, on dit comme ça au bridge, mais au tarot ?
 				// comptePoints(); // (à voir avec méthodes de scores, peut-être les modifier pour qu’elles lisent
@@ -118,16 +120,36 @@ public class Partie
 			}
 			
 		}
-	}*/
+	}/*s*/
 	
+	/**
+	 * @author niavlys
+	 * @return true si la partie est maintenant finie, en fonction des options dans PrefsRegles
+	 */
 	public boolean partieFinie()
 	{
-		return false; // temporaire
+		if(!PrefsRegles.conditionFinDePartie)
+			return stopPartie;
+		else
+		{
+			if(PrefsRegles.conditionFinDonnesMax)
+			{
+				return (scores.nbDonnes() >= PrefsRegles.donnesMax);
+			}
+			else if(PrefsRegles.conditionFinScoreMax)
+			{
+				return (scores.meilleurScore() >= PrefsRegles.scoreMax);
+			}
+			else
+				return true; // comme ça on verra tout de suite si on arrive dans ce cas (pas normal)
+		}
 	}
 
 	public Partie(int nombreDeJoueurs)
 	{
 		setNombreDeJoueurs(nombreDeJoueurs);
+		nombreDeCartesPourLeChien = (nombreDeJoueurs == 5)? 3 : 6;
+		
 		initialisationPartie();
 	}
 
