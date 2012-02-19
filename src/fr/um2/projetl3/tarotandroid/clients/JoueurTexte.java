@@ -33,10 +33,12 @@ public class JoueurTexte extends Joueur // implements Joueur (quand Joueur sera 
 	public Contrat demanderAnnonce(Contrat contrat)
 	{
 		Contrat c = null;
+		int compteur=0;//pour que le joueur ne puisse pas rentrer plus de 5 fois une mauvaise garde
 		boolean mauvais_Contrat=true;
 		System.out.println("À vous de parler :");
-		while(mauvais_Contrat)
+		while(mauvais_Contrat && compteur<5)
 		{
+			compteur++;
 			switch(contrat.getPoids())
 			{
 			case 0:
@@ -89,6 +91,11 @@ public class JoueurTexte extends Joueur // implements Joueur (quand Joueur sera 
 			{
 				System.out.println("Votre choix est invalide veuillez le refaire");
 			}
+		}
+		if(compteur==5)
+		{
+			c = Contrat.PASSE;
+			System.out.println("trop de mauvais choix, Passe par default");
 		}
 			
 		return c;
