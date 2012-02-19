@@ -30,36 +30,67 @@ public class JoueurTexte extends Joueur // implements Joueur (quand Joueur sera 
 		return nom;
 	}
 
-	public Contrat demanderAnnonce()
+	public Contrat demanderAnnonce(Contrat contrat)
 	{
+		Contrat c = null;
+		boolean mauvais_Contrat=true;
 		System.out.println("À vous de parler :");
-		System.out.println("0 = Passe, 1 = Petite, 2 = Garde, 3 = Garde sans, 4 = GardeContre");
-
-		Contrat c;
-		
-		int id = (new Scanner(System.in)).nextInt();
-		switch (id)
+		while(mauvais_Contrat)
 		{
-		case 0:
-			c = Contrat.PASSE;
-			break;
-		case 1:
-			c = Contrat.PETITE;
-			break;
-		case 2:
-			c = Contrat.GARDE;
-			break;
-		case 3:
-			c = Contrat.GARDE_SANS;
-			break;
-		case 4:
-			c = Contrat.GARDE_CONTRE;
-			break;
-		default:
-			System.out.println("Pas compris "+id+", disons Passe.");
-			c = Contrat.PASSE;
+			switch(contrat.getPoids())
+			{
+			case 0:
+				System.out.println(" Vos Choix :  0 = Passe, 1 = Petite, 2 = Garde, 3 = Garde sans, 4 = GardeContre");
+				break;
+			case 1:
+				System.out.println(" Vos Choix :  0 = Passe, 1 = Petite, 2 = Garde, 3 = Garde sans, 4 = GardeContre");
+				break;
+			case 2:
+				System.out.println(" Vos Choix :  0 = Passe, 2 = Garde, 3 = Garde sans, 4 = GardeContre");
+				break;
+			case 3:
+				System.out.println(" Vos Choix :  0 = Passe, 3 = Garde sans, 4 = GardeContre");
+				break;
+			case 4:
+				System.out.println(" Vos Choix :  0 = Passe, 4 = GardeContre");
+				break;
+			default:
+				//! il faudrait lancer une exception
+				System.out.println("0 = Passe, 1 = Petite, 2 = Garde, 3 = Garde sans, 4 = GardeContre");
+			}
+					
+			int id = (new Scanner(System.in)).nextInt();
+			switch (id)
+			{
+			case 0:
+				c = Contrat.PASSE;
+				break;
+			case 1:
+				c = Contrat.PETITE;
+				break;
+			case 2:
+				c = Contrat.GARDE;
+				break;
+			case 3:
+				c = Contrat.GARDE_SANS;
+				break;
+			case 4:
+				c = Contrat.GARDE_CONTRE;
+				break;
+			default:
+				System.out.println("Pas compris "+id+", disons Passe.");
+				c = Contrat.PASSE;
+			}
+			if(c.getPoids()>contrat.getPoids() && c.getPoids()!=0)
+			{
+				mauvais_Contrat=true;
+			}
+			else
+			{
+				System.out.println("Votre choix est invalide veuillez le refaire");
+			}
 		}
-		
+			
 		return c;
 	}
 	/**/

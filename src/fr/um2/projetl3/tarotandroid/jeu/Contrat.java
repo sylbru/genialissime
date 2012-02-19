@@ -11,7 +11,7 @@ public class Contrat
 	public Contrat(String nom, int poids)
 	{
 		this.nom = nom;
-		// ! la valeur de chienRevele et de chienPourAttaque depende du nom de contrat à modifier :
+		// ! la valeur de chienRevele et de chienPourAttaque depende du nom de contrat ï¿½ modifier :
 		chienRevele = true;
 		chienPourAttaque = false;
 	}
@@ -21,7 +21,7 @@ public class Contrat
 		this.nom = nom;
 		this.poids = poids;
 		this.chienRevele = chienRevele;
-		// ! pareil que pour le constructeur précédent.
+		// ! pareil que pour le constructeur prï¿½cï¿½dent.
 		chienPourAttaque = false;
 	}
 	
@@ -32,7 +32,7 @@ public class Contrat
 		this.chienRevele = chienRevele;
 		this.chienPourAttaque = chienPourAttaque;
 	}
-	// ! Proposition d'un constructeur alternatif mais finalement je pense que ça sert à rien à voir pour plus tard
+	// ! Proposition d'un constructeur alternatif mais finalement je pense que ï¿½a sert ï¿½ rien ï¿½ voir pour plus tard
 	/**
 	public Contrat(String nom)
 	{
@@ -87,6 +87,18 @@ public class Contrat
 	public String toString()
 	{
 		return getName();
+	}
+	
+	public boolean controleContrats(Contrat a,Contrat b)
+	{
+		if(b.getPoids()==0)
+		{
+			return true;
+		}
+		else if(a.getPoids()==5) return false;//?ce cas ne devrait jamais arriver on arrete de demander les jouers une fois le plus grand contract fait
+		else if(a.getPoids()<b.getPoids()) return true;
+		else return false;
+		
 	}
 	
 	// Initialisation des diffÃ©rents contrats existants (permettre dâ€™en dÃ©sactiver certains selon les options)
