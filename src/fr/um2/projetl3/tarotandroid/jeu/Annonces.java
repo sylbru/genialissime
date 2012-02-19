@@ -11,6 +11,7 @@ public class Annonces
 	 *   		pour l'instant on peut faire une petite même si le joueur précedent à fait une garde
 	 *   				il faut modifier la méthode controlContrat pour qu'elle vérifie que le joeur demande bien un contrat supétieur au précedent
 	 *   				ou passer directement dans demande annonce le dernier contrat le plus fort pour pas que le joueur est le choix de prendre un contrat inferieur
+	 *   					je pense que la deuxieme solution est la meilleure car la premiere peut rendre infinie la phase d'annonce
 	 *   		je pense que qu'un joueur peut surencherir sur ça propre enchère 
 	 *   				pour résoudre ça on pourrait utiliser une variable qui mémorise le dernier preneur pour pas qu'il puisse surencherir 
 	 *   
