@@ -15,7 +15,7 @@ public class CarteAtout implements Carte
 	 * @author sylvain
 	 * @return boolean si c'est un bout true sinon false
 	 */
-	private boolean isBout()
+	public boolean isBout()
 	{
 		switch(num)
 		{
@@ -29,6 +29,7 @@ public class CarteAtout implements Carte
 				return false;
 		}
 	}
+	
 
 	// @Override
 	public boolean isCouleur()
@@ -71,6 +72,11 @@ public class CarteAtout implements Carte
 	public CarteAtout(int num)
 	{
 		this.num = num;
+	}
+
+	public boolean isExcuse() 
+	{
+		return (num == 0);
 	}
 
 }

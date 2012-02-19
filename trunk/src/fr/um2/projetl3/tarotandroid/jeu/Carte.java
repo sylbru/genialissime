@@ -5,8 +5,10 @@ public interface Carte
 {
 	boolean isCouleur();
 	boolean isAtout();
+	boolean isExcuse();
 	void affiche();
 	int valeur(); // en demi-points
+	
 	
 	// TODO: méthodes concernant les relations entre les cartes (?)
 	// Exemple : est-ce que cette carte est supérieure à celle-ci, est-elle de la même couleur que celle-ci ?

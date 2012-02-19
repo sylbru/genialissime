@@ -129,5 +129,4 @@ public class JoueurTexte extends Joueur // implements Joueur (quand Joueur sera 
 		// TODO Auto-generated method stub
 		return pID;
 	}
-
 }

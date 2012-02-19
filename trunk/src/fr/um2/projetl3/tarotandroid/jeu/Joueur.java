@@ -10,6 +10,7 @@ abstract public class Joueur
 
 	public abstract void setMain(Main pMain);
 
+
 	public abstract Contrat demanderAnnonce(Contrat contrat);
 	
 	public abstract Carte demanderCarte();
