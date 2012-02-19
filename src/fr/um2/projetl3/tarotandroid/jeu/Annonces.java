@@ -15,7 +15,7 @@ public class Annonces
 	 *   		je pense que qu'un joueur peut surencherir sur �a propre ench�re 
 	 *   				pour r�soudre �a on pourrait utiliser une variable qui m�morise le dernier preneur pour pas qu'il puisse surencherir 
 	 *   
-	 *   permet de connaitre le preneur
+	 *   permet de connaitre le preneur et le type de contrat fait par le joueur
 	 * 
 	 */
 	public void phaseAnnonce()
@@ -31,57 +31,59 @@ public class Annonces
 		for(int i=0;i<nombreDeJoueur;i++){
 			tableauDesContrat[i]=Contrat.AUCUN;
 		}
-		// ! tableau � mettre � la taille du nombre de joeur et remplir de contrat AUCUNE
+		
 		Joueur joueurQuiVaPrendre = null;
-		
 		int combienVeulentPrendre = 0;
-		
-		
 		
 		while(conditionArret)
 		{
 			if(tableauDesContrat[numeroDuJoueur].getPoids() != 0 ) // si le joueur n'as pas passer il peut annoncer
 			{
-				if(joueurQuiVaPrendre != null && joueurQuiVaPrendre==Partie.getJoueur(numeroDuJoueur)){
+				if(joueurQuiVaPrendre==Partie.getJoueur(numeroDuJoueur)) 
+				{
 					conditionArret = false ;
 				}
-				/**        ICI il manque un tru important expliquer dans les ligne suivantes                 **/
-				contrat = Partie.getJoueur(numeroDuJoueur).demanderAnnonce(contrat);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
-							
 				
+				contrat = Partie.getJoueur(numeroDuJoueur).demanderAnnonce(contrat);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
+	
 				tableauDesContrat[numeroDuJoueur] = contrat ; // on stocke les contrat que les joueur veulent faire
 
 				
 				if(contrat != Contrat.PASSE) // si un joeur passe on le prend en compte dans un compteur utile plus loin.
 				{
 					combienVeulentPrendre++;
-					
-					if(contrat.getPoids() == 5) // alors c'est une garde_sans => la phase d'annonce est finit 
+				
+					if(contrat != Contrat.PASSE) // si un joeur passe on le prend en compte dans un compteur utile plus loin.
 					{
-						joueurQuiVaPrendre = Partie.getJoueur(numeroDuJoueur);
-						conditionArret = false;
+						combienVeulentPrendre++;
+						
+						if(contrat.getPoids() == 5) // alors c'est une garde_sans => la phase d'annonce est finit 
+						{
+							joueurQuiVaPrendre = Partie.getJoueur(numeroDuJoueur);
+							conditionArret = false;
+						}
+						else if((0 < contrat.getPoids()) && (contrat.getPoids() < 5))// cas o� c'est un contrat valble mais pas une garde_sans
+						{
+							joueurQuiVaPrendre = Partie.getJoueur(numeroDuJoueur);
+						}
 					}
-					else if((0 < contrat.getPoids()) && (contrat.getPoids() < 5))// cas o� c'est un contrat valble mais pas une garde_sans
+					if(numeroDuJoueur == nombreDeJoueur) // si le numero du joueur est egal au nbr de joueur on as fait un tour d'annonce
 					{
-						joueurQuiVaPrendre = Partie.getJoueur(numeroDuJoueur);
-					}
-				}
-				if(numeroDuJoueur == nombreDeJoueur) // si le numero du joueur est egal au nbr de joueur on as fait un tour d'annonce
-				{
-					// si il y a une seule prise on lance la partie
-					if (combienVeulentPrendre == 0) // dans ce cas l� �a veux dire que tout le monde � passer
-					{
-						contrat = Contrat.AUCUN;
-						conditionArret = false ;
-					}
-					else if (combienVeulentPrendre == 1)
-					{
-						conditionArret = false;
-					}
-					else if(combienVeulentPrendre > 1) // si plusieur joueur veulent prendre on refait un tour des joueur qui voulaient prendre
-					{
-						combienVeulentPrendre = 1 ; // remit � un car si tout le monde passe apres il faut conserver celui qui avait pris en dernier
-						numeroDuJoueur = -1; // ! pas s�r manque des truc a faire u=ici je croit 
+						// si il y a une seule prise on lance la partie
+						if (combienVeulentPrendre == 0) // dans ce cas l� �a veux dire que tout le monde � passer
+						{
+							contrat = Contrat.AUCUN;
+							conditionArret = false ;
+						}
+						else if (combienVeulentPrendre == 1)
+						{
+							conditionArret = false;
+						}
+						else if(combienVeulentPrendre > 1) // si plusieur joueur veulent prendre on refait un tour des joueur qui voulaient prendre
+						{
+							combienVeulentPrendre = 1 ; // remit � un car si tout le monde passe apres il faut conserver celui qui avait pris en dernier
+							numeroDuJoueur = -1; // ! pas s�r manque des truc a faire u=ici je croit 
+						}
 					}
 				}
 				numeroDuJoueur++;

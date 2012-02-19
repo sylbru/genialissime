@@ -57,7 +57,7 @@ public class Main
 	public static void main(String[] args)
 	{
 		Joueur j1 = new JoueurTexte("Truc");
-		System.out.println(j1.demanderAnnonce().getName());
+		//System.out.println(j1.demanderAnnonce().getName()); erreur
 		
 		Main m = new Main(5, j1);
 		m.addCarte(new CarteCouleur(Couleur.Trefle, 12));
