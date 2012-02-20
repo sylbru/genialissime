@@ -1,24 +1,28 @@
 package fr.um2.projetl3.tarotandroid.jeu;
-import java.lang.Math;
+
+import java.util.Arrays;
+import java.util.Vector;
 
 import fr.um2.projetl3.tarotandroid.clients.Joueur;
 
 public class Donne
 {
-
 	private static Carte donneAvant[];
 	private static Main mainsDesJoueurs[];
 	private static Carte chien[];
 	private static Contrat contratEnCours;
 	private static Joueur preneur;
-	private static Carte plisEnCours[] = new Carte[4];
-	private static Carte plisPrecedent[] = new Carte[4];
+	private static Carte plisEnCours[] = new Carte[4]; // TODO: Définir la taille ailleurs (3, 4 ou 5 joueurs)
+	private static Carte plisPrecedent[] = new Carte[4]; // idem
+	private static int numJoueurEntame;
+	private static Vector<Carte> plisAttaque;
+	private static Vector<Carte> plisDefense;
+	private static int numJoueurPremier; // premier à distribuer
 	
-
 	/**
 	 * @author JB
 	 * 
-	 * methode de disbrution des cartes
+	 * methode de distribution des cartes
 	 * 
 	 * sauf erreur de ma part les calcules devrait �tre bon, je verifir� avec quelqu'un
 	 * 
@@ -35,7 +39,7 @@ public class Donne
 	/**/
 	 public static void distribution()
 	 {
-		 int nombreDeJoueurs = Partie.getNombreDeJoueurs(); 
+		 int nombreDeJoueurs = Partie.getNombreDeJoueurs();
 		 int numeroDuJoueur = 0; // ! j'en ai besoin pour savoir � quel joueur je vais donner les cartes
 		 
 		 int possibilitesMisesAuChien = 0;		 
@@ -136,56 +140,130 @@ public class Donne
 
 		return indice;
 		 
-	 }
-
-
-	/**
+	}
 	
-	public void donne4jouers()
-=======
-
-	/*
-	public static Contrat annonces() // ? faut-il renvoyer un Contrat ou void et setter des attributs (Contrat, preneur…)
-									 // (ou encore rajouter une classe Prise, contenant Contrat, preneur…)
->>>>>>> .r43
+	public int getNumJoueurApres(int numJoueur)
 	{
-		//while(!annoncesFinies()) // si tout le monde a passé, ou 
-		int ordreJoueur = 0; // 0 pour le premier à parler
-						 	 // on peut rotater le tableau joueurs de sorte que
-							 // le premier élément soit le premier à parler
-		Contrat annonceTempJoueur;
-		boolean annonceTempValide = false;
-		Contrat annonceMaximale = Contrat.PASSE;
-		
-		while(true) // boucle sur les joueurs
-		{
-			while(!annonceTempValide)
-			{
-				annonceTempJoueur = Partie.getJoueurs()[ordreJoueur].demanderAnnonce();
-				
-				if(annonceTempJoueur.getPoids() == 0 || annonceTempJoueur.getPoids()>annonceMaximale.getPoids())
-				{
-					System.out.println("Annonce "+annonceTempJoueur+" valide ");
-					annonceTempValide = true;
-				}
-				else
-				{
-					System.out.println("Annonce "+annonceTempJoueur+" invalide, veuillez réessayer.");
-				}
-			}
-			// l’annonce est valide
-			// …
-		}
-		
-	}*/
+		return (numJoueur+1)%Partie.getNombreDeJoueurs();
+	}
+	
 	/**/
 	public void jeuDeLaCarte()
 	{
-		// TODO
+		numJoueurEntame = getNumJoueurApres(numJoueurPremier); // le premier à jouer (celui qui est après le donneur)
+		int nbCartesPosees; // cartes posées dans le tour (de 1 à 4, si 4 joueurs)
+		int numJoueur;
+		int numJoueurVainqueurPli;
+		
+		while (!donneFinie()) // un tour de jeu, on commence à numJoueur = numJoueurEntame
+		{
+			numJoueur = numJoueurEntame;
+			nbCartesPosees = 0;
+			
+			while (nbCartesPosees < Partie.getNombreDeJoueurs())
+			{
+				demanderCarteJoueur(numJoueur);
+				nbCartesPosees++;
+				numJoueur = getNumJoueurApres(numJoueur);
+			}
+			// nbCartesPosees == nbJoueurs : le tour est fini
+			numJoueurVainqueurPli = vainqueurDuPlis(plisEnCours);
+			
+			if(isJoueurAttaque(numJoueurVainqueurPli))
+			{
+				plisAttaque.addAll(Arrays.asList(plisEnCours));
+			}
+			else
+			{
+				plisDefense.addAll(Arrays.asList(plisEnCours));
+			}
+			numJoueurEntame = numJoueurVainqueurPli;
+		}
+	}
+	
+	/**
+	 * @author niavlys
+	 * @return true si le joueur passé en paramètre est en attaque
+	 * @param num numéro du joueur concerné
+	 */
+	public boolean isJoueurAttaque(int num)
+	{
+		return num == preneur.getID(); // ? est-ce que getID() correspond bien à la position/au numéro ?
+	}
+	
+	/**
+	 * @author niavlys
+	 * @return true si le joueur passé en paramètre est en attaque
+	 * @param num numéro du joueur concerné
+	 */
+	public boolean isJoueurDefense(int num)
+	{
+		return !isJoueurAttaque(num);
+	}
+	
+	public boolean isCarteLegale(Carte c)
+	{
+		// regarder pliEnCours et numJoueurEntame
+		return false;
+	}
+	
+	/**
+	 * Demande au joueur de jouer une carte et vérifie si elle est légale. 
+	 * @param num La position du joueur
+	 */
+	public void demanderCarteJoueur(int num)
+	{
+		// vérifier que Joueur j est dans Partie.getJoueurs() ?
+		Carte carteProposee;
+		do
+			carteProposee = Partie.getJoueur(num).demanderCarte();
+		while (mainsDesJoueurs[num].contains(carteProposee) // getID, c’est la bonne méthode ?
+			&& isCarteLegale(carteProposee));
+		// je pense que ce serait mieux d’avoir les mains dans les joueurs, et d’y accéder par J.getMain()
+	}
+	
+	public boolean donneFinie()
+	{
+		return plisAttaque.size() + plisDefense.size() == Constantes.NOMBRE_CARTES_TOTALES;
+	}
+	
+	/**
+	 * 
+	 * FIXME: fonctionne pas pour l’instant, peut-être qu’il faut songer à utiliser un Vector pour tas[],
+	 * ce serait plus simple. Mais dans ce cas ce serait bien de vérifier qu’il dépasse pas 78 cartes.
+	 */
+	public static void reformerTas()
+	{
+		Carte[] nouveauTas = new Carte[78];
+		Carte[] arrayPlisAttaque = new Carte[78];
+		plisAttaque.toArray(arrayPlisAttaque);
+		Carte[] arrayPlisDefense = new Carte[78];
+		plisDefense.toArray(arrayPlisDefense);
+		
+		if((int)Math.random() == 1)
+		{
+			// nouveauTas = Arrays.copyOf(arrayPlisAttaque, Constantes.NOMBRE_CARTES_TOTALES);
+			nouveauTas = arrayPlisAttaque;
+			System.arraycopy(plisAttaque, 0, nouveauTas, plisAttaque.size(), plisDefense.size());
+		}
+		else
+		{
+			// nouveauTas = Arrays.copyOf(arrayPlisDefense, arrayPlisDefense.length + arrayPlisAttaque.length);
+			nouveauTas = arrayPlisDefense;
+			System.arraycopy(plisDefense, 0, nouveauTas, plisDefense.size(), plisAttaque.size());
+		}
+		//Partie.setTas(nouveauTas);
+		System.out.println(nouveauTas.length+"\n"+nouveauTas);
 	}
 	
 	public static void main(String[] args)
 	{
+		/*
+		plisAttaque.add(new CarteAtout(14));
+		plisDefense = new Vector<Carte>();
+		plisDefense.add(new CarteCouleur(Couleur.Coeur, 11));
+		Donne.reformerTas();
+		*/
 		
 	}
 	public static Contrat getContratEnCours() {
