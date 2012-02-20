@@ -131,6 +131,7 @@ public class Partie
 			Donne.distribution();
 			Annonces.phaseAnnonce();
 
+			// j'aimerais mettre la partie qui suit dans une méthode phaseChienEcart() c'est une bonne idée ? ou je laisse comme ça
 			if (Donne.getContratEnCours().isChienRevele()) // petite ou garde
 			{
 				
