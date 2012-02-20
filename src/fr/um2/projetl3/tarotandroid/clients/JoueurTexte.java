@@ -6,7 +6,7 @@ import android.R.string;
 
 import fr.um2.projetl3.tarotandroid.jeu.*;
 
-public class JoueurTexte extends Joueur // implements Joueur (quand Joueur era une interface)
+public class JoueurTexte implements Joueur // implements Joueur (quand Joueur era une interface)
 {
 	private int pID;
 	private Main pMain;
