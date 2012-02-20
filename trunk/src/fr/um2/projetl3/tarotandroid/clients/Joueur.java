@@ -30,6 +30,7 @@ public interface Joueur
 	public abstract String getNomDuJoueur();
 
 	public abstract Contrat demanderAnnonce(Contrat contrat);
+	public abstract Carte[] demanderEcart();
 	
 	public abstract Carte demanderCarte();
 	

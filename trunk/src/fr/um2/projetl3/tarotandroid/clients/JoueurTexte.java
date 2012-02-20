@@ -149,4 +149,9 @@ public class JoueurTexte implements Joueur // implements Joueur (quand Joueur er
 			pMain.addCarte(c);
 		}
 	}
+
+	public Carte[] demanderEcart() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
