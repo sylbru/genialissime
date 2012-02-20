@@ -14,8 +14,8 @@ public class Partie
 	private static int nombreDeJoueurs;
 	private static Carte[] tas; // le tas de carte, repris à la fin d’une donne pour être redistribué
 	private static Donne donneEnCours;
-
 	private static int nombreDeCartesPourLeChien;
+	
 	
 	private static boolean stopPartie; 
 	
@@ -108,6 +108,34 @@ public class Partie
 		{
 			Donne.distribution();
 			Annonces.phaseAnnonce();
+
+			if (Donne.getContratEnCours().isChienRevele()) // petite ou garde
+			{
+				// ici il faut révélé le chien
+				Donne.reveleChien();
+				// ici il faut donner le chien au preneur
+				Donne.mettreChienDansLaMainDuPreneur();
+				
+				// ensuite il faut lui dire quelles cartes il veut mettre à l'ecart une fois l'ecart fait on le met dans les plis de l'attaquant
+				
+				// la méthode précedente va retourner l'ecart il fauda alors verifier qu'il n'yest pas de bout ni de roi dans le chien
+			}
+			else if ( Donne.getContratEnCours().isChienPourAttaque()) // garde sans
+			{
+				
+				// ici met le chien dans les plis de l'attaquant
+				Donne.mettreChienDansLesPlisDeLAttaque();
+			}
+			else // garde contre
+			{
+				// ici on met le chien dans les plis des défenseur
+				Donne.mettreChienDansLesPlisDeLaDefense();
+			}
+			
+			
+			
+			Carte c = new CarteCouleur(Couleur.Coeur, 3);
+
 			
 			if(donneEnCours.getContratEnCours() != Contrat.AUCUN)
 			{

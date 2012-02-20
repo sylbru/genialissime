@@ -126,21 +126,27 @@ public class JoueurTexte implements Joueur // implements Joueur (quand Joueur er
 		this.nom = nom;
 	}
 
-	@Override
+
 	public int getID() {
-		// TODO Auto-generated method stub
 		return pID;
 	}
 
-	@Override
 	public void setNomDuJoueur(String s) {
 		// TODO Auto-generated method stub
 		this.nom = s;
 	}
 
-	@Override
+
 	public String getNomDuJoueur() {
 		// TODO Auto-generated method stub
 		return this.nom;
+	}
+
+	public void addChienDansMain(Carte[] chien) {
+		// TODO Auto-generated method stub
+		for(Carte c:chien)
+		{
+			pMain.addCarte(c);
+		}
 	}
 }

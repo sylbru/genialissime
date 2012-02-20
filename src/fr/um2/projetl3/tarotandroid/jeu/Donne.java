@@ -10,10 +10,13 @@ public class Donne
 	private static Carte donneAvant[];
 	private static Main mainsDesJoueurs[];
 	private static Carte chien[];
+	
 	private static Contrat contratEnCours;
 	private static Joueur preneur;
-	private static Carte plisEnCours[] = new Carte[4]; // TODO: Définir la taille ailleurs (3, 4 ou 5 joueurs)
-	private static Carte plisPrecedent[] = new Carte[4]; // idem
+	
+	private static Carte plisEnCours[] = new Carte[Partie.getNombreDeJoueurs()]; // TODO: Définir la taille ailleurs (3, 4 ou 5 joueurs)
+	private static Carte plisPrecedent[] = new Carte[Partie.getNombreDeJoueurs()]; // idem voila ...
+	
 	private static int numJoueurEntame;
 	private static Vector<Carte> plisAttaque;
 	private static Vector<Carte> plisDefense;
@@ -339,4 +342,24 @@ public class Donne
 		Donne.plisEnCours = plisEnCours;
 	}
 
+	public static void mettreChienDansLesPlisDeLAttaque()
+	{
+		 plisAttaque.addAll(Arrays.asList(chien));
+	}
+	public static void mettreChienDansLesPlisDeLaDefense()
+	{
+		 plisDefense.addAll(Arrays.asList(chien));
+	}
+	public static void mettreChienDansLaMainDuPreneur()
+	{
+		 preneur.addChienDansMain(chien);
+	}
+	
+	public static void reveleChien()
+	{
+		for(Carte c:chien)
+		{
+			c.affiche();
+		}
+	}
 }
