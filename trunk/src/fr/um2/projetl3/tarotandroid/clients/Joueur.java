@@ -4,7 +4,7 @@ import fr.um2.projetl3.tarotandroid.jeu.Carte;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
 import fr.um2.projetl3.tarotandroid.jeu.Main;
 
-abstract public class Joueur
+public interface Joueur
 {
 	// ! Classe incompl�te, ne pas encore utiliser cette interface!
 	// TODO Finir l'interface Joueur
