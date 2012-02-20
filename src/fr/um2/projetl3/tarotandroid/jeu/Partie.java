@@ -9,16 +9,13 @@ import fr.um2.projetl3.tarotandroid.clients.Joueur;
 @SuppressWarnings("all")
 public class Partie
 {
-	private static Joueur[] joueurs; // ? initialisé de taille 3, 4 ou 5 selon type partie
+	private static Joueur[] joueurs; // initialisé de taille 3, 4 ou 5 selon type partie
 	private static Scores scores;
 	private static int nombreDeJoueurs;
 	private static Carte[] tas; // le tas de carte, repris à la fin d’une donne pour être redistribué
 	private static Donne donneEnCours;
 
 	private static int nombreDeCartesPourLeChien;
-	private static Vector<Carte> chien[];
-	private static Vector<Carte> plisAttaque;
-	private static Vector<Carte> plisDefense;
 	
 	private static boolean stopPartie; 
 	
@@ -109,26 +106,37 @@ public class Partie
 		initialisationPartie();
 		while(!partieFinie())
 		{
-			Donne.distribution(); // distribution (à renommer ?)
+			Donne.distribution();
 			Annonces.phaseAnnonce();
-			Carte c = new CarteCouleur(Couleur.Coeur, 3);
 			
 			if(donneEnCours.getContratEnCours() != Contrat.AUCUN)
 			{
 				// jeuDeLaCarte(); // pas de meilleur nom pour l’instant, on dit comme ça au bridge, mais au tarot ?
 				// comptePoints(); // (à voir avec méthodes de scores, peut-être les modifier pour qu’elles lisent
 								   // directement dans Partie le contrat, les cartes remportées… ?)
-				// regrouperTas();
+				Donne.reformerTas();
 			}
 			
 		}
-	}/*s*/
+	}
+	
+	/*
+	 * Utilisé pour regrouper les différents paquets de cartes pour reformer
+	 * le tas à la fin de la donne. Fonctionne uniquement si tas[] est vide.
+	 */
+	protected static void setTas(Carte[] nouveauTas)
+	{
+		if(tas.length > 0)
+			System.out.println("Erreur : tentative de setTas() avec tas[] non vide");
+		else
+			tas = nouveauTas;
+	}
 	
 	/**
 	 * @author niavlys
 	 * @return true si la partie est maintenant finie, en fonction des options dans PrefsRegles
 	 */
-	public boolean partieFinie()
+	public static boolean partieFinie()
 	{
 		if(!PrefsRegles.conditionFinDePartie)
 			return stopPartie;

@@ -33,6 +33,11 @@ public class Main
 		return cartes.size();
 	}
 	
+	public boolean contains(Carte c)
+	{
+		return cartes.contains(c);
+	}
+	
 	public void affiche()
 	{
 		System.out.println("Main de "+proprietaire.nom()+" :");
