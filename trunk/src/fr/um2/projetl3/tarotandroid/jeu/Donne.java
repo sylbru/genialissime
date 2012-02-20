@@ -122,13 +122,12 @@ public class Donne
 	  * 
 	  * @author JB
 	  * @author hhachiche
-	  * 	Probleme au niveau de la ligne 134
-	  * 	je ne sais pas d'où vien le prb quelqu'un peux m'aider ?	
+	  * 	
 	  * @param tableauContenantLePlis
 	  * @return l'indice du tableau ou se trouve la carte qui remporte le plis grâce à ça on peut retrouver qui remporte le plis
 	  */
 	 /**/
-	 public int vainqueurDuPlis(Carte[] tableauContenantLePlis)
+	 public int vainqueurDuPlis(Carte[] tableauContenantLePlis) 
 	 {
 		int indice = -1;
 		int nombreDeJoueur = Partie.getNombreDeJoueurs();
@@ -175,17 +174,12 @@ public class Donne
 						{	
 							maxCouleur = (CarteCouleur) tableauContenantLePlis[i];
 							indice = i;
-						}
-							
-					}
-					
+						}		
+					}	
 				}
 			}
-		// ici il faut faire en sorte de renvoyer l'indice de latout le plus fort sinon la carte la plus forte de mla couleur demander
-
 			return indice;
 		}
-
 	 }
 	/**/
 	 // fin de la fonction vianqueur du plis
