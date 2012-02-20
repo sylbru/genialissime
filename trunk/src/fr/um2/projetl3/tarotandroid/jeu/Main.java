@@ -38,6 +38,37 @@ public class Main
 		return cartes.contains(c);
 	}
 	
+	public boolean possedeCouleur(Couleur coul)
+	{
+		boolean couleurExiste = false;
+		for(Carte c: cartes)
+		{
+			if(c.isCouleur())
+			{
+				if(((CarteCouleur)c).getCouleur() == coul)
+				{
+					couleurExiste = true;
+					break;
+				}
+			}
+		}
+		return couleurExiste;
+	}
+	
+	public boolean possedeAtout()
+	{
+		boolean atoutPresent = false;
+		for(Carte c: cartes)
+		{
+			if(c.isAtout() && !c.isExcuse())
+			{
+				atoutPresent= true;
+				break;
+			}
+		}
+		return atoutPresent;
+	}
+	
 	public void affiche()
 	{
 		System.out.println("Main de "+proprietaire.nom()+" :");
@@ -49,7 +80,7 @@ public class Main
 			else
 				System.out.print("# ");
 		}
-		System.out.println("] \n");
+		System.out.println("]");
 		System.out.println("-----");
 	}
 	

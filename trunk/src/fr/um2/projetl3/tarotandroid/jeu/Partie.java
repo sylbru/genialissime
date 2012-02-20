@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Vector;
 
 import fr.um2.projetl3.tarotandroid.clients.Joueur;
+import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
 
 @SuppressWarnings("all")
 public class Partie
@@ -67,7 +68,7 @@ public class Partie
 
 	}
 
-	private static void initialisationPartie()
+	protected static void initialisationPartie()
 	{
 		scores = new Scores();
 
@@ -215,6 +216,7 @@ public class Partie
 	public Partie(int nombreDeJoueurs)
 	{
 		setNombreDeJoueurs(nombreDeJoueurs);
+		joueurs = new JoueurTexte[nombreDeJoueurs];
 		nombreDeCartesPourLeChien = (nombreDeJoueurs == 5)? 3 : 6;
 		
 		initialisationPartie();
