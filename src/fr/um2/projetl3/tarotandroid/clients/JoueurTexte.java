@@ -127,22 +127,26 @@ public class JoueurTexte implements Joueur // implements Joueur (quand Joueur er
 	}
 
 
-	public int getID() {
+	public int getID() 
+	{
 		return pID;
 	}
 
-	public void setNomDuJoueur(String s) {
+	public void setNomDuJoueur(String s) 
+	{
 		// TODO Auto-generated method stub
 		this.nom = s;
 	}
 
 
-	public String getNomDuJoueur() {
+	public String getNomDuJoueur() 
+	{
 		// TODO Auto-generated method stub
 		return this.nom;
 	}
 
-	public void addChienDansMain(Carte[] chien) {
+	public void addChienDansMain(Carte[] chien) 
+	{
 		// TODO Auto-generated method stub
 		for(Carte c:chien)
 		{
@@ -150,8 +154,35 @@ public class JoueurTexte implements Joueur // implements Joueur (quand Joueur er
 		}
 	}
 
-	public Carte[] demanderEcart() {
+	public Carte[] demanderEcart() 
+	{
 		// TODO Auto-generated method stub
-		return null;
+		Carte ecart[] = new Carte[Partie.getnombreDeCartesPourLeChien()];
+		System.out.println("Vous allez devoir choisir "+Partie.getnombreDeCartesPourLeChien()+" à mettre dans le votre ecart");
+		for(int i=0;i < Partie.getnombreDeCartesPourLeChien()-1;i++)
+		{
+			ecart[i] = demananderUneCartePourLecart();
+		}
+		return ecart;
+	}
+
+	private Carte demananderUneCartePourLecart() 
+	{
+	
+		int num;
+		Scanner sc = new Scanner(System.in);
+		do
+		{
+			pMain.affiche();
+			System.out.println("Mettez une carte à l'ecart en donnant un chiffre entre 1 et "+pMain.nbCartesRestantes());
+			num = sc.nextInt();
+			if(num < 0 || num >= pMain.nbCartesRestantes())
+			{
+				System.out.println("… entre 1 et "+pMain.nbCartesRestantes()+" !");
+			}
+		} while(num < 0 || num >= pMain.nbCartesRestantes());
+		
+		return pMain.getCarte(num);
+		
 	}
 }
