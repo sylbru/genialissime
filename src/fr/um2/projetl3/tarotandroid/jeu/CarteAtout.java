@@ -38,9 +38,12 @@ public class CarteAtout implements Carte
 	}
 	
 	// @Override
+	/**
+	 * @return true si la carte est un (vrai) atout, false si c’est l’Excuse.
+	 */
 	public boolean isAtout()
 	{
-		return true;
+		return (num != 0);
 	}
 
 	// @Override

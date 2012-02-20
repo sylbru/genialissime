@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Vector;
 
 import fr.um2.projetl3.tarotandroid.clients.Joueur;
+import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
 
 public class Donne
 {
@@ -14,13 +15,13 @@ public class Donne
 	private static Contrat contratEnCours;
 	private static Joueur preneur;
 	
-	private static Carte plisEnCours[] = new Carte[Partie.getNombreDeJoueurs()]; // TODO: Définir la taille ailleurs (3, 4 ou 5 joueurs)
-	private static Carte plisPrecedent[] = new Carte[Partie.getNombreDeJoueurs()]; // idem voila ...
+	private static Carte plisEnCours[] = new Carte[Partie.getNombreDeJoueurs()];
+	private static Carte plisPrecedent[] = new Carte[Partie.getNombreDeJoueurs()];
 	
-	private static int numJoueurEntame;
+	private static int numJoueurEntame; // premier à jouer dans le pli
 	private static Vector<Carte> plisAttaque;
 	private static Vector<Carte> plisDefense;
-	private static int numJoueurPremier; // premier à distribuer
+	private static int numJoueurPremier; // celui qui distribuer dans la donne (utilisé pour le premier tour)
 	
 	/**
 	 * @author JB
@@ -126,25 +127,23 @@ public class Donne
 	  * @param tableauContenantLePlis
 	  * @return l'indice du tableau ou se trouve la carte qui remporte le plis grâce à ça on peut retrouver qui remporte le plis
 	  */
-	 /*
+	 /**/
 	 public int vainqueurDuPlis(Carte[] tableauContenantLePlis)
 	 {
 		int indice = -1;
-		Carte max;
 		int nombreDeJoueur = Partie.getNombreDeJoueurs();
+		int i;
 		
+		CarteAtout maxAtout = new CarteAtout(0);
 		for(i=0;i < nombreDeJoueur;i++)					//A chaque pli on commence par regarder s'il y a des atouts,si oui on prend la plus forte
 		{
 			if(tableauContenantLePlis[i].isAtout())
 			{
-				
-// ! Prb ici				if((((CarteAtout)max).getNum())) < (((CarteAtout)tableauContenantLePlis[i]).getNum())
+				if((((CarteAtout)maxAtout).getNum()) < (((CarteAtout)tableauContenantLePlis[i]).getNum()))
 				{
-					max = tableauContenantLePlis[i];
+					maxAtout = (CarteAtout) tableauContenantLePlis[i];
 					indice = i;
 				}
-				
-				
 			}
 		}
 		
@@ -165,15 +164,16 @@ public class Donne
 				couleurDemander = ((CarteCouleur)tableauContenantLePlis[1]).getCouleur();
 			}
 			
+			CarteCouleur maxCouleur = new CarteCouleur(couleurDemander, 0);
 			for(i=0;i < nombreDeJoueur;i++)					
 			{
-				if(tableauContenantLePlis[i].isCarteCouleur())
+				if(tableauContenantLePlis[i].isCouleur())
 				{
-					if((CarteCouleur)tableauContenantLePlis[1].getCouleur() == CouleurDemander)
+					if(((CarteCouleur)tableauContenantLePlis[1]).getCouleur() == couleurDemander)
 					{
-						if(((CarteCouleur)max.getOrdre()) < ((CarteCouleur)tableauContenantLePlis[i].getOrdre()))
+						if(((CarteCouleur)maxCouleur).getOrdre() < ((CarteCouleur)tableauContenantLePlis[i]).getOrdre())
 						{	
-							max = tableauContenantLePlis[i];
+							maxCouleur = (CarteCouleur) tableauContenantLePlis[i];
 							indice = i;
 						}
 							
@@ -185,9 +185,9 @@ public class Donne
 
 			return indice;
 		}
-<<<<<<< .mine
+
 	 }
-	*/
+	/**/
 	 // fin de la fonction vianqueur du plis
 
 
@@ -203,6 +203,8 @@ public class Donne
 		int numJoueur;
 		int numJoueurVainqueurPli;
 		
+		initialisationDonne();
+		
 		while (!donneFinie()) // un tour de jeu, on commence à numJoueur = numJoueurEntame
 		{
 			numJoueur = numJoueurEntame;
@@ -210,12 +212,12 @@ public class Donne
 			
 			while (nbCartesPosees < Partie.getNombreDeJoueurs())
 			{
-				demanderCarteJoueur(numJoueur);
+				plisEnCours[nbCartesPosees] = demanderCarteJoueur(numJoueur);
 				nbCartesPosees++;
 				numJoueur = getNumJoueurApres(numJoueur);
 			}
 			// nbCartesPosees == nbJoueurs : le tour est fini
-			numJoueurVainqueurPli = 0;//vainqueurDuPlis(plisEnCours); // vainqueur du plis provoque une erreur donc je commente pour pas qu'elle se repercute iciS
+			numJoueurVainqueurPli = vainqueurDuPlis(plisEnCours);
 			
 			if(isJoueurAttaque(numJoueurVainqueurPli))
 			{
@@ -225,10 +227,24 @@ public class Donne
 			{
 				plisDefense.addAll(Arrays.asList(plisEnCours));
 			}
-			numJoueurEntame = numJoueurVainqueurPli;
+			
+			// transfert de pliEnCours dans pliPrecedent 
+			for(int i=0; i<Partie.getNombreDeJoueurs(); i++)
+			{
+				plisPrecedent[i] = plisEnCours[i];
+				plisEnCours[i] = null;
+			}
+			
+			numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagné le pli entame au tour suivant
 		}
 	}
 	
+	private void initialisationDonne()
+	{
+		plisDefense = new Vector<Carte>();
+		plisAttaque = new Vector<Carte>();
+	}
+
 	/**
 	 * @author niavlys
 	 * @return true si le joueur passé en paramètre est en attaque
@@ -241,7 +257,7 @@ public class Donne
 	
 	/**
 	 * @author niavlys
-	 * @return true si le joueur passé en paramètre est en attaque
+	 * @return true si le joueur passé en paramètre est en défense
 	 * @param num numéro du joueur concerné
 	 */
 	public boolean isJoueurDefense(int num)
@@ -249,24 +265,80 @@ public class Donne
 		return !isJoueurAttaque(num);
 	}
 	
-	public boolean isCarteLegale(Carte c)
+	/**
+	 * @author niavlys
+	 * @param c une carte
+	 * @param numJ un joueur
+	 * @return true si la carte posée par le joueur (paramètres) est légale 
+	 */
+	public boolean isCarteLegale(Carte c, int numJ)
 	{
-		// regarder pliEnCours et numJoueurEntame
-		return false;
+		if(numJ == numJoueurEntame || numJ == getNumJoueurApres(numJoueurEntame) && plisEnCours[numJoueurEntame].isExcuse())
+			return true; // si le joueur jouee en premier ou s’il joue après l’excuse
+		else if(c.isExcuse())
+			return true; // s’il joue l’excuse
+		else if (c.isAtout())
+		{
+			// on vérifie que l’atout est plus haut que les autres.
+			
+			// (calcul de l’atout le plus haut dans le pli en cours)
+			CarteAtout a = new CarteAtout(0);
+			for(int i=numJoueurEntame; i<numJ; i=getNumJoueurApres(i))
+				if (plisEnCours[i].isAtout() && ((CarteAtout)plisEnCours[i]).getNum() > a.getNum())
+					a = (CarteAtout)plisEnCours[i];
+			
+			if (((CarteAtout)c).getNum() > a.getNum())
+			{
+				// l’atout est plus haut que les autres, reste à voir si
+				// il est autorisé en fonction de ce qui est demandé
+				if ((plisEnCours[numJoueurEntame].isExcuse() && plisEnCours[getNumJoueurApres(numJoueurEntame)].isAtout())
+				  || plisEnCours[numJoueurEntame].isAtout())
+					return true; // si la 1re carte est Atout, ou bien Excuse et la deuxième est Atout
+				else // Reste cas où 1re carte est Couleur, ou bien Excuse et la 2e est Couleur
+				{
+					Couleur coulDemandee;
+					if(plisEnCours[numJoueurEntame].isExcuse())
+					{
+						coulDemandee = ((CarteCouleur)plisEnCours[getNumJoueurApres(numJoueurEntame)]).getCouleur();
+					}
+					else
+					{
+						coulDemandee = ((CarteCouleur)plisEnCours[numJoueurEntame]).getCouleur();
+					}
+					 // il faut que le joueur ne possède pas la couleur demandée pour pouvoir jouer atout :
+					return !mainsDesJoueurs[numJ].possedeCouleur(coulDemandee);					
+				}
+			} else return false;
+		}
+		else // c.isCouleur() == true 
+		{
+			Couleur coulDemandee;
+			if(plisEnCours[numJoueurEntame].isExcuse())
+			{
+				coulDemandee = ((CarteCouleur)plisEnCours[getNumJoueurApres(numJoueurEntame)]).getCouleur();
+			}
+			else
+			{
+				coulDemandee = ((CarteCouleur)plisEnCours[numJoueurEntame]).getCouleur();
+			}
+			return (coulDemandee == ((CarteCouleur)c).getCouleur())
+					|| !mainsDesJoueurs[numJ].possedeCouleur(coulDemandee) && !mainsDesJoueurs[numJ].possedeAtout();
+		}
 	}
 	
 	/**
 	 * Demande au joueur de jouer une carte et vérifie si elle est légale. 
 	 * @param num La position du joueur
 	 */
-	public void demanderCarteJoueur(int num)
+	public Carte demanderCarteJoueur(int num)
 	{
 		// vérifier que Joueur j est dans Partie.getJoueurs() ?
 		Carte carteProposee;
 		do
 			carteProposee = Partie.getJoueur(num).demanderCarte();
 		while (mainsDesJoueurs[num].contains(carteProposee) // getID, c’est la bonne méthode ?
-			&& isCarteLegale(carteProposee));
+			&& isCarteLegale(carteProposee, num));
+		return carteProposee;
 		// je pense que ce serait mieux d’avoir les mains dans les joueurs, et d’y accéder par J.getMain()
 	}
 	
@@ -306,12 +378,19 @@ public class Donne
 	
 	public static void main(String[] args)
 	{
-		/*
-		plisAttaque.add(new CarteAtout(14));
-		plisDefense = new Vector<Carte>();
-		plisDefense.add(new CarteCouleur(Couleur.Coeur, 11));
-		Donne.reformerTas();
-		*/
+		Donne donne = new Donne(); // bon c’est le bordel entre les méthodes statiques et les non-statiques,
+									// faudra en discuter.
+		Partie p = new Partie(4);
+		Joueur j1 = new JoueurTexte("J1");
+		Joueur j2 = new JoueurTexte("J2");
+		Joueur j3 = new JoueurTexte("J3");
+		Joueur j4 = new JoueurTexte("J4");
+		Partie.setJoueur(0, j1);
+		Partie.setJoueur(1, j2);
+		Partie.setJoueur(2, j3);
+		Partie.setJoueur(3, j4);
+		Partie.initialisationPartie();
+		donne.jeuDeLaCarte();
 		
 	}
 	public static Contrat getContratEnCours() {
