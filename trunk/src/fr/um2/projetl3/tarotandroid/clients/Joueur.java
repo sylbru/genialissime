@@ -14,6 +14,8 @@ abstract public class Joueur
 
 	public abstract void setMain(Main pMain);
 
+	public abstract void setNomDuJoueur(String s);
+	public abstract String getNomDuJoueur();
 
 	public abstract Contrat demanderAnnonce(Contrat contrat);
 	

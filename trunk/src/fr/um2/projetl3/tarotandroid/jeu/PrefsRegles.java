@@ -1,11 +1,15 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
+import android.R.string;
+
 public class PrefsRegles
 {
 	// annonces
 	public static boolean autoriserPetite = true;
 	public static boolean autoriserPouce = false; // Pousse ? // c'est ecrit sur wikipedia ...
 	public static boolean autoriserGAE = false; // c'est quoi la GAE : pareil que garde mais avec un poid inferieur je n'aime pas du tout ce contrat mais apparrement c'est jouer par des gens = potentielement des futurees utilisateurs
+	
+
 	
 	// compte des points
 	public static boolean compterMisere = true;
@@ -15,6 +19,13 @@ public class PrefsRegles
 	
 	// jeu
 	public static boolean autoriser3boutsDans1pli = true;
+	
+	// noms des joueur
+	
+	public static void setNomDuJoueur1(String s)
+	{
+		Partie.getJoueur(1).setNomDuJoueur(s);
+	}
 	
 	// fin de la partie
 	public static boolean conditionFinDePartie = true; // à false si pas de condition de fin de partie
