@@ -100,7 +100,28 @@ public class Partie
 		Collections.shuffle(Arrays.asList(tas)); // on mélange (avant la première donne)
 	}
 	
-	/**/
+	public boolean verificatioSiEcartPasValide(Carte[] ecart)
+	{
+		for(Carte c:ecart)
+		{
+			if(c.isAtout()) // si c'est un atout
+			{
+				if (((CarteAtout)c).isBout())// si c'est un bout pas le doit de mettre au chien
+				{
+					return true;
+				}
+			}
+			else // c'est donc une carte couleur // ? on refait la verification ? if iscartecouleur ?
+			{
+				if (((CarteCouleur)c).valeur() == 14) // si c'est un roi pas le droit de mettre au chien
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	public void lancerPartie()
 	{
 		initialisationPartie();
@@ -111,13 +132,21 @@ public class Partie
 
 			if (Donne.getContratEnCours().isChienRevele()) // petite ou garde
 			{
-				// ici il faut révélé le chien
-				Donne.reveleChien();
-				// ici il faut donner le chien au preneur
-				Donne.mettreChienDansLaMainDuPreneur();
+				
+				Donne.reveleChien();// ici il faut révélé le chien
+				
+				Donne.mettreChienDansLaMainDuPreneur();// ici il faut donner le chien au preneur
 				
 				// ensuite il faut lui dire quelles cartes il veut mettre à l'ecart une fois l'ecart fait on le met dans les plis de l'attaquant
 				
+				Carte[] ecartEnAttenteDeValidation = new Carte[nombreDeCartesPourLeChien];
+				boolean ecartPasValide = true;
+				
+				while(ecartPasValide) // ? faudrait rajouter un compteur et afficher quelque chose non ?
+				{
+					ecartEnAttenteDeValidation = Donne.getPreneur().demanderEcart();
+					ecartPasValide = verificatioSiEcartPasValide(ecartEnAttenteDeValidation); 
+				}
 				// la méthode précedente va retourner l'ecart il fauda alors verifier qu'il n'yest pas de bout ni de roi dans le chien
 			}
 			else if ( Donne.getContratEnCours().isChienPourAttaque()) // garde sans
