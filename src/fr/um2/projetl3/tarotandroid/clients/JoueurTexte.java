@@ -2,9 +2,11 @@ package fr.um2.projetl3.tarotandroid.clients;
 
 import java.util.Scanner;
 
+import android.R.string;
+
 import fr.um2.projetl3.tarotandroid.jeu.*;
 
-public class JoueurTexte extends Joueur // implements Joueur (quand Joueur sera une interface)
+public class JoueurTexte extends Joueur // implements Joueur (quand Joueur era une interface)
 {
 	private int pID;
 	private Main pMain;
@@ -128,5 +130,17 @@ public class JoueurTexte extends Joueur // implements Joueur (quand Joueur sera 
 	public int getID() {
 		// TODO Auto-generated method stub
 		return pID;
+	}
+
+	@Override
+	public void setNomDuJoueur(String s) {
+		// TODO Auto-generated method stub
+		this.nom = s;
+	}
+
+	@Override
+	public String getNomDuJoueur() {
+		// TODO Auto-generated method stub
+		return this.nom;
 	}
 }
