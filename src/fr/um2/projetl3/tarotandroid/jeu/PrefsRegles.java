@@ -4,11 +4,14 @@ public class PrefsRegles
 {
 	// annonces
 	public static boolean autoriserPetite = true;
-	public static boolean autoriserPouce = false; // Pousse ?
+	public static boolean autoriserPouce = false; // Pousse ? // c'est ecrit sur wikipedia ...
+	public static boolean autoriserGAE = false; // c'est quoi la GAE : pareil que garde mais avec un poid inferieur je n'aime pas du tout ce contrat mais apparrement c'est jouer par des gens = potentielement des futurees utilisateurs
 	
 	// compte des points
 	public static boolean compterMisere = true;
 	public static int pointsMisere = 10; // à voir selon méthode de comptage de points ? 
+	
+	// il faudrait aussi implementer la façon de compter les points quel méthode on utilise ?  
 	
 	// jeu
 	public static boolean autoriser3boutsDans1pli = true;
