@@ -13,6 +13,7 @@ public class Donne
 	private static Joueur preneur;
 	private static Carte plisEnCours[] = new Carte[4];
 	private static Carte plisPrecedent[] = new Carte[4];
+	
 
 	/**
 	 * @author JB
