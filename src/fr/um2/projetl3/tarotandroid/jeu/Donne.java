@@ -117,37 +117,82 @@ public class Donne
 	 /**
 	  * 
 	  * @author JB
-	  * méthode inachever car j'etais fatigué
-	  * 
+	  * @author hhachiche
+	  * 	Probleme au niveau de la ligne 134
+	  * 	je ne sais pas d'où vien le prb quelqu'un peux m'aider ?	
 	  * @param tableauContenantLePlis
 	  * @return l'indice du tableau ou se trouve la carte qui remporte le plis grâce à ça on peut retrouver qui remporte le plis
 	  */
+	 /*
 	 public int vainqueurDuPlis(Carte[] tableauContenantLePlis)
 	 {
 		int indice = -1;
-		Couleur couleurDemander = null;
+		Carte max;
+		int nombreDeJoueur = Partie.getNombreDeJoueurs();
 		
-		if(tableauContenantLePlis[1].isExcuse())
-		{			
-			couleurDemander = ((CarteCouleur)tableauContenantLePlis[2]).getCouleur();
-		}
-		else if(! tableauContenantLePlis[2].isAtout())
+		for(i=0;i < nombreDeJoueur;i++)					//A chaque pli on commence par regarder s'il y a des atouts,si oui on prend la plus forte
 		{
-			couleurDemander = ((CarteCouleur)tableauContenantLePlis[2]).getCouleur();
+			if(tableauContenantLePlis[i].isAtout())
+			{
+				
+// ! Prb ici				if((((CarteAtout)max).getNum())) < (((CarteAtout)tableauContenantLePlis[i]).getNum())
+				{
+					max = tableauContenantLePlis[i];
+					indice = i;
+				}
+				
+				
+			}
 		}
 		
+		if (indice != -1)// si on as trouver un atout, on retourne l'indice
+		{
+			return indice;
+		}
+		else
+		{
+			Couleur couleurDemander = null;
+			
+			if(tableauContenantLePlis[1].isExcuse())
+			{			
+				couleurDemander = ((CarteCouleur)tableauContenantLePlis[2]).getCouleur();
+			}
+			else // if(! tableauContenantLePlis[2].isAtout())
+			{
+				couleurDemander = ((CarteCouleur)tableauContenantLePlis[1]).getCouleur();
+			}
+			
+			for(i=0;i < nombreDeJoueur;i++)					
+			{
+				if(tableauContenantLePlis[i].isCarteCouleur())
+				{
+					if((CarteCouleur)tableauContenantLePlis[1].getCouleur() == CouleurDemander)
+					{
+						if(((CarteCouleur)max.getOrdre()) < ((CarteCouleur)tableauContenantLePlis[i].getOrdre()))
+						{	
+							max = tableauContenantLePlis[i];
+							indice = i;
+						}
+							
+					}
+					
+				}
+			}
 		// ici il faut faire en sorte de renvoyer l'indice de latout le plus fort sinon la carte la plus forte de mla couleur demander
 
-		return indice;
-		 
-	}
-	
+			return indice;
+		}
+<<<<<<< .mine
+	 }
+	*/
+	 // fin de la fonction vianqueur du plis
+
+
 	public int getNumJoueurApres(int numJoueur)
 	{
 		return (numJoueur+1)%Partie.getNombreDeJoueurs();
 	}
-	
-	/**/
+
 	public void jeuDeLaCarte()
 	{
 		numJoueurEntame = getNumJoueurApres(numJoueurPremier); // le premier à jouer (celui qui est après le donneur)
@@ -167,7 +212,7 @@ public class Donne
 				numJoueur = getNumJoueurApres(numJoueur);
 			}
 			// nbCartesPosees == nbJoueurs : le tour est fini
-			numJoueurVainqueurPli = vainqueurDuPlis(plisEnCours);
+			numJoueurVainqueurPli = 0;//vainqueurDuPlis(plisEnCours); // vainqueur du plis provoque une erreur donc je commente pour pas qu'elle se repercute iciS
 			
 			if(isJoueurAttaque(numJoueurVainqueurPli))
 			{
