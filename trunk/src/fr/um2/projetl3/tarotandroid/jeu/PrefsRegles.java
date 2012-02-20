@@ -22,9 +22,9 @@ public class PrefsRegles
 	
 	// noms des joueur
 	
-	public static void setNomDuJoueur1(String s)
+	public static void setNomDuJoueur(int i,String s)
 	{
-		Partie.getJoueur(1).setNomDuJoueur(s);
+		Partie.getJoueur(i).setNomDuJoueur(s);
 	}
 	
 	// fin de la partie
