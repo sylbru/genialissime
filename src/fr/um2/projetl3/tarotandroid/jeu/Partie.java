@@ -17,7 +17,6 @@ public class Partie
 	private static Donne donneEnCours;
 	private static int nombreDeCartesPourLeChien;
 	
-	
 	private static boolean stopPartie; 
 	
 	public static Carte getCarteDansTas(int i)
@@ -62,7 +61,9 @@ public class Partie
 	public static void setNombreDeJoueurs(int nombreDeJoueurs)
 	{
 		if (nombreDeJoueurs >= 3 || nombreDeJoueurs <= 5)
+		{
 			Partie.nombreDeJoueurs = nombreDeJoueurs;
+		}
 		else
 		{
 			System.out.println("Nombre de joueurs " + nombreDeJoueurs
@@ -70,12 +71,14 @@ public class Partie
 
 			Partie.nombreDeJoueurs = 4;
 		}
+		Partie.joueurs = new Joueur[Partie.nombreDeJoueurs];
 
 	}
 
 	protected static void initialisationPartie()
 	{
 		scores = new Scores();
+		nombreDeCartesPourLeChien = (nombreDeJoueurs == 5)? 3 : 6;
 
 		// Initialisation du tas de cartes
 
@@ -99,18 +102,22 @@ public class Partie
 		}
 
 		// Test
+		/**
 		for (i = 0; i < 78; i++)
 			System.out.print(tas[i].toString() + ", ");
 		System.out.println();
+		/**/
 		
 		Collections.shuffle(Arrays.asList(tas)); // on mélange (avant la première donne)
 	}
 	
-	public boolean verificatioSiEcartPasValide(Carte[] ecart)
+	public static boolean verificatioSiEcartPasValide(Carte[] ecart)
 	{
 		for(Carte c:ecart)
 		{
-			if(c.isAtout()) // si c'est un atout
+			if (c.isExcuse())
+				return true;
+			else if (c.isAtout()) // si c'est un atout
 			{
 				if (((CarteAtout)c).isBout())// si c'est un bout pas le doit de mettre au chien
 				{
@@ -128,7 +135,7 @@ public class Partie
 		return false;
 	}
 	
-	public void phaseChienEcart()
+	public static void phaseChienEcart()
 	{
 		if (Donne.getContratEnCours().isChienRevele()) // petite ou garde
 		{
@@ -158,9 +165,10 @@ public class Partie
 			Donne.mettreChienDansLesPlisDeLaDefense();
 		}
 	}
-	public void lancerPartie()
+	public static void lancerPartie()
 	{
 		initialisationPartie();
+		//Donne.init();
 		while(!partieFinie())
 		{
 			/*
@@ -225,8 +233,21 @@ public class Partie
 				return true; // comme ça on verra tout de suite si on arrive dans ce cas (pas normal)
 		}
 	}
+	
+	public static void lancerPartie4JoueursTexte()
+	{
+		setNombreDeJoueurs(4);
+		setJoueur(0, new JoueurTexte("Joueur1"));
+		setJoueur(1, new JoueurTexte("Joueur2"));
+		setJoueur(2, new JoueurTexte("Joueur3"));
+		setJoueur(3, new JoueurTexte("Joueur4"));
+		
+		lancerPartie();
+	}
 
+	/*
 	public Partie(int nombreDeJoueurs)
+	
 	{
 		setNombreDeJoueurs(nombreDeJoueurs);
 		joueurs = new JoueurTexte[nombreDeJoueurs];
@@ -239,12 +260,11 @@ public class Partie
 	{
 		setNombreDeJoueurs(4);
 		initialisationPartie();
-	}
+	}*/
 
 	public static void main(String[] args)
 	{
-		Partie partie = new Partie(2);
-		partie.getJoueurs();
+		Partie.lancerPartie4JoueursTexte();
 	}
 
 

@@ -21,7 +21,7 @@ public class Donne
 	private static int numJoueurEntame; // premier à jouer dans le pli
 	private static Vector<Carte> plisAttaque;
 	private static Vector<Carte> plisDefense;
-	private static int numJoueurPremier; // celui qui distribuer dans la donne (utilisé pour le premier tour)
+	private static int numJoueurPremier; // celui qui distribue dans la donne (utilisé pour le premier tour)
 	
 	/**
 	 * @author JB
@@ -36,13 +36,18 @@ public class Donne
 	 public static void distribution()
 	 { 
 		 int nombreDeJoueurs = Partie.getNombreDeJoueurs();
-		 int numeroDuJoueur = 0; // ! j'en ai besoin pour savoir � quel joueur je vais donner les cartes
+		 int numeroDuJoueur = 0; // ! j'en ai besoin pour savoir à quel joueur je vais donner les cartes
 		 
 		 int possibilitesMisesAuChien = 0;		 
 		 int nombreDeCartesMisesAuChien = 0;
 		 int nombreDeCartesPourLeChien = Partie.getnombreDeCartesPourLeChien();
 	
 		 mainsDesJoueurs = new Main[nombreDeJoueurs];
+		 for(int i=0; i<nombreDeJoueurs; i++)
+			 mainsDesJoueurs[i] = new Main(18, Partie.getJoueur(i));
+		 // TODO: ce 18 devrait être défini dans Constantes ou ailleurs
+		 
+		 
 		 chien = new Carte[nombreDeCartesPourLeChien];
 		 /*
 		  * à voir pour la donne précedente les cartes seront distribué par rapport à l'indice j du tableau de la donne précedente
@@ -69,36 +74,28 @@ public class Donne
 			 
 			 while(j<=(randomMin*Constantes.CARTES_DISTRIBU_PAR_JOUEUR))
 			 {
-				 if (numeroDuJoueur == nombreDeJoueurs)
-				 {
-					 numeroDuJoueur = 0;
-				 }
 				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
 				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
 				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
-				 numeroDuJoueur++;
+				 numeroDuJoueur = getNumJoueurApres(numeroDuJoueur);
 			 }
 			 for(l=0;l<=nombreDeCartesMisesAuChien;l++)
 			 {
 
 				 chien[k]=Partie.getCarteDansTas(j);
+				 Donne.reveleChien();
 				 j++;
 				 k++;
 				 randomMin++;
 			 }
-
 			 
 		}
 		 while(j<Constantes.NOMBRE_CARTES_TOTALES-1)
 		 {
-			 if (numeroDuJoueur == nombreDeJoueurs) 
-			 {
-				 numeroDuJoueur = 0;	
-			 }
 			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
 			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
 			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));	 
-			 numeroDuJoueur++;
+			 numeroDuJoueur = getNumJoueurApres(numeroDuJoueur);
 		 }
 		 // ! affectation des mains aux joueurs
 	 }
@@ -169,7 +166,7 @@ public class Donne
 	 // fin de la fonction vianqueur du plis
 
 
-	public int getNumJoueurApres(int numJoueur)
+	public static int getNumJoueurApres(int numJoueur)
 	{
 		return (numJoueur+1)%Partie.getNombreDeJoueurs();
 	}
@@ -358,19 +355,9 @@ public class Donne
 	
 	public static void main(String[] args)
 	{
-		Donne donne = new Donne(); // bon c’est le bordel entre les méthodes statiques et les non-statiques,
+		// Donne donne = new Donne(); // bon c’est le bordel entre les méthodes statiques et les non-statiques,
 									// faudra en discuter.
-		Partie p = new Partie(4);
-		Joueur j1 = new JoueurTexte("J1");
-		Joueur j2 = new JoueurTexte("J2");
-		Joueur j3 = new JoueurTexte("J3");
-		Joueur j4 = new JoueurTexte("J4");
-		Partie.setJoueur(0, j1);
-		Partie.setJoueur(1, j2);
-		Partie.setJoueur(2, j3);
-		Partie.setJoueur(3, j4);
-		Partie.initialisationPartie();
-		donne.jeuDeLaCarte();
+		Partie.lancerPartie4JoueursTexte();
 		
 	}
 	public static Contrat getContratEnCours() {
@@ -421,4 +408,14 @@ public class Donne
 			c.affiche();
 		}
 	}
+	
+	/**
+	 * Pour initialiser les tableaux. On peut pas le mettre en statique parce que
+	 * ça dépend du nombre de joueurs, donc ça doit être fait une fois qu’il est défini.
+	 */
+	public static void init()
+	{
+		mainsDesJoueurs = new Main[Partie.getNombreDeJoueurs()];
+	}
+	
 }
