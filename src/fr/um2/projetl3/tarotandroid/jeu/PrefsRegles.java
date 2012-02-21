@@ -20,7 +20,42 @@ public class PrefsRegles
 	public static boolean roiAuBout = false;
 	public static int pointRoiAuBout = 10;
 	
-	//Poignée : à fair par Heykel
+	//Poignée : 
+	
+	//points selon le type de poignee
+	public static int pointPoigneeSimple = 20; 
+	public static int pointPoigneeDouble = 30;
+	public static int pointPoigneeTriple = 40;
+	
+	//nombre d'atouts (pr partie a 4 joueurs) par défaut
+	public int PoigneeSimple = 10;
+	public int PoigneeDouble = 13;
+	public int PoigneeTriple = 15;
+	
+	//methode definissants le nombre d'atouts par rapport aux nombre de joueurs
+	public void nombreAtoutsPoignee()
+	{
+		if(Partie.getNombreDeJoueurs() == 3)
+		{
+			PoigneeSimple = 13;
+			PoigneeDouble = 15;
+			PoigneeTriple = 18;
+		}
+		else if (Partie.getNombreDeJoueurs() == 5)
+		{
+			PoigneeSimple = 8;
+			PoigneeDouble = 10;
+			PoigneeTriple = 13;
+		}
+		else 
+		{
+			PoigneeSimple = 10;
+			PoigneeDouble = 13;
+			PoigneeTriple = 15;
+		}
+
+	}
+	
 	
 	
 	public static boolean ManiereDeCompter = true;
