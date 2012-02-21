@@ -22,9 +22,34 @@ public class PrefsRegles
 	
 	// noms des joueur
 	
-	public static void setNomDuJoueur(int i,String s)
+	public static void setNomDuJoueur(int i,String s) //pour modifier nom du joueur
 	{
 		Partie.getJoueur(i).setNomDuJoueur(s);
+	}
+	
+	public static void setNomsDesJoueurs(String s1, String s2, String s3) // modifier nom des joueurs pour partie a 3
+	{
+		Partie.getJoueur(1).setNomDuJoueur(s1);
+		Partie.getJoueur(2).setNomDuJoueur(s2);
+		Partie.getJoueur(3).setNomDuJoueur(s3);
+	}
+	
+	public static void setNomsDesJoueurs(String s1, String s2, String s3, String s4) // modifier nom des joueurs pour partie a 4
+	{
+		Partie.getJoueur(1).setNomDuJoueur(s1);
+		Partie.getJoueur(2).setNomDuJoueur(s2);
+		Partie.getJoueur(3).setNomDuJoueur(s3);
+		Partie.getJoueur(4).setNomDuJoueur(s4);
+		
+	}
+	
+	public static void setNomsDesJoueurs(String s1, String s2, String s3, String s4, String s5) // modifier nom des joueurs pour partie a 5
+	{
+		Partie.getJoueur(1).setNomDuJoueur(s1);
+		Partie.getJoueur(2).setNomDuJoueur(s2);
+		Partie.getJoueur(3).setNomDuJoueur(s3);
+		Partie.getJoueur(4).setNomDuJoueur(s4);
+		Partie.getJoueur(5).setNomDuJoueur(s5);
 	}
 	
 	// fin de la partie
