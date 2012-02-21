@@ -23,19 +23,16 @@ public class CarteCouleur implements Carte
 		return uid;
 	}
 
-	// @Override
 	public boolean isCouleur()
 	{
 		return true;
 	}
 
-	// @Override
 	public boolean isAtout()
 	{
 		return false;
 	}
 	
-	// @Override
 	public int valeur()
 	{
 		if(ordre >=1 && ordre <= 10)
@@ -123,7 +120,6 @@ public class CarteCouleur implements Carte
 	}
 
 	public boolean isExcuse() {
-		// TODO Auto-generated method stub
 		return false;
 	}	
 }
