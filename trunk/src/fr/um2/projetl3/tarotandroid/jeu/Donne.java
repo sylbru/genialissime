@@ -27,10 +27,10 @@ public class Donne
 	 * @author JB
 	 * 
 	 * methode de distribution des cartes
-	 *  
+	 * 
+	 *  // TODO test + :
 	 *  // ! Chose � modifier :
-	 *  			=> suivant le sens des aiguille d'une montre ou non 
-	 *  	
+	 *  			=> suivant le sens des aiguille d'une montre ou non 	
 	 */
 
 	 public static void distribution()
@@ -49,11 +49,7 @@ public class Donne
 		 
 		 
 		 chien = new Carte[nombreDeCartesPourLeChien];
-		 /*
-		  * à voir pour la donne précedente les cartes seront distribué par rapport à l'indice j du tableau de la donne précedente
-		  */
-		 
- 
+
 		 int randomMin = 1;
 		 int randomMax;
 		 // random(Min/Max) permette de savoir sur quel intervalle on doit faire le random
@@ -100,8 +96,8 @@ public class Donne
 		 // ! affectation des mains aux joueurs
 	 }
 
-	 /**
-	  * 
+	 /** Méthode fini mais à tester
+	  *  // TODO test
 	  * @author JB
 	  * @author hhachiche
 	  * 	
@@ -171,7 +167,7 @@ public class Donne
 		return (numJoueur+1)%Partie.getNombreDeJoueurs();
 	}
 
-	public void jeuDeLaCarte()
+	public void jeuDeLaCarte() // que fait cette méthode il est censé y avoir une explication de celle ci avant ... (surtout que le nom choisit ne l'explicite pas)
 	{
 		numJoueurEntame = getNumJoueurApres(numJoueurPremier); // le premier à jouer (celui qui est après le donneur)
 		int nbCartesPosees; // cartes posées dans le tour (de 1 à 4, si 4 joueurs)
@@ -187,14 +183,17 @@ public class Donne
 			
 			while (nbCartesPosees < Partie.getNombreDeJoueurs())
 			{
-				plisEnCours[nbCartesPosees] = demanderCarteJoueur(numJoueur);
+				plisEnCours[nbCartesPosees] = demanderCarteJoueur(numJoueur); 
+				// ! il va faloir creer une méthode à peu près la même mais qui prend le plis en cours et dit au joueur quelles sont les cartes de sa main jouable
 				nbCartesPosees++;
 				numJoueur = getNumJoueurApres(numJoueur);
+				// ? c'est pas ici qu'il faut regarder si la carte jouer est legal ?
 			}
 			// nbCartesPosees == nbJoueurs : le tour est fini
 			numJoueurVainqueurPli = vainqueurDuPlis(plisEnCours);
 			
-			if(isJoueurAttaque(numJoueurVainqueurPli))
+			
+			if(isJoueurAttaque(numJoueurVainqueurPli)) // isPreneur ne permet pas de faire ça ?
 			{
 				plisAttaque.addAll(Arrays.asList(plisEnCours));
 			}
@@ -227,7 +226,7 @@ public class Donne
 	 */
 	public boolean isJoueurAttaque(int num)
 	{
-		return num == preneur.getID(); // ? est-ce que getID() correspond bien à la position/au numéro ?
+		return num == preneur.getID(); // ? est-ce que getID() correspond bien à la position/au numéro ? // ! oubli d'implementatinon pour le jeu à cinq ||joueurAppeler.getID
 	}
 	
 	/**
@@ -237,7 +236,7 @@ public class Donne
 	 */
 	public boolean isJoueurDefense(int num)
 	{
-		return !isJoueurAttaque(num); // suffit sinon de faire return num != preneur.getID();
+		return !isJoueurAttaque(num); 
 	}
 	
 	/**
@@ -245,14 +244,17 @@ public class Donne
 	 * @param c une carte
 	 * @param numJ un joueur
 	 * @return true si la carte posée par le joueur (paramètres) est légale 
+	 * 
+	 *  ok mettre plus d'explication svp des méthodes 
 	 */
-	public boolean isCarteLegale(Carte c, int numJ)
+	public boolean isCarteLegale(Carte c, int numJ) // svp des noms de variable explicite ...
 	{
 		if(numJ == numJoueurEntame || numJ == getNumJoueurApres(numJoueurEntame) && plisEnCours[numJoueurEntame].isExcuse())
 			return true; // si le joueur jouee en premier ou s’il joue après l’excuse
 		else if(c.isExcuse())
 			return true; // s’il joue l’excuse 
 		// ! il ya un cas execptionnel ou il ne peut pas jouer l'excuse si autoriser3boutsDans1pli est à false et qu'il y a déja deux bout sur la table :)
+		// ! facile à implementer mais à faire au cas ou
 		else if (c.isAtout())
 		{
 			// on vérifie que l’atout est plus haut que les autres.
@@ -260,16 +262,20 @@ public class Donne
 			// (calcul de l’atout le plus haut dans le pli en cours)
 			CarteAtout a = new CarteAtout(0);
 			for(int i=numJoueurEntame; i<numJ; i=getNumJoueurApres(i))
+			{
 				if (plisEnCours[i].isAtout() && ((CarteAtout)plisEnCours[i]).getNum() > a.getNum())
+				{
 					a = (CarteAtout)plisEnCours[i];
+				}
+			}
 			
 			if (((CarteAtout)c).getNum() > a.getNum())
 			{
-				// l’atout est plus haut que les autres, reste à voir si
-				// il est autorisé en fonction de ce qui est demandé
-				if ((plisEnCours[numJoueurEntame].isExcuse() && plisEnCours[getNumJoueurApres(numJoueurEntame)].isAtout())
-				  || plisEnCours[numJoueurEntame].isAtout())
+				// l’atout est plus haut que les autres, reste à voir si il est autorisé en fonction de ce qui est demandé
+				if ((plisEnCours[numJoueurEntame].isExcuse() && plisEnCours[getNumJoueurApres(numJoueurEntame)].isAtout()) || plisEnCours[numJoueurEntame].isAtout())
+				{
 					return true; // si la 1re carte est Atout, ou bien Excuse et la deuxième est Atout
+				}
 				else // Reste cas où 1re carte est Couleur, ou bien Excuse et la 2e est Couleur
 				{
 					Couleur coulDemandee;
@@ -297,8 +303,7 @@ public class Donne
 			{
 				coulDemandee = ((CarteCouleur)plisEnCours[numJoueurEntame]).getCouleur();
 			}
-			return (coulDemandee == ((CarteCouleur)c).getCouleur())
-					|| !mainsDesJoueurs[numJ].possedeCouleur(coulDemandee) && !mainsDesJoueurs[numJ].possedeAtout();
+			return (coulDemandee == ((CarteCouleur)c).getCouleur()) || !mainsDesJoueurs[numJ].possedeCouleur(coulDemandee) && !mainsDesJoueurs[numJ].possedeAtout();
 		}
 	}
 	
@@ -307,7 +312,7 @@ public class Donne
 	 * @param num La position du joueur
 	 * 
 	 */
-	public Carte demanderCarteJoueur(int num)
+	public Carte demanderCarteJoueur(int num) 
 	{
 		// vérifier que Joueur j est dans Partie.getJoueurs() ?
 		Carte carteProposee;
