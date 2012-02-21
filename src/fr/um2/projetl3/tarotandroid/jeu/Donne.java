@@ -8,7 +8,7 @@ import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
 
 public class Donne
 {
-	private static Carte donneAvant[];
+	private static Carte Parti[];
 	private static Main mainsDesJoueurs[];
 	private static Carte chien[];
 	
@@ -29,22 +29,20 @@ public class Donne
 	 * methode de distribution des cartes
 	 *  
 	 *  // ! Chose � modifier :
-	 *  		� la fin il faut affecter les mains qui sont dans le tableau aux joeur
 	 *  			=> suivant le sens des aiguille d'une montre ou non 
 	 *  	
 	 */
 	
 	/**/
 	 public static void distribution()
-	 {
+	 { 
 		 int nombreDeJoueurs = Partie.getNombreDeJoueurs();
 		 int numeroDuJoueur = 0; // ! j'en ai besoin pour savoir � quel joueur je vais donner les cartes
 		 
 		 int possibilitesMisesAuChien = 0;		 
 		 int nombreDeCartesMisesAuChien = 0;
 		 int nombreDeCartesPourLeChien = Partie.getnombreDeCartesPourLeChien();
-		
-		 donneAvant = new Carte[Constantes.NOMBRE_CARTES_TOTALES-1]; // ??? Tableau de 77 cartes ?
+	
 		 mainsDesJoueurs = new Main[nombreDeJoueurs];
 		 chien = new Carte[nombreDeCartesPourLeChien];
 		 /*
@@ -77,16 +75,16 @@ public class Donne
 					 numeroDuJoueur = 0;
 				 }
 				 
-				 mainsDesJoueurs[numeroDuJoueur].addCarte(donneAvant[j++]);
-				 mainsDesJoueurs[numeroDuJoueur].addCarte(donneAvant[j++]);
-				 mainsDesJoueurs[numeroDuJoueur].addCarte(donneAvant[j++]);				 
+				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
+				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
+				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));				 
 				 // l'incrementation du j doit se faire avant l'affectation au tableau
 				 numeroDuJoueur++;
 			 }
 			 for(l=0;l<=nombreDeCartesMisesAuChien;l++)
 			 {
 
-				 chien[k]=donneAvant[j];
+				 chien[k]=Partie.getCarteDansTas(j);
 				 j++;
 				 k++;
 				 randomMin++;
@@ -101,9 +99,9 @@ public class Donne
 				 numeroDuJoueur = 0;	
 			 }
 			 
-			 mainsDesJoueurs[numeroDuJoueur].addCarte(donneAvant[j++]);
-			 mainsDesJoueurs[numeroDuJoueur].addCarte(donneAvant[j++]);
-			 mainsDesJoueurs[numeroDuJoueur].addCarte(donneAvant[j++]);	
+			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
+			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
+			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));	
 			 // l'incrementation du j doit se faire avant
 			 
 			 numeroDuJoueur++;
