@@ -20,6 +20,11 @@ public class Partie
 	
 	private static boolean stopPartie; 
 	
+	public static Carte getCarteDansTas(int i)
+	{
+		return tas[i];
+	}
+	
 	public static Joueur[] getJoueurs()
 	{
 		return joueurs;
