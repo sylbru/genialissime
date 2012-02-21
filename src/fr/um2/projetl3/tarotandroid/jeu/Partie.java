@@ -123,59 +123,66 @@ public class Partie
 		return false;
 	}
 	
+	public void phaseChienEcart()
+	{
+		if (Donne.getContratEnCours().isChienRevele()) // petite ou garde
+		{
+			Donne.reveleChien();// ici il faut révélé le chien
+			
+			Donne.mettreChienDansLaMainDuPreneur();// ici il faut donner le chien au preneur
+			
+			// ensuite il faut lui dire quelles cartes il veut mettre à l'ecart une fois l'ecart fait on le met dans les plis de l'attaquant
+			
+			Carte[] ecartEnAttenteDeValidation = new Carte[nombreDeCartesPourLeChien];
+			boolean ecartPasValide = true;
+			
+			while(ecartPasValide) // ? faudrait rajouter un compteur et afficher quelque chose non ?
+			{
+				ecartEnAttenteDeValidation = Donne.getPreneur().demanderEcart();
+				ecartPasValide = verificatioSiEcartPasValide(ecartEnAttenteDeValidation); 
+			}
+		}
+		else if ( Donne.getContratEnCours().isChienPourAttaque()) // garde sans
+		{	
+			// ici met le chien dans les plis de l'attaquant
+			Donne.mettreChienDansLesPlisDeLAttaque();
+		}
+		else // garde contre
+		{
+			// ici on met le chien dans les plis des défenseur
+			Donne.mettreChienDansLesPlisDeLaDefense();
+		}
+	}
 	public void lancerPartie()
 	{
 		initialisationPartie();
 		while(!partieFinie())
 		{
+			/*
+			 * Je vois plutôt toute la partie suivante dans Donne pourquoi :
+			 * toutes les phases suivant sont des parties integrantes d'une donne et non d'une partie entiere
+			 * logiquement on as une partie qui contient X donne et une donne peut ou peut ne pas être jouer
+			 * 
+			 *   Alors ? quelqu'un en pense quelque chose ?
+			 * 
+			 */
 			Donne.distribution();
 			Annonces.phaseAnnonce();
-
-			// j'aimerais mettre la partie qui suit dans une méthode phaseChienEcart() c'est une bonne idée ? ou je laisse comme ça
-			if (Donne.getContratEnCours().isChienRevele()) // petite ou garde
-			{
-				
-				Donne.reveleChien();// ici il faut révélé le chien
-				
-				Donne.mettreChienDansLaMainDuPreneur();// ici il faut donner le chien au preneur
-				
-				// ensuite il faut lui dire quelles cartes il veut mettre à l'ecart une fois l'ecart fait on le met dans les plis de l'attaquant
-				
-				Carte[] ecartEnAttenteDeValidation = new Carte[nombreDeCartesPourLeChien];
-				boolean ecartPasValide = true;
-				
-				while(ecartPasValide) // ? faudrait rajouter un compteur et afficher quelque chose non ?
-				{
-					ecartEnAttenteDeValidation = Donne.getPreneur().demanderEcart();
-					ecartPasValide = verificatioSiEcartPasValide(ecartEnAttenteDeValidation); 
-				}
-				// la méthode précedente va retourner l'ecart il fauda alors verifier qu'il n'yest pas de bout ni de roi dans le chien
-			}
-			else if ( Donne.getContratEnCours().isChienPourAttaque()) // garde sans
-			{
-				
-				// ici met le chien dans les plis de l'attaquant
-				Donne.mettreChienDansLesPlisDeLAttaque();
-			}
-			else // garde contre
-			{
-				// ici on met le chien dans les plis des défenseur
-				Donne.mettreChienDansLesPlisDeLaDefense();
-			}
-			
-			
-			
-			Carte c = new CarteCouleur(Couleur.Coeur, 3);
-
-			
-			if(donneEnCours.getContratEnCours() != Contrat.AUCUN)
+					
+			if(donneEnCours.getContratEnCours() != Contrat.AUCUN) // si il n'y a pas de contrat il faut arreter la donne.
 			{
 				// jeuDeLaCarte(); // pas de meilleur nom pour l’instant, on dit comme ça au bridge, mais au tarot ?
 				// comptePoints(); // (à voir avec méthodes de scores, peut-être les modifier pour qu’elles lisent
 								   // directement dans Partie le contrat, les cartes remportées… ?)
 				Donne.reformerTas();
 			}
-			
+			else
+			{
+				phaseChienEcart();
+				// une phase deroulement des plis est à faire surement dans donne et appeler ici.
+				// puis apres il faut appeler suivant les préference choisit, la méthode de comptage des scores puis les affiché bien sûr
+			}
+	
 		}
 	}
 	
