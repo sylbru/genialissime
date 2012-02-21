@@ -27,14 +27,8 @@ public class Donne
 	 * @author JB
 	 * 
 	 * methode de distribution des cartes
-	 * 
-	 * sauf erreur de ma part les calcules devrait �tre bon, je verifir� avec quelqu'un
-	 * 
-	 *  // ? je ne sais pas ou mettre les constantes
 	 *  
 	 *  // ! Chose � modifier :
-	 *  		mettre les constantes au bon endroit
-	 *  		changer la valeur 6 par Chien.getNombreDeCartes() 
 	 *  		� la fin il faut affecter les mains qui sont dans le tableau aux joeur
 	 *  			=> suivant le sens des aiguille d'une montre ou non 
 	 *  	
@@ -115,7 +109,7 @@ public class Donne
 			 numeroDuJoueur++;
 		 }
 		 
-		 // affectation des mains aux joueurs
+		 // ! affectation des mains aux joueurs
 	 }
 
 	 /**
@@ -256,7 +250,7 @@ public class Donne
 	 */
 	public boolean isJoueurDefense(int num)
 	{
-		return !isJoueurAttaque(num);
+		return !isJoueurAttaque(num); // suffit sinon de faire return num != preneur.getID();
 	}
 	
 	/**
@@ -270,7 +264,8 @@ public class Donne
 		if(numJ == numJoueurEntame || numJ == getNumJoueurApres(numJoueurEntame) && plisEnCours[numJoueurEntame].isExcuse())
 			return true; // si le joueur jouee en premier ou s’il joue après l’excuse
 		else if(c.isExcuse())
-			return true; // s’il joue l’excuse
+			return true; // s’il joue l’excuse 
+		// ! il ya un cas execptionnel ou il ne peut pas joueur l'excuse si autoriser3boutsDans1pli est à false et qu'il y a déja deux bout sur la table :)
 		else if (c.isAtout())
 		{
 			// on vérifie que l’atout est plus haut que les autres.
@@ -323,6 +318,7 @@ public class Donne
 	/**
 	 * Demande au joueur de jouer une carte et vérifie si elle est légale. 
 	 * @param num La position du joueur
+	 * 
 	 */
 	public Carte demanderCarteJoueur(int num)
 	{
