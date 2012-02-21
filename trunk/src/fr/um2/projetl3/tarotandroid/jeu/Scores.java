@@ -55,7 +55,7 @@ public class Scores
 			boolean joueurReussie, int joueurContrat)
 	{
 		int J = Partie.getNombreDeJoueurs();
-		int aa = 1;
+		int aa = 0;
 		int valeurScore = calculScore(typeDuContrat, Gain);
 		Integer[] dernierResultat = new Integer[J];
 		Integer[] derniereLigne = new Integer[J];
