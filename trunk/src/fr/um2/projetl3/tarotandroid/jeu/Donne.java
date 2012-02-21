@@ -32,8 +32,7 @@ public class Donne
 	 *  			=> suivant le sens des aiguille d'une montre ou non 
 	 *  	
 	 */
-	
-	/**/
+
 	 public static void distribution()
 	 { 
 		 int nombreDeJoueurs = Partie.getNombreDeJoueurs();
@@ -74,11 +73,9 @@ public class Donne
 				 {
 					 numeroDuJoueur = 0;
 				 }
-				 
 				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
 				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
-				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));				 
-				 // l'incrementation du j doit se faire avant l'affectation au tableau
+				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
 				 numeroDuJoueur++;
 			 }
 			 for(l=0;l<=nombreDeCartesMisesAuChien;l++)
@@ -98,15 +95,11 @@ public class Donne
 			 {
 				 numeroDuJoueur = 0;	
 			 }
-			 
 			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
 			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
-			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));	
-			 // l'incrementation du j doit se faire avant
-			 
+			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));	 
 			 numeroDuJoueur++;
 		 }
-		 
 		 // ! affectation des mains aux joueurs
 	 }
 
@@ -118,7 +111,6 @@ public class Donne
 	  * @param tableauContenantLePlis
 	  * @return l'indice du tableau ou se trouve la carte qui remporte le plis grâce à ça on peut retrouver qui remporte le plis
 	  */
-	 /**/
 	 public int vainqueurDuPlis(Carte[] tableauContenantLePlis) 
 	 {
 		int indice = -1;
@@ -150,7 +142,7 @@ public class Donne
 			{			
 				couleurDemander = ((CarteCouleur)tableauContenantLePlis[2]).getCouleur();
 			}
-			else // if(! tableauContenantLePlis[2].isAtout())
+			else // if(! tableauContenantLePlis[2].isAtout()) // le code est bien ecrit du coup cette verification est inutile
 			{
 				couleurDemander = ((CarteCouleur)tableauContenantLePlis[1]).getCouleur();
 			}
@@ -263,7 +255,7 @@ public class Donne
 			return true; // si le joueur jouee en premier ou s’il joue après l’excuse
 		else if(c.isExcuse())
 			return true; // s’il joue l’excuse 
-		// ! il ya un cas execptionnel ou il ne peut pas joueur l'excuse si autoriser3boutsDans1pli est à false et qu'il y a déja deux bout sur la table :)
+		// ! il ya un cas execptionnel ou il ne peut pas jouer l'excuse si autoriser3boutsDans1pli est à false et qu'il y a déja deux bout sur la table :)
 		else if (c.isAtout())
 		{
 			// on vérifie que l’atout est plus haut que les autres.
