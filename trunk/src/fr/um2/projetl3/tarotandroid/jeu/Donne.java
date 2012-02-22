@@ -44,9 +44,7 @@ public class Donne
 	
 		 mainsDesJoueurs = new Main[nombreDeJoueurs];
 		 for(int i=0; i<nombreDeJoueurs; i++)
-			 mainsDesJoueurs[i] = new Main(18, Partie.getJoueur(i));
-		 // TODO: ce 18 devrait être défini dans Constantes ou ailleurs
-		 
+			 mainsDesJoueurs[i] = new Main((Constantes.NOMBRE_CARTES_TOTALES-nombreDeCartesPourLeChien)/nombreDeJoueurs, Partie.getJoueur(i));
 		 
 		 chien = new Carte[nombreDeCartesPourLeChien];
 
@@ -58,8 +56,8 @@ public class Donne
 		 		 
 		 possibilitesMisesAuChien = (( Constantes.NOMBRE_CARTES_TOTALES - nombreDeCartesPourLeChien ) / Constantes.CARTES_DISTRIBU_PAR_JOUEUR) ;
 		 
-		 
-		 while(( nombreDeCartesPourLeChien - nombreDeCartesMisesAuChien ) == 0) 
+		 //je pense que ici sa doit etre !=0 
+		 while(( nombreDeCartesPourLeChien - nombreDeCartesMisesAuChien ) != 0) 
 		 {
 			 randomMax = possibilitesMisesAuChien - ( nombreDeCartesPourLeChien - nombreDeCartesMisesAuChien );
 			 
@@ -93,8 +91,11 @@ public class Donne
 			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));	 
 			 numeroDuJoueur = getNumJoueurApres(numeroDuJoueur);
 		 }
-		 // ! affectation des mains aux joueurs
-	 }
+		 for(int i = 0 ; i < nombreDeJoueurs ; i++)
+		 {
+			 Partie.getJoueur(i).setMain(mainsDesJoueurs[numeroDuJoueur]);
+		 } 
+	}
 
 	 /** Méthode fini mais à tester
 	  *  // TODO test
@@ -414,6 +415,50 @@ public class Donne
 		}
 	}
 	
+	/*redondant avec jeu de la carte
+	
+	
+	public void faireUnPli()
+	{	
+		int vainqueurPli;
+		int numJoueur;
+		int nbreDeJoueurs = Partie.getNombreDeJoueurs();
+		for(int i = 0 ; i<nbreDeJoueurs ; i++)
+		{
+			int a = (i + numJoueurEntame)% nbreDeJoueurs; // 
+			numJoueur = getNumJoueurApres(a);
+			plisEnCours[i] = demanderCarteJoueur(a);
+		}
+		
+		vainqueurPli =  vainqueurDuPlis(plisEnCours);
+		if(isJoueurAttaque(vainqueurPli))
+		{
+			plisAttaque.addAll(Arrays.asList(plisEnCours));
+		}
+		else
+		{
+			plisDefense.addAll(Arrays.asList(plisEnCours));
+		}
+		
+		for(int i = 0 ; i < nbreDeJoueurs ; i++)
+		{
+			plisPrecedent[i] = plisEnCours[i];
+			plisEnCours[i] = null;
+		}
+		
+		numJoueurEntame = vainqueurPli;
+	}
+
+	
+	
+	public void phasePli(){
+		while(!donneFinie())
+		{
+			faireUnPli();
+		}
+		
+	}
+*/	
 	/**
 	 * Pour initialiser les tableaux. On peut pas le mettre en statique parce que
 	 * ça dépend du nombre de joueurs, donc ça doit être fait une fois qu’il est défini.
