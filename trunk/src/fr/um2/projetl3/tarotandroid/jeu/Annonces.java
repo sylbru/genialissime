@@ -96,6 +96,16 @@ public class Annonces
 		}
 		Donne.setContratEnCours(contrat);
 		Donne.setPreneur(joueurQuiVaPrendre);
+		if(nombreDeJoueur==5)
+		{
+			CarteCouleur Roi = joueurQuiVaPrendre.appelerRoi();
+			for(int i = 0; i<nombreDeJoueur; i++)
+			{
+				if(Partie.getJoueur(i).possedeRoi(Roi)){
+					Donne.setJoueurAppele(Partie.getJoueur(i));
+				}
+			}
+		}
 	}
 	/*
 	public void annonce4joueurs()
