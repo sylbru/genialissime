@@ -7,27 +7,20 @@ public class Annonces
 {
 	/**
 	 * @author JB
-	 * 
-	 *   phase d'annonce pas encore fini
-	 *   	à modifier :
-	 *   		pour l'instant on peut faire une petite m�me si le joueur pr�cedent � fait une garde
-	 *   				il faut modifier la m�thode controlContrat pour qu'elle v�rifie que le joeur demande bien un contrat sup�tieur au pr�cedent
-	 *   				ou passer directement dans demande annonce le dernier contrat le plus fort pour pas que le joueur est le choix de prendre un contrat inferieur
-	 *   					je pense que la deuxieme solution est la meilleure car la premiere peut rendre infinie la phase d'annonce
-	 *   		je pense que qu'un joueur peut surencherir sur �a propre ench�re 
-	 *   				pour r�soudre �a on pourrait utiliser une variable qui m�morise le dernier preneur pour pas qu'il puisse surencherir 
-	 *   
 	 *   permet de connaitre le preneur et le type de contrat fait par le joueur
+	 * 		et si le jeu est à 5 le joeur appelée est decidé
 	 * 
+	 * 	TODO liée le numero du joueur avec le numero du joueur qui joue en premier
 	 */
 	public static void phaseAnnonce()
 	{
 		boolean conditionArret = true;
+		int numeroDuJoueur = 0; // numero du joueur apres celui qui distribue
 		int compteurPourToutLeMondePasse = 0;
 		int nombreDeJoueur=Partie.getNombreDeJoueurs(); 
 		Contrat contrat = new Contrat("Aucune prise", -1);
 		Contrat controle = new Contrat("Aucune prise", -1);
-		int numeroDuJoueur = 0;
+
 		Contrat tableauDesContrat[] = new Contrat[nombreDeJoueur]; 
 		
 		for(int i=0;i<nombreDeJoueur;i++){
