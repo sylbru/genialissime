@@ -356,7 +356,27 @@ public class Scores
 		}
 		else
 		{
-			// ! faire la deuxieme façon de compter
+			if(typeDuContrat == Contrat.PETITE)
+			{
+				gain += 20;
+				
+			}else if (typeDuContrat == Contrat.POUSSE)
+			{
+				gain += 30;
+			}else if (typeDuContrat == Contrat.GARDE)
+			{
+				gain += 40;
+			} else if (typeDuContrat == Contrat.GARDE_SANS)
+			{
+				gain += 80;
+			} else if (typeDuContrat == Contrat.GARDE_CONTRE)
+			{
+				gain +=160;
+			}
+			else
+			{
+				System.out.println("Il y eu un souci au niveau du type de contrat\n classe Score methode calculGainPartie ");
+			}
 		}
 
 		return gain;
