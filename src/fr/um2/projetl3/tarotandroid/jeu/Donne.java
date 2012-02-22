@@ -1,4 +1,4 @@
-package fr.um2.projetl3.tarotandroid.jeu;//test heykel commit
+package fr.um2.projetl3.tarotandroid.jeu;
 
 import java.util.Arrays;
 import java.util.Vector;
