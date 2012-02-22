@@ -107,7 +107,7 @@ public class Contrat
 																   // quand tout le monde a passé
 	public static Contrat PASSE = new Contrat("Passe", 0);
 	public static Contrat PETITE = new Contrat("Petite", 1); // ! à voir entre pouce
-	public static Contrat POUCE = new Contrat("Pouce", 2);   // !     et petite
+	public static Contrat POUSSE = new Contrat("Pousse", 2);   // !     et petite
 	public static Contrat GARDE = new Contrat("Garde", 3);
 	public static Contrat GARDE_SANS = new Contrat("Garde sans", 4, false);
 	public static Contrat GARDE_CONTRE = new Contrat("Garde contre", 5, false, true);
