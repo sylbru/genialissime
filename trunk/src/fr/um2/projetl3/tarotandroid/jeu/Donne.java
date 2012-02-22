@@ -228,7 +228,12 @@ public class Donne
 	 */
 	public boolean isJoueurAttaque(int num)
 	{
-		return num == preneur.getID() || num ==appelee.getID(); // ? est-ce que getID() correspond bien à la position/au numéro ? // ! oubli d'implementatinon pour le jeu à cinq ||joueurAppeler.getID
+		if(Partie.getNombreDeJoueurs()==5)
+		{
+			return (num == preneur.getID() || num ==appelee.getID()); // ? est-ce que getID() correspond bien à la position/au numéro ? // ! oubli d'implementatinon pour le jeu à cinq ||joueurAppeler.getID
+		}
+		else 
+			return num == preneur.getID();
 	}
 	
 	/**
