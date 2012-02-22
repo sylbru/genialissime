@@ -6,6 +6,7 @@ public interface Carte
 	boolean isCouleur();
 	boolean isAtout();
 	boolean isExcuse();
+	boolean isBout();
 	void affiche();
 	int valeur(); // en demi-points
 	
