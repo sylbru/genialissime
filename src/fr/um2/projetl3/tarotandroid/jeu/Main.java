@@ -111,5 +111,26 @@ public class Main
 	{
 		return cartes.elementAt(num);
 	}
-
+	
+	
+	public boolean RoiDansLaMain(CarteCouleur roi)
+	{ 
+		if(roi.isCouleur() && roi.getOrdre()==14)
+		{
+			for(int i=0; i<cartes.size(); i++)
+			{
+				if(cartes.get(i) == roi)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+		else
+		{	
+			System.out.println("appel de Roi avec une carte non roi");
+			return false;
+		}
+	}
+	
 }

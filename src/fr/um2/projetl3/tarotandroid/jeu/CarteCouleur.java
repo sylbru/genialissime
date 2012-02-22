@@ -17,6 +17,10 @@ public class CarteCouleur implements Carte
 	{
 		return couleur;
 	}
+	public void setCouleur(Couleur couleur)
+	{
+		this.couleur=couleur;
+	}
 	
 	public int getUid()
 	{
@@ -83,6 +87,12 @@ public class CarteCouleur implements Carte
 	public CarteCouleur(Couleur couleur, int ordre) // TODO: rajouter uid
 	{
 		this.couleur = couleur;
+		this.ordre = ordre;
+		// TODO: rajouter uid
+	}
+	
+	public CarteCouleur(int ordre) // TODO: rajouter uid
+	{
 		this.ordre = ordre;
 		// TODO: rajouter uid
 	}

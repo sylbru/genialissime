@@ -13,7 +13,7 @@ public class Donne
 	private static Carte chien[];
 	
 	private static Contrat contratEnCours;
-	private static Joueur preneur;
+	private static Joueur preneur[];
 	
 	private static Carte plisEnCours[] = new Carte[Partie.getNombreDeJoueurs()];
 	private static Carte plisPrecedent[] = new Carte[Partie.getNombreDeJoueurs()];
@@ -228,7 +228,7 @@ public class Donne
 	 */
 	public boolean isJoueurAttaque(int num)
 	{
-		return num == preneur.getID(); // ? est-ce que getID() correspond bien à la position/au numéro ? // ! oubli d'implementatinon pour le jeu à cinq ||joueurAppeler.getID
+		return num == preneur[0].getID() || num ==preneur[1].getID(); // ? est-ce que getID() correspond bien à la position/au numéro ? // ! oubli d'implementatinon pour le jeu à cinq ||joueurAppeler.getID
 	}
 	
 	/**
@@ -375,10 +375,17 @@ public class Donne
 	}
 	
 	public static Joueur getPreneur() {
-		return preneur;
+		return preneur[0];
 	}
 	public static void setPreneur(Joueur preneur) {
-		Donne.preneur = preneur;
+		Donne.preneur[0] = preneur;
+	}
+	// pour les parties a 5
+	public static Joueur getJoueurAppele() {
+		return preneur[1];
+	}
+	public static void setJoueurAppele(Joueur joueurappele) {
+		Donne.preneur[1] = joueurappele;
 	}
 	
 	public static Carte[] getPlisPrecedent() {
@@ -405,7 +412,7 @@ public class Donne
 	}
 	public static void mettreChienDansLaMainDuPreneur()
 	{
-		 preneur.addChienDansMain(chien);
+		 preneur[0].addChienDansMain(chien);
 	}
 	
 	public static void reveleChien()
