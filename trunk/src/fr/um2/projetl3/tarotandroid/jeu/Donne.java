@@ -19,8 +19,9 @@ public class Donne
 	private static Carte plisPrecedent[] = new Carte[Partie.getNombreDeJoueurs()];
 	
 	private static int numJoueurEntame; // premier à jouer dans le pli
-	private static Vector<Carte> plisAttaque;
-	private static Vector<Carte> plisDefense;
+	// protected pour calculer les pts des plis Attaque/Defense
+	protected static Vector<Carte> plisAttaque; 
+	protected static Vector<Carte> plisDefense;
 	private static int numJoueurPremier; // celui qui distribue dans la donne (utilisé pour le premier tour)
 	
 	/**
