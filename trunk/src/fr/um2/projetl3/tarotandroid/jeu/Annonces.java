@@ -45,46 +45,49 @@ public class Annonces
 				{
 					conditionArret = false;
 				}
-				
-				contrat = Partie.getJoueur(numeroDuJoueur).demanderAnnonce(contrat);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
-	
-				tableauDesContrat[numeroDuJoueur] = contrat ; // on stocke les contrat que les joueur veulent faire
-
-				
-				if(contrat != Contrat.PASSE) // si un joeur passe on le prend en compte dans un compteur utile plus loin.
+				else
 				{
-					combienVeulentPrendre++;
 				
+					contrat = Partie.getJoueur(numeroDuJoueur).demanderAnnonce(contrat);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
+		
+					tableauDesContrat[numeroDuJoueur] = contrat ; // on stocke les contrat que les joueur veulent faire
+	
+					
 					if(contrat != Contrat.PASSE) // si un joeur passe on le prend en compte dans un compteur utile plus loin.
 					{
 						combienVeulentPrendre++;
-						
-						if(contrat.getPoids() == 5) // alors c'est une garde_sans => la phase d'annonce est finit 
+					
+						if(contrat != Contrat.PASSE) // si un joeur passe on le prend en compte dans un compteur utile plus loin.
 						{
-							joueurQuiVaPrendre = Partie.getJoueur(numeroDuJoueur);
-							conditionArret = false;
+							combienVeulentPrendre++;
+							
+							if(contrat.getPoids() == 5) // alors c'est une garde_sans => la phase d'annonce est finit 
+							{
+								joueurQuiVaPrendre = Partie.getJoueur(numeroDuJoueur);
+								conditionArret = false;
+							}
+							else if((0 < contrat.getPoids()) && (contrat.getPoids() < 5))// cas o� c'est un contrat valble mais pas une garde_sans
+							{
+								joueurQuiVaPrendre = Partie.getJoueur(numeroDuJoueur);
+							}
 						}
-						else if((0 < contrat.getPoids()) && (contrat.getPoids() < 5))// cas o� c'est un contrat valble mais pas une garde_sans
+						if(numeroDuJoueur == nombreDeJoueur) // si le numero du joueur est egal au nbr de joueur on as fait un tour d'annonce
 						{
-							joueurQuiVaPrendre = Partie.getJoueur(numeroDuJoueur);
-						}
-					}
-					if(numeroDuJoueur == nombreDeJoueur) // si le numero du joueur est egal au nbr de joueur on as fait un tour d'annonce
-					{
-						// si il y a une seule prise on lance la partie
-						if (combienVeulentPrendre == 0) // dans ce cas l� �a veux dire que tout le monde � passer
-						{
-							contrat = Contrat.AUCUN;
-							conditionArret = false ;
-						}
-						else if (combienVeulentPrendre == 1)
-						{
-							conditionArret = false;
-						}
-						else if(combienVeulentPrendre > 1) // si plusieur joueur veulent prendre on refait un tour des joueur qui voulaient prendre
-						{
-							combienVeulentPrendre = 1 ; // remit � un car si tout le monde passe apres il faut conserver celui qui avait pris en dernier
-							numeroDuJoueur = -1; // ! pas s�r manque des truc a faire u=ici je croit 
+							// si il y a une seule prise on lance la partie
+							if (combienVeulentPrendre == 0) // dans ce cas l� �a veux dire que tout le monde � passer
+							{
+								contrat = Contrat.AUCUN;
+								conditionArret = false ;
+							}
+							else if (combienVeulentPrendre == 1)
+							{
+								conditionArret = false;
+							}
+							else if(combienVeulentPrendre > 1) // si plusieur joueur veulent prendre on refait un tour des joueur qui voulaient prendre
+							{
+								combienVeulentPrendre = 1 ; // remit � un car si tout le monde passe apres il faut conserver celui qui avait pris en dernier
+								numeroDuJoueur = -1; // ! pas s�r manque des truc a faire u=ici je croit 
+							}
 						}
 					}
 				}
