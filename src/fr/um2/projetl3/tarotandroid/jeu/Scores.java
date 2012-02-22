@@ -207,6 +207,67 @@ public class Scores
 	}
 	
 	/*
+	 * author Heykel
+	 * implementation de calcul points dans vecteur Attaque/Defense
+	 * puis calcul du nombre de bouts (inutile pour le moment au Vecteur Defense mais pourrait servir pour verifier qu'il
+	 * n'yait pas plus de 3 bouts ou moins
+	 */
+	
+	public int calculDesPointsDansLeVecteurAttaque() //
+	{
+		int sommeDesValeursDesCartes = 0;
+		
+		for(Carte c : Donne.plisAttaque)
+		{
+			sommeDesValeursDesCartes += c.valeur();
+		}
+		
+		return sommeDesValeursDesCartes;
+	}
+	
+	public int calculNombreDeBoutsDansVecteurAttaque()
+	{
+		int nombreDeBoutsDansVecteurAttaque = 0;
+		
+		for(Carte c : Donne.plisAttaque)
+		{
+			if(c.isBout())
+			{
+				nombreDeBoutsDansVecteurAttaque ++;
+			}
+		}
+		
+		return nombreDeBoutsDansVecteurAttaque;
+	}
+	
+	public int calculDesPointsDansLeVecteurDefense() //
+	{
+		int sommeDesValeursDesCartes = 0;
+		
+		for(Carte c : Donne.plisDefense)
+		{
+			sommeDesValeursDesCartes += c.valeur();
+		}
+		
+		return sommeDesValeursDesCartes;
+	}
+	
+	public int calculNombreDeBoutsDansVecteurDefense()
+	{
+		int nombreDeBoutsDansVecteurDefense = 0;
+		
+		for(Carte c : Donne.plisDefense)
+		{
+			if(c.isBout())
+			{
+				nombreDeBoutsDansVecteurDefense ++;
+			}	
+		}
+		
+		return nombreDeBoutsDansVecteurDefense;
+	}
+	
+	/*
 	 * author JB
 	 * calcule une ligne du vecteur score
 	 */
@@ -214,8 +275,12 @@ public class Scores
 	{
 		int pointsDansLeVecteurAttaque = 0; 
 		int nombreDeBoutDuPreneur = 0; 
+		assert(Constantes.TOTAL_DES_POINTS_DANS_LE_JEU == calculDesPointsDansLeVecteurAttaque() + calculDesPointsDansLeVecteurDefense());
+		//assertion pour bien verifier que le nombre total des vecteurs attaque/defense verifie la constante TOTAL_DES_POINTS_DANS_LE_JEU
+		assert(Constantes.NOMBRE_DE_BOUTS == calculNombreDeBoutsDansVecteurAttaque() + calculNombreDeBoutsDansVecteurDefense());
 		int gain = calculGainPartie(Donne.getContratEnCours(), pointsDansLeVecteurAttaque, nombreDeBoutDuPreneur);
 		int nombreDeJoueur = Partie.getNombreDeJoueurs();
+		
 		
 		for(int i=0;i<nombreDeJoueur;i++)
 		{
