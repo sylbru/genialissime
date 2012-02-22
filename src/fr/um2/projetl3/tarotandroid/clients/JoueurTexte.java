@@ -125,6 +125,11 @@ public class JoueurTexte implements Joueur // implements Joueur (quand Joueur er
 	{
 		this.nom = nom;
 	}
+	public JoueurTexte(int pid, String nom)
+	{
+		pID = pid;
+		this.nom = nom;
+	}
 
 
 	public int getID() 
@@ -185,4 +190,46 @@ public class JoueurTexte implements Joueur // implements Joueur (quand Joueur er
 		return pMain.getCarte(num);
 		
 	}
+	
+	
+	public CarteCouleur appelerRoi()
+	{
+		CarteCouleur Roi = new CarteCouleur(14);
+		System.out.println("Donnez la couleur du roi que vous voulez appeler");
+		int id=-1;
+		while(id<=0 || id >4)
+		{
+			System.out.println(" Vos Choix :  1 = coeur, 2 = pique, 3 = treffle, 4 = carreau");
+			id = (new Scanner(System.in)).nextInt();
+			switch (id)
+			{
+			case 1:
+				System.out.println(" Vous avez appele le roi de coeur");
+				Roi.setCouleur(Couleur.Coeur);
+				break;
+			case 2:
+				System.out.println("Vous avez appele le roi de pique");
+				Roi.setCouleur(Couleur.Pique);
+				break;
+			case 3:
+				System.out.println(" Vous avez appele le roi de treffle");
+				Roi.setCouleur(Couleur.Trefle);
+				break;
+			case 4:
+				System.out.println(" Vous avez appele le roi de carreau");
+				Roi.setCouleur(Couleur.Carreau);
+				break;
+			default:
+				//! il faudrait lancer une exception
+				System.out.println("Entree incorrecte, veuillez ressayer");
+			}
+		}
+		return Roi;
+	}
+	
+	public boolean possedeRoi(CarteCouleur roi)
+	{
+		return pMain.RoiDansLaMain(roi);
+	}
+
 }
