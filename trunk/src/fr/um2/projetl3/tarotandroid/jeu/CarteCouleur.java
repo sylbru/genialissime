@@ -33,6 +33,16 @@ public class CarteCouleur implements Carte
 		return false;
 	}
 	
+	public boolean isBout() 
+	{	
+		return false;
+	}	
+	
+	public boolean isExcuse() 
+	{
+		return false;
+	}
+
 	public int valeur()
 	{
 		if(ordre >=1 && ordre <= 10)
@@ -118,8 +128,5 @@ public class CarteCouleur implements Carte
 		System.out.print(s+" ");
 		
 	}
-
-	public boolean isExcuse() {
-		return false;
-	}	
+	
 }
