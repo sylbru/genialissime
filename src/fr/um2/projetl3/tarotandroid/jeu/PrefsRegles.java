@@ -2,13 +2,14 @@ package fr.um2.projetl3.tarotandroid.jeu;
 
 import android.R.string;
 
-public class PrefsRegles
+public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge de la liaison graphique pour les préférences
 {
 	// annonces
-	public static boolean autoriserParole = false;
+	public static boolean autoriserParole = false; // ! à ne pas implementer pour l'instant
 	public static boolean autoriserPetite = true;
-	public static boolean autoriserPouce = false; // Pousse ? // c'est ecrit sur wikipedia ...(se renseigner quand on est pas sur d'un truc)
-	public static boolean autoriserGAE = false; // c'est quoi la GAE : pareil que garde mais avec un poid inferieur je n'aime pas du tout ce contrat mais apparrement c'est jouer par des gens = potentielement des futurees utilisateurs
+	public static boolean autoriserPousse = false; // ! a ne pas implementer non plus
+	public static boolean autoriserGAE = false; // ! à ne pas implementer
+	// c'est quoi la GAE : pareil que garde mais avec un poid inferieur je n'aime pas du tout ce contrat mais apparrement c'est jouer par des gens = potentielement des futurees utilisateurs
 	
 	// compte des points
 	public static boolean compterMisere = false; // j'ai mit false car c'est apas si courant que ça de compter la misère

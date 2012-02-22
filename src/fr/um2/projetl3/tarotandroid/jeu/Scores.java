@@ -49,7 +49,8 @@ public class Scores
 	 * ligne les variables en paramettre sont le type du contrat, le gain(de
 	 * combien le jouer la remporte ou perdu, valeur toujour positive) si le
 	 * joueur qui a fait le contrat l'a remporte, et finalament quel est le
-	 * jouer qui a fait le contrat /*
+	 * jouer qui a fait le contrat 
+	 *
 	 */
 	public void calculDerniereLigneScore(Contrat typeDuContrat, int Gain,
 			boolean joueurReussie, int joueurContrat)
@@ -61,6 +62,7 @@ public class Scores
 		Integer[] nouvelleLigne = new Integer[J];
 		derniereLigne = scores.lastElement();
 		dernierResultat = ScoreLigne(valeurScore, joueurReussie, joueurContrat);
+		
 		for (int i = 0; i < J; i++)
 		{
 			nouvelleLigne[i] = derniereLigne[i] + dernierResultat[i];
@@ -69,7 +71,7 @@ public class Scores
 		scores.add(nouvelleLigne);
 	}
 
-	// pour lassertion que la somme des points d'une ligne soit toujours nulle
+	// pour lassertion : verifie que la somme des points d'une ligne soit toujours nulle
 	public boolean sommePointsNul(Integer[] ligneScore)
 	{
 		int s = 0;
@@ -90,7 +92,7 @@ public class Scores
 		int J = Partie.getNombreDeJoueurs();
 		int I = scores.size();
 		/*
-		 * pour afficher les noms de joueurs en debut de tableau
+		 * pour afficher les noms de joueurs en debut de tableau // ? pourqoui l'avoir commenter c'etait bien non ?
 		 * 
 		 * for(int i = 0; i<J ; i++) {
 		 * 
@@ -110,8 +112,7 @@ public class Scores
 
 	// calcule une ligne de score en fonction des points que chaque joueur
 	// gangen ou pert et du contrat et du jouer qui a prit le contrat
-	public Integer[] ScoreLigne(int valeurScore, boolean joueurReussie,
-			int joueurContrat)
+	public Integer[] ScoreLigne(int valeurScore, boolean joueurReussie, int joueurContrat)
 	{
 		Integer[] lscore = new Integer[Partie.getNombreDeJoueurs()];
 		if (joueurReussie)
@@ -121,20 +122,22 @@ public class Scores
 				if (i == joueurContrat)
 				{
 					lscore[i] = valeurScore * (Partie.getNombreDeJoueurs() - 1);
-				} else
+				} 
+				else
 				{
 					lscore[i] = -valeurScore;
 				}
 			}
-		} else
+		} 
+		else
 		{
 			for (int i = 0; i < Partie.getNombreDeJoueurs(); i++)
 			{
 				if (i == joueurContrat)
 				{
-					lscore[i] = -valeurScore
-							* (Partie.getNombreDeJoueurs() - 1);
-				} else
+					lscore[i] = -(valeurScore) * (Partie.getNombreDeJoueurs() - 1);
+				} 
+				else
 				{
 					lscore[i] = valeurScore;
 				}
@@ -185,7 +188,8 @@ public class Scores
 	public int calculScore(Contrat typeDuContrat, int Gain)
 	{
 		int resultat = 25;
-		resultat = resultat + Gain;
+		resultat = resultat + Gain; // ! FAUX si gain<0 += -25 et non + 25
+		
 
 		// ! faire les types de contrats
 		if (typeDuContrat == Contrat.GARDE)
@@ -200,6 +204,98 @@ public class Scores
 		}
 
 		return resultat;
+	}
+	
+	/*
+	 * author JB
+	 * calcule une ligne du vecteur score
+	 */
+	public void calculeLigneScore()
+	{
+		int pointsDansLeVecteurAttaque = 0; 
+		int nombreDeBoutDuPreneur = 0; 
+		int gain = calculGainPartie(Donne.getContratEnCours(), pointsDansLeVecteurAttaque, nombreDeBoutDuPreneur);
+		int nombreDeJoueur = Partie.getNombreDeJoueurs();
+		
+		for(int i=0;i<nombreDeJoueur;i++)
+		{
+			if((nombreDeJoueur == 3) || (nombreDeJoueur == 3))
+			{
+				if(Partie.getJoueur(i) == Donne.getPreneur())
+				{
+					
+				}
+				else
+				{
+					
+				}
+			}
+			else
+			{
+				if(Partie.getJoueur(i) == Donne.getPreneur())
+				{
+					
+				}
+				else if (Partie.getJoueur(i) == Donne.getPreneur())
+				{
+					
+				}
+				else
+				{
+					
+				}
+			}
+		}
+	}
+	/*
+	 * @author JB
+	 * 
+	 * calcule le gain (qu'il soit negatif ou positif) de la donne
+	 * il faut ensuite repartir equitablement entre le preneur et les defenseur et eventuellement l'attaquant
+	 */
+	public int calculGainPartie(Contrat typeDuContrat, int pointsDansLeVecteurAttaque, int nombreDeBoutDuPreneur)
+	{
+		int gain = calculGain(typeDuContrat, pointsDansLeVecteurAttaque, nombreDeBoutDuPreneur);
+		
+		
+		if (PrefsRegles.ManiereDeCompter)
+		{
+			if(gain < 0)
+			{
+				// ! faire l'arrondissement des point ici
+				gain += -25;
+			}
+			else if (gain >= 0)
+			{
+				gain += 25;
+			}
+			
+			if(typeDuContrat == Contrat.PETITE)
+			{
+				gain *= 1;
+			}
+			else if (typeDuContrat == Contrat.GARDE)
+			{
+				gain *= 2;
+			} else if (typeDuContrat == Contrat.GARDE_SANS)
+			{
+				gain *= 4;
+			} else if (typeDuContrat == Contrat.GARDE_CONTRE)
+			{
+				gain *= 6;
+			}
+			else
+			{
+				System.out.println("Il y eu un souci au niveau du type de contrat\n classe Score methode calculGainPartie ");
+			}
+		}
+		else
+		{
+			// ! faire la deuxieme façon de compter
+		}
+
+		return gain;
+
 	}
 
 	/* test de classe */
