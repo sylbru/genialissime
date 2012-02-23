@@ -8,15 +8,14 @@ import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
 
 public class Donne
 {
-	private static Carte Parti[];
 	private static Main mainsDesJoueurs[];
 	private static Carte chien[];
 	
 	private static Contrat contratEnCours;
 	private static Joueur preneur;
-	private static Joueur appelee;//LE joueur appele dans le mode a 5 joueurs
-	private static Carte plisEnCours[] = new Carte[Partie.getNombreDeJoueurs()];
-	private static Carte plisPrecedent[] = new Carte[Partie.getNombreDeJoueurs()];
+	private static Joueur appelee;// LE joueur appele dans le mode a 5 joueurs
+	private static Carte plisEnCours[];
+	private static Carte plisPrecedent[];
 	
 	private static int numJoueurEntame; // premier à jouer dans le pli
 	// protected pour calculer les pts des plis Attaque/Defense
@@ -60,7 +59,7 @@ public class Donne
 		 // random(Min/Max) permette de savoir sur quel intervalle on doit faire le random
 		 
 		 int j=0,k=0;
-		 		 
+		 	 
 		 possibilitesMisesAuChien = (( Constantes.NOMBRE_CARTES_TOTALES - nombreDeCartesPourLeChien ) / Constantes.CARTES_DISTRIBU_PAR_JOUEUR) ;
 		 
 		 //je pense que ici sa doit etre !=0 
@@ -70,24 +69,31 @@ public class Donne
 			 
 			 randomMin = randomMin + (int)(Math.random() * ((randomMax - randomMin)+1));
 			 // ! il faut que la valeur de retour soit comprise entre ]randomMin,randomMax] !
-			 
+			 System.out.println("randomMin = "+randomMin);
 			 //nombreDeCartesMisesAuChien = (int) Math.random()*100 % 3; 
 			 
 			 while(j<=(randomMin*Constantes.CARTES_DISTRIBU_PAR_JOUEUR))
 			 {
+				 System.out.print("Ajoute à joueur "+numeroDuJoueur+" ");
+				 System.out.print(Partie.getCarteDansTas(j).toString()+", ");
 				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
+				 System.out.print(Partie.getCarteDansTas(j).toString()+", ");
 				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
+				 System.out.print(Partie.getCarteDansTas(j).toString()+".");
 				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
 				 numeroDuJoueur = getNumJoueurApres(numeroDuJoueur);
+				 System.out.println();
 			 }
 			 for(int l=0;l<=nombreDeCartesMisesAuChien;l++)
 			 {
+				 System.out.println("k="+k);
 				 chien[k]=Partie.getCarteDansTas(j);
-				 Donne.reveleChien();
+				 System.out.println(chien[k].toString());
 				 j++;
 				 k++;
 				 randomMin++;
 			 }
+			 
 			 
 		}
 		 while(j<Constantes.NOMBRE_CARTES_TOTALES-1)
@@ -194,7 +200,6 @@ public class Donne
 				// ! il va faloir creer une méthode à peu près la même mais qui prend le plis en cours et dit au joueur quelles sont les cartes de sa main jouable
 				nbCartesPosees++;
 				numJoueur = getNumJoueurApres(numJoueur);
-				// ? c'est pas ici qu'il faut regarder si la carte jouer est legal ?
 			}
 			// nbCartesPosees == nbJoueurs : le tour est fini
 			numJoueurVainqueurPli = vainqueurDuPlis(plisEnCours);
@@ -366,6 +371,12 @@ public class Donne
 		Donne.contratEnCours = contratEnCours;
 	}
 	
+	/**
+	 * @author niavlys
+	 * @param numJoueur un joueur
+	 * @return Le numéro du joueur se trouvant après le joueur désigné en paramètre
+	 * TODO: gérer le sens de rotation (à voir avec PrefsRegles)
+	 */
 	public static int getNumJoueurApres(int numJoueur)
 	{
 		return (numJoueur+1)%Partie.getNombreDeJoueurs();
@@ -428,12 +439,14 @@ public class Donne
 	public static void init()
 
 	{
-		mainsDesJoueurs = new Main[Partie.getNombreDeJoueurs()];
-	}
+	mainsDesJoueurs = new Main[Partie.getNombreDeJoueurs()];
+		}
 	private void initialisationDonne()
 	{
 		plisDefense = new Vector<Carte>();
 		plisAttaque = new Vector<Carte>();
+		plisEnCours = new Carte[Partie.getNombreDeJoueurs()];
+		plisEnCours = new Carte[Partie.getNombreDeJoueurs()];
 	}
 
 

@@ -86,6 +86,7 @@ public class Partie
 	 */
 	protected static void initialisationPartie()
 	{
+		Contrat.initialiserContrats();
 		scores = new Scores();
 		nombreDeCartesPourLeChien = (nombreDeJoueurs == 5)? 3 : 6;
 
@@ -219,7 +220,6 @@ public class Partie
 	public static void lancerPartie()
 	{
 		initialisationPartie();
-		// Contrat.init()
 		//Donne.init();
 		while(!partieFinie())
 		{

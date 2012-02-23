@@ -11,30 +11,35 @@ public class Contrat
 	private int facteur;
 	private int valeurContrat;
 
+	private boolean autorisé; // cool si pas de problème avec l’accent (en tout cas ça semble autorisé en Java)
+
 	/*
 	 * --------------------------------------------------------------------------------------------
 	 * -----------------------------------Constructeurs--------------------------------------------
 	 * --------------------------------------------------------------------------------------------
 	 */
-	public Contrat(String nom, int poids)
+	private Contrat(boolean autorisé, String nom, int poids)
 	{
+		this.autorisé = autorisé;
 		this.nom = nom;
 		// ! la valeur de chienRevele et de chienPourAttaque depende du nom de contrat � modifier :
 		chienRevele = true;
-		chienPourAttaque = false;
+		chienPourAttaque = true;
 	}
 	
-	public Contrat(String nom, int poids, boolean chienRevele)
+	private Contrat(boolean autorisé, String nom, int poids, boolean chienRevele)
 	{
+		this.autorisé = autorisé;
 		this.nom = nom;
 		this.poids = poids;
 		this.chienRevele = chienRevele;
 		// ! pareil que pour le constructeur pr�c�dent.
-		chienPourAttaque = false;
+		chienPourAttaque = true;
 	}
 	
-	public Contrat(String nom, int poids, boolean chienRevele, boolean chienPourAttaque)
+	private Contrat(boolean autorisé, String nom, int poids, boolean chienRevele, boolean chienPourAttaque)
 	{
+		this.autorisé = autorisé;
 		this.nom = nom;
 		this.poids = poids;
 		this.chienRevele = chienRevele;
@@ -47,8 +52,9 @@ public class Contrat
 	 * ----------------------------------------------------------------------------------------------------
 	 */
 	
-	public Contrat(String nom, int poids, boolean chienRevele, boolean chienPourAttaque, int facteur, int valeurContrat)
+	public Contrat(boolean autorisé, String nom, int poids, boolean chienRevele, boolean chienPourAttaque, int facteur, int valeurContrat)
 	{
+		this.autorisé = autorisé;
 		this.nom = nom;
 		this.poids = poids;
 		this.chienRevele = chienRevele;
@@ -78,10 +84,25 @@ public class Contrat
 	{
 		return chienPourAttaque;
 	}
-
-	public void setChienPourAttaque(boolean chienPourAttaque)
+	
+	public void setFacteur(int facteur)
 	{
-		this.chienPourAttaque = chienPourAttaque;
+		this.facteur = facteur;
+	}
+	
+	public void setValeurContrat(int valeurContrat)
+	{
+		this.valeurContrat = valeurContrat;
+	}
+	
+	public void autoriser()
+	{
+		this.autorisé = true;
+	}
+	
+	public void interdire()
+	{
+		this.autorisé = false;
 	}
 	
 	public String toString()
@@ -118,59 +139,88 @@ public class Contrat
 	
 	// Initialisation des différents contrats existants (permettre d’en désactiver certains selon les options)
 	
-	public static Contrat AUCUN = new Contrat("Aucune prise", -1); // utilisé seulement pour contratEnCours,
-																   // quand tout le monde a passé
-	public static Contrat PASSE = new Contrat("Passe", 0);
-	public static Contrat PETITE = new Contrat("Petite", 1); // ! à voir entre pouce
-	public static Contrat POUSSE = new Contrat("Pousse", 2);   // !     et petite
-	public static Contrat GARDE = new Contrat("Garde", 3);
-	public static Contrat GARDE_SANS = new Contrat("Garde sans", 4, false);
-	public static Contrat GARDE_CONTRE = new Contrat("Garde contre", 5, false, true);
+	public static Contrat AUCUN = new Contrat(true, "Aucune prise", -1); // utilisé seulement pour contratEnCours,
+																   		 // quand tout le monde a passé
+	public static Contrat PASSE = new Contrat(false, "Passe", 0);
+	public static Contrat PAROLE = new Contrat(false, "Parole", 1);
+	public static Contrat PETITE = new Contrat(false, "Petite", 2);
+	public static Contrat POUSSE = new Contrat(false, "Pousse", 3);
+	public static Contrat GAE = new Contrat(false, "G.A.E.", 4);
+	public static Contrat GARDE = new Contrat(true, "Garde", 5);
+	public static Contrat GARDE_SANS = new Contrat(true, "Garde sans", 6, false);
+	public static Contrat GARDE_CONTRE = new Contrat(true, "Garde contre", 7, false, false);
 	
-	public void initialiseContrat() //methode qui autorise ou non les contrats selon le type de comptage de points
+	public static void initialiserContrats() // methode qui autorise ou non les contrats selon le type de comptage de points
 	{
-		Contrat PASSE = new Contrat("Passe", 0, true, false, 0, 0);
-		
-		if (PrefsRegles.ManiereDeCompter == true)
+		if (PrefsRegles.ManiereDeCompter == true) // valeurContrat toujours à 25, c’est facteur qui change
 		{
 			if(PrefsRegles.autoriserParole)
 			{
-				Contrat PAROLE = new Contrat("Parole", 10, true, true, 1, 25);
+				Contrat.PAROLE.autoriser();
+				Contrat.PAROLE.setFacteur(1);
+				Contrat.PAROLE.setValeurContrat(25);
 			}
 			if(PrefsRegles.autoriserPetite)
 			{
-				Contrat PETITE = new Contrat("Petite", 20, true, true, 1, 25);
-			}
-			if(PrefsRegles.autoriserGAE)
-			{
-				Contrat GAE = new Contrat("GAE", 40, true, true, 2, 25);
-			}
-			Contrat GARDE = new Contrat("Garde", 50, true, true, 2, 25);
-			Contrat GARDE_SANS = new Contrat("Garde sans", 60, false, true, 4, 25);
-			Contrat GARDE_CONTRE = new Contrat("Garde contre", 70, false, false, 6, 25);
-		}
-		else
-		{
-			if(PrefsRegles.autoriserParole)
-			{
-				Contrat PAROLE = new Contrat("Parole", 10, true, true, 1, 20);
-			}
-			if(PrefsRegles.autoriserPetite)
-			{
-				Contrat PETITE = new Contrat("Petite", 20, true, true, 1, 20);
+				Contrat.PETITE.autoriser();
+				Contrat.PETITE.setFacteur(1);
+				Contrat.PETITE.setValeurContrat(25);
 			}
 			if(PrefsRegles.autoriserPousse)
 			{
-				Contrat POUSSE = new Contrat("Pousse", 30, true, true, 1, 20);
+				Contrat.POUSSE.autoriser();
+				// facteur ?
+				Contrat.POUSSE.setValeurContrat(25);
 			}
 			if(PrefsRegles.autoriserGAE)
 			{
-				Contrat GAE = new Contrat("GAE", 40, true, true, 1, 40);
+				Contrat.GAE.autoriser();
+				Contrat.GAE.setFacteur(2);
+				Contrat.GAE.setValeurContrat(25);
 			}
-			Contrat GARDE = new Contrat("Garde", 50, true, true, 1, 40);
-			Contrat GARDE_SANS = new Contrat("Garde sans", 60, false, true, 1, 80);
-			Contrat GARDE_CONTRE = new Contrat("Garde contre", 70, false, false, 1, 160);
-		
+			Contrat.GARDE.setValeurContrat(25);
+			Contrat.GARDE_SANS.setValeurContrat(25);
+			Contrat.GARDE_CONTRE.setValeurContrat(25);
+			
+			Contrat.GARDE.setFacteur(2);
+			Contrat.GARDE.setFacteur(4);
+			Contrat.GARDE.setFacteur(6);
+		}
+		else // facteur toujours à 1, c’est valeurContrat qui change
+		{
+			if(PrefsRegles.autoriserParole)
+			{
+				Contrat.PAROLE.autoriser();
+				Contrat.PAROLE.setFacteur(1);
+				Contrat.PAROLE.setValeurContrat(10);
+			}
+			if(PrefsRegles.autoriserPetite)
+			{
+				Contrat.PETITE.autoriser();
+				Contrat.PETITE.setFacteur(1);
+				Contrat.PETITE.setValeurContrat(10);
+				// pour moi c’était 10 pour la petite et 20 pour la pousse, donc je l’ai changé,
+				// mais si quelqu’un est pas d’accord on pourra en discuter :)
+			}
+			if(PrefsRegles.autoriserPousse)
+			{
+				Contrat.POUSSE.autoriser();
+				Contrat.POUSSE.setFacteur(1);
+				Contrat.POUSSE.setValeurContrat(20);
+			}
+			if(PrefsRegles.autoriserGAE)
+			{
+				Contrat.GAE.autoriser();
+				Contrat.GAE.setFacteur(1);
+				Contrat.GAE.setValeurContrat(40);
+			}
+			Contrat.GARDE.setFacteur(1);
+			Contrat.GARDE_SANS.setFacteur(1);
+			Contrat.GARDE_CONTRE.setFacteur(1);
+			
+			Contrat.GARDE.setValeurContrat(40);
+			Contrat.GARDE_SANS.setValeurContrat(80);
+			Contrat.GARDE_CONTRE.setValeurContrat(160);
 		}
 	}
 	
