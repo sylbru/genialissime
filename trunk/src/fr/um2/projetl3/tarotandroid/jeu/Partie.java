@@ -13,12 +13,16 @@ public class Partie
 	private static Joueur[] joueurs; // initialisé de taille 3, 4 ou 5 selon type partie
 	private static Scores scores;
 	private static int nombreDeJoueurs;
+	private static int nombreDeCartesPourLeChien;
 	private static Carte[] tas; // le tas de carte, repris à la fin d’une donne pour être redistribué
 	private static Donne donneEnCours;
-	private static int nombreDeCartesPourLeChien;
-	
 	private static boolean stopPartie; 
 	
+	/*
+	 * --------------------------------------------------------------------------------------------
+	 * ------------------------------------ accesseur --------------------------------------------
+	 * --------------------------------------------------------------------------------------------
+	 */
 	public static Carte getCarteDansTas(int i)
 	{
 		return tas[i];
@@ -75,6 +79,11 @@ public class Partie
 
 	}
 
+	/*
+	 * --------------------------------------------------------------------------------------------
+	 * ------------------------------------ Initialisation --------------------------------------------
+	 * --------------------------------------------------------------------------------------------
+	 */
 	protected static void initialisationPartie()
 	{
 		scores = new Scores();
@@ -109,6 +118,47 @@ public class Partie
 		/**/
 		
 		Collections.shuffle(Arrays.asList(tas)); // on mélange (avant la première donne)
+	}
+
+	/*
+	 * --------------------------------------------------------------------------------------------
+	 * ------------------------------------ Méthodes --------------------------------------------
+	 * --------------------------------------------------------------------------------------------
+	 */
+	
+	/*
+	 * Utilisé pour regrouper les différents paquets de cartes pour reformer
+	 * le tas à la fin de la donne. Fonctionne uniquement si tas[] est vide.
+	 */
+	protected static void setTas(Carte[] nouveauTas)
+	{
+		if(tas.length > 0)
+			System.out.println("Erreur : tentative de setTas() avec tas[] non vide");
+		else
+			tas = nouveauTas;
+	}
+	
+	/**
+	 * @author niavlys
+	 * @return true si la partie est maintenant finie, en fonction des options dans PrefsRegles
+	 */
+	public static boolean partieFinie()
+	{
+		if(!PrefsRegles.conditionFinDePartie)
+			return stopPartie;
+		else
+		{
+			if(PrefsRegles.conditionFinDonnesMax)
+			{
+				return (scores.nbDonnes() >= PrefsRegles.donnesMax);
+			}
+			else if(PrefsRegles.conditionFinScoreMax)
+			{
+				return (scores.meilleurScore() >= PrefsRegles.scoreMax);
+			}
+			else
+				return true; // comme ça on verra tout de suite si on arrive dans ce cas (pas normal)
+		}
 	}
 	
 	public static boolean verificatioSiEcartPasValide(Carte[] ecart)
@@ -165,9 +215,11 @@ public class Partie
 			Donne.mettreChienDansLesPlisDeLaDefense();
 		}
 	}
+	
 	public static void lancerPartie()
 	{
 		initialisationPartie();
+		// Contrat.init()
 		//Donne.init();
 		while(!partieFinie())
 		{
@@ -199,41 +251,12 @@ public class Partie
 		}
 	}
 	
+
 	/*
-	 * Utilisé pour regrouper les différents paquets de cartes pour reformer
-	 * le tas à la fin de la donne. Fonctionne uniquement si tas[] est vide.
+	 * --------------------------------------------------------------------------------------------
+	 * -----------------------------------------TEST--------------------------------------------
+	 * --------------------------------------------------------------------------------------------
 	 */
-	protected static void setTas(Carte[] nouveauTas)
-	{
-		if(tas.length > 0)
-			System.out.println("Erreur : tentative de setTas() avec tas[] non vide");
-		else
-			tas = nouveauTas;
-	}
-	
-	/**
-	 * @author niavlys
-	 * @return true si la partie est maintenant finie, en fonction des options dans PrefsRegles
-	 */
-	public static boolean partieFinie()
-	{
-		if(!PrefsRegles.conditionFinDePartie)
-			return stopPartie;
-		else
-		{
-			if(PrefsRegles.conditionFinDonnesMax)
-			{
-				return (scores.nbDonnes() >= PrefsRegles.donnesMax);
-			}
-			else if(PrefsRegles.conditionFinScoreMax)
-			{
-				return (scores.meilleurScore() >= PrefsRegles.scoreMax);
-			}
-			else
-				return true; // comme ça on verra tout de suite si on arrive dans ce cas (pas normal)
-		}
-	}
-	
 	public static void lancerPartie4JoueursTexte()
 	{
 		setNombreDeJoueurs(4);

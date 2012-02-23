@@ -11,6 +11,11 @@ public class Contrat
 	private int facteur;
 	private int valeurContrat;
 
+	/*
+	 * --------------------------------------------------------------------------------------------
+	 * -----------------------------------Constructeurs--------------------------------------------
+	 * --------------------------------------------------------------------------------------------
+	 */
 	public Contrat(String nom, int poids)
 	{
 		this.nom = nom;
@@ -35,7 +40,12 @@ public class Contrat
 		this.chienRevele = chienRevele;
 		this.chienPourAttaque = chienPourAttaque;
 	}
-	// ! Proposition d'un constructeur alternatif mais finalement je pense que �a sert � rien � voir pour plus tard
+
+	/*
+	 * ----------------------------------------------------------------------------------------------------
+	 * ----------------------------------- getteur / setteur ----------------------------------------------
+	 * ----------------------------------------------------------------------------------------------------
+	 */
 	
 	public Contrat(String nom, int poids, boolean chienRevele, boolean chienPourAttaque, int facteur, int valeurContrat)
 	{
@@ -46,30 +56,7 @@ public class Contrat
 		this.facteur = facteur;
 		this.valeurContrat = valeurContrat;
 	}
-	/**
-	public Contrat(String nom)
-	{
-		this.nom = nom;
-		this.poids = poids;
-		
-		switch(nom)
-		{
-			case AUCUN :  
-				
-			case PETITE :  
-				
-			case POUCE : 
-			
-			case GARDE :
-			
-			case GARDE_SANS :
-			
-			case GARDE_CONTRE :
-				
-			
-		}
-	}
-	/**/
+	
 	public String getName()
 	{
 		return nom;
@@ -102,6 +89,12 @@ public class Contrat
 		return getName();
 	}
 	
+	/*
+	 * ----------------------------------------------------------------------------------------------
+	 * ----------------------------------- méthodes spécifique --------------------------------------
+	 * ----------------------------------------------------------------------------------------------
+	 */
+	
 	public boolean controleContrats(Contrat a,Contrat b)
 	{
 		if(b.getPoids()==0)
@@ -113,6 +106,15 @@ public class Contrat
 		else return false;
 		
 	}
+	
+	/*
+	 * ------------------------------------------------------------------------------------------------
+	 * ---------------------------------Initialisation des contrats------------------------------------
+	 * ------------------------------------Deux façon differentes--------------------------------------
+	 * -------------------Les contrats à initialisées dépende des preference---------------------------
+	 * -------------------Quand on lance une partie les préférence sont déjà définie-------------------
+	 * ------------------------------------------------------------------------------------------------
+	 */
 	
 	// Initialisation des différents contrats existants (permettre d’en désactiver certains selon les options)
 	

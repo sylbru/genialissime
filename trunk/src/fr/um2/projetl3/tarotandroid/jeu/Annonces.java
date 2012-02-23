@@ -5,6 +5,14 @@ import fr.um2.projetl3.tarotandroid.clients.Joueur;
 
 public class Annonces 
 {
+	/*
+	 *  ---------------------------------------------------------------------------------------------
+	 *  ---------------------Je ne sais quoi rajouter dans annonce----------------------------------
+	 *  -------------------                                              ------------------------------
+	 *  ---------------------------manque un TODO à faire ici------------------------------------------
+	 *  ---------------------------------------------------------------------------------------------
+	 */
+	
 	/**
 	 * @author JB
 	 *   permet de connaitre le preneur et le type de contrat fait par le joueur
@@ -15,7 +23,7 @@ public class Annonces
 	public static void phaseAnnonce()
 	{
 		boolean conditionArret = true;
-		int numeroDuJoueur = 0; // numero du joueur apres celui qui distribue
+		int numeroDuJoueur = 0; // numero du joueur apres celui qui distribue faudrait peut etre le passer en argument ou aller le chercher dans donne.joue...
 		int compteurPourToutLeMondePasse = 0;
 		int nombreDeJoueur=Partie.getNombreDeJoueurs(); 
 		Contrat contrat = new Contrat("Aucune prise", -1);
@@ -42,7 +50,9 @@ public class Annonces
 				{
 				
 					contrat = Partie.getJoueur(numeroDuJoueur).demanderAnnonce(contrat);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
-		
+					
+					System.out.println("Contrat du joueur"+Partie.getJoueur(numeroDuJoueur).getNomDuJoueur()+" : "+contrat.getName());
+					
 					tableauDesContrat[numeroDuJoueur] = contrat ; // on stocke les contrat que les joueur veulent faire
 	
 					
@@ -99,41 +109,5 @@ public class Annonces
 				}
 			}
 		}
-	}
-	/*
-	public void annonce4joueurs()
-	{
-	
-		Contrat con = Contrat.PASSE;
-		Contrat controle = Contrat.PASSE;
-		for(int i=0; i<8 ; i++ )
-		{
-			controle = demandejouer(con,i%4);
-			if	(controleContrats(con,controle))
-			{
-				if (controle.getName()=="Passe"){
-					informejoueurs(con,controle);
-				}
-				con=controle;
-				informejoueurs(con);
-			}
-			else
-			{
-				gardeillegale(i%4);
-			}
-		}
-	}
-	*/
-	
-	public static void informejoueurs(Contrat ancien, Contrat nouveau){
-		//TO-DO informe tous les joueurs si le jouer n'a pas pris de contrats ou si le contrats a augmente
-	}
-	public static void informejoueurs(Contrat con){
-		//TO-DO informe tous les joueurs si le jouer n'a pas pris de contrats ou si le contrats a augmente
-	}
-	
-	public static void gardeillegale(int i){
-		//TO-DO informe le jouer i que sa garde est illegale
-		// ! je comprend pas cette m�thode en quoi une garde est illegale ( �quel moment une garde peut �tre ill�gale) ?
 	}
 }
