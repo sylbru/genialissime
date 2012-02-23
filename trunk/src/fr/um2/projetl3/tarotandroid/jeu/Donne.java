@@ -53,7 +53,7 @@ public class Donne
 		 int randomMax;
 		 // random(Min/Max) permette de savoir sur quel intervalle on doit faire le random
 		 
-		 int j=0,l,k=0;
+		 int j=0,k=0;
 		 		 
 		 possibilitesMisesAuChien = (( Constantes.NOMBRE_CARTES_TOTALES - nombreDeCartesPourLeChien ) / Constantes.CARTES_DISTRIBU_PAR_JOUEUR) ;
 		 
@@ -74,9 +74,8 @@ public class Donne
 				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
 				 numeroDuJoueur = getNumJoueurApres(numeroDuJoueur);
 			 }
-			 for(l=0;l<=nombreDeCartesMisesAuChien;l++)
+			 for(int l=0;l<=nombreDeCartesMisesAuChien;l++)
 			 {
-
 				 chien[k]=Partie.getCarteDansTas(j);
 				 Donne.reveleChien();
 				 j++;
