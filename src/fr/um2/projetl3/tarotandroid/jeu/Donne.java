@@ -24,6 +24,12 @@ public class Donne
 	protected static Vector<Carte> plisDefense;
 	private static int numJoueurPremier; // celui qui distribue dans la donne (utilisé pour le premier tour)
 	
+	
+	/*
+	 * --------------------------------------------------------------------------------------------
+	 * -----------------------------------Distribution--------------------------------------------
+	 * --------------------------------------------------------------------------------------------
+	 */
 	/**
 	 * @author JB
 	 * 
@@ -97,6 +103,11 @@ public class Donne
 		 } 
 	}
 
+		/*
+		 * --------------------------------------------------------------------------------------------
+		 * ------------------------------------ Méthodes --------------------------------------------
+		 * --------------------------------------------------------------------------------------------
+		 */
 	 /** Méthode fini mais à tester
 	  *  // TODO test
 	  * @author JB
@@ -159,16 +170,11 @@ public class Donne
 			return indice;
 		}
 	 }
-	/**/
-	 // fin de la fonction vianqueur du plis
 
-
-	public static int getNumJoueurApres(int numJoueur)
-	{
-		return (numJoueur+1)%Partie.getNombreDeJoueurs();
-	}
-
-	public void jeuDeLaCarte() // que fait cette méthode il est censé y avoir une explication de celle ci avant ... (surtout que le nom choisit ne l'explicite pas)
+	 /**
+	  * explication à donner ....
+	  */
+	public void jeuDeLaCarte()
 	{
 		numJoueurEntame = getNumJoueurApres(numJoueurPremier); // le premier à jouer (celui qui est après le donneur)
 		int nbCartesPosees; // cartes posées dans le tour (de 1 à 4, si 4 joueurs)
@@ -212,37 +218,6 @@ public class Donne
 			
 			numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagné le pli entame au tour suivant
 		}
-	}
-	
-	private void initialisationDonne()
-	{
-		plisDefense = new Vector<Carte>();
-		plisAttaque = new Vector<Carte>();
-	}
-
-	/**
-	 * @author niavlys
-	 * @return true si le joueur passé en paramètre est en attaque
-	 * @param num numéro du joueur concerné
-	 */
-	public boolean isJoueurAttaque(int num)
-	{
-		if(Partie.getNombreDeJoueurs()==5)
-		{
-			return (num == preneur.getID() || num ==appelee.getID()); // ? est-ce que getID() correspond bien à la position/au numéro ? // ! oubli d'implementatinon pour le jeu à cinq ||joueurAppeler.getID
-		}
-		else 
-			return num == preneur.getID();
-	}
-	
-	/**
-	 * @author niavlys
-	 * @return true si le joueur passé en paramètre est en défense
-	 * @param num numéro du joueur concerné
-	 */
-	public boolean isJoueurDefense(int num)
-	{
-		return !isJoueurAttaque(num); 
 	}
 	
 	/**
@@ -316,7 +291,7 @@ public class Donne
 	/**
 	 * Demande au joueur de jouer une carte et vérifie si elle est légale. 
 	 * @param num La position du joueur
-	 * 
+
 	 */
 	public Carte demanderCarteJoueur(int num) 
 	{
@@ -363,14 +338,27 @@ public class Donne
 		//Partie.setTas(nouveauTas);
 		System.out.println(nouveauTas.length+"\n"+nouveauTas);
 	}
+	/*
+	 * ---------------------------------------------------------------------------------------------------
+	 * -------------------------------------- accesseur --------------------------------------------------
+	 * ---------------------------------------------------------------------------------------------------
+	 */
 	
-	public static void main(String[] args)
+	public boolean isJoueurAttaque(int num)
 	{
-		// Donne donne = new Donne(); // bon c’est le bordel entre les méthodes statiques et les non-statiques,
-									// faudra en discuter.
-		Partie.lancerPartie4JoueursTexte();
-		
+		if(Partie.getNombreDeJoueurs()==5)
+		{
+			return (num == preneur.getID() || num ==appelee.getID()); // ? est-ce que getID() correspond bien à la position/au numéro ? // ! oubli d'implementatinon pour le jeu à cinq ||joueurAppeler.getID
+		}
+		else 
+			return num == preneur.getID();
 	}
+	
+	public boolean isJoueurDefense(int num)
+	{
+		return !isJoueurAttaque(num); 
+	}
+	
 	public static Contrat getContratEnCours() {
 		return contratEnCours;
 	}
@@ -378,6 +366,11 @@ public class Donne
 		Donne.contratEnCours = contratEnCours;
 	}
 	
+	public static int getNumJoueurApres(int numJoueur)
+	{
+		return (numJoueur+1)%Partie.getNombreDeJoueurs();
+	}
+
 	public static Joueur getPreneur() {
 		return preneur;
 	}
@@ -427,57 +420,29 @@ public class Donne
 		}
 	}
 	
-	/*redondant avec jeu de la carte
-	
-	
-	public void faireUnPli()
-	{	
-		int vainqueurPli;
-		int numJoueur;
-		int nbreDeJoueurs = Partie.getNombreDeJoueurs();
-		for(int i = 0 ; i<nbreDeJoueurs ; i++)
-		{
-			int a = (i + numJoueurEntame)% nbreDeJoueurs; // 
-			numJoueur = getNumJoueurApres(a);
-			plisEnCours[i] = demanderCarteJoueur(a);
-		}
-		
-		vainqueurPli =  vainqueurDuPlis(plisEnCours);
-		if(isJoueurAttaque(vainqueurPli))
-		{
-			plisAttaque.addAll(Arrays.asList(plisEnCours));
-		}
-		else
-		{
-			plisDefense.addAll(Arrays.asList(plisEnCours));
-		}
-		
-		for(int i = 0 ; i < nbreDeJoueurs ; i++)
-		{
-			plisPrecedent[i] = plisEnCours[i];
-			plisEnCours[i] = null;
-		}
-		
-		numJoueurEntame = vainqueurPli;
-	}
-
-	
-	
-	public void phasePli(){
-		while(!donneFinie())
-		{
-			faireUnPli();
-		}
-		
-	}
-*/	
-	/**
-	 * Pour initialiser les tableaux. On peut pas le mettre en statique parce que
-	 * ça dépend du nombre de joueurs, donc ça doit être fait une fois qu’il est défini.
+	/*
+	 * ------------------------------------------------------------------------------------------
+	 * -------------------------------Initialisations---------------------------------------------
+	 * -------------------------------------------------------------------------------------------
 	 */
 	public static void init()
+
 	{
 		mainsDesJoueurs = new Main[Partie.getNombreDeJoueurs()];
 	}
+	private void initialisationDonne()
+	{
+		plisDefense = new Vector<Carte>();
+		plisAttaque = new Vector<Carte>();
+	}
+
+
 	
+	public static void main(String[] args)
+	{
+		// Donne donne = new Donne(); // bon c’est le bordel entre les méthodes statiques et les non-statiques,
+									// faudra en discuter.
+		Partie.lancerPartie4JoueursTexte();
+		
+	}
 }
