@@ -7,5 +7,7 @@ public class Constantes
 	public static final int TOTAL_DES_POINTS_DANS_LE_JEU = 91;
 	public static final int NOMBRE_DE_BOUTS = 3;
 	
-	// ? d'autres constantes ?
+	// ? d'autres constantes à ajouter si vous en voyer
+	
+	// ! les constantes sont definit sur l'univers d'un jeu de tarot ! 
 }
