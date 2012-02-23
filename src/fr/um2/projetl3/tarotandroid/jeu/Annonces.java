@@ -23,15 +23,15 @@ public class Annonces
 	public static void phaseAnnonce()
 	{
 		boolean conditionArret = true;
-		int numeroDuJoueur = 0; // numero du joueur apres celui qui distribue faudrait peut etre le passer en argument ou aller le chercher dans donne.joue...
+		int numeroDuJoueur = Donne.getNumJoueurApres(Donne.getNumDonneur());
 		int compteurPourToutLeMondePasse = 0;
-		int nombreDeJoueur=Partie.getNombreDeJoueurs(); 
+		int nombreDeJoueurs=Partie.getNombreDeJoueurs(); 
 		Contrat contrat = Contrat.AUCUN;
 		Contrat controle = Contrat.AUCUN;
 
-		Contrat tableauDesContrat[] = new Contrat[nombreDeJoueur]; 
+		Contrat tableauDesContrat[] = new Contrat[nombreDeJoueurs]; 
 		
-		for(int i=0;i<nombreDeJoueur;i++){
+		for(int i=0;i<nombreDeJoueurs;i++){
 			tableauDesContrat[i]=Contrat.AUCUN;
 		}
 		
@@ -74,7 +74,7 @@ public class Annonces
 								joueurQuiVaPrendre = Partie.getJoueur(numeroDuJoueur);
 							}
 						}
-						if(numeroDuJoueur == nombreDeJoueur) // si le numero du joueur est egal au nbr de joueur on as fait un tour d'annonce
+						if(numeroDuJoueur == nombreDeJoueurs) // si le numero du joueur est egal au nbr de joueur on as fait un tour d'annonce
 						{
 							// si il y a une seule prise on lance la partie
 							if (combienVeulentPrendre == 0) // dans ce cas l� �a veux dire que tout le monde � passer
@@ -99,10 +99,10 @@ public class Annonces
 		}
 		Donne.setContratEnCours(contrat);
 		Donne.setPreneur(joueurQuiVaPrendre);
-		if(nombreDeJoueur==5)
+		if(nombreDeJoueurs==5)
 		{
 			CarteCouleur Roi = joueurQuiVaPrendre.appelerRoi();
-			for(int i = 0; i<nombreDeJoueur; i++)
+			for(int i = 0; i<nombreDeJoueurs; i++)
 			{
 				if(Partie.getJoueur(i).possedeRoi(Roi)){
 					Donne.setJoueurAppele(Partie.getJoueur(i));
