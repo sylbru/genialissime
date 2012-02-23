@@ -26,8 +26,8 @@ public class Annonces
 		int numeroDuJoueur = 0; // numero du joueur apres celui qui distribue faudrait peut etre le passer en argument ou aller le chercher dans donne.joue...
 		int compteurPourToutLeMondePasse = 0;
 		int nombreDeJoueur=Partie.getNombreDeJoueurs(); 
-		Contrat contrat = new Contrat("Aucune prise", -1);
-		Contrat controle = new Contrat("Aucune prise", -1);
+		Contrat contrat = Contrat.AUCUN;
+		Contrat controle = Contrat.AUCUN;
 
 		Contrat tableauDesContrat[] = new Contrat[nombreDeJoueur]; 
 		
