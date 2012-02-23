@@ -1,5 +1,6 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
+import java.awt.font.NumericShaper;
 import java.util.Arrays;
 import java.util.Vector;
 
@@ -21,7 +22,7 @@ public class Donne
 	// protected pour calculer les pts des plis Attaque/Defense
 	protected static Vector<Carte> plisAttaque; 
 	protected static Vector<Carte> plisDefense;
-	private static int numJoueurPremier; // celui qui distribue dans la donne (utilisé pour le premier tour)
+	private static int numDonneur; // celui qui distribue dans la donne (utilisé pour le premier tour)
 	
 	
 	/*
@@ -41,8 +42,9 @@ public class Donne
 
 	 public static void distribution()
 	 { 
+		 incrementerNumDonneur();
 		 int nombreDeJoueurs = Partie.getNombreDeJoueurs();
-		 int numeroDuJoueur = 0; // ! j'en ai besoin pour savoir à quel joueur je vais donner les cartes
+		 int numeroDuJoueur = getNumJoueurApres(numDonneur); // ! j'en ai besoin pour savoir à quel joueur je vais donner les cartes
 		 
 		 int possibilitesMisesAuChien = 0;		 
 		 int nombreDeCartesMisesAuChien = 0;
@@ -77,10 +79,13 @@ public class Donne
 				 System.out.print("Ajoute à joueur "+numeroDuJoueur+" ");
 				 System.out.print(Partie.getCarteDansTas(j).toString()+", ");
 				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
+				 
 				 System.out.print(Partie.getCarteDansTas(j).toString()+", ");
 				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
+				 
 				 System.out.print(Partie.getCarteDansTas(j).toString()+".");
 				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
+				 
 				 numeroDuJoueur = getNumJoueurApres(numeroDuJoueur);
 				 System.out.println();
 			 }
@@ -182,7 +187,7 @@ public class Donne
 	  */
 	public void jeuDeLaCarte()
 	{
-		numJoueurEntame = getNumJoueurApres(numJoueurPremier); // le premier à jouer (celui qui est après le donneur)
+		numJoueurEntame = getNumJoueurApres(numDonneur); // le premier à jouer (celui qui est après le donneur)
 		int nbCartesPosees; // cartes posées dans le tour (de 1 à 4, si 4 joueurs)
 		int numJoueur;
 		int numJoueurVainqueurPli;
@@ -382,6 +387,16 @@ public class Donne
 		return (numJoueur+1)%Partie.getNombreDeJoueurs();
 	}
 
+	public static int getNumDonneur()
+	{
+		return numDonneur;
+	}
+	
+	public static void incrementerNumDonneur()
+	{
+		numDonneur = getNumJoueurApres(numDonneur);
+	}
+	
 	public static Joueur getPreneur() {
 		return preneur;
 	}
@@ -437,16 +452,16 @@ public class Donne
 	 * -------------------------------------------------------------------------------------------
 	 */
 	public static void init()
-
 	{
-	mainsDesJoueurs = new Main[Partie.getNombreDeJoueurs()];
-		}
+		mainsDesJoueurs = new Main[Partie.getNombreDeJoueurs()];
+		plisEnCours = new Carte[Partie.getNombreDeJoueurs()];
+		plisEnCours = new Carte[Partie.getNombreDeJoueurs()];
+	}
+	
 	private void initialisationDonne()
 	{
 		plisDefense = new Vector<Carte>();
 		plisAttaque = new Vector<Carte>();
-		plisEnCours = new Carte[Partie.getNombreDeJoueurs()];
-		plisEnCours = new Carte[Partie.getNombreDeJoueurs()];
 	}
 
 
