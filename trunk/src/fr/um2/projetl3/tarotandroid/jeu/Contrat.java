@@ -7,6 +7,9 @@ public class Contrat
 	private int poids;
 	private boolean chienRevele;// on voit le chien ou pas ?
 	private boolean chienPourAttaque;// le chien est pour l'attaque ?
+	
+	private int facteur;
+	private int valeurContrat;
 
 	public Contrat(String nom, int poids)
 	{
@@ -33,6 +36,16 @@ public class Contrat
 		this.chienPourAttaque = chienPourAttaque;
 	}
 	// ! Proposition d'un constructeur alternatif mais finalement je pense que �a sert � rien � voir pour plus tard
+	
+	public Contrat(String nom, int poids, boolean chienRevele, boolean chienPourAttaque, int facteur, int valeurContrat)
+	{
+		this.nom = nom;
+		this.poids = poids;
+		this.chienRevele = chienRevele;
+		this.chienPourAttaque = chienPourAttaque;
+		this.facteur = facteur;
+		this.valeurContrat = valeurContrat;
+	}
 	/**
 	public Contrat(String nom)
 	{
@@ -111,5 +124,54 @@ public class Contrat
 	public static Contrat GARDE = new Contrat("Garde", 3);
 	public static Contrat GARDE_SANS = new Contrat("Garde sans", 4, false);
 	public static Contrat GARDE_CONTRE = new Contrat("Garde contre", 5, false, true);
+	
+	public void initialiseContrat() //methode qui autorise ou non les contrats selon le type de comptage de points
+	{
+		Contrat PASSE = new Contrat("Passe", 0, true, false, 0, 0);
+		
+		if (PrefsRegles.ManiereDeCompter == true)
+		{
+			if(PrefsRegles.autoriserParole)
+			{
+				Contrat PAROLE = new Contrat("Parole", 10, true, true, 1, 25);
+			}
+			if(PrefsRegles.autoriserPetite)
+			{
+				Contrat PETITE = new Contrat("Petite", 20, true, true, 1, 25);
+			}
+			if(PrefsRegles.autoriserGAE)
+			{
+				Contrat GAE = new Contrat("GAE", 40, true, true, 2, 25);
+			}
+			Contrat GARDE = new Contrat("Garde", 50, true, true, 2, 25);
+			Contrat GARDE_SANS = new Contrat("Garde sans", 60, false, true, 4, 25);
+			Contrat GARDE_CONTRE = new Contrat("Garde contre", 70, false, false, 6, 25);
+		}
+		else
+		{
+			if(PrefsRegles.autoriserParole)
+			{
+				Contrat PAROLE = new Contrat("Parole", 10, true, true, 1, 20);
+			}
+			if(PrefsRegles.autoriserPetite)
+			{
+				Contrat PETITE = new Contrat("Petite", 20, true, true, 1, 20);
+			}
+			if(PrefsRegles.autoriserPousse)
+			{
+				Contrat POUSSE = new Contrat("Pousse", 30, true, true, 1, 20);
+			}
+			if(PrefsRegles.autoriserGAE)
+			{
+				Contrat GAE = new Contrat("GAE", 40, true, true, 1, 40);
+			}
+			Contrat GARDE = new Contrat("Garde", 50, true, true, 1, 40);
+			Contrat GARDE_SANS = new Contrat("Garde sans", 60, false, true, 1, 80);
+			Contrat GARDE_CONTRE = new Contrat("Garde contre", 70, false, false, 1, 160);
+		
+		}
+	}
+	
+	
 	
 }
