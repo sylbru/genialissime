@@ -21,22 +21,22 @@ public interface Joueur
 	// ! Classe incompl�te, ne pas encore utiliser cette interface!
 	// TODO Finir l'interface Joueur
 	// TODO En faire une vraie interface (au sens Java) [?]
-	public abstract void setID(int pID);
-	public abstract int getID();
+	void setID(int pID);
+	int getID();
 
-	public abstract void setMain(Main pMain);
-	public abstract void addChienDansMain(Carte[] chien);
+	void setMain(Main pMain);
+	void addChienDansMain(Carte[] chien);
 
-	public abstract void setNomDuJoueur(String s);
-	public abstract String getNomDuJoueur();
+	void setNomDuJoueur(String s);
+	String getNomDuJoueur();
 
-	public abstract Contrat demanderAnnonce(Contrat contrat);
-	public abstract Carte[] demanderEcart();
+	Contrat demanderAnnonce(Contrat contrat);
+	Carte[] demanderEcart();
 	
-	public abstract Carte demanderCarte();
-	public abstract CarteCouleur appelerRoi();
-	public abstract boolean possedeRoi(CarteCouleur roi);
+	Carte demanderCarte();
+	CarteCouleur appelerRoi();
+	boolean possedeRoi(CarteCouleur roi);
 	
-	public abstract String nom();
+	String nom();
 
 }

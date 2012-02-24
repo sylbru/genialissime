@@ -232,7 +232,9 @@ public class Partie
 			 * 
 			 */
 			Donne.distribution();
+			// FIXME: Actuellement ça tourne en boucle infinie (je crois) dans phaseAnnonce()
 			Annonces.phaseAnnonce();
+			
 					
 			if(donneEnCours.getContratEnCours() != Contrat.AUCUN) // si il n'y a pas de contrat il faut arreter la donne.
 			{
