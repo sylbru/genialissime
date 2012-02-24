@@ -211,6 +211,7 @@ public class Donne
 			
 			
 			if(isJoueurAttaque(numJoueurVainqueurPli)) // isPreneur ne permet pas de faire ça ?
+													// Non, on peut être dans l’attaque (appelé) sans être preneur
 			{
 				plisAttaque.addAll(Arrays.asList(plisEnCours));
 			}
@@ -252,7 +253,7 @@ public class Donne
 			
 			// (calcul de l’atout le plus haut dans le pli en cours)
 			CarteAtout a = new CarteAtout(0);
-			for(int i=numJoueurEntame; i<numJ; i=getNumJoueurApres(i))
+			for(int i=numJoueurEntame; i!=numJ; i=getNumJoueurApres(i))
 			{
 				if (plisEnCours[i].isAtout() && ((CarteAtout)plisEnCours[i]).getNum() > a.getNum())
 				{
@@ -265,7 +266,7 @@ public class Donne
 				// l’atout est plus haut que les autres, reste à voir si il est autorisé en fonction de ce qui est demandé
 				if ((plisEnCours[numJoueurEntame].isExcuse() && plisEnCours[getNumJoueurApres(numJoueurEntame)].isAtout()) || plisEnCours[numJoueurEntame].isAtout())
 				{
-					return true; // si la 1re carte est Atout, ou bien Excuse et la deuxième est Atout
+					return true; // si la 1re carte est Atout, ou bien Excuse puis Atout, c’est donc Atout demandé donc ok
 				}
 				else // Reste cas où 1re carte est Couleur, ou bien Excuse et la 2e est Couleur
 				{
@@ -308,11 +309,37 @@ public class Donne
 		// vérifier que Joueur j est dans Partie.getJoueurs() ?
 		Carte carteProposee;
 		do
+		{
 			carteProposee = Partie.getJoueur(num).demanderCarte();
-		while (mainsDesJoueurs[num].contains(carteProposee) // getID, c’est la bonne méthode ?
+		}
+		while
+			(mainsDesJoueurs[num].contains(carteProposee)
 			&& isCarteLegale(carteProposee, num));
+		
 		return carteProposee;
 		// je pense que ce serait mieux d’avoir les mains dans les joueurs, et d’y accéder par J.getMain()
+	}
+	
+	/**
+	 * 
+	 * @param numJoueur
+	 * @return un vecteur contenant les Cartes possibles (légales) à jouer pour le joueur numJoueur
+	 * Actuellement ça regarde toutes ses cartes et fait appel à isCarteLegale() pour chacune.
+	 * Est-ce que ce serait plus efficace de procéder plus intelligemment ? À voir.
+	 */
+	public Vector<Carte> indiquerCartesLegalesJoueur(int numJoueur)
+	{
+		Vector<Carte> cartesLegales = new Vector<Carte>();
+		if(numJoueur < Partie.getNombreDeJoueurs());
+		for(Carte c: mainsDesJoueurs[numJoueur].getCartes())
+		{
+			if(isCarteLegale(c, numJoueur))
+			{
+				cartesLegales.add(c);
+			}
+		}
+		
+		return cartesLegales;
 	}
 	
 	public boolean donneFinie()
@@ -356,12 +383,8 @@ public class Donne
 	
 	public boolean isJoueurAttaque(int num)
 	{
-		if(Partie.getNombreDeJoueurs()==5)
-		{
-			return (num == preneur.getID() || num ==appelee.getID()); // ? est-ce que getID() correspond bien à la position/au numéro ? // ! oubli d'implementatinon pour le jeu à cinq ||joueurAppeler.getID
-		}
-		else 
-			return num == preneur.getID();
+		return num == preneur.getID() || (Partie.getNombreDeJoueurs() == 5 && num == appelee.getID());
+		// ? est-ce que getID() correspond bien à la position/au numéro ?
 	}
 	
 	public boolean isJoueurDefense(int num)
@@ -392,6 +415,11 @@ public class Donne
 		return numDonneur;
 	}
 	
+	/**
+	 * @author niavlys
+	 * Sert à incrémenter numDonneur pour le passer au joueur suivant.
+	 * Utilisé à chaque début de donne.
+	 */
 	public static void incrementerNumDonneur()
 	{
 		numDonneur = getNumJoueurApres(numDonneur);

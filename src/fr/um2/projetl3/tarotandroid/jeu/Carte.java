@@ -7,9 +7,9 @@ public interface Carte
 	boolean isAtout();
 	boolean isExcuse();
 	boolean isBout();
-	void affiche();
+	void affiche(); // Affiche sous la forme V♥, 4A. toString() en revanche renvoie String de la forme Vcoeur, 4Atout.
 	int valeur(); // en demi-points
-	
+	int uid();
 	
 	// TODO: méthodes concernant les relations entre les cartes (?)
 	// Exemple : est-ce que cette carte est supérieure à celle-ci, est-elle de la même couleur que celle-ci ?

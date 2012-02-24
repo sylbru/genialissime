@@ -38,6 +38,11 @@ public class Main
 		return cartes.contains(c);
 	}
 	
+	public Vector<Carte> getCartes()
+	{
+		return cartes;
+	}
+	
 	public boolean possedeCouleur(Couleur coul)
 	{
 		boolean couleurExiste = false;
