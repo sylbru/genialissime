@@ -1,6 +1,7 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
 import java.awt.font.NumericShaper;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Vector;
 
@@ -44,7 +45,8 @@ public class Donne
 	 { 
 		 incrementerNumDonneur();
 		 int nombreDeJoueurs = Partie.getNombreDeJoueurs();
-		 int numeroDuJoueur = getNumJoueurApres(numDonneur); // ! j'en ai besoin pour savoir à quel joueur je vais donner les cartes
+		 int numeroDuJoueur = getNumJoueurApres(numDonneur);
+		 System.out.println(numeroDuJoueur);
 		 
 		 int possibilitesMisesAuChien = 0;		 
 		 int nombreDeCartesMisesAuChien = 0;
@@ -60,7 +62,7 @@ public class Donne
 		 int randomMax;
 		 // random(Min/Max) permette de savoir sur quel intervalle on doit faire le random
 		 
-		 int j=0,k=0;
+		 int j=0,k=0, random;
 		 	 
 		 possibilitesMisesAuChien = (( Constantes.NOMBRE_CARTES_TOTALES - nombreDeCartesPourLeChien ) / Constantes.CARTES_DISTRIBU_PAR_JOUEUR) ;
 		 
@@ -69,14 +71,13 @@ public class Donne
 		 {
 			 randomMax = possibilitesMisesAuChien - ( nombreDeCartesPourLeChien - nombreDeCartesMisesAuChien );
 			 
-			 randomMin = randomMin + (int)(Math.random() * ((randomMax - randomMin)+1));
+			 random = randomMin + (int)(Math.random() * ((randomMax - randomMin)+1));
 			 // ! il faut que la valeur de retour soit comprise entre ]randomMin,randomMax] !
-			 System.out.println("randomMin = "+randomMin);
+			 System.out.println("random = "+random+" (entre "+randomMin+" et "+randomMax+")");
 			 //nombreDeCartesMisesAuChien = (int) Math.random()*100 % 3; 
-			 
-			 while(j<=(randomMin*Constantes.CARTES_DISTRIBU_PAR_JOUEUR))
+			 while(j<=(random*Constantes.CARTES_DISTRIBU_PAR_JOUEUR))
 			 {
-				 System.out.print("Ajoute à joueur "+numeroDuJoueur+" ");
+				 System.out.print("Ajoute à joueur numéro "+numeroDuJoueur+" ");
 				 System.out.print(Partie.getCarteDansTas(j).toString()+", ");
 				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
 				 
@@ -89,29 +90,38 @@ public class Donne
 				 numeroDuJoueur = getNumJoueurApres(numeroDuJoueur);
 				 System.out.println();
 			 }
-			 for(int l=0;l<=nombreDeCartesMisesAuChien;l++)
-			 {
-				 System.out.println("k="+k);
+			 	 System.out.println("Ajout au chien de "+Partie.getCarteDansTas(j)+" (k="+k+")");
 				 chien[k]=Partie.getCarteDansTas(j);
-				 System.out.println(chien[k].toString());
+				 nombreDeCartesMisesAuChien++;
+				 //System.out.println(chien[k].toString());
 				 j++;
 				 k++;
-				 randomMin++;
-			 }
-			 
-			 
+				 randomMin = random+1;
 		}
 		 while(j<Constantes.NOMBRE_CARTES_TOTALES-1)
 		 {
+			 System.out.print("Ajoute à joueur "+numeroDuJoueur+" ");
+			 System.out.print(Partie.getCarteDansTas(j).toString()+", ");
 			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
+			 System.out.print(Partie.getCarteDansTas(j).toString()+", ");
 			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
+			 System.out.print(Partie.getCarteDansTas(j).toString()+".");
 			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));	 
 			 numeroDuJoueur = getNumJoueurApres(numeroDuJoueur);
+			 System.out.println();
 		 }
 		 for(int i = 0 ; i < nombreDeJoueurs ; i++)
 		 {
 			 Partie.getJoueur(i).setMain(mainsDesJoueurs[numeroDuJoueur]);
-		 } 
+		 }
+		 for(int i=0; i<4; i++)
+		 {
+			 mainsDesJoueurs[i].affiche();
+		}
+		 System.out.println("Chien : ");
+		 reveleChien();
+		 System.out.println();
+		
 	}
 
 		/*
@@ -183,7 +193,9 @@ public class Donne
 	 }
 
 	 /**
-	  * explication à donner ....
+	  * Phase de jeu des cartes dans une donne, après les annonces et l’écart, avant le comptage des points.
+	  * (pour info, l’expression « jeu de la carte », ça vient pas de moi,
+	  * voir par exemple http://fr.wikipedia.org/wiki/Belote#Le_jeu_de_la_carte )
 	  */
 	public void jeuDeLaCarte()
 	{
@@ -202,7 +214,6 @@ public class Donne
 			while (nbCartesPosees < Partie.getNombreDeJoueurs())
 			{
 				plisEnCours[nbCartesPosees] = demanderCarteJoueur(numJoueur); 
-				// ! il va faloir creer une méthode à peu près la même mais qui prend le plis en cours et dit au joueur quelles sont les cartes de sa main jouable
 				nbCartesPosees++;
 				numJoueur = getNumJoueurApres(numJoueur);
 			}
@@ -300,9 +311,8 @@ public class Donne
 	}
 	
 	/**
-	 * Demande au joueur de jouer une carte et vérifie si elle est légale. 
+	 * Demande au joueur de jouer une carte et vérifie si elle est légale (redemande si besoin). 
 	 * @param num La position du joueur
-
 	 */
 	public Carte demanderCarteJoueur(int num) 
 	{
@@ -310,6 +320,7 @@ public class Donne
 		Carte carteProposee;
 		do
 		{
+			indiquerCartesLegalesJoueur(num);
 			carteProposee = Partie.getJoueur(num).demanderCarte();
 		}
 		while
@@ -492,6 +503,10 @@ public class Donne
 		plisAttaque = new Vector<Carte>();
 	}
 
+	public Donne()
+	{
+		init();
+	}
 
 	
 	public static void main(String[] args)
