@@ -7,9 +7,7 @@ public class Annonces
 {
 	/*
 	 *  ---------------------------------------------------------------------------------------------
-	 *  ---------------------Je ne sais quoi rajouter dans annonce----------------------------------
-	 *  -------------------                                              ------------------------------
-	 *  ---------------------------manque un TODO à faire ici------------------------------------------
+	 *  ------------------------Juste la méthode pour effectuer la phase des annonces----------------
 	 *  ---------------------------------------------------------------------------------------------
 	 */
 	
@@ -18,7 +16,6 @@ public class Annonces
 	 *   permet de connaitre le preneur et le type de contrat fait par le joueur
 	 * 		et si le jeu est à 5 le joeur appelée est decidé
 	 * 
-	 * 	TODO liée le numero du joueur avec le numero du joueur qui joue en premier
 	 */
 	public static void phaseAnnonce()
 	{
