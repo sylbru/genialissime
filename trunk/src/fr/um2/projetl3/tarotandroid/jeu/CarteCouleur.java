@@ -22,9 +22,21 @@ public class CarteCouleur implements Carte
 		this.couleur=couleur;
 	}
 	
-	public int getUid()
+	public int uid()
 	{
-		return uid;
+		switch(couleur)
+		{
+		case Coeur:
+			return 21+ordre;
+		case Pique:
+			return 35+ordre;
+		case Carreau:
+			return 49+ordre;
+		case Trefle:
+			return 63+ordre;
+		default:
+			return -1;
+		}
 	}
 
 	public boolean isCouleur()
@@ -100,7 +112,7 @@ public class CarteCouleur implements Carte
 
 	public void affiche() 
 	{
-		String s = "( ";
+		String s = "(";
 		
 		if(ordre <= 10)
 			s += Integer.toString(ordre);
@@ -133,7 +145,7 @@ public class CarteCouleur implements Carte
 			break;
 		}
 		
-		s += " )";
+		s += ")";
 		
 		System.out.print(s+" ");
 		

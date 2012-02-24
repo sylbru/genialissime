@@ -10,6 +10,10 @@ public class CarteAtout implements Carte
 	{
 		return num;
 	}
+	public int uid()
+	{
+		return num;
+	}
 	
 	/**
 	 * @author sylvain
