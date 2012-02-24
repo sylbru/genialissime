@@ -166,12 +166,6 @@ public class Contrat
 				Contrat.PETITE.setFacteur(1);
 				Contrat.PETITE.setValeurContrat(25);
 			}
-			if(PrefsRegles.autoriserPousse)
-			{
-				Contrat.POUSSE.autoriser();
-				// facteur ?
-				Contrat.POUSSE.setValeurContrat(25);
-			}
 			if(PrefsRegles.autoriserGAE)
 			{
 				Contrat.GAE.autoriser();
@@ -183,8 +177,21 @@ public class Contrat
 			Contrat.GARDE_CONTRE.setValeurContrat(25);
 			
 			Contrat.GARDE.setFacteur(2);
-			Contrat.GARDE.setFacteur(4);
-			Contrat.GARDE.setFacteur(6);
+			Contrat.GARDE_SANS.setFacteur(4);
+			Contrat.GARDE_CONTRE.setFacteur(6);
+			
+			Contrat.POUSSE.interdire();
+			/*
+			 * Alors je pense que je doit m'expliquer :
+			 * on ne peux pas compter la pousse avec cette maniere de compter
+			 * cette maniere fait intervenir des facteur celui de la pousse ne peux pas etre egal à celui de la petite ni celui de la garde
+			 * et ne ^peut non plus être egal à 1.5 ( Faussage de calcul)
+			 * 
+			 * c'est pourquoi avec cette maniere de compter la pousse est forcement interdite.
+			 * 
+			 * Avis contraire se pronnoncer (mail)
+			 * 
+			 */
 		}
 		else // facteur toujours à 1, c’est valeurContrat qui change
 		{
