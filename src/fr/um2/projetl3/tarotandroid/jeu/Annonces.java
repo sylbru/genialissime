@@ -103,7 +103,9 @@ public class Annonces
 			{
 				if(Partie.getJoueur(i).possedeRoi(Roi)){
 					Donne.setJoueurAppele(Partie.getJoueur(i));
-				}
+					// pas sûr que ce soit judicieux de faire ça ici, officiellement on ne sait pas qui
+					// est avec qui avant que le roi appelé ne soit dévoilé
+				} 
 			}
 		}
 	}

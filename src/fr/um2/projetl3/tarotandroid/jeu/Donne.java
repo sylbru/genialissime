@@ -137,7 +137,7 @@ public class Donne
 	  * @param tableauContenantLePlis
 	  * @return l'indice du tableau ou se trouve la carte qui remporte le plis grâce à ça on peut retrouver qui remporte le plis
 	  */
-	 public int vainqueurDuPlis(Carte[] tableauContenantLePlis) 
+	 public static int vainqueurDuPlis(Carte[] tableauContenantLePlis) 
 	 {
 		int indice = -1;
 		int nombreDeJoueur = Partie.getNombreDeJoueurs();
@@ -164,13 +164,13 @@ public class Donne
 		{
 			Couleur couleurDemander = null;
 			
-			if(tableauContenantLePlis[1].isExcuse())
+			if(tableauContenantLePlis[0].isExcuse())
 			{			
-				couleurDemander = ((CarteCouleur)tableauContenantLePlis[2]).getCouleur();
+				couleurDemander = ((CarteCouleur)tableauContenantLePlis[1]).getCouleur();
 			}
 			else // if(! tableauContenantLePlis[2].isAtout()) // le code est bien ecrit du coup cette verification est inutile
 			{
-				couleurDemander = ((CarteCouleur)tableauContenantLePlis[1]).getCouleur();
+				couleurDemander = ((CarteCouleur)tableauContenantLePlis[0]).getCouleur();
 			}
 			
 			CarteCouleur maxCouleur = new CarteCouleur(couleurDemander, 0);
@@ -178,7 +178,7 @@ public class Donne
 			{
 				if(tableauContenantLePlis[i].isCouleur())
 				{
-					if(((CarteCouleur)tableauContenantLePlis[1]).getCouleur() == couleurDemander)
+					if(((CarteCouleur)tableauContenantLePlis[i]).getCouleur() == couleurDemander)
 					{
 						if(((CarteCouleur)maxCouleur).getOrdre() < ((CarteCouleur)tableauContenantLePlis[i]).getOrdre())
 						{	
@@ -513,7 +513,18 @@ public class Donne
 	{
 		// Donne donne = new Donne(); // bon c’est le bordel entre les méthodes statiques et les non-statiques,
 									// faudra en discuter.
-		Partie.lancerPartie4JoueursTexte();
+		//Partie.lancerPartie4JoueursTexte();
+		init();
+		Partie.setNombreDeJoueurs(4);
+		plisEnCours = new Carte[4];
+		plisEnCours[0] = new CarteAtout(13);
+		plisEnCours[1] = new CarteAtout(1);
+		//plisEnCours[1] = new CarteCouleur(Couleur.Trefle, 3);
+		plisEnCours[2] = new CarteCouleur(Couleur.Carreau, 10);
+		plisEnCours[3] = new CarteAtout(12);
+		//plisEnCours[3] = new CarteCouleur(Couleur.Trefle, 1);
+		
+		System.out.println(vainqueurDuPlis(plisEnCours));
 		
 	}
 }
