@@ -96,16 +96,27 @@ public class Annonces
 		}
 		Donne.setContratEnCours(contrat);
 		Donne.setPreneur(joueurQuiVaPrendre);
+		
 		if(nombreDeJoueurs==5)
 		{
-			CarteCouleur Roi = joueurQuiVaPrendre.appelerRoi();
-			for(int i = 0; i<nombreDeJoueurs; i++)
+			phaseAppelRoi();
+		}
+	}
+	
+	public static void phaseAppelRoi()
+	{
+		CarteCouleur Roi = Donne.getPreneur().appelerRoi();
+		int nombreDeJoueurs = Partie.getNombreDeJoueurs();
+		for(int i = 0; i<nombreDeJoueurs; i++)
+		{
+			if(Partie.getJoueur(i).possedeRoi(Roi)){
+				Donne.setJoueurAppele(Partie.getJoueur(i));
+				// pas sûr que ce soit judicieux de faire ça ici, officiellement on ne sait pas qui
+				// est avec qui avant que le roi appelé ne soit dévoilé
+			} 
+			else // si le chien n'est pas dans la main d'un joueur il est dans le chien, le preneur se retrouve donc tout seul.
 			{
-				if(Partie.getJoueur(i).possedeRoi(Roi)){
-					Donne.setJoueurAppele(Partie.getJoueur(i));
-					// pas sûr que ce soit judicieux de faire ça ici, officiellement on ne sait pas qui
-					// est avec qui avant que le roi appelé ne soit dévoilé
-				} 
+				Donne.setJoueurAppele(Donne.getPreneur());
 			}
 		}
 	}
