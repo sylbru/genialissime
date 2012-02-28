@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.um2.projetl3.tarotandroid.R;
+import fr.um2.projetl3.tarotandroid.R;
 
 public class TarotAndroidActivity extends Activity
 {

@@ -1,7 +1,5 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
-import android.R.string;
-
 public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge de la liaison graphique pour les préférences
 {
 	// annonces

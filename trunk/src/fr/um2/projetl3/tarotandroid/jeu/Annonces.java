@@ -21,6 +21,7 @@ public class Annonces
 	{
 		boolean conditionArret = true;
 		int numeroDuJoueur = Donne.getNumJoueurApres(Donne.getNumDonneur());
+		System.out.println("Le donneur était n°"+Donne.getNumDonneur()+", le premier à parler est n°"+numeroDuJoueur);
 		int compteurPourToutLeMondePasse = 0;
 		int nombreDeJoueurs=Partie.getNombreDeJoueurs(); 
 		Contrat contrat = Contrat.AUCUN;

@@ -4,8 +4,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.util.Log;
 
-import com.um2.projetl3.tarotandroid.R;
+import fr.um2.projetl3.tarotandroid.R;
 
 public class PreferencesActivity extends PreferenceActivity implements
 		OnSharedPreferenceChangeListener
@@ -31,7 +32,7 @@ public class PreferencesActivity extends PreferenceActivity implements
 	}	
 	public void onSharedPreferenceChanged(SharedPreferences arg0, String arg1)
 	{
-		
+		Log.i("GENIALISSIME", "onSharedPreferencesChanged()");
 	}
 
 }
