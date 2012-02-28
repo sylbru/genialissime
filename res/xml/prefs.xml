@@ -4,6 +4,6 @@
 
     <CheckBoxPreference
         android:summaryOff="La préférence n’est pas activée"
-        android:summaryOn="La préférence est activée" android:title="Test de préférence"/>
+        android:summaryOn="La préférence est activée" android:key="pref01" android:title="Test de préférence"/>
 
 </PreferenceScreen>

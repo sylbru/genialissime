@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.um2.projetl3.tarotandroid"
+    package="fr.um2.projetl3.tarotandroid"
     android:versionCode="1"
     android:versionName="1.0" >
 
