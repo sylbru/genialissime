@@ -22,6 +22,7 @@ public class Contrat
 	{
 		this.autorisé = autorisé;
 		this.nom = nom;
+		this.poids = poids;
 		// ! la valeur de chienRevele et de chienPourAttaque depende du nom de contrat � modifier :
 		chienRevele = true;
 		chienPourAttaque = true;

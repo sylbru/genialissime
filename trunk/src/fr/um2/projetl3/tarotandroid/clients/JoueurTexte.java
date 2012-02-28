@@ -85,19 +85,21 @@ public class JoueurTexte implements Joueur // implements Joueur (quand Joueur er
 				System.out.println("Pas compris "+id+", disons Passe.");
 				c = Contrat.PASSE;
 			}
-			if(c.getPoids()>contrat.getPoids() && c.getPoids()!=0)
+			if( c != Contrat.PASSE && c.getPoids() <= contrat.getPoids() )
 			{
+				System.out.println(c.getPoids()+","+contrat.getPoids()+id);
 				mauvais_Contrat=true;
+				System.out.println("Votre choix est invalide veuillez le refaire");
 			}
 			else
 			{
-				System.out.println("Votre choix est invalide veuillez le refaire");
+				mauvais_Contrat=false;
 			}
 		}
 		if(compteur==5)
 		{
 			c = Contrat.PASSE;
-			System.out.println("trop de mauvais choix, Passe par default");
+			System.out.println("trop de mauvais choix, Passe par defaut");
 		}
 			
 		return c;
