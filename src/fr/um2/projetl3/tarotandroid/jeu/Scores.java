@@ -2,8 +2,6 @@ package fr.um2.projetl3.tarotandroid.jeu;
 
 import java.util.Vector;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.TypeDefParticle;
-
 public class Scores
 {
 	

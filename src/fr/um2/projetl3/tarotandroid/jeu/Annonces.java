@@ -25,6 +25,7 @@ public class Annonces
 		int nombreDeJoueurs=Partie.getNombreDeJoueurs(); 
 		Contrat contrat = Contrat.AUCUN;
 		Contrat controle = Contrat.AUCUN;
+		Contrat contratMax = Contrat.AUCUN;
 
 		Contrat tableauDesContrat[] = new Contrat[nombreDeJoueurs]; 
 		
@@ -37,7 +38,7 @@ public class Annonces
 		
 		while(conditionArret)
 		{
-			if(tableauDesContrat[numeroDuJoueur].getPoids() != 0 ) // si le joueur n'as pas passer il peut annoncer
+			if(tableauDesContrat[numeroDuJoueur] != Contrat.PASSE ) // si le joueur n'as pas passer il peut annoncer
 			{
 				if(joueurQuiVaPrendre==Partie.getJoueur(numeroDuJoueur)) 
 				{
@@ -46,7 +47,20 @@ public class Annonces
 				else
 				{
 				
-					contrat = Partie.getJoueur(numeroDuJoueur).demanderAnnonce(contrat);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
+					contrat = Partie.getJoueur(numeroDuJoueur).demanderAnnonce(contratMax);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
+					
+					if (contrat.getPoids() > contratMax.getPoids())
+					{
+						System.out.println(" if poid actuel est le contrat max"+contrat);
+						contratMax = contrat;
+					}
+					/*
+					 * TODO
+					 * probleme localiser ici demandeAnnonce marche en fonction du contrat max or ici on lui donne le derniere contrat à avoir été fait
+					 * aussi passer après qu'un joueur ai petiter impossible à voir plus en détail
+					 * 	demandeAnnonce est à verifier
+					 */
+					
 					
 					System.out.println("Contrat du joueur"+Partie.getJoueur(numeroDuJoueur).getNomDuJoueur()+" : "+contrat.getName());
 					
@@ -91,7 +105,7 @@ public class Annonces
 						}
 					}
 				}
-				numeroDuJoueur++;
+				numeroDuJoueur = Donne.getNumJoueurApres(numeroDuJoueur);
 			}
 		}
 		Donne.setContratEnCours(contrat);
