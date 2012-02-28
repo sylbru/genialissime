@@ -90,9 +90,19 @@ public class Contrat
 		this.facteur = facteur;
 	}
 	
+	public int getFacteur()
+	{
+		return facteur;
+	}
+	
 	public void setValeurContrat(int valeurContrat)
 	{
 		this.valeurContrat = valeurContrat;
+	}
+	
+	public int getValeurContrat()
+	{
+		return valeurContrat;
 	}
 	
 	public void autoriser()

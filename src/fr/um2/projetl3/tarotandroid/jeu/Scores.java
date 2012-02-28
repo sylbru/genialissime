@@ -2,6 +2,8 @@ package fr.um2.projetl3.tarotandroid.jeu;
 
 import java.util.Vector;
 
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.TypeDefParticle;
+
 public class Scores
 {
 	
@@ -200,25 +202,33 @@ public class Scores
 	}
 
 	// calcule la valeur du score en fonction du type de contrat et de combien
-	// la partie a ete remporte
+	// la partie a ete remporte, arondi a la dixaine la plus proche.
 	public int calculScore(Contrat typeDuContrat, int Gain)
 	{
-		int resultat = 25;
-		resultat = resultat + Gain; // ! FAUX si gain<0 += -25 et non + 25
+		int resultat = 0;
+		if(Gain< 0)
+			resultat += -Gain;
+		else 
+			resultat += Gain;
 		
-
-		// ! faire les types de contrats
-		if (typeDuContrat == Contrat.GARDE)
+		
+		if (PrefsRegles.ManiereDeCompter)
 		{
-			resultat *= 2;
-		} else if (typeDuContrat == Contrat.GARDE_SANS)
-		{
-			resultat *= 4;
-		} else if (typeDuContrat == Contrat.GARDE_CONTRE)
-		{
-			resultat *= 6;
+			resultat +=25;
+			resultat *= typeDuContrat.getFacteur();
 		}
-
+		else
+		{
+			Gain += typeDuContrat.getValeurContrat();
+		}
+		if(resultat % 10 < 5)
+		{
+			resultat = resultat - (resultat % 10);
+		}
+		else 
+		{
+			resultat = resultat - (resultat % 10) + 10;
+		}
 		return resultat;
 	}
 	
@@ -351,48 +361,11 @@ public class Scores
 				gain += 25;
 			}
 			
-			if(typeDuContrat == Contrat.PETITE)
-			{
-				gain *= 1;
-			}
-			else if (typeDuContrat == Contrat.GARDE)
-			{
-				gain *= 2;
-			} else if (typeDuContrat == Contrat.GARDE_SANS)
-			{
-				gain *= 4;
-			} else if (typeDuContrat == Contrat.GARDE_CONTRE)
-			{
-				gain *= 6;
-			}
-			else
-			{
-				System.out.println("Il y eu un souci au niveau du type de contrat\n classe Score methode calculGainPartie ");
-			}
+			gain *= typeDuContrat.getFacteur();
 		}
 		else
 		{
-			if(typeDuContrat == Contrat.PETITE)
-			{
-				gain += 20;
-				
-			}else if (typeDuContrat == Contrat.POUSSE)
-			{
-				gain += 30;
-			}else if (typeDuContrat == Contrat.GARDE)
-			{
-				gain += 40;
-			} else if (typeDuContrat == Contrat.GARDE_SANS)
-			{
-				gain += 80;
-			} else if (typeDuContrat == Contrat.GARDE_CONTRE)
-			{
-				gain +=160;
-			}
-			else
-			{
-				System.out.println("Il y eu un souci au niveau du type de contrat\n classe Score methode calculGainPartie ");
-			}
+			gain += typeDuContrat.getValeurContrat();
 		}
 
 		return gain;
