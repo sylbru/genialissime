@@ -1,7 +1,7 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
 import fr.um2.projetl3.tarotandroid.clients.Joueur;
-
+import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
 
 public class Annonces 
 {
@@ -20,10 +20,10 @@ public class Annonces
 	public static void phaseAnnonce()
 	{
 		boolean conditionArret = true;
-		int numeroDuJoueur = Donne.getNumJoueurApres(Donne.getNumDonneur());
-		System.out.println("Le donneur était n°"+Donne.getNumDonneur()+", le premier à parler est n°"+numeroDuJoueur);
+		int numeroDuJoueur = P.donne().getNumJoueurApres(P.donne().getNumDonneur());
+		System.out.println("Le donneur était n°"+P.donne().getNumDonneur()+", le premier à parler est n°"+numeroDuJoueur);
 		int compteurPourToutLeMondePasse = 0;
-		int nombreDeJoueurs=Partie.getNombreDeJoueurs(); 
+		int nombreDeJoueurs=P.getNombreDeJoueurs(); 
 		Contrat contrat = Contrat.AUCUN;
 		Contrat controle = Contrat.AUCUN;
 		Contrat contratMax = Contrat.AUCUN;
@@ -41,29 +41,28 @@ public class Annonces
 		{
 			if(tableauDesContrat[numeroDuJoueur] != Contrat.PASSE ) // si le joueur n'as pas passer il peut annoncer
 			{
-				if(joueurQuiVaPrendre==Partie.getJoueur(numeroDuJoueur)) 
+				if(joueurQuiVaPrendre==P.getJoueur(numeroDuJoueur)) 
 				{
 					conditionArret = false;
 				}
 				else
 				{
 				
-					contrat = Partie.getJoueur(numeroDuJoueur).demanderAnnonce(contratMax);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
+					contrat = P.getJoueur(numeroDuJoueur).demanderAnnonce(contratMax);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
 					
 					if (contrat.getPoids() > contratMax.getPoids())
 					{
-						System.out.println(" if poid actuel est le contrat max"+contrat);
+						System.out.println(" if poids actuel est > contrat max (contrat = "+contrat+")");
 						contratMax = contrat;
 					}
 					/*
 					 * TODO
-					 * probleme localiser ici demandeAnnonce marche en fonction du contrat max or ici on lui donne le derniere contrat à avoir été fait
-					 * aussi passer après qu'un joueur ai petiter impossible à voir plus en détail
-					 * 	demandeAnnonce est à verifier
+					 * Le problème est maintenant là : si quelqu’un Petite et quelqu’un d’autre Garde, 
+					 * celui qui a dit Petite ne peut pas surenchérir.
 					 */
 					
 					
-					System.out.println("Contrat du joueur"+Partie.getJoueur(numeroDuJoueur).getNomDuJoueur()+" : "+contrat.getName());
+					System.out.println("Contrat du joueur "+P.getJoueur(numeroDuJoueur).getNomDuJoueur()+" : "+contrat.getName());
 					
 					tableauDesContrat[numeroDuJoueur] = contrat ; // on stocke les contrat que les joueur veulent faire
 	
@@ -78,12 +77,12 @@ public class Annonces
 							
 							if(contrat.getPoids() == 5) // alors c'est une garde_sans => la phase d'annonce est finit 
 							{
-								joueurQuiVaPrendre = Partie.getJoueur(numeroDuJoueur);
+								joueurQuiVaPrendre = P.getJoueur(numeroDuJoueur);
 								conditionArret = false;
 							}
 							else if((0 < contrat.getPoids()) && (contrat.getPoids() < 5))// cas o� c'est un contrat valble mais pas une garde_sans
 							{
-								joueurQuiVaPrendre = Partie.getJoueur(numeroDuJoueur);
+								joueurQuiVaPrendre = P.getJoueur(numeroDuJoueur);
 							}
 						}
 						if(numeroDuJoueur == nombreDeJoueurs) // si le numero du joueur est egal au nbr de joueur on as fait un tour d'annonce
@@ -106,11 +105,11 @@ public class Annonces
 						}
 					}
 				}
-				numeroDuJoueur = Donne.getNumJoueurApres(numeroDuJoueur);
+				numeroDuJoueur = P.donne().getNumJoueurApres(numeroDuJoueur);
 			}
 		}
-		Donne.setContratEnCours(contrat);
-		Donne.setPreneur(joueurQuiVaPrendre);
+		P.donne().setContratEnCours(contrat);
+		P.donne().setPreneur(joueurQuiVaPrendre);
 		
 		if(nombreDeJoueurs==5)
 		{
@@ -120,18 +119,18 @@ public class Annonces
 	
 	public static void phaseAppelRoi()
 	{
-		CarteCouleur Roi = Donne.getPreneur().appelerRoi();
-		int nombreDeJoueurs = Partie.getNombreDeJoueurs();
+		CarteCouleur Roi = P.donne().getPreneur().appelerRoi();
+		int nombreDeJoueurs = P.getNombreDeJoueurs();
 		for(int i = 0; i<nombreDeJoueurs; i++)
 		{
-			if(Partie.getJoueur(i).possedeRoi(Roi)){
-				Donne.setJoueurAppele(Partie.getJoueur(i));
+			if(P.getJoueur(i).possedeRoi(Roi)){
+				P.donne().setJoueurAppele(P.getJoueur(i));
 				// pas sûr que ce soit judicieux de faire ça ici, officiellement on ne sait pas qui
 				// est avec qui avant que le roi appelé ne soit dévoilé
 			} 
 			else // si le chien n'est pas dans la main d'un joueur il est dans le chien, le preneur se retrouve donc tout seul.
 			{
-				Donne.setJoueurAppele(Donne.getPreneur());
+				P.donne().setJoueurAppele(P.donne().getPreneur());
 			}
 		}
 	}

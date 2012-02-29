@@ -6,76 +6,87 @@ import java.util.Vector;
 
 import fr.um2.projetl3.tarotandroid.clients.Joueur;
 import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
+import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
 
 @SuppressWarnings("all")
 public class Partie
 {
-	private static Joueur[] joueurs; // initialisé de taille 3, 4 ou 5 selon type partie
-	private static Scores scores;
-	private static int nombreDeJoueurs;
-	private static int nombreDeCartesPourLeChien;
-	private static Carte[] tas; // le tas de carte, repris à la fin d’une donne pour être redistribué
-	private static Donne donneEnCours;
-	private static boolean stopPartie; 
+	private Joueur[] joueurs; // initialisé de taille 3, 4 ou 5 selon type partie
+	private Scores scores;
+	private int nombreDeJoueurs;
+	private int nombreDeCartesPourLeChien;
+	private Carte[] tas; // le tas de carte, repris à la fin d’une donne pour être redistribué
+	private Donne donne; // la donne en cours
+	private boolean stopPartie; 
 	
 	/*
 	 * --------------------------------------------------------------------------------------------
 	 * ------------------------------------ accesseur --------------------------------------------
 	 * --------------------------------------------------------------------------------------------
 	 */
-	public static Carte getCarteDansTas(int i)
+	
+	/*
+	 * Accesseur en lecture pour donne, utilisé à l’extérieur de la classe
+	 * [ exemple dans Scores : P.donne().getPreneur() ]
+	 */
+	public Donne donne()
+	{
+		return donne;
+	}
+	
+	public Carte getCarteDansTas(int i)
 	{
 		return tas[i];
 	}
 	
-	public static Joueur[] getJoueurs()
+	public Joueur[] getJoueurs()
 	{
 		return joueurs;
 	}
-	public static Joueur getJoueur(int i)
+	public Joueur getJoueur(int i)
 	{
 		return joueurs[i];
 	}
 
-	public static void setJoueur(int i, Joueur joueur)
+	public void setJoueur(int i, Joueur joueur)
 	{
 		joueurs[i] = joueur;
 	}
 
-	public static Scores getScores()
+	public Scores getScores()
 	{
 		return scores;
 	}
 
-	public static void setScores(Scores scores)
+	public void setScores(Scores scores)
 	{
-		Partie.scores = scores;
+		this.scores = scores;
 	}
 
-	public static int getNombreDeJoueurs()
+	public int getNombreDeJoueurs()
 	{
 		return nombreDeJoueurs;
 	}
 
-	public static int getnombreDeCartesPourLeChien()
+	public int getnombreDeCartesPourLeChien()
 	{
 		return nombreDeCartesPourLeChien;
 	}
 
-	public static void setNombreDeJoueurs(int nombreDeJoueurs)
+	public void setNombreDeJoueurs(int nombreDeJoueurs)
 	{
 		if (nombreDeJoueurs >= 3 || nombreDeJoueurs <= 5)
 		{
-			Partie.nombreDeJoueurs = nombreDeJoueurs;
+			this.nombreDeJoueurs = nombreDeJoueurs;
 		}
 		else
 		{
 			System.out.println("Nombre de joueurs " + nombreDeJoueurs
 					+ " invalide, on met à 4.");
 
-			Partie.nombreDeJoueurs = 4;
+			this.nombreDeJoueurs = 4;
 		}
-		Partie.joueurs = new Joueur[Partie.nombreDeJoueurs];
+		this.joueurs = new Joueur[this.nombreDeJoueurs];
 
 	}
 
@@ -84,7 +95,7 @@ public class Partie
 	 * ------------------------------------ Initialisation --------------------------------------------
 	 * --------------------------------------------------------------------------------------------
 	 */
-	protected static void initialisationPartie()
+	protected void initialisationPartie()
 	{
 		Contrat.initialiserContrats();
 		scores = new Scores();
@@ -131,7 +142,7 @@ public class Partie
 	 * Utilisé pour regrouper les différents paquets de cartes pour reformer
 	 * le tas à la fin de la donne. Fonctionne uniquement si tas[] est vide.
 	 */
-	protected static void setTas(Carte[] nouveauTas)
+	protected void setTas(Carte[] nouveauTas)
 	{
 		if(tas.length > 0)
 			System.out.println("Erreur : tentative de setTas() avec tas[] non vide");
@@ -143,7 +154,7 @@ public class Partie
 	 * @author niavlys
 	 * @return true si la partie est maintenant finie, en fonction des options dans PrefsRegles
 	 */
-	public static boolean partieFinie()
+	public boolean partieFinie()
 	{
 		if(!PrefsRegles.conditionFinDePartie)
 			return stopPartie;
@@ -162,7 +173,7 @@ public class Partie
 		}
 	}
 	
-	public static boolean verificatioSiEcartPasValide(Carte[] ecart)
+	public boolean verificatioSiEcartPasValide(Carte[] ecart)
 	{
 		for(Carte c:ecart)
 		{
@@ -186,13 +197,13 @@ public class Partie
 		return false;
 	}
 	
-	public static void phaseChienEcart()
+	public void phaseChienEcart()
 	{
-		if (Donne.getContratEnCours().isChienRevele()) // petite ou garde
+		if (donne.getContratEnCours().isChienRevele()) // petite ou garde
 		{
-			Donne.reveleChien();// ici il faut révélé le chien
+			donne.reveleChien();// ici il faut révélé le chien
 			
-			Donne.mettreChienDansLaMainDuPreneur();// ici il faut donner le chien au preneur
+			donne.mettreChienDansLaMainDuPreneur();// ici il faut donner le chien au preneur
 			
 			// ensuite il faut lui dire quelles cartes il veut mettre à l'ecart une fois l'ecart fait on le met dans les plis de l'attaquant
 			
@@ -201,28 +212,29 @@ public class Partie
 			
 			while(ecartPasValide) // ? faudrait rajouter un compteur et afficher quelque chose non ?
 			{
-				ecartEnAttenteDeValidation = Donne.getPreneur().demanderEcart();
+				ecartEnAttenteDeValidation = donne.getPreneur().demanderEcart();
 				ecartPasValide = verificatioSiEcartPasValide(ecartEnAttenteDeValidation); 
 			}
 		}
-		else if ( Donne.getContratEnCours().isChienPourAttaque()) // garde sans
+		else if ( donne.getContratEnCours().isChienPourAttaque()) // garde sans
 		{	
 			// ici met le chien dans les plis de l'attaquant
-			Donne.mettreChienDansLesPlisDeLAttaque();
+			donne.mettreChienDansLesPlisDeLAttaque();
 		}
 		else // garde contre
 		{
 			// ici on met le chien dans les plis des défenseur
-			Donne.mettreChienDansLesPlisDeLaDefense();
+			donne.mettreChienDansLesPlisDeLaDefense();
 		}
 	}
 	
-	public static void lancerPartie()
+	public void lancerPartie()
 	{
 		initialisationPartie();
-		//Donne.init();
+		//donneEnCours.init();
 		while(!partieFinie())
 		{
+			donne = new Donne();
 			/*
 			 * Je vois plutôt toute la partie suivante dans Donne pourquoi :
 			 * toutes les phases suivant sont des parties integrantes d'une donne et non d'une partie entiere
@@ -239,25 +251,22 @@ public class Partie
 			 *  
 			 *  c'est plus d'un point de vue pratique que je préfére que ça reste ici
 			 */
-			Donne.distribution();
-			// FIXME: Actuellement ça tourne en boucle infinie (je crois) dans phaseAnnonce()
-			Annonces.phaseAnnonce();
-			
-					
-			if(donneEnCours.getContratEnCours() != Contrat.AUCUN) // si il n'y a pas de contrat il faut arreter la donne.
+			donne.distribution();
+			Annonces.phaseAnnonce(); // à voir (il faudrait que ce soit lié à donneEnCours d’une manière ou d’une autre)
+								
+			if(donne.getContratEnCours() != Contrat.AUCUN) // si il n'y a pas de contrat il faut arreter la donne.
 			{
-				// jeuDeLaCarte(); // pas de meilleur nom pour l’instant, on dit comme ça au bridge, mais au tarot ?
+				phaseChienEcart();
+				donne.jeuDeLaCarte();
 				// comptePoints(); // (à voir avec méthodes de scores, peut-être les modifier pour qu’elles lisent
 								   // directement dans Partie le contrat, les cartes remportées… ?)
-				Donne.reformerTas();
+				donne.reformerTas();
 			}
 			else
 			{
-				phaseChienEcart();
-				// une phase deroulement des plis est à faire surement dans donne et appeler ici.
-				// puis apres il faut appeler suivant les préference choisit, la méthode de comptage des scores puis les affiché bien sûr
+				// C’est le cas où tout le monde a passé.
+				// Montrer les jeux de tout le monde avant de redistribuer ?
 			}
-	
 		}
 	}
 	
@@ -267,13 +276,13 @@ public class Partie
 	 * -----------------------------------------TEST--------------------------------------------
 	 * --------------------------------------------------------------------------------------------
 	 */
-	public static void lancerPartie4JoueursTexte()
+	public void lancerPartie4JoueursTexte()
 	{
 		setNombreDeJoueurs(4);
-		setJoueur(0, new JoueurTexte("Joueur1"));
-		setJoueur(1, new JoueurTexte("Joueur2"));
-		setJoueur(2, new JoueurTexte("Joueur3"));
-		setJoueur(3, new JoueurTexte("Joueur4"));
+		setJoueur(0, new JoueurTexte("Nord"));
+		setJoueur(1, new JoueurTexte("Sud"));
+		setJoueur(2, new JoueurTexte("Est"));
+		setJoueur(3, new JoueurTexte("Ouest"));
 		
 		lancerPartie();
 	}
@@ -297,7 +306,10 @@ public class Partie
 
 	public static void main(String[] args)
 	{
-		Partie.lancerPartie4JoueursTexte();
+		P = new Partie();
+		P.lancerPartie4JoueursTexte();
+		//D = P.donneEnCours;
+		
 	}
 
 
