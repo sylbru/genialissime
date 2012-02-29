@@ -1,6 +1,9 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
+import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
+
 public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge de la liaison graphique pour les préférences
+						// (niavlys) de toute façon cette classe ne va rien contenir de graphique normalement 
 {
 	// annonces
 	public static boolean autoriserParole = false; // ! à ne pas implementer pour l'instant
@@ -32,15 +35,16 @@ public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge d
 	public int PoigneeTriple = 15;
 	
 	//methode definissants le nombre d'atouts par rapport aux nombre de joueurs
+	//  ? (niavlys) Pas sûr que ce soit bien de définir ça ici dans une fonction (à revoir en tout cas, pas utilisable pour l’instant)
 	public void nombreAtoutsPoignee()
 	{
-		if(Partie.getNombreDeJoueurs() == 3)
+		if(P.getNombreDeJoueurs() == 3)
 		{
 			PoigneeSimple = 13;
 			PoigneeDouble = 15;
 			PoigneeTriple = 18;
 		}
-		else if (Partie.getNombreDeJoueurs() == 5)
+		else if (P.getNombreDeJoueurs() == 5)
 		{
 			PoigneeSimple = 8;
 			PoigneeDouble = 10;
@@ -65,34 +69,36 @@ public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge d
 	
 	// noms des joueur
 	
+	// TODO: À enlever d’ici, il faudra créer une classe genre PrefsUtilisateur,
+	// en tout cas ça n’a pas de rapport avec les règles du jeu.
 	public static void setNomDuJoueur(int i,String s) //pour modifier nom du joueur
 	{
-		Partie.getJoueur(i).setNomDuJoueur(s);
+		P.getJoueur(i).setNomDuJoueur(s);
 	}
 	
 	public static void setNomsDesJoueurs(String s1, String s2, String s3) // modifier nom des joueurs pour partie a 3
 	{
-		Partie.getJoueur(1).setNomDuJoueur(s1);
-		Partie.getJoueur(2).setNomDuJoueur(s2);
-		Partie.getJoueur(3).setNomDuJoueur(s3);
+		P.getJoueur(1).setNomDuJoueur(s1);
+		P.getJoueur(2).setNomDuJoueur(s2);
+		P.getJoueur(3).setNomDuJoueur(s3);
 	}
 	
 	public static void setNomsDesJoueurs(String s1, String s2, String s3, String s4) // modifier nom des joueurs pour partie a 4
 	{
-		Partie.getJoueur(1).setNomDuJoueur(s1);
-		Partie.getJoueur(2).setNomDuJoueur(s2);
-		Partie.getJoueur(3).setNomDuJoueur(s3);
-		Partie.getJoueur(4).setNomDuJoueur(s4);
+		P.getJoueur(1).setNomDuJoueur(s1);
+		P.getJoueur(2).setNomDuJoueur(s2);
+		P.getJoueur(3).setNomDuJoueur(s3);
+		P.getJoueur(4).setNomDuJoueur(s4);
 		
 	}
 	
 	public static void setNomsDesJoueurs(String s1, String s2, String s3, String s4, String s5) // modifier nom des joueurs pour partie a 5
 	{
-		Partie.getJoueur(1).setNomDuJoueur(s1);
-		Partie.getJoueur(2).setNomDuJoueur(s2);
-		Partie.getJoueur(3).setNomDuJoueur(s3);
-		Partie.getJoueur(4).setNomDuJoueur(s4);
-		Partie.getJoueur(5).setNomDuJoueur(s5);
+		P.getJoueur(1).setNomDuJoueur(s1);
+		P.getJoueur(2).setNomDuJoueur(s2);
+		P.getJoueur(3).setNomDuJoueur(s3);
+		P.getJoueur(4).setNomDuJoueur(s4);
+		P.getJoueur(5).setNomDuJoueur(s5);
 	}
 	
 	// fin de la partie

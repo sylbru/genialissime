@@ -1,29 +1,27 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
-import java.awt.font.NumericShaper;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Vector;
 
 import fr.um2.projetl3.tarotandroid.clients.Joueur;
-import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
+import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
 
 public class Donne
 {
-	private static Main mainsDesJoueurs[];
-	private static Carte chien[];
+	private Main mainsDesJoueurs[];
+	private Carte chien[];
 	
-	private static Contrat contratEnCours;
-	private static Joueur preneur;
-	private static Joueur appelee;// LE joueur appele dans le mode a 5 joueurs
-	private static Carte plisEnCours[];
-	private static Carte plisPrecedent[];
+	private Contrat contratEnCours;
+	private Joueur preneur;
+	private Joueur appelee;// LE joueur appele dans le mode a 5 joueurs
+	private Carte plisEnCours[];
+	private Carte plisPrecedent[];
 	
-	private static int numJoueurEntame; // premier à jouer dans le pli
+	private int numJoueurEntame; // premier à jouer dans le pli
 	// protected pour calculer les pts des plis Attaque/Defense
-	protected static Vector<Carte> plisAttaque; 
-	protected static Vector<Carte> plisDefense;
-	private static int numDonneur; // celui qui distribue dans la donne (utilisé pour le premier tour)
+	protected Vector<Carte> plisAttaque; 
+	protected Vector<Carte> plisDefense;
+	private int numDonneur; // celui qui distribue dans la donne (utilisé pour le premier tour)
 	
 	
 	/*
@@ -41,20 +39,20 @@ public class Donne
 	 *  			=> suivant le sens des aiguille d'une montre ou non 	
 	 */
 
-	 public static void distribution()
+	 public void distribution()
 	 { 
 		 incrementerNumDonneur();
-		 int nombreDeJoueurs = Partie.getNombreDeJoueurs();
+		 int nombreDeJoueurs = P.getNombreDeJoueurs();
 		 int numeroDuJoueur = getNumJoueurApres(numDonneur);
 		 System.out.println(numeroDuJoueur);
 		 
 		 int possibilitesMisesAuChien = 0;		 
 		 int nombreDeCartesMisesAuChien = 0;
-		 int nombreDeCartesPourLeChien = Partie.getnombreDeCartesPourLeChien();
+		 int nombreDeCartesPourLeChien = P.getnombreDeCartesPourLeChien();
 	
 		 mainsDesJoueurs = new Main[nombreDeJoueurs];
 		 for(int i=0; i<nombreDeJoueurs; i++)
-			 mainsDesJoueurs[i] = new Main((Constantes.NOMBRE_CARTES_TOTALES-nombreDeCartesPourLeChien)/nombreDeJoueurs, Partie.getJoueur(i));
+			 mainsDesJoueurs[i] = new Main((Constantes.NOMBRE_CARTES_TOTALES-nombreDeCartesPourLeChien)/nombreDeJoueurs, P.getJoueur(i));
 		 
 		 chien = new Carte[nombreDeCartesPourLeChien];
 
@@ -78,20 +76,20 @@ public class Donne
 			 while(j<=(random*Constantes.CARTES_DISTRIBU_PAR_JOUEUR))
 			 {
 				 System.out.print("Ajoute à joueur numéro "+numeroDuJoueur+" ");
-				 System.out.print(Partie.getCarteDansTas(j).toString()+", ");
-				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
+				 System.out.print(P.getCarteDansTas(j).toString()+", ");
+				 mainsDesJoueurs[numeroDuJoueur].addCarte(P.getCarteDansTas(j++));
 				 
-				 System.out.print(Partie.getCarteDansTas(j).toString()+", ");
-				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
+				 System.out.print(P.getCarteDansTas(j).toString()+", ");
+				 mainsDesJoueurs[numeroDuJoueur].addCarte(P.getCarteDansTas(j++));
 				 
-				 System.out.print(Partie.getCarteDansTas(j).toString()+".");
-				 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
+				 System.out.print(P.getCarteDansTas(j).toString()+".");
+				 mainsDesJoueurs[numeroDuJoueur].addCarte(P.getCarteDansTas(j++));
 				 
 				 numeroDuJoueur = getNumJoueurApres(numeroDuJoueur);
 				 System.out.println();
 			 }
-			 	 System.out.println("Ajout au chien de "+Partie.getCarteDansTas(j)+" (k="+k+")");
-				 chien[k]=Partie.getCarteDansTas(j);
+			 	 System.out.println("Ajout au chien de "+P.getCarteDansTas(j)+" (k="+k+")");
+				 chien[k]=P.getCarteDansTas(j);
 				 nombreDeCartesMisesAuChien++;
 				 //System.out.println(chien[k].toString());
 				 j++;
@@ -101,18 +99,18 @@ public class Donne
 		 while(j<Constantes.NOMBRE_CARTES_TOTALES-1)
 		 {
 			 System.out.print("Ajoute à joueur "+numeroDuJoueur+" ");
-			 System.out.print(Partie.getCarteDansTas(j).toString()+", ");
-			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
-			 System.out.print(Partie.getCarteDansTas(j).toString()+", ");
-			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));
-			 System.out.print(Partie.getCarteDansTas(j).toString()+".");
-			 mainsDesJoueurs[numeroDuJoueur].addCarte(Partie.getCarteDansTas(j++));	 
+			 System.out.print(P.getCarteDansTas(j).toString()+", ");
+			 mainsDesJoueurs[numeroDuJoueur].addCarte(P.getCarteDansTas(j++));
+			 System.out.print(P.getCarteDansTas(j).toString()+", ");
+			 mainsDesJoueurs[numeroDuJoueur].addCarte(P.getCarteDansTas(j++));
+			 System.out.print(P.getCarteDansTas(j).toString()+".");
+			 mainsDesJoueurs[numeroDuJoueur].addCarte(P.getCarteDansTas(j++));	 
 			 numeroDuJoueur = getNumJoueurApres(numeroDuJoueur);
 			 System.out.println();
 		 }
 		 for(int i = 0 ; i < nombreDeJoueurs ; i++)
 		 {
-			 Partie.getJoueur(i).setMain(mainsDesJoueurs[numeroDuJoueur]);
+			 P.getJoueur(i).setMain(mainsDesJoueurs[numeroDuJoueur]);
 		 }
 		 for(int i=0; i<4; i++)
 		 {
@@ -137,10 +135,11 @@ public class Donne
 	  * @param tableauContenantLePlis
 	  * @return l'indice du tableau ou se trouve la carte qui remporte le plis grâce à ça on peut retrouver qui remporte le plis
 	  */
-	 public static int vainqueurDuPlis(Carte[] tableauContenantLePlis) 
+	 public int vainqueurDuPlis(Carte[] tableauContenantLePlis) 
 	 {
 		int indice = -1;
-		int nombreDeJoueur = Partie.getNombreDeJoueurs();
+		int nombreDeJoueur = P.getNombreDeJoueurs();
+		// J’hésite entre utiliser P
 		int i;
 		
 		CarteAtout maxAtout = new CarteAtout(0);
@@ -195,7 +194,7 @@ public class Donne
 	 /**
 	  * Phase de jeu des cartes dans une donne, après les annonces et l’écart, avant le comptage des points.
 	  * (pour info, l’expression « jeu de la carte », ça vient pas de moi,
-	  * voir par exemple http://fr.wikipedia.org/wiki/Belote#Le_jeu_de_la_carte )
+	  * voir http://www.fftarot.fr/index.php/Decouvrir/Le-Jeu-de-la-carte.html )
 	  */
 	public void jeuDeLaCarte()
 	{
@@ -211,7 +210,7 @@ public class Donne
 			numJoueur = numJoueurEntame;
 			nbCartesPosees = 0;
 			
-			while (nbCartesPosees < Partie.getNombreDeJoueurs())
+			while (nbCartesPosees < P.getNombreDeJoueurs())
 			{
 				plisEnCours[nbCartesPosees] = demanderCarteJoueur(numJoueur); 
 				nbCartesPosees++;
@@ -232,7 +231,7 @@ public class Donne
 			}
 			
 			// transfert de pliEnCours dans pliPrecedent 
-			for(int i=0; i<Partie.getNombreDeJoueurs(); i++)
+			for(int i=0; i<P.getNombreDeJoueurs(); i++)
 			{
 				plisPrecedent[i] = plisEnCours[i];
 				plisEnCours[i] = null;
@@ -316,12 +315,12 @@ public class Donne
 	 */
 	public Carte demanderCarteJoueur(int num) 
 	{
-		// vérifier que Joueur j est dans Partie.getJoueurs() ?
+		// vérifier que Joueur j est dans P.getJoueurs() ?
 		Carte carteProposee;
 		do
 		{
 			indiquerCartesLegalesJoueur(num);
-			carteProposee = Partie.getJoueur(num).demanderCarte();
+			carteProposee = P.getJoueur(num).demanderCarte();
 		}
 		while
 			(mainsDesJoueurs[num].contains(carteProposee)
@@ -341,7 +340,7 @@ public class Donne
 	public Vector<Carte> indiquerCartesLegalesJoueur(int numJoueur)
 	{
 		Vector<Carte> cartesLegales = new Vector<Carte>();
-		if(numJoueur < Partie.getNombreDeJoueurs());
+		if(numJoueur < P.getNombreDeJoueurs());
 		for(Carte c: mainsDesJoueurs[numJoueur].getCartes())
 		{
 			if(isCarteLegale(c, numJoueur))
@@ -363,7 +362,7 @@ public class Donne
 	 * FIXME: fonctionne pas pour l’instant, peut-être qu’il faut songer à utiliser un Vector pour tas[],
 	 * ce serait plus simple. Mais dans ce cas ce serait bien de vérifier qu’il dépasse pas 78 cartes.
 	 */
-	public static void reformerTas()
+	public void reformerTas()
 	{
 		Carte[] nouveauTas = new Carte[78];
 		Carte[] arrayPlisAttaque = new Carte[78];
@@ -383,7 +382,7 @@ public class Donne
 			nouveauTas = arrayPlisDefense;
 			System.arraycopy(plisDefense, 0, nouveauTas, plisDefense.size(), plisAttaque.size());
 		}
-		//Partie.setTas(nouveauTas);
+		//P.setTas(nouveauTas);
 		System.out.println(nouveauTas.length+"\n"+nouveauTas);
 	}
 	/*
@@ -394,7 +393,7 @@ public class Donne
 	
 	public boolean isJoueurAttaque(int num)
 	{
-		return num == preneur.getID() || (Partie.getNombreDeJoueurs() == 5 && num == appelee.getID());
+		return num == preneur.getID() || (P.getNombreDeJoueurs() == 5 && num == appelee.getID());
 		// ? est-ce que getID() correspond bien à la position/au numéro ?
 	}
 	
@@ -403,11 +402,11 @@ public class Donne
 		return !isJoueurAttaque(num); 
 	}
 	
-	public static Contrat getContratEnCours() {
+	public Contrat getContratEnCours() {
 		return contratEnCours;
 	}
-	public static void setContratEnCours(Contrat contratEnCours) {
-		Donne.contratEnCours = contratEnCours;
+	public void setContratEnCours(Contrat contratEnCours) {
+		this.contratEnCours = contratEnCours;
 	}
 	
 	/**
@@ -416,12 +415,12 @@ public class Donne
 	 * @return Le numéro du joueur se trouvant après le joueur désigné en paramètre
 	 * TODO: gérer le sens de rotation (à voir avec PrefsRegles)
 	 */
-	public static int getNumJoueurApres(int numJoueur)
+	public int getNumJoueurApres(int numJoueur)
 	{
-		return (numJoueur+1)%Partie.getNombreDeJoueurs();
+		return (numJoueur+1)%P.getNombreDeJoueurs();
 	}
 
-	public static int getNumDonneur()
+	public int getNumDonneur()
 	{
 		return numDonneur;
 	}
@@ -431,53 +430,53 @@ public class Donne
 	 * Sert à incrémenter numDonneur pour le passer au joueur suivant.
 	 * Utilisé à chaque début de donne.
 	 */
-	public static void incrementerNumDonneur()
+	public void incrementerNumDonneur()
 	{
 		numDonneur = getNumJoueurApres(numDonneur);
 	}
 	
-	public static Joueur getPreneur() {
+	public Joueur getPreneur() {
 		return preneur;
 	}
-	public static void setPreneur(Joueur preneur) {
-		Donne.preneur = preneur;
+	public void setPreneur(Joueur preneur) {
+		this.preneur = preneur;
 	}
 	// pour les parties a 5
-	public static Joueur getJoueurAppele() {
+	public Joueur getJoueurAppele() {
 		return appelee;
 	}
-	public static void setJoueurAppele(Joueur joueurappele) {
-		Donne.appelee = joueurappele;
+	public void setJoueurAppele(Joueur joueurappele) {
+		this.appelee = joueurappele;
 	}
 	
-	public static Carte[] getPlisPrecedent() {
+	public Carte[] getPlisPrecedent() {
 		return plisPrecedent;
 	}
-	public static void setPlisPrecedent(Carte plisPrecedent[]) {
-		Donne.plisPrecedent = plisPrecedent;
+	public void setPlisPrecedent(Carte plisPrecedent[]) {
+		this.plisPrecedent = plisPrecedent;
 	}
 	
-	public static Carte[] getPlisEnCours() {
+	public Carte[] getPlisEnCours() {
 		return plisEnCours;
 	}
-	public static void setPlisEnCours(Carte plisEnCours[]) {
-		Donne.plisEnCours = plisEnCours;
+	public void setPlisEnCours(Carte plisEnCours[]) {
+		this.plisEnCours = plisEnCours;
 	}
 
-	public static void mettreChienDansLesPlisDeLAttaque()
+	public void mettreChienDansLesPlisDeLAttaque()
 	{
 		 plisAttaque.addAll(Arrays.asList(chien));
 	}
-	public static void mettreChienDansLesPlisDeLaDefense()
+	public void mettreChienDansLesPlisDeLaDefense()
 	{
 		 plisDefense.addAll(Arrays.asList(chien));
 	}
-	public static void mettreChienDansLaMainDuPreneur()
+	public void mettreChienDansLaMainDuPreneur()
 	{
 		 preneur.addChienDansMain(chien);
 	}
 	
-	public static void reveleChien()
+	public void reveleChien()
 	{
 		for(Carte c:chien)
 		{
@@ -490,11 +489,11 @@ public class Donne
 	 * -------------------------------Initialisations---------------------------------------------
 	 * -------------------------------------------------------------------------------------------
 	 */
-	public static void init()
+	public void init()
 	{
-		mainsDesJoueurs = new Main[Partie.getNombreDeJoueurs()];
-		plisEnCours = new Carte[Partie.getNombreDeJoueurs()];
-		plisEnCours = new Carte[Partie.getNombreDeJoueurs()];
+		mainsDesJoueurs = new Main[P.getNombreDeJoueurs()];
+		plisEnCours = new Carte[P.getNombreDeJoueurs()];
+		plisEnCours = new Carte[P.getNombreDeJoueurs()];
 	}
 	
 	private void initialisationDonne()
@@ -513,9 +512,11 @@ public class Donne
 	{
 		// Donne donne = new Donne(); // bon c’est le bordel entre les méthodes statiques et les non-statiques,
 									// faudra en discuter.
-		//Partie.lancerPartie4JoueursTexte();
+		//P.lancerPartie4JoueursTexte();
+		/*
 		init();
-		Partie.setNombreDeJoueurs(4);
+		
+		P.setNombreDeJoueurs(4);
 		plisEnCours = new Carte[4];
 		plisEnCours[0] = new CarteAtout(13);
 		plisEnCours[1] = new CarteAtout(1);
@@ -525,6 +526,8 @@ public class Donne
 		//plisEnCours[3] = new CarteCouleur(Couleur.Trefle, 1);
 		
 		System.out.println(vainqueurDuPlis(plisEnCours));
+		*/
+		Partie.main(null);
 		
 	}
 }

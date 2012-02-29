@@ -1,6 +1,7 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
 import java.util.Vector;
+import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
 
 public class Scores
 {
@@ -16,7 +17,7 @@ public class Scores
 	
 	public Scores()
 	{
-		int J = Partie.getNombreDeJoueurs();
+		int J = P.getNombreDeJoueurs();
 		scores = new Vector<Integer[]>();
 		Integer[] derniereLigne = new Integer[J];
 		for (int i = 0; i < J; i++)
@@ -37,7 +38,7 @@ public class Scores
 
 	/**
 	 * @author niavlys
-	 * @return Retourne le nombre de donnes effectuées (taille du vecteur scores), utilisé dans Partie.partieFinie()
+	 * @return Retourne le nombre de donnes effectuées (taille du vecteur scores), utilisé dans P.partieFinie()
 	 */
 	public int nbDonnes()
 	{
@@ -48,7 +49,7 @@ public class Scores
 	{
 		int meilleurScore = scores.lastElement()[0];
 		
-		for(int i=1; i<Partie.getNombreDeJoueurs(); i++)
+		for(int i=1; i<P.getNombreDeJoueurs(); i++)
 		{
 			if(scores.lastElement()[i] > meilleurScore)
 			{
@@ -71,7 +72,7 @@ public class Scores
 	public void calculDerniereLigneScore(Contrat typeDuContrat, int Gain,
 			boolean joueurReussie, int joueurContrat)
 	{
-		int J = Partie.getNombreDeJoueurs();
+		int J = P.getNombreDeJoueurs();
 		int valeurScore = calculScore(typeDuContrat, Gain);
 		Integer[] dernierResultat = new Integer[J];
 		Integer[] derniereLigne = new Integer[J];
@@ -91,7 +92,7 @@ public class Scores
 	public boolean sommePointsNul(Integer[] ligneScore)
 	{
 		int s = 0;
-		for (int i = 0; i < Partie.getNombreDeJoueurs(); i++)
+		for (int i = 0; i < P.getNombreDeJoueurs(); i++)
 		{
 			s = s + ligneScore[i];
 		}
@@ -105,7 +106,7 @@ public class Scores
 	public void affiche()
 	{
 		System.out.println("Scores : ");
-		int J = Partie.getNombreDeJoueurs();
+		int J = P.getNombreDeJoueurs();
 		int I = scores.size();
 		/*
 		 * pour afficher les noms de joueurs en debut de tableau // ? pourqoui l'avoir commenter c'etait bien non ?
@@ -130,14 +131,14 @@ public class Scores
 	// gangen ou pert et du contrat et du jouer qui a prit le contrat
 	public Integer[] ScoreLigne(int valeurScore, boolean joueurReussie, int joueurContrat)
 	{
-		Integer[] lscore = new Integer[Partie.getNombreDeJoueurs()];
+		Integer[] lscore = new Integer[P.getNombreDeJoueurs()];
 		if (joueurReussie)
 		{
-			for (int i = 0; i < Partie.getNombreDeJoueurs(); i++)
+			for (int i = 0; i < P.getNombreDeJoueurs(); i++)
 			{
 				if (i == joueurContrat)
 				{
-					lscore[i] = valeurScore * (Partie.getNombreDeJoueurs() - 1);
+					lscore[i] = valeurScore * (P.getNombreDeJoueurs() - 1);
 				} 
 				else
 				{
@@ -147,11 +148,11 @@ public class Scores
 		} 
 		else
 		{
-			for (int i = 0; i < Partie.getNombreDeJoueurs(); i++)
+			for (int i = 0; i < P.getNombreDeJoueurs(); i++)
 			{
 				if (i == joueurContrat)
 				{
-					lscore[i] = -(valeurScore) * (Partie.getNombreDeJoueurs() - 1);
+					lscore[i] = -(valeurScore) * (P.getNombreDeJoueurs() - 1);
 				} 
 				else
 				{
@@ -241,7 +242,7 @@ public class Scores
 	{
 		int sommeDesValeursDesCartes = 0;
 		
-		for(Carte c : Donne.plisAttaque)
+		for(Carte c : P.donne().plisAttaque)
 		{
 			sommeDesValeursDesCartes += c.valeur();
 		}
@@ -253,7 +254,7 @@ public class Scores
 	{
 		int nombreDeBoutsDansVecteurAttaque = 0;
 		
-		for(Carte c : Donne.plisAttaque)
+		for(Carte c : P.donne().plisAttaque)
 		{
 			if(c.isBout())
 			{
@@ -268,7 +269,7 @@ public class Scores
 	{
 		int sommeDesValeursDesCartes = 0;
 		
-		for(Carte c : Donne.plisDefense)
+		for(Carte c : P.donne().plisDefense)
 		{
 			sommeDesValeursDesCartes += c.valeur();
 		}
@@ -280,7 +281,7 @@ public class Scores
 	{
 		int nombreDeBoutsDansVecteurDefense = 0;
 		
-		for(Carte c : Donne.plisDefense)
+		for(Carte c : P.donne().plisDefense)
 		{
 			if(c.isBout())
 			{
@@ -302,15 +303,15 @@ public class Scores
 		assert(Constantes.TOTAL_DES_POINTS_DANS_LE_JEU == calculDesPointsDansLeVecteurAttaque() + calculDesPointsDansLeVecteurDefense());
 		//assertion pour bien verifier que le nombre total des vecteurs attaque/defense verifie la constante TOTAL_DES_POINTS_DANS_LE_JEU
 		assert(Constantes.NOMBRE_DE_BOUTS == calculNombreDeBoutsDansVecteurAttaque() + calculNombreDeBoutsDansVecteurDefense());
-		int gain = calculGainPartie(Donne.getContratEnCours(), pointsDansLeVecteurAttaque, nombreDeBoutDuPreneur);
-		int nombreDeJoueur = Partie.getNombreDeJoueurs();
+		int gain = calculGainPartie(P.donne().getContratEnCours(), pointsDansLeVecteurAttaque, nombreDeBoutDuPreneur);
+		int nombreDeJoueur = P.getNombreDeJoueurs();
 		
 		
 		for(int i=0;i<nombreDeJoueur;i++)
 		{
 			if((nombreDeJoueur == 3) || (nombreDeJoueur == 3))
 			{
-				if(Partie.getJoueur(i) == Donne.getPreneur())
+				if(P.getJoueur(i) == P.donne().getPreneur())
 				{
 					
 				}
@@ -321,11 +322,11 @@ public class Scores
 			}
 			else
 			{
-				if(Partie.getJoueur(i) == Donne.getPreneur())
+				if(P.getJoueur(i) == P.donne().getPreneur())
 				{
 					
 				}
-				else if (Partie.getJoueur(i) == Donne.getPreneur())
+				else if (P.getJoueur(i) == P.donne().getPreneur())
 				{
 					
 				}

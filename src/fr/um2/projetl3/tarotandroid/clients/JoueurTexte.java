@@ -5,6 +5,7 @@ import java.util.Scanner;
 import android.R.string;
 
 import fr.um2.projetl3.tarotandroid.jeu.*;
+import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
 
 public class JoueurTexte implements Joueur // implements Joueur (quand Joueur era une interface)
 {
@@ -163,10 +164,9 @@ public class JoueurTexte implements Joueur // implements Joueur (quand Joueur er
 
 	public Carte[] demanderEcart() 
 	{
-		// TODO Auto-generated method stub
-		Carte ecart[] = new Carte[Partie.getnombreDeCartesPourLeChien()];
-		System.out.println("Vous allez devoir choisir "+Partie.getnombreDeCartesPourLeChien()+" à mettre dans le votre ecart");
-		for(int i=0;i < Partie.getnombreDeCartesPourLeChien()-1;i++)
+		Carte ecart[] = new Carte[P.getnombreDeCartesPourLeChien()];
+		System.out.println("Vous allez devoir choisir "+P.getnombreDeCartesPourLeChien()+" cartes à mettre dans le votre ecart");
+		for(int i=0;i < P.getnombreDeCartesPourLeChien()-1;i++)
 		{
 			ecart[i] = demananderUneCartePourLecart();
 		}
