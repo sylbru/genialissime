@@ -209,17 +209,10 @@ public class Scores
 			resultat += -Gain;
 		else 
 			resultat += Gain;
-		
-		
-		if (PrefsRegles.ManiereDeCompter)
-		{
-			resultat +=25;
+
+			resultat +=typeDuContrat.getValeurContrat();
 			resultat *= typeDuContrat.getFacteur();
-		}
-		else
-		{
-			Gain += typeDuContrat.getValeurContrat();
-		}
+
 		if(resultat % 10 < 5)
 		{
 			resultat = resultat - (resultat % 10);
