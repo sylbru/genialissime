@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.util.Log;
 
-import fr.um2.projetl3.tarotandroid.R;
+import com.um2.projetl3.tarotandroid.R;
 
 public class PreferencesActivity extends PreferenceActivity implements
 		OnSharedPreferenceChangeListener

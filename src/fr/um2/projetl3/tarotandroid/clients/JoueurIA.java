@@ -7,31 +7,46 @@ import fr.um2.projetl3.tarotandroid.jeu.Main;
 import org.keplerproject.luajava.*;
 
 public class JoueurIA implements Joueur {
-
+	
+	private int pID;
+	private Main pMain;
+	private String nom;
+	
+	private LuaState L;
+	
+	public JoueurIA()
+	{
+		L = LuaStateFactory.newLuaState();
+		L.openLibs();
+		try {
+			L.pushObjectValue(this);
+		} catch (LuaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		L.setGlobal("javapi");
+	}
+	
 	public void setID(int pID) {
-		// TODO Auto-generated method stub
+		this.pID=pID;
 
 	}
 
 	public int getID() {
-		// TODO Auto-generated method stub
-		return 0;
+		return pID;
 	}
 
 	public void setMain(Main pMain) {
-		// TODO Auto-generated method stub
-
+		this.pMain = pMain;
 	}
 
 
 	public void addChienDansMain(Carte[] chien) {
-		// TODO Auto-generated method stub
-
+		// LOOOOL
 	}
 
 	public void setNomDuJoueur(String s) {
-		// TODO Auto-generated method stub
-
+		this.nom = s;
 	}
 
 	public String getNomDuJoueur() {
@@ -45,12 +60,12 @@ public class JoueurIA implements Joueur {
 	}
 
 	public Carte[] demanderEcart() {
-		// TODO Auto-generated method stub
+		// LOOOL
 		return null;
 	}
 
 	public Carte demanderCarte() {
-		// TODO Auto-generated method stub
+		// LOOOL
 		return null;
 	}
 
