@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import fr.um2.projetl3.tarotandroid.R;
+import com.um2.projetl3.tarotandroid.R;
 
 public class TarotAndroidActivity extends Activity
 {
@@ -29,10 +29,20 @@ public class TarotAndroidActivity extends Activity
 			public void onClick(View v)
 			{
 				Toast myToast = Toast.makeText(getApplicationContext(),
-						"C’est un toast.", 2);
+						"C'est un toast", 2);
 				myToast.show();
 				finish(); // ne ferme que cette activité, pas les autres, ni les
 							// threads ou autres trucs
+			}
+		});
+		
+		Button kevBouton = (Button) findViewById(R.id.kbutton);
+		kevBouton.setOnClickListener(new View.OnClickListener()
+		{
+			public void onClick(View v)
+			{
+				Intent kevIntent = new Intent(getApplicationContext(), TestKevinActivity.class);
+				startActivity(kevIntent);
 			}
 		});
 
