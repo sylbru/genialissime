@@ -8,19 +8,11 @@ import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
 public class Main
 {
 	private Vector<Carte> cartes;
-	private int nbCartesInitial;
-	
 	private Joueur proprietaire;
 
 	public boolean addCarte(Carte c)
 	{
-		if(cartes.size() < nbCartesInitial)
-			return cartes.add(c);
-		else
-		{
-			System.out.println("Erreur lors de l’ajout de "+c+", il y a déjà "+nbCartesInitial+" cartes dans la main.");
-			return false;
-		}
+		return cartes.add(c);
 	}
 
 	public boolean removeCarte(Carte c)
@@ -67,7 +59,7 @@ public class Main
 		{
 			if(c.isAtout() && !c.isExcuse())
 			{
-				atoutPresent= true;
+				atoutPresent = true;
 				break;
 			}
 		}
@@ -89,9 +81,8 @@ public class Main
 		System.out.println("-----");
 	}
 	
-	public Main(int nbCartesInitial, Joueur proprietaire)
+	public Main(Joueur proprietaire)
 	{
-		this.nbCartesInitial = nbCartesInitial;
 		this.proprietaire = proprietaire;
 		cartes = new Vector<Carte>();
 	}
@@ -101,7 +92,7 @@ public class Main
 		Joueur j1 = new JoueurTexte("Truc");
 		//System.out.println(j1.demanderAnnonce().getName()); erreur
 		
-		Main m = new Main(5, j1);
+		Main m = new Main(j1);
 		m.addCarte(new CarteCouleur(Couleur.Trefle, 12));
 		m.addCarte(new CarteAtout(14));
 		m.addCarte(new CarteAtout(0));
@@ -118,9 +109,9 @@ public class Main
 	}
 	
 	
-	public boolean RoiDansLaMain(CarteCouleur roi)
+	public boolean roiDansLaMain(CarteCouleur roi)
 	{ 
-		if(roi.isCouleur() && roi.getOrdre()==14)
+		if(roi.getOrdre()==14)
 		{
 			for(int i=0; i<cartes.size(); i++)
 			{

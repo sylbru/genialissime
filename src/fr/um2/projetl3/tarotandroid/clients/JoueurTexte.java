@@ -231,7 +231,7 @@ public class JoueurTexte implements Joueur // implements Joueur (quand Joueur er
 	
 	public boolean possedeRoi(CarteCouleur roi)
 	{
-		return pMain.RoiDansLaMain(roi);
+		return pMain.roiDansLaMain(roi);
 	}
 
 }
