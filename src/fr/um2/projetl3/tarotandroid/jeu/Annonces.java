@@ -119,7 +119,7 @@ public class Annonces
 	
 	public static void phaseAppelRoi()
 	{
-		CarteCouleur Roi = P.donne().getPreneur().appelerRoi();
+		Carte Roi = P.donne().getPreneur().appelerRoi();
 		int nombreDeJoueurs = P.getNombreDeJoueurs();
 		for(int i = 0; i<nombreDeJoueurs; i++)
 		{

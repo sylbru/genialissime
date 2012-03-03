@@ -42,7 +42,7 @@ public class Main
 		{
 			if(c.isCouleur())
 			{
-				if(((CarteCouleur)c).getCouleur() == coul)
+				if(c.getCouleur() == coul)
 				{
 					couleurExiste = true;
 					break;
@@ -93,11 +93,11 @@ public class Main
 		//System.out.println(j1.demanderAnnonce().getName()); erreur
 		
 		Main m = new Main(j1);
-		m.addCarte(new CarteCouleur(Couleur.Trefle, 12));
-		m.addCarte(new CarteAtout(14));
-		m.addCarte(new CarteAtout(0));
-		m.addCarte(new CarteAtout(21));
-		m.addCarte(new CarteCouleur(Couleur.Carreau, 2));
+		m.addCarte(new Carte(Couleur.Trefle, 12));
+		m.addCarte(new Carte(14));
+		m.addCarte(new Carte(0));
+		m.addCarte(new Carte(21));
+		m.addCarte(new Carte(Couleur.Carreau, 2));
 		//m.addCarte(new CarteCouleur(Couleur.Carreau, 1));
 		m.affiche();
 		System.out.println(m.cartes.size());
@@ -109,7 +109,7 @@ public class Main
 	}
 	
 	
-	public boolean roiDansLaMain(CarteCouleur roi)
+	public boolean roiDansLaMain(Carte roi)
 	{ 
 		if(roi.getOrdre()==14)
 		{

@@ -112,14 +112,14 @@ public class Partie
 		{
 			for (i = 1; i <= 14; i++)
 			{
-				tas[k++] = new CarteCouleur(c, i);
+				tas[k++] = new Carte(c, i);
 			}
 		}
 
 		// Création des atouts
 		for (i = 0; i <= 21; i++)
 		{
-			tas[k++] = new CarteAtout(i);
+			tas[k++] = new Carte(i);
 		}
 
 		// Test
@@ -177,18 +177,13 @@ public class Partie
 	{
 		for(Carte c:ecart)
 		{
-			if (c.isExcuse())
+			if (c.isBout())// si c'est un bout pas le doit de mettre au chien
+			{
 				return true;
-			else if (c.isAtout()) // si c'est un atout
-			{
-				if (((CarteAtout)c).isBout())// si c'est un bout pas le doit de mettre au chien
-				{
-					return true;
-				}
 			}
-			else // c'est donc une carte couleur // ? on refait la verification ? if iscartecouleur ?
+			else if(c.isCouleur()) // c'est donc une carte couleur // ? on refait la verification ? if iscartecouleur ?
 			{
-				if (((CarteCouleur)c).valeur() == 14) // si c'est un roi pas le droit de mettre au chien
+				if (c.valeur() == 14) // si c'est un roi pas le droit de mettre au chien
 				{
 					return true;
 				}

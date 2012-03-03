@@ -164,12 +164,12 @@ public class Scores
 	}
 
 	// calcule le nombre de points remporte a la fin d'un tour
-	public int calculePoints(CartesRemportes a)
+	public int calculePoints(Vector<Carte> cartesRemportees)
 	{
 		int demipoints = 0;
-		for (int i = 0; i < a.getsize(); i++)
+		for (int i = 0; i < cartesRemportees.size(); i++)
 		{
-			Carte c = a.getCarte(i);
+			Carte c = cartesRemportees.get(i);
 			demipoints = demipoints + c.valeur();
 		}
 		demipoints = demipoints / 2; // ! perd un demi-point si nombre impair de
