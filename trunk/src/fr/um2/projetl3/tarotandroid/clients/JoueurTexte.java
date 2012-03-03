@@ -194,9 +194,9 @@ public class JoueurTexte implements Joueur // implements Joueur (quand Joueur er
 	}
 	
 	
-	public CarteCouleur appelerRoi()
+	public Carte appelerRoi()
 	{
-		CarteCouleur Roi = new CarteCouleur(14);
+		Carte Roi = null;
 		System.out.println("Donnez la couleur du roi que vous voulez appeler");
 		int id=-1;
 		while(id<=0 || id >4)
@@ -207,19 +207,19 @@ public class JoueurTexte implements Joueur // implements Joueur (quand Joueur er
 			{
 			case 1:
 				System.out.println(" Vous avez appele le roi de coeur");
-				Roi.setCouleur(Couleur.Coeur);
+				Roi = new Carte(Couleur.Coeur, 14);
 				break;
 			case 2:
 				System.out.println("Vous avez appele le roi de pique");
-				Roi.setCouleur(Couleur.Pique);
+				Roi = new Carte(Couleur.Pique, 14);
 				break;
 			case 3:
 				System.out.println(" Vous avez appele le roi de treffle");
-				Roi.setCouleur(Couleur.Trefle);
+				Roi = new Carte(Couleur.Trefle, 14);
 				break;
 			case 4:
 				System.out.println(" Vous avez appele le roi de carreau");
-				Roi.setCouleur(Couleur.Carreau);
+				Roi = new Carte(Couleur.Carreau, 14);
 				break;
 			default:
 				//! il faudrait lancer une exception
@@ -229,7 +229,7 @@ public class JoueurTexte implements Joueur // implements Joueur (quand Joueur er
 		return Roi;
 	}
 	
-	public boolean possedeRoi(CarteCouleur roi)
+	public boolean possedeRoi(Carte roi)
 	{
 		return pMain.roiDansLaMain(roi);
 	}

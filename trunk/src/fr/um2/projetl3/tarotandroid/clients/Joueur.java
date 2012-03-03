@@ -1,7 +1,6 @@
 package fr.um2.projetl3.tarotandroid.clients;
 
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
-import fr.um2.projetl3.tarotandroid.jeu.CarteCouleur;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
 import fr.um2.projetl3.tarotandroid.jeu.Main;
 
@@ -34,8 +33,8 @@ public interface Joueur
 	Carte[] demanderEcart();
 	
 	Carte demanderCarte();
-	CarteCouleur appelerRoi();
-	boolean possedeRoi(CarteCouleur roi);
+	Carte appelerRoi();
+	boolean possedeRoi(Carte roi);
 	
 	String nom();
 

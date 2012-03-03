@@ -139,17 +139,16 @@ public class Donne
 	 {
 		int indice = -1;
 		int nombreDeJoueur = P.getNombreDeJoueurs();
-		// J’hésite entre utiliser P
 		int i;
 		
-		CarteAtout maxAtout = new CarteAtout(0);
+		Carte maxAtout = new Carte(0);
 		for(i=0;i < nombreDeJoueur;i++)					//A chaque pli on commence par regarder s'il y a des atouts,si oui on prend la plus forte
 		{
 			if(tableauContenantLePlis[i].isAtout())
 			{
-				if((((CarteAtout)maxAtout).getNum()) < (((CarteAtout)tableauContenantLePlis[i]).getNum()))
+				if((maxAtout.getOrdre()) < (tableauContenantLePlis[i].getOrdre()))
 				{
-					maxAtout = (CarteAtout) tableauContenantLePlis[i];
+					maxAtout = tableauContenantLePlis[i];
 					indice = i;
 				}
 			}
@@ -165,23 +164,23 @@ public class Donne
 			
 			if(tableauContenantLePlis[0].isExcuse())
 			{			
-				couleurDemander = ((CarteCouleur)tableauContenantLePlis[1]).getCouleur();
+				couleurDemander = tableauContenantLePlis[1].getCouleur();
 			}
 			else // if(! tableauContenantLePlis[2].isAtout()) // le code est bien ecrit du coup cette verification est inutile
 			{
-				couleurDemander = ((CarteCouleur)tableauContenantLePlis[0]).getCouleur();
+				couleurDemander = tableauContenantLePlis[0].getCouleur();
 			}
 			
-			CarteCouleur maxCouleur = new CarteCouleur(couleurDemander, 0);
+			Carte maxCouleur = new Carte(couleurDemander, 0);
 			for(i=0;i < nombreDeJoueur;i++)					
 			{
 				if(tableauContenantLePlis[i].isCouleur())
 				{
-					if(((CarteCouleur)tableauContenantLePlis[i]).getCouleur() == couleurDemander)
+					if(tableauContenantLePlis[i].getCouleur() == couleurDemander)
 					{
-						if(((CarteCouleur)maxCouleur).getOrdre() < ((CarteCouleur)tableauContenantLePlis[i]).getOrdre())
+						if(maxCouleur.getOrdre() < tableauContenantLePlis[i].getOrdre())
 						{	
-							maxCouleur = (CarteCouleur) tableauContenantLePlis[i];
+							maxCouleur = tableauContenantLePlis[i];
 							indice = i;
 						}		
 					}	
@@ -262,16 +261,16 @@ public class Donne
 			// on vérifie que l’atout est plus haut que les autres.
 			
 			// (calcul de l’atout le plus haut dans le pli en cours)
-			CarteAtout a = new CarteAtout(0);
+			Carte a = new Carte(0);
 			for(int i=numJoueurEntame; i!=numJ; i=getNumJoueurApres(i))
 			{
-				if (plisEnCours[i].isAtout() && ((CarteAtout)plisEnCours[i]).getNum() > a.getNum())
+				if (plisEnCours[i].isAtout() && plisEnCours[i].getOrdre() > a.getOrdre())
 				{
-					a = (CarteAtout)plisEnCours[i];
+					a = plisEnCours[i];
 				}
 			}
 			
-			if (((CarteAtout)c).getNum() > a.getNum())
+			if (c.getOrdre() > a.getOrdre())
 			{
 				// l’atout est plus haut que les autres, reste à voir si il est autorisé en fonction de ce qui est demandé
 				if ((plisEnCours[numJoueurEntame].isExcuse() && plisEnCours[getNumJoueurApres(numJoueurEntame)].isAtout()) || plisEnCours[numJoueurEntame].isAtout())
@@ -283,11 +282,11 @@ public class Donne
 					Couleur coulDemandee;
 					if(plisEnCours[numJoueurEntame].isExcuse())
 					{
-						coulDemandee = ((CarteCouleur)plisEnCours[getNumJoueurApres(numJoueurEntame)]).getCouleur();
+						coulDemandee = plisEnCours[getNumJoueurApres(numJoueurEntame)].getCouleur();
 					}
 					else
 					{
-						coulDemandee = ((CarteCouleur)plisEnCours[numJoueurEntame]).getCouleur();
+						coulDemandee = plisEnCours[numJoueurEntame].getCouleur();
 					}
 					 // il faut que le joueur ne possède pas la couleur demandée pour pouvoir jouer atout :
 					return !mainsDesJoueurs[numJ].possedeCouleur(coulDemandee);					
@@ -299,13 +298,13 @@ public class Donne
 			Couleur coulDemandee;
 			if(plisEnCours[numJoueurEntame].isExcuse())
 			{
-				coulDemandee = ((CarteCouleur)plisEnCours[getNumJoueurApres(numJoueurEntame)]).getCouleur();
+				coulDemandee = plisEnCours[getNumJoueurApres(numJoueurEntame)].getCouleur();
 			}
 			else
 			{
-				coulDemandee = ((CarteCouleur)plisEnCours[numJoueurEntame]).getCouleur();
+				coulDemandee = plisEnCours[numJoueurEntame].getCouleur();
 			}
-			return (coulDemandee == ((CarteCouleur)c).getCouleur()) || !mainsDesJoueurs[numJ].possedeCouleur(coulDemandee) && !mainsDesJoueurs[numJ].possedeAtout();
+			return (coulDemandee == c.getCouleur()) || !mainsDesJoueurs[numJ].possedeCouleur(coulDemandee) && !mainsDesJoueurs[numJ].possedeAtout();
 		}
 	}
 	
@@ -518,11 +517,11 @@ public class Donne
 		
 		P.setNombreDeJoueurs(4);
 		plisEnCours = new Carte[4];
-		plisEnCours[0] = new CarteAtout(13);
-		plisEnCours[1] = new CarteAtout(1);
+		plisEnCours[0] = new Carte(13);
+		plisEnCours[1] = new Carte(1);
 		//plisEnCours[1] = new CarteCouleur(Couleur.Trefle, 3);
 		plisEnCours[2] = new CarteCouleur(Couleur.Carreau, 10);
-		plisEnCours[3] = new CarteAtout(12);
+		plisEnCours[3] = new Carte(12);
 		//plisEnCours[3] = new CarteCouleur(Couleur.Trefle, 1);
 		
 		System.out.println(vainqueurDuPlis(plisEnCours));

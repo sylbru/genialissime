@@ -1,10 +1,12 @@
 package fr.um2.projetl3.tarotandroid.clients;
 
+import org.keplerproject.luajava.LuaException;
+import org.keplerproject.luajava.LuaState;
+import org.keplerproject.luajava.LuaStateFactory;
+
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
-import fr.um2.projetl3.tarotandroid.jeu.CarteCouleur;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
 import fr.um2.projetl3.tarotandroid.jeu.Main;
-import org.keplerproject.luajava.*;
 
 public class JoueurIA implements Joueur {
 	
@@ -69,12 +71,12 @@ public class JoueurIA implements Joueur {
 		return null;
 	}
 
-	public CarteCouleur appelerRoi() {
+	public Carte appelerRoi() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public boolean possedeRoi(CarteCouleur roi) {
+	public boolean possedeRoi(Carte roi) {
 		// TODO Auto-generated method stub
 		return false;
 	}
