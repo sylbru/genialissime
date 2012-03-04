@@ -35,6 +35,17 @@ public class Scores
 	 * ---------------------------------------------------------------------------------- 
 	 */
 	
+	/**
+	 * a appeler pour calculer le score à la fin d'une donne
+	 * scores est initialise dans inilitationPartie()
+	 */
+	public void phaseScore()
+	{	
+		int Gain =  calculGain(calculDesPointsDansLeVecteurAttaque(), calculNombreDeBoutsDansVecteurAttaque());
+
+		calculDerniereLigneScore(P.donne().getContratEnCours(), Gain, joueurReussi(Gain), P.donne().getPreneur().getID());
+	}
+	
 
 	/**
 	 * @author niavlys
@@ -181,7 +192,7 @@ public class Scores
 	// calcule de combien le tour a ete remporte en fonction du nombre de points
 	// fait par le prenneur de contrat et le nombre de bouts qu'il possedait
 	// le gain peut etre possitif, ou negatif si le joueur ne la pas remporte
-	public int calculGain(Contrat typeDuContrat, int Points, int nbrdebouts)
+	public int calculGain(int Points, int nbrdebouts)
 	{
 		switch (nbrdebouts)
 		{
@@ -222,6 +233,12 @@ public class Scores
 			resultat = resultat - (resultat % 10) + 10;
 		}
 		return resultat;
+	}
+	
+	public boolean joueurReussi(int Gain)
+	{
+		if ( Gain < 0 ) return false; 
+		else return true;
 	}
 	
 	/*
@@ -338,7 +355,7 @@ public class Scores
 	 */
 	public int calculGainPartie(Contrat typeDuContrat, int pointsDansLeVecteurAttaque, int nombreDeBoutDuPreneur)
 	{
-		int gain = calculGain(typeDuContrat, pointsDansLeVecteurAttaque, nombreDeBoutDuPreneur);
+		int gain = calculGain(pointsDansLeVecteurAttaque, nombreDeBoutDuPreneur);
 		
 		
 		if (PrefsRegles.ManiereDeCompter)
