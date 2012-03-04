@@ -4,7 +4,7 @@ import fr.um2.projetl3.tarotandroid.jeu.Carte;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
 import fr.um2.projetl3.tarotandroid.jeu.Main;
 
-public interface Joueur
+public interface IJoueur
 {
 	/* 			Il faudrait creer une méthode qui permette à un joueur de faire son ecart 
 	 * 			cette méthode devrait renvoyer l'ecart.
@@ -37,5 +37,6 @@ public interface Joueur
 	boolean possedeRoi(Carte roi);
 	
 	String nom();
+	void direChien(Carte[] chien);
 
 }

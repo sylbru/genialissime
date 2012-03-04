@@ -8,7 +8,7 @@ import fr.um2.projetl3.tarotandroid.jeu.Carte;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
 import fr.um2.projetl3.tarotandroid.jeu.Main;
 
-public class JoueurIA implements Joueur {
+public class JoueurIA implements IJoueur {
 	
 	private int pID;
 	private Main pMain;
@@ -84,6 +84,12 @@ public class JoueurIA implements Joueur {
 	public String nom() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void direChien(Carte[] chien)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

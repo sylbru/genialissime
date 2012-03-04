@@ -5,6 +5,8 @@ import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
 public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge de la liaison graphique pour les préférences
 						// (niavlys) de toute façon cette classe ne va rien contenir de graphique normalement 
 {
+	public static boolean sensInverseAiguillesMontre = true;
+	
 	// annonces
 	public static boolean autoriserParole = false; // ! à ne pas implementer pour l'instant
 	public static boolean autoriserPetite = true;

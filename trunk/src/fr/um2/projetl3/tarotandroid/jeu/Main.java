@@ -2,13 +2,13 @@ package fr.um2.projetl3.tarotandroid.jeu;
 
 import java.util.Vector;
 
-import fr.um2.projetl3.tarotandroid.clients.Joueur;
+import fr.um2.projetl3.tarotandroid.clients.IJoueur;
 import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
 
 public class Main
 {
 	private Vector<Carte> cartes;
-	private Joueur proprietaire;
+	private IJoueur proprietaire;
 
 	public boolean addCarte(Carte c)
 	{
@@ -81,7 +81,7 @@ public class Main
 		System.out.println("-----");
 	}
 	
-	public Main(Joueur proprietaire)
+	public Main(IJoueur proprietaire)
 	{
 		this.proprietaire = proprietaire;
 		cartes = new Vector<Carte>();
@@ -89,7 +89,7 @@ public class Main
 	
 	public static void main(String[] args)
 	{
-		Joueur j1 = new JoueurTexte("Truc");
+		IJoueur j1 = new JoueurTexte("Truc");
 		//System.out.println(j1.demanderAnnonce().getName()); erreur
 		
 		Main m = new Main(j1);

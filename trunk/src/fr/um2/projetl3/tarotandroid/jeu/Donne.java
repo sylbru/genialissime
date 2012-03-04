@@ -3,7 +3,7 @@ package fr.um2.projetl3.tarotandroid.jeu;
 import java.util.Arrays;
 import java.util.Vector;
 
-import fr.um2.projetl3.tarotandroid.clients.Joueur;
+import fr.um2.projetl3.tarotandroid.clients.IJoueur;
 import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
 
 public class Donne
@@ -12,8 +12,8 @@ public class Donne
 	private Carte chien[];
 	
 	private Contrat contratEnCours;
-	private Joueur preneur;
-	private Joueur appelee;// LE joueur appele dans le mode a 5 joueurs
+	private IJoueur preneur;
+	private IJoueur appelee;// LE joueur appele dans le mode a 5 joueurs
 	private Carte plisEnCours[];
 	private Carte plisPrecedent[];
 	
@@ -115,11 +115,10 @@ public class Donne
 		 for(int i=0; i<4; i++)
 		 {
 			 mainsDesJoueurs[i].affiche();
-		}
-		 System.out.println("Chien : ");
-		 reveleChien();
-		 System.out.println();
-		
+		 }
+		 // reveleChien(); // Temporaire tant qu’on a quatre JoueurTexte, pour pas afficher 4 fois le chien
+		 P.getJoueur(0).direChien(chien);
+		 
 	}
 
 		/*
@@ -412,11 +411,23 @@ public class Donne
 	 * @author niavlys
 	 * @param numJoueur un joueur
 	 * @return Le numéro du joueur se trouvant après le joueur désigné en paramètre
-	 * TODO: gérer le sens de rotation (à voir avec PrefsRegles)
 	 */
 	public int getNumJoueurApres(int numJoueur)
 	{
-		return (numJoueur+1)%P.getNombreDeJoueurs();
+		int newNum;
+		if(PrefsRegles.sensInverseAiguillesMontre)
+		{
+			newNum = numJoueur+1;
+		}
+		else
+		{
+			newNum = numJoueur-1;
+		}
+		
+		return newNum % P.getNombreDeJoueurs();
+		
+		// Ou en une ligne :
+		// return (PrefsRegles.sensInverseAiguillesMontre ? numJoueur+1 : numJoueur-1) % P.getNombreDeJoueurs();
 	}
 
 	public int getNumDonneur()
@@ -434,17 +445,17 @@ public class Donne
 		numDonneur = getNumJoueurApres(numDonneur);
 	}
 	
-	public Joueur getPreneur() {
+	public IJoueur getPreneur() {
 		return preneur;
 	}
-	public void setPreneur(Joueur preneur) {
+	public void setPreneur(IJoueur preneur) {
 		this.preneur = preneur;
 	}
 	// pour les parties a 5
-	public Joueur getJoueurAppele() {
+	public IJoueur getJoueurAppele() {
 		return appelee;
 	}
-	public void setJoueurAppele(Joueur joueurappele) {
+	public void setJoueurAppele(IJoueur joueurappele) {
 		this.appelee = joueurappele;
 	}
 	
@@ -477,10 +488,11 @@ public class Donne
 	
 	public void reveleChien()
 	{
-		for(Carte c:chien)
+		for(IJoueur j: P.getJoueurs())
 		{
-			c.affiche();
+			j.direChien(chien);
 		}
+
 	}
 	
 	/*
