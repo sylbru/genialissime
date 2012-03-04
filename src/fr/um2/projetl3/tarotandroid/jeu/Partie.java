@@ -4,18 +4,18 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Vector;
 
-import fr.um2.projetl3.tarotandroid.clients.Joueur;
+import fr.um2.projetl3.tarotandroid.clients.IJoueur;
 import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
 import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
 
 @SuppressWarnings("all")
 public class Partie
 {
-	private Joueur[] joueurs; // initialisé de taille 3, 4 ou 5 selon type partie
+	private IJoueur[] joueurs; // initialisé de taille 3, 4 ou 5 selon type partie
 	private Scores scores;
 	private int nombreDeJoueurs;
 	private int nombreDeCartesPourLeChien;
-	private Carte[] tas; // le tas de carte, repris à la fin d’une donne pour être redistribué
+	private Carte[] tas; // le tas de cartes, repris à la fin d’une donne pour être redistribué
 	private Donne donne; // la donne en cours
 	private boolean stopPartie; 
 	
@@ -39,16 +39,16 @@ public class Partie
 		return tas[i];
 	}
 	
-	public Joueur[] getJoueurs()
+	public IJoueur[] getJoueurs()
 	{
 		return joueurs;
 	}
-	public Joueur getJoueur(int i)
+	public IJoueur getJoueur(int i)
 	{
 		return joueurs[i];
 	}
 
-	public void setJoueur(int i, Joueur joueur)
+	public void setJoueur(int i, IJoueur joueur)
 	{
 		joueurs[i] = joueur;
 	}
@@ -86,7 +86,7 @@ public class Partie
 
 			this.nombreDeJoueurs = 4;
 		}
-		this.joueurs = new Joueur[this.nombreDeJoueurs];
+		this.joueurs = new IJoueur[this.nombreDeJoueurs];
 
 	}
 

@@ -7,11 +7,13 @@ import android.R.string;
 import fr.um2.projetl3.tarotandroid.jeu.*;
 import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
 
-public class JoueurTexte implements Joueur // implements Joueur (quand Joueur era une interface)
+public class JoueurTexte implements IJoueur // implements Joueur (quand Joueur era une interface)
 {
 	private int pID;
 	private Main pMain;
 	private String nom;
+	private boolean quiet = false; // comme on teste pour l’instant avec quatre JoueurTexte, 
+								   // quiet permet de pas afficher tout quatre fois (un seul a quiet à true)
 
 	public void setID(int pID)
 	{
@@ -128,10 +130,17 @@ public class JoueurTexte implements Joueur // implements Joueur (quand Joueur er
 	{
 		this.nom = nom;
 	}
+	
 	public JoueurTexte(int pid, String nom)
 	{
 		pID = pid;
 		this.nom = nom;
+	}
+	
+	public JoueurTexte(String nom, boolean quiet)
+	{
+		this.nom = nom;
+		this.quiet = quiet;
 	}
 
 
@@ -161,12 +170,20 @@ public class JoueurTexte implements Joueur // implements Joueur (quand Joueur er
 			pMain.addCarte(c);
 		}
 	}
-
+	/* **********************************************
+	 * 
+	 * Les méthodes demander…() servent à connaître le choix d’un joueur.
+	 * (ex. choix d’une carte, d’une annonce, de l’écart…)
+	 * 
+	 * TODO: réorganiser et renommer certaines méthodes
+	 * 
+	 * ********************************************* */
+	
 	public Carte[] demanderEcart() 
 	{
 		Carte ecart[] = new Carte[P.getnombreDeCartesPourLeChien()];
 		System.out.println("Vous allez devoir choisir "+P.getnombreDeCartesPourLeChien()+" cartes à mettre dans le votre ecart");
-		for(int i=0;i < P.getnombreDeCartesPourLeChien()-1;i++)
+		for(int i=0;i < P.getnombreDeCartesPourLeChien();i++)
 		{
 			ecart[i] = demananderUneCartePourLecart();
 		}
@@ -232,6 +249,40 @@ public class JoueurTexte implements Joueur // implements Joueur (quand Joueur er
 	public boolean possedeRoi(Carte roi)
 	{
 		return pMain.roiDansLaMain(roi);
+	}
+
+	/* **********************************************
+	 * 
+	 * Les méthodes dire…() servent à informer le joueur d’un événement.
+	 * (ex. carte jouée, annonce d’un joueur, dévoilement du chien…)
+	 * 
+	 * ********************************************* */
+	
+	public void direChien(Carte[] chien)
+	{
+		if(!quiet)
+		{
+			System.out.println("Chien :");
+			for(Carte c: chien)
+				c.affiche();
+			System.out.println();
+		}
+	}
+	
+	public void direCarteJouee(Carte c, IJoueur j)
+	{
+		if(!quiet)
+		{
+			System.out.println(j.getNomDuJoueur() + " joue " + c);
+		}
+	}
+	
+	public void direAnnonce(Contrat c, IJoueur j)
+	{
+		if(!quiet)
+		{
+			System.out.println(j.getNomDuJoueur() + " annonce " + c);
+		}
 	}
 
 }

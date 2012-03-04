@@ -1,6 +1,6 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
-import fr.um2.projetl3.tarotandroid.clients.Joueur;
+import fr.um2.projetl3.tarotandroid.clients.IJoueur;
 import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
 
 public class Annonces 
@@ -34,7 +34,7 @@ public class Annonces
 			tableauDesContrat[i]=Contrat.AUCUN;
 		}
 		
-		Joueur joueurQuiVaPrendre = null;
+		IJoueur joueurQuiVaPrendre = null;
 		int combienVeulentPrendre = 0;
 		
 		while(conditionArret)

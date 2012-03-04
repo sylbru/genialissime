@@ -1,10 +1,10 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
-import fr.um2.projetl3.tarotandroid.clients.Joueur;
+import fr.um2.projetl3.tarotandroid.clients.IJoueur;
 
 public class Prise
 {
-	private Joueur preneur;
+	private IJoueur preneur;
 	private Contrat contrat;
 	private int points; // points réalisés (à différencier du score marqué)
 	
