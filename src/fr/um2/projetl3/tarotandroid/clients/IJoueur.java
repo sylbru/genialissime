@@ -28,7 +28,8 @@ public interface IJoueur
 
 	void setNomDuJoueur(String s);
 	String getNomDuJoueur();
-
+	String nom();
+	
 	Contrat demanderAnnonce(Contrat contrat);
 	Carte[] demanderEcart();
 	
@@ -36,7 +37,7 @@ public interface IJoueur
 	Carte appelerRoi();
 	boolean possedeRoi(Carte roi);
 	
-	String nom();
 	void direChien(Carte[] chien);
-
+	void direCarteJouee(Carte c, IJoueur j);
+	void direAnnonce(Contrat c, IJoueur j);
 }

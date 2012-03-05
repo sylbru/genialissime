@@ -183,6 +183,7 @@ public class JoueurTexte implements IJoueur // implements Joueur (quand Joueur e
 	{
 		Carte ecart[] = new Carte[P.getnombreDeCartesPourLeChien()];
 		System.out.println("Vous allez devoir choisir "+P.getnombreDeCartesPourLeChien()+" cartes à mettre dans le votre ecart");
+		pMain.affiche();
 		for(int i=0;i < P.getnombreDeCartesPourLeChien();i++)
 		{
 			ecart[i] = demananderUneCartePourLecart();
@@ -197,7 +198,6 @@ public class JoueurTexte implements IJoueur // implements Joueur (quand Joueur e
 		Scanner sc = new Scanner(System.in);
 		do
 		{
-			pMain.affiche();
 			System.out.println("Mettez une carte à l'ecart en donnant un chiffre entre 1 et "+pMain.nbCartesRestantes());
 			num = sc.nextInt();
 			if(num < 0 || num >= pMain.nbCartesRestantes())

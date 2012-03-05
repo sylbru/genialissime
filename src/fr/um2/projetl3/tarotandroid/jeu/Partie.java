@@ -210,6 +210,12 @@ public class Partie
 				ecartEnAttenteDeValidation = donne.getPreneur().demanderEcart();
 				ecartPasValide = verificatioSiEcartPasValide(ecartEnAttenteDeValidation); 
 			}
+			System.out.println("TEST CHIEN");
+			for(int i=0; i<6; i++)
+				ecartEnAttenteDeValidation[i].affiche();
+			donne.plisAttaque.addAll(Arrays.asList(ecartEnAttenteDeValidation));
+			donne.enleverEcart(ecartEnAttenteDeValidation, donne.getPreneur());
+			
 		}
 		else if ( donne.getContratEnCours().isChienPourAttaque()) // garde sans
 		{	
@@ -275,9 +281,9 @@ public class Partie
 	{
 		setNombreDeJoueurs(4);
 		setJoueur(0, new JoueurTexte("Nord"));
-		setJoueur(1, new JoueurTexte("Sud"));
-		setJoueur(2, new JoueurTexte("Est"));
-		setJoueur(3, new JoueurTexte("Ouest"));
+		setJoueur(1, new JoueurTexte("Sud", true));
+		setJoueur(2, new JoueurTexte("Est", true));
+		setJoueur(3, new JoueurTexte("Ouest", true));
 		
 		lancerPartie();
 	}
