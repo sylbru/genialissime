@@ -92,4 +92,18 @@ public class JoueurIA implements IJoueur {
 		
 	}
 
+	@Override
+	public void direCarteJouee(Carte c, IJoueur j)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void direAnnonce(Contrat c, IJoueur j)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
 }

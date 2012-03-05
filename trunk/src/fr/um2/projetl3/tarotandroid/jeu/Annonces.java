@@ -49,6 +49,7 @@ public class Annonces
 				{
 				
 					contrat = P.getJoueur(numeroDuJoueur).demanderAnnonce(contratMax);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
+					direJoueursAnnonce(contrat, P.getJoueur(numeroDuJoueur));
 					
 					if (contrat.getPoids() > contratMax.getPoids())
 					{
@@ -114,6 +115,14 @@ public class Annonces
 		if(nombreDeJoueurs==5)
 		{
 			phaseAppelRoi();
+		}
+	}
+	
+	public static void direJoueursAnnonce(Contrat c, IJoueur joueur)
+	{
+		for(IJoueur j: P.getJoueurs())
+		{
+			j.direAnnonce(c, joueur);
 		}
 	}
 	

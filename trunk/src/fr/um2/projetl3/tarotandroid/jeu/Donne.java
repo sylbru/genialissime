@@ -116,8 +116,7 @@ public class Donne
 		 {
 			 mainsDesJoueurs[i].affiche();
 		 }
-		 // reveleChien(); // Temporaire tant qu’on a quatre JoueurTexte, pour pas afficher 4 fois le chien
-		 P.getJoueur(0).direChien(chien);
+		 reveleChien();
 		 
 	}
 
@@ -201,10 +200,9 @@ public class Donne
 		int numJoueur;
 		int numJoueurVainqueurPli;
 		
-		initialisationDonne();
-		
 		while (!donneFinie()) // un tour de jeu, on commence à numJoueur = numJoueurEntame
 		{
+			
 			numJoueur = numJoueurEntame;
 			nbCartesPosees = 0;
 			
@@ -324,6 +322,7 @@ public class Donne
 			(mainsDesJoueurs[num].contains(carteProposee)
 			&& isCarteLegale(carteProposee, num));
 		
+		mainsDesJoueurs[num].removeCarte(carteProposee);
 		return carteProposee;
 		// je pense que ce serait mieux d’avoir les mains dans les joueurs, et d’y accéder par J.getMain()
 	}
@@ -383,6 +382,13 @@ public class Donne
 		//P.setTas(nouveauTas);
 		System.out.println(nouveauTas.length+"\n"+nouveauTas);
 	}
+	
+	public void enleverEcart(Carte[] ecart, IJoueur j)
+	{
+		for(Carte c: ecart)
+			mainsDesJoueurs[j.getID()].removeCarte(c);
+	}
+	
 	/*
 	 * ---------------------------------------------------------------------------------------------------
 	 * -------------------------------------- accesseur --------------------------------------------------
@@ -426,7 +432,7 @@ public class Donne
 		
 		return newNum % P.getNombreDeJoueurs();
 		
-		// Ou en une ligne :
+		// Ou en une ligne (mais JB aimerait pas) :
 		// return (PrefsRegles.sensInverseAiguillesMontre ? numJoueur+1 : numJoueur-1) % P.getNombreDeJoueurs();
 	}
 
@@ -486,13 +492,29 @@ public class Donne
 		 preneur.addChienDansMain(chien);
 	}
 	
+	/**
+	 * Informe les joueurs du chien révélé
+	 */
 	public void reveleChien()
 	{
 		for(IJoueur j: P.getJoueurs())
 		{
 			j.direChien(chien);
 		}
-
+	}
+	
+	/**
+	 * @author niavlys
+	 * Informe les joueurs du fait qu’une carte a été jouée par un joueur
+	 * @param c La carte jouée
+	 * @param joueur Le joueur qui a joué la carte
+	 */
+	public void direJoueursCarteJouee(Carte c, IJoueur joueur)
+	{
+		for(IJoueur j: P.getJoueurs())
+		{
+			j.direCarteJouee(c, joueur);
+		}
 	}
 	
 	/*
@@ -505,14 +527,10 @@ public class Donne
 		mainsDesJoueurs = new Main[P.getNombreDeJoueurs()];
 		plisEnCours = new Carte[P.getNombreDeJoueurs()];
 		plisEnCours = new Carte[P.getNombreDeJoueurs()];
-	}
-	
-	private void initialisationDonne()
-	{
 		plisDefense = new Vector<Carte>();
 		plisAttaque = new Vector<Carte>();
 	}
-
+	
 	public Donne()
 	{
 		init();
