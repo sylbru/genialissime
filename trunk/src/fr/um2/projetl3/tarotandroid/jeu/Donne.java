@@ -31,7 +31,6 @@ public class Donne
 	 */
 	/**
 	 * @author JB
-	 * 
 	 * methode de distribution des cartes
 	 * 
 	 *  // TODO test + :
@@ -431,9 +430,6 @@ public class Donne
 		}
 		
 		return newNum % P.getNombreDeJoueurs();
-		
-		// Ou en une ligne (mais JB aimerait pas) :
-		// return (PrefsRegles.sensInverseAiguillesMontre ? numJoueur+1 : numJoueur-1) % P.getNombreDeJoueurs();
 	}
 
 	public int getNumDonneur()

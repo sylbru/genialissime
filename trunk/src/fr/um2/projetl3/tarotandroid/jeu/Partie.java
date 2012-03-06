@@ -289,8 +289,8 @@ public class Partie
 	{
 		setNombreDeJoueurs(4);
 		setJoueur(0, new JoueurTexte("Nord"));
-		setJoueur(1, new JoueurTexte("Sud", true));
-		setJoueur(2, new JoueurTexte("Est", true));
+		setJoueur(1, new JoueurTexte("Est", true));
+		setJoueur(2, new JoueurTexte("Sud", true));
 		setJoueur(3, new JoueurTexte("Ouest", true));
 		
 		lancerPartie();

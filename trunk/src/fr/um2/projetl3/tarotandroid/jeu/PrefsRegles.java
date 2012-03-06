@@ -76,8 +76,6 @@ public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge d
 
 	}
 	
-	
-	
 	public static boolean ManiereDeCompter = true;
 	// il faudrait aussi implementer la façon de compter les points quel méthode on utilise ? voilà apres faut choisir 
 	
