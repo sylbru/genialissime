@@ -186,12 +186,12 @@ public class JoueurTexte implements IJoueur // implements Joueur (quand Joueur e
 		pMain.affiche();
 		for(int i=0;i < P.getnombreDeCartesPourLeChien();i++)
 		{
-			ecart[i] = demananderUneCartePourLecart();
+			ecart[i] = demanderUneCartePourLecart();
 		}
 		return ecart;
 	}
 
-	private Carte demananderUneCartePourLecart() 
+	private Carte demanderUneCartePourLecart() 
 	{
 	
 		int num;

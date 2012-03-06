@@ -66,6 +66,17 @@ public class Main
 		return atoutPresent;
 	}
 	
+	public void enleverEcart(Carte[] ecart)
+	{
+		for(Carte c: ecart)
+		{
+			if(contains(c))
+			{
+				removeCarte(c);
+			}
+		}
+	}
+		
 	public void affiche()
 	{
 		System.out.println("Main de "+proprietaire.nom()+" :");

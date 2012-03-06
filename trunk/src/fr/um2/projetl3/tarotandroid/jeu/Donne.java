@@ -1,15 +1,16 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Vector;
 
 import fr.um2.projetl3.tarotandroid.clients.IJoueur;
-import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
 
 public class Donne
 {
 	private Main mainsDesJoueurs[];
 	private Carte chien[];
+	private Partie P; // la partie à laquelle appartient cette donne
 	
 	private Contrat contratEnCours;
 	private IJoueur preneur;
@@ -23,6 +24,7 @@ public class Donne
 	protected Vector<Carte> plisDefense;
 	private int numDonneur; // celui qui distribue dans la donne (utilisé pour le premier tour)
 	
+	private int numJoueurEnContact; // le joueur avec lequel on est en communication (utilisé pour savoir de qui on parle quand un joueur demande « sa » main)
 	
 	/*
 	 * --------------------------------------------------------------------------------------------
@@ -38,7 +40,7 @@ public class Donne
 	 *  			=> suivant le sens des aiguille d'une montre ou non 	
 	 */
 
-	 public void distribution()
+	 protected void distribution()
 	 { 
 		 incrementerNumDonneur();
 		 int nombreDeJoueurs = P.getNombreDeJoueurs();
@@ -129,10 +131,10 @@ public class Donne
 	  * @author JB
 	  * @author hhachiche
 	  * 	
-	  * @param tableauContenantLePlis
+	  * @param tableauContenantLePli
 	  * @return l'indice du tableau ou se trouve la carte qui remporte le plis grâce à ça on peut retrouver qui remporte le plis
 	  */
-	 public int vainqueurDuPlis(Carte[] tableauContenantLePlis) 
+	 public int vainqueurDuPli(Carte[] tableauContenantLePli) 
 	 {
 		int indice = -1;
 		int nombreDeJoueur = P.getNombreDeJoueurs();
@@ -141,11 +143,11 @@ public class Donne
 		Carte maxAtout = new Carte(0);
 		for(i=0;i < nombreDeJoueur;i++)					//A chaque pli on commence par regarder s'il y a des atouts,si oui on prend la plus forte
 		{
-			if(tableauContenantLePlis[i].isAtout())
+			if(tableauContenantLePli[i].isAtout())
 			{
-				if((maxAtout.getOrdre()) < (tableauContenantLePlis[i].getOrdre()))
+				if((maxAtout.getOrdre()) < (tableauContenantLePli[i].getOrdre()))
 				{
-					maxAtout = tableauContenantLePlis[i];
+					maxAtout = tableauContenantLePli[i];
 					indice = i;
 				}
 			}
@@ -159,25 +161,25 @@ public class Donne
 		{
 			Couleur couleurDemander = null;
 			
-			if(tableauContenantLePlis[0].isExcuse())
+			if(tableauContenantLePli[0].isExcuse())
 			{			
-				couleurDemander = tableauContenantLePlis[1].getCouleur();
+				couleurDemander = tableauContenantLePli[1].getCouleur();
 			}
 			else // if(! tableauContenantLePlis[2].isAtout()) // le code est bien ecrit du coup cette verification est inutile
 			{
-				couleurDemander = tableauContenantLePlis[0].getCouleur();
+				couleurDemander = tableauContenantLePli[0].getCouleur();
 			}
 			
 			Carte maxCouleur = new Carte(couleurDemander, 0);
 			for(i=0;i < nombreDeJoueur;i++)					
 			{
-				if(tableauContenantLePlis[i].isCouleur())
+				if(tableauContenantLePli[i].isCouleur())
 				{
-					if(tableauContenantLePlis[i].getCouleur() == couleurDemander)
+					if(tableauContenantLePli[i].getCouleur() == couleurDemander)
 					{
-						if(maxCouleur.getOrdre() < tableauContenantLePlis[i].getOrdre())
+						if(maxCouleur.getOrdre() < tableauContenantLePli[i].getOrdre())
 						{	
-							maxCouleur = tableauContenantLePlis[i];
+							maxCouleur = tableauContenantLePli[i];
 							indice = i;
 						}		
 					}	
@@ -192,7 +194,7 @@ public class Donne
 	  * (pour info, l’expression « jeu de la carte », ça vient pas de moi,
 	  * voir http://www.fftarot.fr/index.php/Decouvrir/Le-Jeu-de-la-carte.html )
 	  */
-	public void jeuDeLaCarte()
+	protected void jeuDeLaCarte()
 	{
 		numJoueurEntame = getNumJoueurApres(numDonneur); // le premier à jouer (celui qui est après le donneur)
 		int nbCartesPosees; // cartes posées dans le tour (de 1 à 4, si 4 joueurs)
@@ -212,7 +214,7 @@ public class Donne
 				numJoueur = getNumJoueurApres(numJoueur);
 			}
 			// nbCartesPosees == nbJoueurs : le tour est fini
-			numJoueurVainqueurPli = vainqueurDuPlis(plisEnCours);
+			numJoueurVainqueurPli = vainqueurDuPli(plisEnCours); // FIXME: vainqueurDuPli renvoie un numéro par rapport à la première carte 
 			
 			
 			if(isJoueurAttaque(numJoueurVainqueurPli)) // isPreneur ne permet pas de faire ça ?
@@ -308,9 +310,10 @@ public class Donne
 	 * Demande au joueur de jouer une carte et vérifie si elle est légale (redemande si besoin). 
 	 * @param num La position du joueur
 	 */
-	public Carte demanderCarteJoueur(int num) 
+	protected Carte demanderCarteJoueur(int num) 
 	{
-		// vérifier que Joueur j est dans P.getJoueurs() ?
+		numJoueurEnContact = num;
+		
 		Carte carteProposee;
 		do
 		{
@@ -320,10 +323,10 @@ public class Donne
 		while
 			(mainsDesJoueurs[num].contains(carteProposee)
 			&& isCarteLegale(carteProposee, num));
-		
 		mainsDesJoueurs[num].removeCarte(carteProposee);
+		
+		numJoueurEnContact = -1;
 		return carteProposee;
-		// je pense que ce serait mieux d’avoir les mains dans les joueurs, et d’y accéder par J.getMain()
 	}
 	
 	/**
@@ -333,7 +336,7 @@ public class Donne
 	 * Actuellement ça regarde toutes ses cartes et fait appel à isCarteLegale() pour chacune.
 	 * Est-ce que ce serait plus efficace de procéder plus intelligemment ? À voir.
 	 */
-	public Vector<Carte> indiquerCartesLegalesJoueur(int numJoueur)
+	protected Vector<Carte> indiquerCartesLegalesJoueur(int numJoueur)
 	{
 		Vector<Carte> cartesLegales = new Vector<Carte>();
 		if(numJoueur < P.getNombreDeJoueurs());
@@ -358,7 +361,7 @@ public class Donne
 	 * FIXME: fonctionne pas pour l’instant, peut-être qu’il faut songer à utiliser un Vector pour tas[],
 	 * ce serait plus simple. Mais dans ce cas ce serait bien de vérifier qu’il dépasse pas 78 cartes.
 	 */
-	public void reformerTas()
+	protected void reformerTas()
 	{
 		Carte[] nouveauTas = new Carte[78];
 		Carte[] arrayPlisAttaque = new Carte[78];
@@ -382,17 +385,50 @@ public class Donne
 		System.out.println(nouveauTas.length+"\n"+nouveauTas);
 	}
 	
-	public void enleverEcart(Carte[] ecart, IJoueur j)
-	{
-		for(Carte c: ecart)
-			mainsDesJoueurs[j.getID()].removeCarte(c);
-	}
-	
 	/*
 	 * ---------------------------------------------------------------------------------------------------
 	 * -------------------------------------- accesseur --------------------------------------------------
 	 * ---------------------------------------------------------------------------------------------------
 	 */
+	
+	/**
+	 * @author niavlys
+	 * @return mainsDesJoueurs, le tableau des mains des joueurs.
+	 */
+	protected Main[] getMains()
+	{
+		return mainsDesJoueurs;
+	}
+	
+	/**
+	 * @author niavlys
+	 * @param j
+	 * @return la main du joueur j
+	 */
+	protected Main getMain(IJoueur j)
+	{
+		return mainsDesJoueurs[P.getNumeroJoueur(j)];
+	}
+	
+	/**
+	 * @author niavlys
+	 * Utilisé par un client (IJoueur) pour demander sa main.
+	 *  
+	 * Renommer en getMaMain() ?
+	 * 
+	 * @return la main du joueur de numéro numJoueurEnContact
+	 */
+	public Main getMain()
+	{
+		if(numJoueurEnContact >= 0 && numJoueurEnContact < P.getNombreDeJoueurs())
+		{
+			return mainsDesJoueurs[numJoueurEnContact];
+		}
+		else
+		{
+			return null;
+		}
+	}
 	
 	public boolean isJoueurAttaque(int num)
 	{
@@ -441,6 +477,7 @@ public class Donne
 	 * @author niavlys
 	 * Sert à incrémenter numDonneur pour le passer au joueur suivant.
 	 * Utilisé à chaque début de donne.
+	 * TODO: déplacer dans Partie ?
 	 */
 	public void incrementerNumDonneur()
 	{
@@ -529,6 +566,13 @@ public class Donne
 	
 	public Donne()
 	{
+		P = Context.P;
+		init();
+	}	
+	
+	public Donne(Partie P)
+	{
+		this.P = P;
 		init();
 	}
 
