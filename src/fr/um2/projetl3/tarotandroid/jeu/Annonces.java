@@ -76,10 +76,11 @@ public class Annonces
 						{
 							combienVeulentPrendre++;
 							
-							if(contrat.getPoids() == 5) // alors c'est une garde_sans => la phase d'annonce est finit 
+							if(contrat.getPoids() == Contrat.GARDE_CONTRE.getPoids()) // alors c'est une garde_sans => la phase d'annonce est finit 
 							{
 								joueurQuiVaPrendre = P.getJoueur(numeroDuJoueur);
 								conditionArret = false;
+								System.out.println("sortie d'annonce : garde sans");
 							}
 							else if((0 < contrat.getPoids()) && (contrat.getPoids() < 5))// cas o� c'est un contrat valble mais pas une garde_sans
 							{
@@ -93,10 +94,13 @@ public class Annonces
 							{
 								contrat = Contrat.AUCUN;
 								conditionArret = false ;
+								
+								System.out.println("sortie d'annonce : tlm passe");
 							}
 							else if (combienVeulentPrendre == 1)
 							{
 								conditionArret = false;
+								System.out.println("sortie d'annonce : un seul veux prendre");
 							}
 							else if(combienVeulentPrendre > 1) // si plusieur joueur veulent prendre on refait un tour des joueur qui voulaient prendre
 							{
