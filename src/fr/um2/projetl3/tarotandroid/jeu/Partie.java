@@ -39,6 +39,11 @@ public class Partie
 		return tas[i];
 	}
 	
+	public Carte[] getTas()
+	{
+		return tas;
+	}
+	
 	public IJoueur[] getJoueurs()
 	{
 		return joueurs;
@@ -48,7 +53,7 @@ public class Partie
 		return joueurs[i];
 	}
 
-	public void setJoueur(int i, IJoueur joueur)
+	protected void setJoueur(int i, IJoueur joueur) // private ?
 	{
 		joueurs[i] = joueur;
 	}
@@ -58,11 +63,33 @@ public class Partie
 		return scores;
 	}
 
-	public void setScores(Scores scores)
+	protected void setScores(Scores scores) // private ?
 	{
 		this.scores = scores;
 	}
 
+	public int getNumeroJoueur(IJoueur j)
+	{
+		int i = 0;
+		boolean trouvé = false;
+		while(!trouvé && i<getNombreDeJoueurs())
+		{
+			if(getJoueur(i) == j)
+			{
+				trouvé = true;
+			}
+		}
+		if(!trouvé)
+		{
+			System.out.println("Appel de getNumeroJoueur avec joueur inexistant");
+			return -1;
+		}
+		else
+		{
+			return i; 
+		}
+	}
+	
 	public int getNombreDeJoueurs()
 	{
 		return nombreDeJoueurs;
@@ -73,7 +100,7 @@ public class Partie
 		return nombreDeCartesPourLeChien;
 	}
 
-	public void setNombreDeJoueurs(int nombreDeJoueurs)
+	protected void setNombreDeJoueurs(int nombreDeJoueurs) // private ?
 	{
 		if (nombreDeJoueurs >= 3 || nombreDeJoueurs <= 5)
 		{
@@ -95,7 +122,7 @@ public class Partie
 	 * ------------------------------------ Initialisation --------------------------------------------
 	 * --------------------------------------------------------------------------------------------
 	 */
-	protected void initialisationPartie()
+	protected void initialisationPartie() // private ?
 	{
 		Contrat.initialiserContrats();
 		PrefsRegles.nombreAtoutsPoignee();// suivant le nombre de joueur au initialise les poignées
@@ -216,7 +243,7 @@ public class Partie
 			for(int i=0; i<6; i++)
 				ecartEnAttenteDeValidation[i].affiche();
 			donne.plisAttaque.addAll(Arrays.asList(ecartEnAttenteDeValidation));
-			donne.enleverEcart(ecartEnAttenteDeValidation, donne.getPreneur());
+			donne.getMain(donne.getPreneur()).enleverEcart(ecartEnAttenteDeValidation);
 			
 		}
 		else if ( donne.getContratEnCours().isChienPourAttaque()) // garde sans
@@ -237,7 +264,7 @@ public class Partie
 	 * --------------------------------------------------------------------------------------------------
 	 */
 	
-	public void lancerPartie()
+	protected void lancerPartie()
 	{
 		initialisationPartie();
 		//donneEnCours.init();
