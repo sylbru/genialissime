@@ -98,6 +98,8 @@ public class Partie
 	protected void initialisationPartie()
 	{
 		Contrat.initialiserContrats();
+		PrefsRegles.nombreAtoutsPoignee();// suivant le nombre de joueur au initialise les poignées
+		
 		scores = new Scores();
 		nombreDeCartesPourLeChien = (nombreDeJoueurs == 5)? 3 : 6;
 
@@ -228,6 +230,12 @@ public class Partie
 			donne.mettreChienDansLesPlisDeLaDefense();
 		}
 	}
+	
+	/**
+	 * --------------------------------------------------------------------------------------------------
+	 * ---------------------------------------lancement de la partie----------------------------------
+	 * --------------------------------------------------------------------------------------------------
+	 */
 	
 	public void lancerPartie()
 	{
