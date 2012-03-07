@@ -22,7 +22,6 @@ public class Annonces
 		boolean conditionArret = true;
 		int numeroDuJoueur = P.donne().getNumJoueurApres(P.donne().getNumDonneur());
 		System.out.println("Le donneur était n°"+P.donne().getNumDonneur()+", le premier à parler est n°"+numeroDuJoueur);
-		int compteurPourToutLeMondePasse = 0;
 		int nombreDeJoueurs=P.getNombreDeJoueurs(); 
 		Contrat contrat = Contrat.AUCUN;
 		Contrat controle = Contrat.AUCUN;
@@ -31,20 +30,19 @@ public class Annonces
 		int numDernierJoueur = P.donne().getNumDonneur();
 		int numDernierJoueurTemporaire = P.donne().getNumDonneur();
 
-		Contrat tableauDesContrat[] = new Contrat[nombreDeJoueurs]; 
-		
-		for(int i=0;i<nombreDeJoueurs;i++){
-			tableauDesContrat[i]=Contrat.AUCUN;
-		}
-		
 		IJoueur joueurQuiVaPrendre = null;
 		int combienVeulentPrendre = 0;
 		
+		Contrat tableauDesContrat[] = new Contrat[nombreDeJoueurs]; 
+		for(int i=0;i<nombreDeJoueurs;i++){
+			tableauDesContrat[i]=Contrat.AUCUN;
+		}
+
 		while(conditionArret)
 		{
 			if(tableauDesContrat[numeroDuJoueur] != Contrat.PASSE ) // si le joueur n'as pas passer il peut annoncer
 			{
-				if(joueurQuiVaPrendre==P.getJoueur(numeroDuJoueur)) 
+				if(joueurQuiVaPrendre==P.getJoueur(numeroDuJoueur)) // sortie d'annonce : la boucle est revenu sur le joueur qui veux prendre
 				{
 					conditionArret = false;
 					System.out.println("sortie d'annonce : la boucle est revenu sur le joueur qui veux prendre");
@@ -63,7 +61,6 @@ public class Annonces
 					
 					tableauDesContrat[numeroDuJoueur] = contrat ; // on stocke les contrat que les joueur veulent faire
 	
-					
 					if(contrat != Contrat.PASSE) // si un joeur passe pas
 					{
 						combienVeulentPrendre++;
@@ -78,7 +75,6 @@ public class Annonces
 						{
 							joueurQuiVaPrendre = P.getJoueur(numeroDuJoueur);
 							numDernierJoueurTemporaire = numeroDuJoueur;
-							System.out.println("passage dans la condition contrat!=passe||contrat!=garde sans");
 						}
 					}
 					/*   Test
@@ -105,7 +101,7 @@ public class Annonces
 						}
 						else if(combienVeulentPrendre > 1) // si plusieur joueur veulent prendre on refait un tour des joueur qui voulaient prendre
 						{
-							combienVeulentPrendre = 1 ; // remit � un car si tout le monde passe apres il faut conserver celui qui avait pris en dernier
+							combienVeulentPrendre = 1 ; // remit � u1 car si tout le monde passe apres il faut conserver celui qui avait pris en dernier
 							numeroDuJoueur = numDernierJoueurTemporaire+1;
 							// Pour que la boucle recommence juste apres le dernier joueur qui veux prendre
 							numDernierJoueur = numDernierJoueurTemporaire;
@@ -142,10 +138,9 @@ public class Annonces
 		int nombreDeJoueurs = P.getNombreDeJoueurs();
 		for(int i = 0; i<nombreDeJoueurs; i++)
 		{
-			if(P.getJoueur(i).possedeRoi(Roi)){
+			if(P.getJoueur(i).possedeRoi(Roi))
+			{
 				P.donne().setJoueurAppele(P.getJoueur(i));
-				// pas sûr que ce soit judicieux de faire ça ici, officiellement on ne sait pas qui
-				// est avec qui avant que le roi appelé ne soit dévoilé
 			} 
 			else // si le chien n'est pas dans la main d'un joueur il est dans le chien, le preneur se retrouve donc tout seul.
 			{
