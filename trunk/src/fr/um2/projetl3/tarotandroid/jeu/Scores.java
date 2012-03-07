@@ -185,7 +185,6 @@ public class Scores
 		}
 		demipoints = demipoints / 2; // ! perd un demi-point si nombre impair de
 										// demi-points
-
 		return demipoints;
 	}
 
@@ -247,7 +246,6 @@ public class Scores
 	 * puis calcul du nombre de bouts (inutile pour le moment au Vecteur Defense mais pourrait servir pour verifier qu'il
 	 * n'yait pas plus de 3 bouts ou moins
 	 */
-	
 	public int calculDesPointsDansLeVecteurAttaque() //
 	{
 		int sommeDesValeursDesCartes = 0;
@@ -256,7 +254,6 @@ public class Scores
 		{
 			sommeDesValeursDesCartes += c.valeur();
 		}
-		
 		return sommeDesValeursDesCartes;
 	}
 	
@@ -271,7 +268,6 @@ public class Scores
 				nombreDeBoutsDansVecteurAttaque ++;
 			}
 		}
-		
 		return nombreDeBoutsDansVecteurAttaque;
 	}
 	
@@ -283,7 +279,6 @@ public class Scores
 		{
 			sommeDesValeursDesCartes += c.valeur();
 		}
-		
 		return sommeDesValeursDesCartes;
 	}
 	
@@ -298,89 +293,9 @@ public class Scores
 				nombreDeBoutsDansVecteurDefense ++;
 			}	
 		}
-		
 		return nombreDeBoutsDansVecteurDefense;
 	}
 	
-	/*
-	 * author JB
-	 * calcule une ligne du vecteur score
-	 */
-	public void calculeLigneScore()
-	{
-		int pointsDansLeVecteurAttaque = 0; 
-		int nombreDeBoutDuPreneur = 0; 
-		assert(Constantes.TOTAL_DES_POINTS_DANS_LE_JEU == calculDesPointsDansLeVecteurAttaque() + calculDesPointsDansLeVecteurDefense());
-		//assertion pour bien verifier que le nombre total des vecteurs attaque/defense verifie la constante TOTAL_DES_POINTS_DANS_LE_JEU
-		assert(Constantes.NOMBRE_DE_BOUTS == calculNombreDeBoutsDansVecteurAttaque() + calculNombreDeBoutsDansVecteurDefense());
-		int gain = calculGainPartie(P.donne().getContratEnCours(), pointsDansLeVecteurAttaque, nombreDeBoutDuPreneur);
-		int nombreDeJoueur = P.getNombreDeJoueurs();
-		
-		
-		for(int i=0;i<nombreDeJoueur;i++)
-		{
-			if((nombreDeJoueur == 3) || (nombreDeJoueur == 3))
-			{
-				if(P.getJoueur(i) == P.donne().getPreneur())
-				{
-					
-				}
-				else
-				{
-					
-				}
-			}
-			else
-			{
-				if(P.getJoueur(i) == P.donne().getPreneur())
-				{
-					
-				}
-				else if (P.getJoueur(i) == P.donne().getPreneur())
-				{
-					
-				}
-				else
-				{
-					
-				}
-			}
-		}
-	}
-	/*
-	 * @author JB
-	 * 
-	 * calcule le gain (qu'il soit negatif ou positif) de la donne
-	 * il faut ensuite repartir equitablement entre le preneur et les defenseur et eventuellement l'attaquant
-	 */
-	public int calculGainPartie(Contrat typeDuContrat, int pointsDansLeVecteurAttaque, int nombreDeBoutDuPreneur)
-	{
-		int gain = calculGain(pointsDansLeVecteurAttaque, nombreDeBoutDuPreneur);
-		
-		
-		if (PrefsRegles.ManiereDeCompter)
-		{
-			if(gain < 0)
-			{
-				// ! faire l'arrondissement des point ici
-				gain += -25;
-			}
-			else if (gain >= 0)
-			{
-				gain += 25;
-			}
-			
-			gain *= typeDuContrat.getFacteur();
-		}
-		else
-		{
-			gain += typeDuContrat.getValeurContrat();
-		}
-
-		return gain;
-
-	}
-
 	/* test de classe */
 	public static void main(String[] args)
 	{
