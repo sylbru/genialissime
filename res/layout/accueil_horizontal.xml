@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/green"
+    android:gravity="center_vertical" >
+
+    <Button
+        android:id="@+id/boutonCommencer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Commencer une partie" />
+
+    <Button
+        android:id="@+id/boutonReprendre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/boutonCommencer"
+        android:layout_alignRight="@+id/boutonCommencer"
+        android:layout_below="@+id/boutonCommencer"
+        android:layout_marginTop="20dp"
+        android:text="Reprendre une partie" />
+
+    <Button
+        android:id="@+id/boutonTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/boutonReprendre"
+        android:layout_alignRight="@+id/boutonReprendre"
+        android:layout_below="@+id/boutonReprendre"
+        android:layout_marginTop="22dp"
+        android:text="Tests" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/boutonReprendre"
+        android:layout_alignTop="@+id/boutonCommencer"
+        android:layout_toRightOf="@+id/boutonCommencer"
+        android:src="@drawable/trefle" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/boutonTest"
+        android:layout_alignTop="@+id/boutonReprendre"
+        android:layout_toRightOf="@+id/boutonReprendre"
+        android:src="@drawable/pique" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/boutonTest"
+        android:layout_alignLeft="@+id/imageView2"
+        android:layout_alignRight="@+id/imageView1"
+        android:layout_alignTop="@+id/boutonTest"
+        android:src="@drawable/carreau" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageView1"
+        android:src="@drawable/jeu_cartes" />
+
+</RelativeLayout>
