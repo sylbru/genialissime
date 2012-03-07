@@ -8,7 +8,8 @@ import fr.um2.projetl3.tarotandroid.jeu.Carte;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
 import fr.um2.projetl3.tarotandroid.jeu.Main;
 
-public class JoueurIA implements IJoueur {
+public class JoueurIA implements IJoueur
+{
 	
 	private int pID;
 	private Main pMain;
@@ -29,59 +30,71 @@ public class JoueurIA implements IJoueur {
 		L.setGlobal("javapi");
 	}
 	
-	public void setID(int pID) {
+	public void setID(int pID)
+	{
 		this.pID=pID;
 
 	}
 
-	public int getID() {
+	public int getID()
+	{
 		return pID;
 	}
 
-	public void setMain(Main pMain) {
+	public void setMain(Main pMain)
+	{
 		this.pMain = pMain;
 	}
 
 
-	public void addChienDansMain(Carte[] chien) {
+	public void addChienDansMain(Carte[] chien)
+	{
 		// LOOOOL
 	}
 
-	public void setNomDuJoueur(String s) {
+	public void setNomDuJoueur(String s)
+	{
 		this.nom = s;
 	}
 
-	public String getNomDuJoueur() {
+	public String getNomDuJoueur() 
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Contrat demanderAnnonce(Contrat contrat) {
+	public Contrat demanderAnnonce(Contrat contrat)
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Carte[] demanderEcart() {
+	public Carte[] demanderEcart()
+	{
 		// LOOOL
 		return null;
 	}
 
-	public Carte demanderCarte() {
+	public Carte demanderCarte()
+	{
 		// LOOOL
 		return null;
 	}
 
-	public Carte appelerRoi() {
+	public Carte appelerRoi()
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public boolean possedeRoi(Carte roi) {
+	public boolean possedeRoi(Carte roi)
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public String nom() {
+	public String nom()
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -92,14 +105,12 @@ public class JoueurIA implements IJoueur {
 		
 	}
 
-	@Override
 	public void direCarteJouee(Carte c, IJoueur j)
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void direAnnonce(Contrat c, IJoueur j)
 	{
 		// TODO Auto-generated method stub

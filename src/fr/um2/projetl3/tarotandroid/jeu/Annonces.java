@@ -119,7 +119,7 @@ public class Annonces
 			numeroDuJoueur = P.donne().getNumJoueurApres(numeroDuJoueur);
 		}
 		P.donne().setContratEnCours(contrat);
-		P.donne().setPreneur(joueurQuiVaPrendre);
+		P.donne().setPreneur(P.getNumeroJoueur(joueurQuiVaPrendre));
 		
 		if(nombreDeJoueurs==5) {phaseAppelRoi();}
 	}
@@ -134,13 +134,13 @@ public class Annonces
 	
 	public static void phaseAppelRoi()
 	{
-		Carte Roi = P.donne().getPreneur().appelerRoi();
+		Carte Roi = P.getJoueur(P.donne().getPreneur()).appelerRoi();
 		int nombreDeJoueurs = P.getNombreDeJoueurs();
 		for(int i = 0; i<nombreDeJoueurs; i++)
 		{
 			if(P.getJoueur(i).possedeRoi(Roi))
 			{
-				P.donne().setJoueurAppele(P.getJoueur(i));
+				P.donne().setJoueurAppele(i);
 			} 
 			else // si le chien n'est pas dans la main d'un joueur il est dans le chien, le preneur se retrouve donc tout seul.
 			{

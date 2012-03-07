@@ -13,8 +13,8 @@ public class Donne
 	private Partie P; // la partie à laquelle appartient cette donne
 	
 	private Contrat contratEnCours;
-	private IJoueur preneur;
-	private IJoueur appelee;// LE joueur appele dans le mode a 5 joueurs
+	private int preneur;
+	private int appelee;// LE joueur appele dans le mode a 5 joueurs
 	private Carte plisEnCours[];
 	private Carte plisPrecedent[];
 	
@@ -408,9 +408,9 @@ public class Donne
 	 * @param j
 	 * @return la main du joueur j
 	 */
-	protected Main getMain(IJoueur j)
+	protected Main getMain(int numJoueur)
 	{
-		return mainsDesJoueurs[P.getNumeroJoueur(j)];
+		return mainsDesJoueurs[numJoueur];
 	}
 	
 	/**
@@ -435,7 +435,7 @@ public class Donne
 	
 	public boolean isJoueurAttaque(int num)
 	{
-		return num == preneur.getID() || (P.getNombreDeJoueurs() == 5 && num == appelee.getID());
+		return num == preneur || (P.getNombreDeJoueurs() == 5 && num == appelee);
 		// ? est-ce que getID() correspond bien à la position/au numéro ?
 	}
 	
@@ -489,18 +489,18 @@ public class Donne
 		numDonneur = getNumJoueurApres(numDonneur);
 	}
 	
-	public IJoueur getPreneur() {
+	public int getPreneur() {
 		return preneur;
 	}
-	public void setPreneur(IJoueur preneur) {
+	public void setPreneur(int preneur) {
 		this.preneur = preneur;
 	}
 	// pour les parties a 5
-	public IJoueur getJoueurAppele() {
+	public int getJoueurAppele() {
 		return appelee;
 	}
-	public void setJoueurAppele(IJoueur joueurappele) {
-		this.appelee = joueurappele;
+	public void setJoueurAppele(int joueurAppele) {
+		this.appelee = joueurAppele;
 	}
 	
 	public Carte[] getPlisPrecedent() {
@@ -527,7 +527,7 @@ public class Donne
 	}
 	public void mettreChienDansLaMainDuPreneur()
 	{
-		 preneur.addChienDansMain(chien);
+		 P.getJoueur(preneur).addChienDansMain(chien);
 	}
 	
 	/**

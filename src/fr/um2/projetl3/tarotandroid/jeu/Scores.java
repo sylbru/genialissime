@@ -43,7 +43,7 @@ public class Scores
 	{	
 		int Gain =  calculGain(calculDesPointsDansLeVecteurAttaque(), calculNombreDeBoutsDansVecteurAttaque());
 
-		calculDerniereLigneScore(P.donne().getContratEnCours(), Gain, joueurReussi(Gain), P.donne().getPreneur().getID());
+		calculDerniereLigneScore(P.donne().getContratEnCours(), Gain, joueurReussi(Gain), P.donne().getPreneur());
 	}
 	
 
@@ -185,6 +185,7 @@ public class Scores
 		}
 		demipoints = demipoints / 2; // ! perd un demi-point si nombre impair de
 										// demi-points
+
 		return demipoints;
 	}
 
@@ -246,6 +247,7 @@ public class Scores
 	 * puis calcul du nombre de bouts (inutile pour le moment au Vecteur Defense mais pourrait servir pour verifier qu'il
 	 * n'yait pas plus de 3 bouts ou moins
 	 */
+	
 	public int calculDesPointsDansLeVecteurAttaque() //
 	{
 		int sommeDesValeursDesCartes = 0;
@@ -254,6 +256,7 @@ public class Scores
 		{
 			sommeDesValeursDesCartes += c.valeur();
 		}
+		
 		return sommeDesValeursDesCartes;
 	}
 	
@@ -268,6 +271,7 @@ public class Scores
 				nombreDeBoutsDansVecteurAttaque ++;
 			}
 		}
+		
 		return nombreDeBoutsDansVecteurAttaque;
 	}
 	
@@ -279,6 +283,7 @@ public class Scores
 		{
 			sommeDesValeursDesCartes += c.valeur();
 		}
+		
 		return sommeDesValeursDesCartes;
 	}
 	
@@ -293,6 +298,7 @@ public class Scores
 				nombreDeBoutsDansVecteurDefense ++;
 			}	
 		}
+		
 		return nombreDeBoutsDansVecteurDefense;
 	}
 	
