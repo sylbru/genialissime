@@ -1,3 +1,4 @@
+
 package fr.um2.projetl3.tarotandroid.clients;
 
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
@@ -6,9 +7,6 @@ import fr.um2.projetl3.tarotandroid.jeu.Main;
 
 public interface IJoueur
 {
-	void setID(int pID);
-	int getID();
-
 	void setMain(Main pMain);
 	void addChienDansMain(Carte[] chien);
 

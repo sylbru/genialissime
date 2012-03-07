@@ -236,7 +236,7 @@ public class Partie
 			
 			while(ecartPasValide) // ? faudrait rajouter un compteur et afficher quelque chose non ?
 			{
-				ecartEnAttenteDeValidation = donne.getPreneur().demanderEcart();
+				ecartEnAttenteDeValidation = getJoueur(donne.getPreneur()).demanderEcart();
 				ecartPasValide = verificatioSiEcartPasValide(ecartEnAttenteDeValidation); 
 			}
 			System.out.println("TEST CHIEN");
