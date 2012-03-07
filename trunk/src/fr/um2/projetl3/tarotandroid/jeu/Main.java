@@ -92,6 +92,11 @@ public class Main
 		System.out.println("-----");
 	}
 	
+	public String getNomProprietaire()
+	{
+		return proprietaire.nom();
+	}
+	
 	public Main(IJoueur proprietaire)
 	{
 		this.proprietaire = proprietaire;
@@ -139,5 +144,6 @@ public class Main
 			return false;
 		}
 	}
-	
+
+
 }
