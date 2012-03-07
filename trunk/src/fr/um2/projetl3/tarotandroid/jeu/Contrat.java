@@ -23,7 +23,7 @@ public class Contrat
 		this.autorisé = autorisé;
 		this.nom = nom;
 		this.poids = poids;
-		// ! la valeur de chienRevele et de chienPourAttaque depende du nom de contrat � modifier :
+		// ! la valeur de chienRevele et de chienPourAttaque depende du nom de contrat é modifier :
 		chienRevele = true;
 		chienPourAttaque = true;
 	}
@@ -34,7 +34,7 @@ public class Contrat
 		this.nom = nom;
 		this.poids = poids;
 		this.chienRevele = chienRevele;
-		// ! pareil que pour le constructeur pr�c�dent.
+		// ! pareil que pour le constructeur précédent.
 		chienPourAttaque = true;
 	}
 	
