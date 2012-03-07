@@ -27,6 +27,9 @@ public class Annonces
 		Contrat contrat = Contrat.AUCUN;
 		Contrat controle = Contrat.AUCUN;
 		Contrat contratMax = Contrat.AUCUN;
+		
+		int numDernierJoueur = P.donne().getNumDonneur();
+		int numDernierJoueurTemporaire = P.donne().getNumDonneur();
 
 		Contrat tableauDesContrat[] = new Contrat[nombreDeJoueurs]; 
 		
@@ -44,10 +47,10 @@ public class Annonces
 				if(joueurQuiVaPrendre==P.getJoueur(numeroDuJoueur)) 
 				{
 					conditionArret = false;
+					System.out.println("sortie d'annonce : la boucle est revenu sur le joueur qui veux prendre");
 				}
 				else
 				{
-				
 					contrat = P.getJoueur(numeroDuJoueur).demanderAnnonce(contratMax);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
 					direJoueursAnnonce(contrat, P.getJoueur(numeroDuJoueur));
 					
@@ -56,70 +59,73 @@ public class Annonces
 						System.out.println(" if poids actuel est > contrat max (contrat = "+contrat+")");
 						contratMax = contrat;
 					}
-					/*
-					 * TODO
-					 * Le problème est maintenant là : si quelqu’un Petite et quelqu’un d’autre Garde, 
-					 * celui qui a dit Petite ne peut pas surenchérir.
-					 */
-					
-					
 					System.out.println("Contrat du joueur "+P.getJoueur(numeroDuJoueur).getNomDuJoueur()+" : "+contrat.getName());
 					
 					tableauDesContrat[numeroDuJoueur] = contrat ; // on stocke les contrat que les joueur veulent faire
 	
 					
-					if(contrat != Contrat.PASSE) // si un joeur passe on le prend en compte dans un compteur utile plus loin.
+					if(contrat != Contrat.PASSE) // si un joeur passe pas
 					{
 						combienVeulentPrendre++;
-					
-						if(contrat != Contrat.PASSE) // si un joeur passe on le prend en compte dans un compteur utile plus loin.
+						
+						if(contrat.getPoids() == Contrat.GARDE_CONTRE.getPoids()) // alors c'est une garde_sans => la phase d'annonce est finit 
 						{
-							combienVeulentPrendre++;
-							
-							if(contrat.getPoids() == Contrat.GARDE_CONTRE.getPoids()) // alors c'est une garde_sans => la phase d'annonce est finit 
-							{
-								joueurQuiVaPrendre = P.getJoueur(numeroDuJoueur);
-								conditionArret = false;
-								System.out.println("sortie d'annonce : garde sans");
-							}
-							else if((0 < contrat.getPoids()) && (contrat.getPoids() < 5))// cas o� c'est un contrat valble mais pas une garde_sans
-							{
-								joueurQuiVaPrendre = P.getJoueur(numeroDuJoueur);
-							}
+							joueurQuiVaPrendre = P.getJoueur(numeroDuJoueur);
+							conditionArret = false;
+							System.out.println("sortie d'annonce : garde sans");
 						}
-						if(numeroDuJoueur == nombreDeJoueurs) // si le numero du joueur est egal au nbr de joueur on as fait un tour d'annonce
+						else 
 						{
-							// si il y a une seule prise on lance la partie
-							if (combienVeulentPrendre == 0) // dans ce cas l� �a veux dire que tout le monde � passer
-							{
-								contrat = Contrat.AUCUN;
-								conditionArret = false ;
-								
-								System.out.println("sortie d'annonce : tlm passe");
-							}
-							else if (combienVeulentPrendre == 1)
-							{
-								conditionArret = false;
-								System.out.println("sortie d'annonce : un seul veux prendre");
-							}
-							else if(combienVeulentPrendre > 1) // si plusieur joueur veulent prendre on refait un tour des joueur qui voulaient prendre
-							{
-								combienVeulentPrendre = 1 ; // remit � un car si tout le monde passe apres il faut conserver celui qui avait pris en dernier
-								numeroDuJoueur = -1; // ! pas s�r manque des truc a faire u=ici je croit 
-							}
+							joueurQuiVaPrendre = P.getJoueur(numeroDuJoueur);
+							numDernierJoueurTemporaire = numeroDuJoueur;
+							System.out.println("passage dans la condition contrat!=passe||contrat!=garde sans");
+						}
+					}
+					/*   Test
+					 *	
+					 *	System.out.println("numero du joueur : "+ numeroDuJoueur);
+						System.out.println("numero du dernier : "+ numDernierJoueur);
+						System.out.println("numero du dernier temporaire : "+ numDernierJoueurTemporaire); 
+					 */
+					if(numeroDuJoueur == numDernierJoueur) // si on as fait un tour d'annonce
+					{
+						System.out.println("4");
+						// si il y a une seule prise on lance la partie
+						if (combienVeulentPrendre == 0) // dans ce cas l� �a veux dire que tout le monde � passer
+						{
+							contrat = Contrat.AUCUN;
+							conditionArret = false ;
+							
+							System.out.println("sortie d'annonce : tlm passe");
+						}
+						else if (combienVeulentPrendre == 1)
+						{
+							conditionArret = false;
+							System.out.println("sortie d'annonce : un seul veux prendre");
+						}
+						else if(combienVeulentPrendre > 1) // si plusieur joueur veulent prendre on refait un tour des joueur qui voulaient prendre
+						{
+							combienVeulentPrendre = 1 ; // remit � un car si tout le monde passe apres il faut conserver celui qui avait pris en dernier
+							numeroDuJoueur = numDernierJoueurTemporaire+1;
+							// Pour que la boucle recommence juste apres le dernier joueur qui veux prendre
+							numDernierJoueur = numDernierJoueurTemporaire;
+							// Pour que la boucle s'arrete lorsque l'on retombe sur le dernier joueur à vouloir prendre
+							
+							/*	Test
+							System.out.println("\tnumero du joueur : "+ numeroDuJoueur);
+							System.out.println("\tnumero du dernier : "+ numDernierJoueur);
+							System.out.println("\tnumero du dernier temporaire : "+ numDernierJoueurTemporaire);
+							*/
 						}
 					}
 				}
-				numeroDuJoueur = P.donne().getNumJoueurApres(numeroDuJoueur);
 			}
+			numeroDuJoueur = P.donne().getNumJoueurApres(numeroDuJoueur);
 		}
 		P.donne().setContratEnCours(contrat);
 		P.donne().setPreneur(joueurQuiVaPrendre);
 		
-		if(nombreDeJoueurs==5)
-		{
-			phaseAppelRoi();
-		}
+		if(nombreDeJoueurs==5) {phaseAppelRoi();}
 	}
 	
 	public static void direJoueursAnnonce(Contrat c, IJoueur joueur)
