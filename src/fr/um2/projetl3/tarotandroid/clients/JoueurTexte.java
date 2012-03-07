@@ -2,7 +2,7 @@ package fr.um2.projetl3.tarotandroid.clients;
 
 import java.util.Scanner;
 
-import android.R.string;
+//import android.R.string;
 
 import fr.um2.projetl3.tarotandroid.jeu.*;
 import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
@@ -114,16 +114,18 @@ public class JoueurTexte implements IJoueur // implements Joueur (quand Joueur e
 		Scanner sc = new Scanner(System.in);
 		do
 		{
-			pMain.affiche();
-			System.out.println("Jouez une carte en donnant un chiffre entre 1 et "+pMain.nbCartesRestantes());
-			num = sc.nextInt();
-			if(num < 0 || num >= pMain.nbCartesRestantes())
+			
+			P.donne().getMain().affiche();
+			//indiquerCartesLegalesJoueur(num); // !! Cette fonction ne fait rien d'utile pour l'instant
+			System.out.println("Jouez une carte en donnant un chiffre entre 1 et "+P.donne().getMain().nbCartesRestantes());
+			num = sc.nextInt()-1;
+			if(num < 0 || num >= P.donne().getMain().nbCartesRestantes())
 			{
-				System.out.println("… entre 1 et "+pMain.nbCartesRestantes()+" !");
+				System.out.println("… entre 1 et "+P.donne().getMain().nbCartesRestantes()+" !");
 			}
-		} while(num < 0 || num >= pMain.nbCartesRestantes());
-		
-		return pMain.getCarte(num);
+		} while(num < 0 || num >= P.donne().getMain().nbCartesRestantes());
+		P.donne().getMain().getCarte(num).affiche();
+		return P.donne().getMain().getCarte(num);
 	}/**/
 	
 	public JoueurTexte(String nom)
