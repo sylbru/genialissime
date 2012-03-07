@@ -3,6 +3,7 @@ package fr.um2.projetl3.tarotandroid.activities;
 import com.um2.projetl3.tarotandroid.R;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,15 @@ public class Accueil extends Activity
 	Button boutonReprendre;
 	Button boutonTest;
 	
+    private void setLayout(int orientation) {
+ 
+    	final int res = (orientation == Configuration.ORIENTATION_LANDSCAPE ? 
+    	    	    	     R.layout.accueil_horizontal : 
+    	    	    	     R.layout.accueil_vertical);
+ 
+    	setContentView(res);
+    }
+	
     /**
      * Affichage des 3 boutons ainsi que les écouteurs
      * @see SplashScreen.java
@@ -33,7 +43,8 @@ public class Accueil extends Activity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.accueil);
+        //setContentView(R.layout.accueil);
+        setLayout(getResources().getConfiguration().orientation);
         
         boutonCommencer = (Button) findViewById(R.id.boutonCommencer);
         boutonReprendre = (Button) findViewById(R.id.boutonReprendre);
@@ -60,5 +71,12 @@ public class Accueil extends Activity
         	}
         });
         
+    }
+    
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {        
+        super.onConfigurationChanged(newConfig);
+ 
+        setLayout(newConfig.orientation);
     }
 }
