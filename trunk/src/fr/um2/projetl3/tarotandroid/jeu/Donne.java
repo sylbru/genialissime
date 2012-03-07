@@ -188,6 +188,8 @@ public class Donne
 			return indice;
 		}
 	 }
+	 
+	 
 
 	 /**
 	  * Phase de jeu des cartes dans une donne, après les annonces et l’écart, avant le comptage des points.
@@ -209,13 +211,13 @@ public class Donne
 			
 			while (nbCartesPosees < P.getNombreDeJoueurs())
 			{
-				plisEnCours[nbCartesPosees] = demanderCarteJoueur(numJoueur); 
+				plisEnCours[numJoueur] = demanderCarteJoueur(numJoueur); //changement fabrice : jai suppose que l'orde de cartes n'estpas important
 				nbCartesPosees++;
 				numJoueur = getNumJoueurApres(numJoueur);
 			}
 			// nbCartesPosees == nbJoueurs : le tour est fini
-			numJoueurVainqueurPli = vainqueurDuPli(plisEnCours); // FIXME: vainqueurDuPli renvoie un numéro par rapport à la première carte 
-			
+			numJoueurVainqueurPli = vainqueurDuPli(plisEnCours); 
+			System.out.println("vainqeur du pli !! :"+numJoueurVainqueurPli);
 			
 			if(isJoueurAttaque(numJoueurVainqueurPli)) // isPreneur ne permet pas de faire ça ?
 													// Non, on peut être dans l’attaque (appelé) sans être preneur
@@ -230,7 +232,8 @@ public class Donne
 			// transfert de pliEnCours dans pliPrecedent 
 			for(int i=0; i<P.getNombreDeJoueurs(); i++)
 			{
-				plisPrecedent[i] = plisEnCours[i];
+				int a = (i + numJoueurEntame)% P.getNombreDeJoueurs();
+				plisPrecedent[i] = plisEnCours[a];
 				plisEnCours[i] = null;
 			}
 			
@@ -304,6 +307,7 @@ public class Donne
 			}
 			return (coulDemandee == c.getCouleur()) || !mainsDesJoueurs[numJ].possedeCouleur(coulDemandee) && !mainsDesJoueurs[numJ].possedeAtout();
 		}
+		
 	}
 	
 	/**
@@ -312,20 +316,19 @@ public class Donne
 	 */
 	protected Carte demanderCarteJoueur(int num) 
 	{
-		numJoueurEnContact = num;
-		
 		Carte carteProposee;
 		do
 		{
-			indiquerCartesLegalesJoueur(num);
 			carteProposee = P.getJoueur(num).demanderCarte();
+			/*
+			 * test des condition de la boucle 
+			 * if(mainsDesJoueurs[num].contains(carteProposee)) System.out.println("contains !!!");
+			 * if(isCarteLegale(carteProposee, num)) System.out.println("cartelegale");
+			 */
 		}
-		while
-			(mainsDesJoueurs[num].contains(carteProposee)
-			&& isCarteLegale(carteProposee, num));
+		while(!(mainsDesJoueurs[num].contains(carteProposee)&& isCarteLegale(carteProposee, num)));
 		mainsDesJoueurs[num].removeCarte(carteProposee);
 		
-		numJoueurEnContact = -1;
 		return carteProposee;
 	}
 	
@@ -455,17 +458,19 @@ public class Donne
 	 */
 	public int getNumJoueurApres(int numJoueur)
 	{
-		int newNum;
+		int nouvNum;
 		if(PrefsRegles.sensInverseAiguillesMontre)
 		{
-			newNum = numJoueur+1;
+			nouvNum = numJoueur+1;
 		}
 		else
 		{
-			newNum = numJoueur-1;
+			nouvNum = numJoueur-1;
 		}
-		
-		return newNum % P.getNombreDeJoueurs();
+
+		nouvNum = nouvNum % P.getNombreDeJoueurs();
+		numJoueurEnContact = nouvNum;
+		return 	nouvNum;
 	}
 
 	public int getNumDonneur()
@@ -578,10 +583,12 @@ public class Donne
 
 	
 	public static void main(String[] args)
-	{
-		// Donne donne = new Donne(); // bon c’est le bordel entre les méthodes statiques et les non-statiques,
+	{/*
+		 Donne donne = new Donne(); // bon c’est le bordel entre les méthodes statiques et les non-statiques,
 									// faudra en discuter.
-		//P.lancerPartie4JoueursTexte();
+		
+		 /*
+		 P.lancerPartie4JoueursTexte();
 		/*
 		init();
 		
