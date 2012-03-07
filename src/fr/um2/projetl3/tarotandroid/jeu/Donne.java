@@ -205,7 +205,8 @@ public class Donne
 		
 		while (!donneFinie()) // un tour de jeu, on commence à numJoueur = numJoueurEntame
 		{
-			
+			System.out.println("jeueur entame "+numJoueurEntame);
+			numJoueurEnContact = numJoueurEntame;
 			numJoueur = numJoueurEntame;
 			nbCartesPosees = 0;
 			
@@ -238,6 +239,7 @@ public class Donne
 			}
 			
 			numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagné le pli entame au tour suivant
+			System.out.println("jeurvainqueufqjsdfg :"+numJoueurVainqueurPli+mainsDesJoueurs[numJoueurVainqueurPli].getNomProprietaire());
 		}
 	}
 	
@@ -564,7 +566,7 @@ public class Donne
 	{
 		mainsDesJoueurs = new Main[P.getNombreDeJoueurs()];
 		plisEnCours = new Carte[P.getNombreDeJoueurs()];
-		plisEnCours = new Carte[P.getNombreDeJoueurs()];
+		plisPrecedent = new Carte[P.getNombreDeJoueurs()];
 		plisDefense = new Vector<Carte>();
 		plisAttaque = new Vector<Carte>();
 	}
