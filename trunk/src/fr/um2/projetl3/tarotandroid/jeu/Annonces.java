@@ -29,7 +29,7 @@ public class Annonces
 		int numDernierJoueur = P.donne().getNumDonneur();
 		int numDernierJoueurTemporaire = P.donne().getNumDonneur();
 
-		IJoueur joueurQuiVaPrendre = null;
+		int joueurQuiVaPrendre = -1;
 		int combienVeulentPrendre = 0;
 		
 		Contrat tableauDesContrat[] = new Contrat[nombreDeJoueurs]; 
@@ -41,7 +41,7 @@ public class Annonces
 		{
 			if(tableauDesContrat[numeroDuJoueur] != Contrat.PASSE ) // si le joueur n'as pas passer il peut annoncer
 			{
-				if(joueurQuiVaPrendre==P.getJoueur(numeroDuJoueur)) // sortie d'annonce : la boucle est revenu sur le joueur qui veux prendre
+				if(joueurQuiVaPrendre==numeroDuJoueur) // sortie d'annonce : la boucle est revenu sur le joueur qui veux prendre
 				{
 					conditionArret = false;
 					System.out.println("sortie d'annonce : la boucle est revenu sur le joueur qui veux prendre");
@@ -66,13 +66,13 @@ public class Annonces
 						
 						if(contrat.getPoids() == Contrat.GARDE_CONTRE.getPoids()) // alors c'est une garde_sans => la phase d'annonce est finit 
 						{
-							joueurQuiVaPrendre = P.getJoueur(numeroDuJoueur);
+							joueurQuiVaPrendre = numeroDuJoueur;
 							conditionArret = false;
 							System.out.println("sortie d'annonce : garde sans");
 						}
 						else 
 						{
-							joueurQuiVaPrendre = P.getJoueur(numeroDuJoueur);
+							joueurQuiVaPrendre = numeroDuJoueur;
 							numDernierJoueurTemporaire = numeroDuJoueur;
 						}
 					}
@@ -117,14 +117,13 @@ public class Annonces
 			}
 			numeroDuJoueur = P.donne().getNumJoueurApres(numeroDuJoueur);
 		}
-		System.out.println("On est en derhors du while d'annonce");
+
 		P.donne().setContratEnCours(contrat);
-		if (contrat != Contrat.AUCUN)
-		{
-			P.donne().setPreneur(P.getNumeroJoueur(joueurQuiVaPrendre));
-		}
-		
-		System.out.println("On est apres les setter pour contrat et preneur");
+		System.out.println("contrat en cours : "+contrat);
+		P.donne().setPreneur(joueurQuiVaPrendre);
+		System.out.println("Preneur"+joueurQuiVaPrendre);
+		System.out.println("Nom Preneur : "+P.getJoueur(joueurQuiVaPrendre).getNomDuJoueur());
+
 		if(nombreDeJoueurs==5) {phaseAppelRoi(); System.out.println("pas possible que ça asse là ou grosse erreur");}
 	}
 	

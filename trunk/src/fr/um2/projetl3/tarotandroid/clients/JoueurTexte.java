@@ -164,14 +164,6 @@ public class JoueurTexte implements IJoueur // implements Joueur (quand Joueur e
 		return this.nom;
 	}
 
-	public void addChienDansMain(Carte[] chien) 
-	{
-		// TODO Auto-generated method stub
-		for(Carte c:chien)
-		{
-			pMain.addCarte(c);
-		}
-	}
 	/* **********************************************
 	 * 
 	 * Les méthodes demander…() servent à connaître le choix d’un joueur.
@@ -185,7 +177,7 @@ public class JoueurTexte implements IJoueur // implements Joueur (quand Joueur e
 	{
 		Carte ecart[] = new Carte[P.getnombreDeCartesPourLeChien()];
 		System.out.println("Vous allez devoir choisir "+P.getnombreDeCartesPourLeChien()+" cartes à mettre dans le votre ecart");
-		pMain.affiche();
+		P.donne().getMain().affiche();
 		for(int i=0;i < P.getnombreDeCartesPourLeChien();i++)
 		{
 			ecart[i] = demanderUneCartePourLecart();
