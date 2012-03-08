@@ -1,7 +1,6 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Vector;
 
 import fr.um2.projetl3.tarotandroid.clients.IJoueur;
@@ -35,9 +34,7 @@ public class Donne
 	 * @author JB
 	 * methode de distribution des cartes
 	 * 
-	 *  // TODO test + :
-	 *  // ! Chose � modifier :
-	 *  			=> suivant le sens des aiguille d'une montre ou non 	
+	 *  // TODO test :	
 	 */
 
 	 protected void distribution()
@@ -207,6 +204,7 @@ public class Donne
 		{
 			System.out.println("jeueur entame "+numJoueurEntame);
 			numJoueurEnContact = numJoueurEntame;
+
 			numJoueur = numJoueurEntame;
 			nbCartesPosees = 0;
 			
@@ -220,8 +218,7 @@ public class Donne
 			numJoueurVainqueurPli = vainqueurDuPli(plisEnCours); 
 			System.out.println("vainqeur du pli !! :"+numJoueurVainqueurPli);
 			
-			if(isJoueurAttaque(numJoueurVainqueurPli)) // isPreneur ne permet pas de faire ça ?
-													// Non, on peut être dans l’attaque (appelé) sans être preneur
+			if(isJoueurAttaque(numJoueurVainqueurPli)) 
 			{
 				plisAttaque.addAll(Arrays.asList(plisEnCours));
 			}
@@ -230,14 +227,12 @@ public class Donne
 				plisDefense.addAll(Arrays.asList(plisEnCours));
 			}
 			
-			// transfert de pliEnCours dans pliPrecedent 
-			for(int i=0; i<P.getNombreDeJoueurs(); i++)
+			for(int i=0; i<P.getNombreDeJoueurs(); i++)// transfert de pliEnCours dans pliPrecedent 
 			{
 				int a = (i + numJoueurEntame)% P.getNombreDeJoueurs();
 				plisPrecedent[i] = plisEnCours[a];
 				plisEnCours[i] = null;
 			}
-			
 			numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagné le pli entame au tour suivant
 			System.out.println("jeurvainqueufqjsdfg :"+numJoueurVainqueurPli+mainsDesJoueurs[numJoueurVainqueurPli].getNomProprietaire());
 		}
@@ -262,7 +257,6 @@ public class Donne
 		else if (c.isAtout())
 		{
 			// on vérifie que l’atout est plus haut que les autres.
-			
 			// (calcul de l’atout le plus haut dans le pli en cours)
 			Carte a = new Carte(0);
 			for(int i=numJoueurEntame; i!=numJ; i=getNumJoueurApres(i))
@@ -329,6 +323,7 @@ public class Donne
 			 */
 		}
 		while(!(mainsDesJoueurs[num].contains(carteProposee)&& isCarteLegale(carteProposee, num)));
+		
 		mainsDesJoueurs[num].removeCarte(carteProposee);
 		
 		return carteProposee;
@@ -352,7 +347,6 @@ public class Donne
 				cartesLegales.add(c);
 			}
 		}
-		
 		return cartesLegales;
 	}
 	
@@ -497,14 +491,7 @@ public class Donne
 	public void setPreneur(int preneur) {
 		this.preneur = preneur;
 	}
-	// pour les parties a 5
-	public int getJoueurAppele() {
-		return appelee;
-	}
-	public void setJoueurAppele(int joueurAppele) {
-		this.appelee = joueurAppele;
-	}
-	
+
 	public Carte[] getPlisPrecedent() {
 		return plisPrecedent;
 	}
@@ -556,6 +543,17 @@ public class Donne
 			j.direCarteJouee(c, joueur);
 		}
 	}
+	/*
+	 * ------------------------------------------------------------------------------------------
+	 * -------------------------------Pour 5 joueur---------------------------------------------
+	 * -------------------------------------------------------------------------------------------
+	 */
+	public int getJoueurAppele() {
+		return appelee;
+	}
+	public void setJoueurAppele(int joueurappele) {
+		this.appelee = joueurappele;
+	}
 	
 	/*
 	 * ------------------------------------------------------------------------------------------
@@ -606,6 +604,5 @@ public class Donne
 		System.out.println(vainqueurDuPlis(plisEnCours));
 		*/
 		Partie.main(null);
-		
 	}
 }
