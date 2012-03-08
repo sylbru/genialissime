@@ -287,7 +287,29 @@ public class Scores
 	 * -------------------------affichage-------------------------------------------------
 	 * ---------------------------à faire----------------------------------------------- 
 	 */
-    public void affiche(){}
+    public void affiche()
+    {
+    	System.out.println("Scores : ");
+        int J = P.getNombreDeJoueurs();
+        int I = scores.size();
+        /*
+         * pour afficher les noms de joueurs en debut de tableau // ? pourqoui l'avoir commenter c'etait bien non ?
+         * 
+         * for(int i = 0; i<J ; i++) {
+         * 
+         * System.out.print(getNomJoueur(i)); } /*
+         */
+        for (int i = 0; i < I; i++)
+        {
+                for (int j = 0; j < J; j++)
+                {
+                        System.out.print(scores.get(i)[j]);
+                        System.out.print("\t");
+                }
+                System.out.println();
+        }
+
+    }
 
 	/*
 	 * ----------------------------------------------------------------------------------

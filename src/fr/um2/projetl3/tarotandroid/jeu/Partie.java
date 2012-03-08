@@ -218,16 +218,20 @@ public class Partie
 	{
 		for(Carte c:ecart)
 		{
-			if (c.isBout())// si c'est un bout pas le doit de mettre au chien
+			if (c.isAtout())// si c'est un atout pas le doit de mettre au chien
 			{
 				return true;
 			}
 			else if(c.isCouleur()) // c'est donc une carte couleur // ? on refait la verification ? if iscartecouleur ?
 			{
-				if (c.valeur() == 14) // si c'est un roi pas le droit de mettre au chien
+				if (c.getOrdre() == 14) // si c'est un roi pas le droit de mettre au chien
 				{
 					return true;
 				}
+			}
+			else if(c.isExcuse())
+			{
+				return true;
 			}
 		}
 		return false;
