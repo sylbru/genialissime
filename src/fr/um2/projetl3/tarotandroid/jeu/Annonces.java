@@ -24,7 +24,6 @@ public class Annonces
 		System.out.println("Le donneur était n°"+P.donne().getNumDonneur()+", le premier à parler est n°"+numeroDuJoueur);
 		int nombreDeJoueurs=P.getNombreDeJoueurs(); 
 		Contrat contrat = Contrat.AUCUN;
-		Contrat controle = Contrat.AUCUN;
 		Contrat contratMax = Contrat.AUCUN;
 		
 		int numDernierJoueur = P.donne().getNumDonneur();

@@ -35,6 +35,80 @@ public class Scores
 	 * ---------------------------------------------------------------------------------- 
 	 */
 	
+	
+	/*
+	 * author Heykel
+	 * implementation de calcul points dans vecteur Attaque/Defense
+	 * puis calcul du nombre de bouts (inutile pour le moment au Vecteur Defense mais pourrait servir pour verifier qu'il
+	 * n'yait pas plus de 3 bouts ou moins
+	 */
+<<<<<<< .mine
+	public int calculDesPointsDansLeVecteurAttaque() //
+	{
+		int sommeDesValeursDesCartes = 0;
+		
+		for(Carte c : P.donne().plisAttaque)
+		{
+			sommeDesValeursDesCartes += c.valeur();
+		}
+		return sommeDesValeursDesCartes;
+=======
+	public void phaseScore()
+	{	
+		int Gain =  calculGain(calculDesPointsDansLeVecteurAttaque(), calculNombreDeBoutsDansVecteurAttaque());
+
+		calculDerniereLigneScore(P.donne().getContratEnCours(), Gain, joueurReussi(Gain), P.donne().getPreneur());
+>>>>>>> .r135
+	}
+	
+	public int calculNombreDeBoutsDansVecteurAttaque()
+	{
+		int nombreDeBoutsDansVecteurAttaque = 0;
+		
+		for(Carte c : P.donne().plisAttaque)
+		{
+			if(c.isBout())
+			{
+				nombreDeBoutsDansVecteurAttaque ++;
+			}
+		}
+		return nombreDeBoutsDansVecteurAttaque;
+	}
+	
+	public int calculDesPointsDansLeVecteurDefense() //
+	{
+		int sommeDesValeursDesCartes = 0;
+		
+		for(Carte c : P.donne().plisDefense)
+		{
+			sommeDesValeursDesCartes += c.valeur();
+		}
+		return sommeDesValeursDesCartes;
+	}
+	
+	public int calculNombreDeBoutsDansVecteurDefense()
+	{
+		int nombreDeBoutsDansVecteurDefense = 0;
+		
+		for(Carte c : P.donne().plisDefense)
+		{
+			if(c.isBout())
+			{
+				nombreDeBoutsDansVecteurDefense ++;
+			}	
+		}
+		return nombreDeBoutsDansVecteurDefense;
+	}
+	
+	/**
+	 * @author niavlys
+	 * @return Retourne le nombre de donnes effectuées (taille du vecteur scores), utilisé dans P.partieFinie()
+	 */
+	public int nbDonnes()
+	{
+		return scores.size();
+	}
+		
 	/**
 	 * a appeler pour calculer le score à la fin d'une donne
 	 * scores est initialise dans inilitationPartie()
@@ -43,17 +117,7 @@ public class Scores
 	{	
 		int Gain =  calculGain(calculDesPointsDansLeVecteurAttaque(), calculNombreDeBoutsDansVecteurAttaque());
 
-		calculDerniereLigneScore(P.donne().getContratEnCours(), Gain, joueurReussi(Gain), P.donne().getPreneur());
-	}
-	
-
-	/**
-	 * @author niavlys
-	 * @return Retourne le nombre de donnes effectuées (taille du vecteur scores), utilisé dans P.partieFinie()
-	 */
-	public int nbDonnes()
-	{
-		return scores.size();
+		calculDerniereLigneScore(P.donne().getContratEnCours(), Gain, joueurReussi(Gain), P.donne().getPreneur().getID());
 	}
 	
 	public int meilleurScore()
@@ -66,11 +130,18 @@ public class Scores
 			{
 				meilleurScore = scores.lastElement()[i];
 			}
-		}
-		
+		}		
 		return meilleurScore;
-		
 	}
+
+
+	/*
+	 * ----------------------------------------------------------------------------------
+	 * -------------------------Calcul-------------------------------------------------
+	 * ---------------------------------------------------------------------------------- 
+	 */
+	
+	
 
 	/*
 	 * cette fonction actualise le tableau de score en calculant la derniere
@@ -111,31 +182,6 @@ public class Scores
 			return true;
 		else
 			return false;
-	}
-
-	// affiche chaque ligne de score de la partie
-	public void affiche()
-	{
-		System.out.println("Scores : ");
-		int J = P.getNombreDeJoueurs();
-		int I = scores.size();
-		/*
-		 * pour afficher les noms de joueurs en debut de tableau // ? pourqoui l'avoir commenter c'etait bien non ?
-		 * 
-		 * for(int i = 0; i<J ; i++) {
-		 * 
-		 * System.out.print(getNomJoueur(i)); } /*
-		 */
-		for (int i = 0; i < I; i++)
-		{
-			for (int j = 0; j < J; j++)
-			{
-				System.out.print(scores.get(i)[j]);
-				System.out.print("\t");
-			}
-			System.out.println();
-		}
-
 	}
 
 	// calcule une ligne de score en fonction des points que chaque joueur
@@ -240,13 +286,16 @@ public class Scores
 		if ( Gain < 0 ) return false; 
 		else return true;
 	}
-	
+
+
 	/*
-	 * author Heykel
-	 * implementation de calcul points dans vecteur Attaque/Defense
-	 * puis calcul du nombre de bouts (inutile pour le moment au Vecteur Defense mais pourrait servir pour verifier qu'il
-	 * n'yait pas plus de 3 bouts ou moins
+	 * ----------------------------------------------------------------------------------
+	 * -------------------------affichage-------------------------------------------------
+	 * ---------------------------------------------------------------------------------- 
 	 */
+<<<<<<< .mine
+	public void affiche()
+=======
 	
 	public int calculDesPointsDansLeVecteurAttaque() //
 	{
@@ -261,15 +310,28 @@ public class Scores
 	}
 	
 	public int calculNombreDeBoutsDansVecteurAttaque()
+>>>>>>> .r135
 	{
-		int nombreDeBoutsDansVecteurAttaque = 0;
-		
-		for(Carte c : P.donne().plisAttaque)
+		System.out.println("Scores : ");
+		int J = P.getNombreDeJoueurs();
+		int I = scores.size();
+		/*
+		 * pour afficher les noms de joueurs en debut de tableau // ? pourqoui l'avoir commenter c'etait bien non ?
+		 * 
+		 * for(int i = 0; i<J ; i++) {
+		 * 
+		 * System.out.print(getNomJoueur(i)); } /*
+		 */
+		for (int i = 0; i < I; i++)
 		{
-			if(c.isBout())
+			for (int j = 0; j < J; j++)
 			{
-				nombreDeBoutsDansVecteurAttaque ++;
+				System.out.print(scores.get(i)[j]);
+				System.out.print("\t");
 			}
+<<<<<<< .mine
+			System.out.println();
+=======
 		}
 		
 		return nombreDeBoutsDansVecteurAttaque;
@@ -282,10 +344,23 @@ public class Scores
 		for(Carte c : P.donne().plisDefense)
 		{
 			sommeDesValeursDesCartes += c.valeur();
+>>>>>>> .r135
 		}
+<<<<<<< .mine
+
+=======
 		
 		return sommeDesValeursDesCartes;
+>>>>>>> .r135
 	}
+<<<<<<< .mine
+
+	/*
+	 * ----------------------------------------------------------------------------------
+	 * -----------------------------Test-------------------------------------------------
+	 * ---------------------------------------------------------------------------------- 
+	 */
+=======
 	
 	public int calculNombreDeBoutsDansVecteurDefense()
 	{
@@ -301,8 +376,8 @@ public class Scores
 		
 		return nombreDeBoutsDansVecteurDefense;
 	}
+>>>>>>> .r135
 	
-	/* test de classe */
 	public static void main(String[] args)
 	{
 		Scores S = new Scores();
