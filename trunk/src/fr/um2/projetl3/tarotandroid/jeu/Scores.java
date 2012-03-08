@@ -109,8 +109,12 @@ public class Scores
 	public void phaseScore()
 	{	
 		int Gain =  calculGain(calculDesPointsDansLeVecteurAttaque(), calculNombreDeBoutsDansVecteurAttaque());
+		
+		System.out.println("Affichage du gain : "+Gain);
 
 		calculDerniereLigneScore(P.donne().getContratEnCours(), Gain, joueurReussi(Gain), P.donne().getPreneur());
+		
+		affiche();
 		
 	}
 	
