@@ -512,7 +512,7 @@ public class Donne
 	{
 		 plisDefense.addAll(Arrays.asList(chien));
 	}
-	public void mettreChienDansLaMainDuPreneur()
+	public void mettreChienDansPreneur()
 	{
 		for(Carte c : chien)
 		{

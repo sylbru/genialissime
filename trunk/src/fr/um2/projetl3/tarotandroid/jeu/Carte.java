@@ -222,7 +222,7 @@ public class Carte
 				s += "♦";
 				break;
 			case Coeur:
-				s += "♥";
+				s += "♡";
 				break;
 			case Pique:
 				s += "♠";

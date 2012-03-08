@@ -214,7 +214,7 @@ public class Partie
 		}
 	}
 	
-	public boolean verificatioSiEcartPasValide(Carte[] ecart)
+	public boolean verificationEcartValide(Carte[] ecart)
 	{
 		for(Carte c:ecart)
 		{
@@ -239,23 +239,25 @@ public class Partie
 		{
 			donne.reveleChien();// ici il faut révélé le chien
 			
-			donne.mettreChienDansLaMainDuPreneur();// ici il faut donner le chien au preneur
+			donne.mettreChienDansPreneur();// ici il faut donner le chien au preneur
 			
-			// ensuite il faut lui dire quelles cartes il veut mettre à l'ecart une fois l'ecart fait on le met dans les plis de l'attaquant
-			
-			Carte[] ecartEnAttenteDeValidation = new Carte[nombreDeCartesPourLeChien];
+			Carte[] ecart = new Carte[nombreDeCartesPourLeChien];
 			boolean ecartPasValide = true;
 			
 			while(ecartPasValide) // ? faudrait rajouter un compteur et afficher quelque chose non ?
 			{
-				ecartEnAttenteDeValidation = getJoueur(donne.getPreneur()).demanderEcart();
-				ecartPasValide = verificatioSiEcartPasValide(ecartEnAttenteDeValidation); 
+				ecart = getJoueur(donne.getPreneur()).demanderEcart();
+				ecartPasValide = verificationEcartValide(ecart); 
 			}
+			
 			System.out.println("TEST CHIEN");
+			
 			for(int i=0; i<6; i++)
-				ecartEnAttenteDeValidation[i].affiche();
-			donne.plisAttaque.addAll(Arrays.asList(ecartEnAttenteDeValidation));
-			donne.getMain(donne.getPreneur()).enleverEcart(ecartEnAttenteDeValidation);
+			{
+				ecart[i].affiche();
+			}
+			donne.plisAttaque.addAll(Arrays.asList(ecart));
+			donne.getMain(donne.getPreneur()).enleverEcart(ecart);
 			
 		}
 		else if ( donne.getContratEnCours().isChienPourAttaque()) // garde sans
