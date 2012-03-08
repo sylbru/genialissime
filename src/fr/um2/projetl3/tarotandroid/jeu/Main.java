@@ -79,7 +79,7 @@ public class Main
 		
 	public void affiche()
 	{
-		System.out.println("Main de "+proprietaire.nom()+" :");
+		System.out.println("Main de "+proprietaire.getNomDuJoueur()+" :");
 		System.out.print("[ ");
 		for(Carte c: cartes)
 		{
@@ -94,7 +94,7 @@ public class Main
 	
 	public String getNomProprietaire()
 	{
-		return proprietaire.nom();
+		return proprietaire.getNomDuJoueur();
 	}
 	
 	public Main(IJoueur proprietaire)

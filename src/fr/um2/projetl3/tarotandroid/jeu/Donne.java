@@ -1,5 +1,7 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
+import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
+
 import java.util.Arrays;
 import java.util.Vector;
 

@@ -1,13 +1,14 @@
 package fr.um2.projetl3.tarotandroid.activities;
 
-import com.um2.projetl3.tarotandroid.R;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.um2.projetl3.tarotandroid.R;
 
 /**
  * Seconde page appelée après la page de garde
@@ -68,6 +69,7 @@ public class Accueil extends Activity
         	public void onClick(View v) {
         		Toast.makeText(getBaseContext(),
         				"Heu...",Toast.LENGTH_SHORT).show();
+        		startActivity(new Intent(getApplicationContext(), TestKevinActivity.class));
         	}
         });
         
