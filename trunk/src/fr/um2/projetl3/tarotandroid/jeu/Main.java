@@ -145,5 +145,16 @@ public class Main
 		}
 	}
 
+	public boolean atoutPlusGrand( int ordre)
+	{
+		for(int i = 0; i< cartes.size(); i++)
+		{
+			if (cartes.get(i).isAtout() && cartes.get(i).getOrdre() > ordre)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 
 }

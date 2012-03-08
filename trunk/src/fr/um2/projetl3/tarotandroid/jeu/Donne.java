@@ -211,6 +211,7 @@ public class Donne
 				plisEnCours[numJoueur] = demanderCarteJoueur(numJoueur); //changement fabrice : jai suppose que l'orde de cartes n'estpas important
 				nbCartesPosees++;
 				numJoueur = getNumJoueurApres(numJoueur);
+				setJoueurEnContactApres();
 			}
 			// nbCartesPosees == nbJoueurs : le tour est fini
 			numJoueurVainqueurPli = vainqueurDuPli(plisEnCours); 
@@ -286,7 +287,11 @@ public class Donne
 					 // il faut que le joueur ne possède pas la couleur demandée pour pouvoir jouer atout :
 					return !mainsDesJoueurs[numJ].possedeCouleur(coulDemandee);					
 				}
-			} else return false;
+			} 
+			else
+			{
+				return mainsDesJoueurs[numJ].atoutPlusGrand(c.getOrdre());
+			}
 		}
 		else // c.isCouleur() == true 
 		{
@@ -304,6 +309,7 @@ public class Donne
 		
 	}
 	
+
 	/**
 	 * Demande au joueur de jouer une carte et vérifie si elle est légale (redemande si besoin). 
 	 * @param num La position du joueur
@@ -463,8 +469,22 @@ public class Donne
 		}
 
 		nouvNum = nouvNum % P.getNombreDeJoueurs();
-		numJoueurEnContact = nouvNum;
 		return 	nouvNum;
+	}
+	
+	
+	public void setJoueurEnContactApres()
+	{
+		
+		if(PrefsRegles.sensInverseAiguillesMontre)
+		{
+			numJoueurEnContact = numJoueurEnContact+1;
+		}
+		else
+		{
+			numJoueurEnContact = numJoueurEnContact-1;
+		}
+		numJoueurEnContact = numJoueurEnContact % P.getNombreDeJoueurs();
 	}
 
 	public int getNumDonneur()
