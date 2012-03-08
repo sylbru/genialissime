@@ -289,9 +289,10 @@ public class Partie
 			 */
 			donne.distribution();
 			Annonces.phaseAnnonce(); // à voir (il faudrait que ce soit lié à donneEnCours d’une manière ou d’une autre)
-								
+			System.out.println("On est juste apres la phase d'annonce");		
 			if(donne.getContratEnCours() != Contrat.AUCUN) // si il n'y a pas de contrat il faut arreter la donne.
 			{
+				System.out.println("Contrat en cours"+donne.getContratEnCours());
 				phaseChienEcart();
 				donne.jeuDeLaCarte();
 				// comptePoints(); // (à voir avec méthodes de scores, peut-être les modifier pour qu’elles lisent
@@ -300,6 +301,7 @@ public class Partie
 			}
 			else
 			{
+				System.out.println("Aucun contrat de fait => nouvelle donne");
 				// C’est le cas où tout le monde a passé.
 				// Montrer les jeux de tout le monde avant de redistribuer ?
 			}
