@@ -126,10 +126,11 @@ public class Annonces
 
 		D.setContratEnCours(contrat);
 		D.setPreneur(joueurQuiVaPrendre); // preneur est donc à -1 si personne n’a pris
-		System.out.println("Contrat en cours : " + contrat
-				+ " par " + P.getJoueur(joueurQuiVaPrendre).getNomDuJoueur()
-				+ "(" + joueurQuiVaPrendre + ")");
-
+		if (joueurQuiVaPrendre != -1)
+		{
+			System.out.println("Contrat en cours : " + contrat+ " par " + P.getJoueur(joueurQuiVaPrendre).getNomDuJoueur()+ "(" + joueurQuiVaPrendre + ")");
+		}
+		
 		if(nombreDeJoueurs == 5)
 		{
 			phaseAppelRoi();
