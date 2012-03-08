@@ -121,6 +121,32 @@ public class Donne
 		 * ------------------------------------ Méthodes --------------------------------------------
 		 * --------------------------------------------------------------------------------------------
 		 */
+	 
+		/**
+		 * Informe les joueurs du chien révélé
+		 */
+		public void reveleChien()
+		{
+			for(IJoueur j: P.getJoueurs())
+			{
+				j.direChien(chien);
+			}
+		}
+		
+		/**
+		 * @author niavlys
+		 * Informe les joueurs du fait qu’une carte a été jouée par un joueur
+		 * @param c La carte jouée
+		 * @param joueur Le joueur qui a joué la carte
+		 */
+		public void direJoueursCarteJouee(Carte c, IJoueur joueur)
+		{
+			for(IJoueur j: P.getJoueurs())
+			{
+				j.direCarteJouee(c, joueur);
+			}
+		}
+		
 	 /** Méthode fini mais à tester
 	  *  // TODO test
 	  * @author JB
@@ -536,35 +562,21 @@ public class Donne
 	{
 		for(Carte c : chien)
 		{
+			System.out.println("crate mises au chien : "+c);
 			mainsDesJoueurs[preneur].addCarte(c);
 		}
 	}
-	
-	
-	/**
-	 * Informe les joueurs du chien révélé
-	 */
-	public void reveleChien()
+	public int getNumJoueurEnContact() 
 	{
-		for(IJoueur j: P.getJoueurs())
-		{
-			j.direChien(chien);
-		}
+		return numJoueurEnContact;
 	}
-	
-	/**
-	 * @author niavlys
-	 * Informe les joueurs du fait qu’une carte a été jouée par un joueur
-	 * @param c La carte jouée
-	 * @param joueur Le joueur qui a joué la carte
-	 */
-	public void direJoueursCarteJouee(Carte c, IJoueur joueur)
+
+	public void setNumJoueurEnContact(int numJoueurEnContact) 
 	{
-		for(IJoueur j: P.getJoueurs())
-		{
-			j.direCarteJouee(c, joueur);
-		}
+		this.numJoueurEnContact = numJoueurEnContact;
 	}
+
+	
 	/*
 	 * ------------------------------------------------------------------------------------------
 	 * -------------------------------Pour 5 joueur---------------------------------------------
