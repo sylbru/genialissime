@@ -366,15 +366,17 @@ public class Donne
 	 * Actuellement ça regarde toutes ses cartes et fait appel à isCarteLegale() pour chacune.
 	 * Est-ce que ce serait plus efficace de procéder plus intelligemment ? À voir.
 	 */
-	protected Vector<Carte> indiquerCartesLegalesJoueur(int numJoueur)
+	public Vector<Carte> indiquerCartesLegalesJoueur()
 	{
 		Vector<Carte> cartesLegales = new Vector<Carte>();
-		if(numJoueur < P.getNombreDeJoueurs());
-		for(Carte c: mainsDesJoueurs[numJoueur].getCartes())
+		if(numJoueurEnContact < P.getNombreDeJoueurs())
 		{
-			if(isCarteLegale(c, numJoueur))
+			for(Carte c: mainsDesJoueurs[numJoueurEnContact].getCartes())
 			{
-				cartesLegales.add(c);
+				if(isCarteLegale(c, numJoueurEnContact))
+				{
+					cartesLegales.add(c);
+				}
 			}
 		}
 		return cartesLegales;

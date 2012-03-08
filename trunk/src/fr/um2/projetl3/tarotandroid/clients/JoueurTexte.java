@@ -1,11 +1,14 @@
 package fr.um2.projetl3.tarotandroid.clients;
 
+import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
+
 import java.util.Scanner;
+import java.util.Vector;
 
-//import android.R.string;
-
-import fr.um2.projetl3.tarotandroid.jeu.*;
-import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
+import fr.um2.projetl3.tarotandroid.jeu.Carte;
+import fr.um2.projetl3.tarotandroid.jeu.Contrat;
+import fr.um2.projetl3.tarotandroid.jeu.Couleur;
+import fr.um2.projetl3.tarotandroid.jeu.Main;
 
 public class JoueurTexte implements IJoueur
 {
@@ -105,19 +108,58 @@ public class JoueurTexte implements IJoueur
 		int num;
 		Scanner sc = new Scanner(System.in);
 		majMain();
-		do
+		Vector<Carte> carteslegales = P.donne().indiquerCartesLegalesJoueur();
+		boolean choixtoutescartes = false; // pour choisir entre toutues les cartes de la main ou justes les carte legales
+		
+		if(choixtoutescartes)
 		{
-			main.affiche();
-			//indiquerCartesLegalesJoueur(num); // !! Cette fonction ne fait rien d'utile pour l'instant
-			System.out.println("Jouez une carte en donnant un chiffre entre 1 et "+P.donne().getMain().nbCartesRestantes());
-			num = sc.nextInt()-1;
-			if(num < 0 || num >= main.nbCartesRestantes())
+			do
 			{
-				System.out.println("… entre 1 et "+ main.nbCartesRestantes()+" !");
-			}
-		} while(num < 0 || num >= main.nbCartesRestantes());
-		main.getCarte(num).affiche();
-		return P.donne().getMain().getCarte(num);
+				main.affiche();
+				AfficheCarteLegales();
+				//indiquerCartesLegalesJoueur(num); // !! Cette fonction ne fait rien d'utile pour l'instant
+				
+				  System.out.println("Jouez une carte en donnant un chiffre entre 1 et "+P.donne().getMain().nbCartesRestantes());
+				
+				num = sc.nextInt()-1;
+				if(num < 0 || num >= main.nbCartesRestantes())
+				{
+					System.out.println("… entre 1 et "+ main.nbCartesRestantes()+" !");
+				}
+				
+			} while(num < 0 || num >= main.nbCartesRestantes());
+			main.getCarte(num).affiche();
+		}
+		else 
+		{
+			do
+			{
+				main.affiche();
+				AfficheCarteLegales();				
+				System.out.println("Jouez une carte en donnant un chiffre entre 1 et "+carteslegales.size());
+				
+				num = sc.nextInt()-1;
+				if(num < 0 || num >= carteslegales.size())
+				{
+					System.out.println("… entre 1 et "+ carteslegales.size()+" !");
+				}
+				
+			} while(num < 0 || num >= carteslegales.size());
+			carteslegales.get(num).affiche();
+		}
+		return carteslegales.get(num);
+	}
+	
+	private Vector<Carte> AfficheCarteLegales()
+	{
+		Vector<Carte> carteslegales;
+		carteslegales = P.donne().indiquerCartesLegalesJoueur();
+		System.out.println("vos cartes legales sont : ");
+		for(int i= 0; i< carteslegales.size() ; i++)
+		{
+			carteslegales.get(i).affiche();
+		}
+		return carteslegales;
 	}
 	
 	public JoueurTexte(String nom)
