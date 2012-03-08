@@ -5,6 +5,9 @@ import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
 
 public class Annonces 
 {
+	
+	private static Contrat[] tableauDesContrats;
+	
 	/*
 	 *  ---------------------------------------------------------------------------------------------
 	 *  ------------------------Juste la méthode pour effectuer la phase des annonces----------------
@@ -17,29 +20,33 @@ public class Annonces
 	 * 		et si le jeu est à 5 le joeur appelée est decidé
 	 * 
 	 */
-	public static void phaseAnnonce()
+	protected static void phaseAnnonce()
 	{
-		boolean conditionArret = true;
-		int numeroDuJoueur = P.donne().getNumJoueurApres(P.donne().getNumDonneur());
-		System.out.println("Le donneur était n°"+P.donne().getNumDonneur()+", le premier à parler est n°"+numeroDuJoueur);
-		int nombreDeJoueurs=P.getNombreDeJoueurs(); 
+		int nombreDeJoueurs = P.getNombreDeJoueurs(); 
+		tableauDesContrats = new Contrat[nombreDeJoueurs];
+		
+		int numeroDuJoueur = D.getNumJoueurApres(D.getNumDonneur());
+		System.out.print("Le donneur était " + P.getNomNumJoueur(D.getNumDonneur()) + ", ");
+		System.out.println("le premier à parler est " + P.getNomNumJoueur(numeroDuJoueur));
+		
 		Contrat contrat = Contrat.AUCUN;
 		Contrat contratMax = Contrat.AUCUN;
 		
-		int numDernierJoueur = P.donne().getNumDonneur();
-		int numDernierJoueurTemporaire = P.donne().getNumDonneur();
+		int numDernierJoueur = D.getNumDonneur();
+		int numDernierJoueurTemporaire = D.getNumDonneur();
 
 		int joueurQuiVaPrendre = -1;
 		int combienVeulentPrendre = 0;
 		
-		Contrat tableauDesContrat[] = new Contrat[nombreDeJoueurs]; 
-		for(int i=0;i<nombreDeJoueurs;i++){
-			tableauDesContrat[i]=Contrat.AUCUN;
+		for(int i=0;i<nombreDeJoueurs;i++)
+		{
+			tableauDesContrats[i]=Contrat.AUCUN;
 		}
-
+		
+		boolean conditionArret = true;
 		while(conditionArret)
 		{
-			if(tableauDesContrat[numeroDuJoueur] != Contrat.PASSE ) // si le joueur n'as pas passer il peut annoncer
+			if(tableauDesContrats[numeroDuJoueur] != Contrat.PASSE ) // si le joueur n'as pas passer il peut annoncer
 			{
 				if(joueurQuiVaPrendre==numeroDuJoueur) // sortie d'annonce : la boucle est revenu sur le joueur qui veux prendre
 				{
@@ -48,17 +55,16 @@ public class Annonces
 				}
 				else
 				{
-					contrat = P.getJoueur(numeroDuJoueur).demanderAnnonce(contratMax);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
+					contrat = demanderAnnonceJoueur(numeroDuJoueur, contratMax);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
 					direJoueursAnnonce(contrat, P.getJoueur(numeroDuJoueur));
 					
 					if (contrat.getPoids() > contratMax.getPoids())
 					{
-						System.out.println(" if poids actuel est > contrat max (contrat = "+contrat+")");
 						contratMax = contrat;
 					}
 					System.out.println("Contrat du joueur "+P.getJoueur(numeroDuJoueur).getNomDuJoueur()+" : "+contrat.getName());
 					
-					tableauDesContrat[numeroDuJoueur] = contrat ; // on stocke les contrat que les joueur veulent faire
+					tableauDesContrats[numeroDuJoueur] = contrat ; // on stocke les contrat que les joueur veulent faire
 	
 					if(contrat != Contrat.PASSE) // si un joeur passe pas
 					{
@@ -115,19 +121,33 @@ public class Annonces
 					}
 				}
 			}
-			numeroDuJoueur = P.donne().getNumJoueurApres(numeroDuJoueur);
+			numeroDuJoueur = D.getNumJoueurApres(numeroDuJoueur);
 		}
 
-		P.donne().setContratEnCours(contrat);
-		System.out.println("contrat en cours : "+contrat);
-		P.donne().setPreneur(joueurQuiVaPrendre);
-		System.out.println("Preneur"+joueurQuiVaPrendre);
-		System.out.println("Nom Preneur : "+P.getJoueur(joueurQuiVaPrendre).getNomDuJoueur());
+		D.setContratEnCours(contrat);
+		D.setPreneur(joueurQuiVaPrendre); // preneur est donc à -1 si personne n’a pris
+		System.out.println("Contrat en cours : " + contrat
+				+ " par " + P.getJoueur(joueurQuiVaPrendre).getNomDuJoueur()
+				+ "(" + joueurQuiVaPrendre + ")");
 
-		if(nombreDeJoueurs==5) {phaseAppelRoi(); System.out.println("pas possible que ça asse là ou grosse erreur");}
+		if(nombreDeJoueurs == 5)
+		{
+			phaseAppelRoi();
+		}
 	}
 	
-	public static void direJoueursAnnonce(Contrat c, IJoueur joueur)
+	/**
+	 * Demande à un joueur son annonce, et vérifie si elle est valide (redemande jusqu’à recevoir une valide)
+	 */
+	protected static Contrat demanderAnnonceJoueur(int num, Contrat contratMax)
+	{
+		// TODO: demanderAnnonce jusqu’à recevoir une annonce valide
+		Contrat annonceProposée = Contrat.AUCUN;
+		annonceProposée = P.getJoueur(num).demanderAnnonce(contratMax);
+		return annonceProposée;
+	}
+	
+	protected static void direJoueursAnnonce(Contrat c, IJoueur joueur)
 	{
 		for(IJoueur j: P.getJoueurs())
 		{
@@ -135,19 +155,28 @@ public class Annonces
 		}
 	}
 	
-	public static void phaseAppelRoi()
+	/**
+	 * Indique au joueur les annonces qu’il peut dire.
+	 */
+	public Contrat[] getAnnoncesValides()
 	{
-		Carte Roi = P.getJoueur(P.donne().getPreneur()).appelerRoi();
+		Contrat[] annoncesValides = null;
+		return annoncesValides;
+	}
+	
+	protected static void phaseAppelRoi()
+	{
+		Carte Roi = P.getJoueur(D.getPreneur()).demanderRoi();
 		int nombreDeJoueurs = P.getNombreDeJoueurs();
 		for(int i = 0; i<nombreDeJoueurs; i++)
 		{
 			if(P.getJoueur(i).possedeRoi(Roi))
 			{
-				P.donne().setJoueurAppele(i);
+				D.setJoueurAppele(i);
 			} 
 			else // si le chien n'est pas dans la main d'un joueur il est dans le chien, le preneur se retrouve donc tout seul.
 			{
-				P.donne().setJoueurAppele(P.donne().getPreneur());
+				D.setJoueurAppele(D.getPreneur());
 			}
 		}
 	}

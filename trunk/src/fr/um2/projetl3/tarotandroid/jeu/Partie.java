@@ -48,9 +48,19 @@ public class Partie
 	{
 		return joueurs;
 	}
-	public IJoueur getJoueur(int i)
+	
+	public IJoueur getJoueur(int num)
 	{
-		return joueurs[i];
+		return joueurs[num];
+	}
+	
+	/**
+	 * Donne une chaîne de caractères 
+	 * @return String de la forme « toStringDuJoueur (n°3) ».
+	 */
+	public String getNomNumJoueur(int num)
+	{
+		return joueurs[num] + " (n°" + num + ")";
 	}
 
 	protected void setJoueur(int i, IJoueur joueur) // private ?
@@ -78,6 +88,7 @@ public class Partie
 			{
 				trouvé = true;
 			}
+			i++;
 		}
 		if(!trouvé)
 		{
@@ -178,6 +189,7 @@ public class Partie
 		else
 			tas = nouveauTas;
 	}
+
 	
 	/**
 	 * @author niavlys
@@ -271,6 +283,7 @@ public class Partie
 		while(!partieFinie())
 		{
 			donne = new Donne();
+			D = donne;
 			/*
 			 * Je vois plutôt toute la partie suivante dans Donne pourquoi :
 			 * toutes les phases suivant sont des parties integrantes d'une donne et non d'une partie entiere
@@ -295,9 +308,8 @@ public class Partie
 				System.out.println("Contrat en cours"+donne.getContratEnCours());
 				phaseChienEcart();
 				donne.jeuDeLaCarte();
-				// comptePoints(); // (à voir avec méthodes de scores, peut-être les modifier pour qu’elles lisent
-								   // directement dans Partie le contrat, les cartes remportées… ?)
-				donne.reformerTas();
+				scores.phaseScore();
+				donne.reformerTas(); // buggé (attend que tas devienne un vecteur)
 			}
 			else
 			{

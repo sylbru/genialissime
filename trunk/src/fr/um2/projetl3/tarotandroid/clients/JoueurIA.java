@@ -81,7 +81,7 @@ public class JoueurIA implements IJoueur
 		return null;
 	}
 
-	public Carte appelerRoi()
+	public Carte demanderRoi()
 	{
 		// TODO Auto-generated method stub
 		return null;

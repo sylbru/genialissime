@@ -101,7 +101,7 @@ public class Scores
 	{
 		return scores.size();
 	}
-		
+	
 	/**
 	 * a appeler pour calculer le score à la fin d'une donne
 	 * scores est initialise dans inilitationPartie()

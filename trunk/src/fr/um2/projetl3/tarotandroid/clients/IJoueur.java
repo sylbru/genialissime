@@ -10,14 +10,15 @@ public interface IJoueur
 
 	void setNomDuJoueur(String s);
 	String getNomDuJoueur();
-	String nom();
 	
 	Contrat demanderAnnonce(Contrat contrat);
 	Carte[] demanderEcart();
 	
 	Carte demanderCarte();
-	Carte appelerRoi();
+	Carte demanderRoi();
+	
 	boolean possedeRoi(Carte roi);
+	// TODO: À enlever, on ne demande pas au joueur s’il possède un roi, on regarde dans mainsDesJoueurs 
 	
 	void direChien(Carte[] chien);
 	void direCarteJouee(Carte c, IJoueur j);

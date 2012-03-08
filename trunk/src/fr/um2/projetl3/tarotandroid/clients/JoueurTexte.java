@@ -7,40 +7,32 @@ import java.util.Scanner;
 import fr.um2.projetl3.tarotandroid.jeu.*;
 import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
 
-public class JoueurTexte implements IJoueur // implements Joueur (quand Joueur era une interface)
+public class JoueurTexte implements IJoueur
 {
-	private int pID;
-	private Main pMain;
+	private Main main;
+	// ! c’est une copie « locale » de la main retournée par P.donne().getMain(), penser à mettre à jour à chaque modification !
+	// Pour mettre à jour, on appelle majMain().
+	// (utile pour éviter d’appeler P.donne().getMain() à chaque fois)
+	
 	private String nom;
 	private boolean quiet = false; // comme on teste pour l’instant avec quatre JoueurTexte, 
-								   // quiet permet de pas afficher tout quatre fois (un seul a quiet à true)
-
-	public void setID(int pID)
+								   // quiet permet de pas afficher tout quatre fois (un seul a quiet = true)
+	
+	/**
+	 * Regarde dans Donne pour récupérer la main du joueur (met à jour le champ privé main).
+	 */
+	private void majMain()
 	{
-		this.pID = pID;
-	}
-
-	public Main getMain()
-	{
-		return pMain;
+		this.main = P.donne().getMain();
 	}
 	
-	public void setMain(Main pMain)
-	{
-		this.pMain = pMain;
-	}
-	
-	public String nom()
-	{
-		return nom;
-	}
-
+	// TODO: La vérification de la validité du contrat ne doit pas se faire ici mais dans Annonces
 	public Contrat demanderAnnonce(Contrat contrat)
 	{
 		Contrat c = null;
 		int compteur=0;//pour que le joueur ne puisse pas rentrer plus de 5 fois une mauvaise garde
 		boolean mauvais_Contrat=true;
-		System.out.println("À vous de parler :");
+		System.out.println(nom + ", à vous de parler :");
 		while(mauvais_Contrat && compteur<5)
 		{
 			compteur++;
@@ -107,36 +99,31 @@ public class JoueurTexte implements IJoueur // implements Joueur (quand Joueur e
 			
 		return c;
 	}
-	/**/
+	
 	public Carte demanderCarte()
 	{
 		int num;
 		Scanner sc = new Scanner(System.in);
+		majMain();
 		do
 		{
-			
-			P.donne().getMain().affiche();
+			main.affiche();
 			//indiquerCartesLegalesJoueur(num); // !! Cette fonction ne fait rien d'utile pour l'instant
 			System.out.println("Jouez une carte en donnant un chiffre entre 1 et "+P.donne().getMain().nbCartesRestantes());
 			num = sc.nextInt()-1;
-			if(num < 0 || num >= P.donne().getMain().nbCartesRestantes())
+			if(num < 0 || num >= main.nbCartesRestantes())
 			{
-				System.out.println("… entre 1 et "+P.donne().getMain().nbCartesRestantes()+" !");
+				System.out.println("… entre 1 et "+ main.nbCartesRestantes()+" !");
 			}
-		} while(num < 0 || num >= P.donne().getMain().nbCartesRestantes());
-		P.donne().getMain().getCarte(num).affiche();
+		} while(num < 0 || num >= main.nbCartesRestantes());
+		main.getCarte(num).affiche();
 		return P.donne().getMain().getCarte(num);
-	}/**/
+	}
 	
 	public JoueurTexte(String nom)
 	{
 		this.nom = nom;
-	}
-	
-	public JoueurTexte(int pid, String nom)
-	{
-		pID = pid;
-		this.nom = nom;
+		this.quiet = false;
 	}
 	
 	public JoueurTexte(String nom, boolean quiet)
@@ -145,23 +132,19 @@ public class JoueurTexte implements IJoueur // implements Joueur (quand Joueur e
 		this.quiet = quiet;
 	}
 
-
-	public int getID() 
-	{
-		return pID;
-	}
-
 	public void setNomDuJoueur(String s) 
 	{
-		// TODO Auto-generated method stub
 		this.nom = s;
 	}
 
-
 	public String getNomDuJoueur() 
 	{
-		// TODO Auto-generated method stub
 		return this.nom;
+	}
+	
+	public String toString()
+	{
+		return "Joueur "+ this.nom;
 	}
 
 	/* **********************************************
@@ -175,9 +158,10 @@ public class JoueurTexte implements IJoueur // implements Joueur (quand Joueur e
 	
 	public Carte[] demanderEcart() 
 	{
+		majMain();
 		Carte ecart[] = new Carte[P.getnombreDeCartesPourLeChien()];
 		System.out.println("Vous allez devoir choisir "+P.getnombreDeCartesPourLeChien()+" cartes à mettre dans le votre ecart");
-		P.donne().getMain().affiche();
+		main.affiche();
 		for(int i=0;i < P.getnombreDeCartesPourLeChien();i++)
 		{
 			ecart[i] = demanderUneCartePourLecart();
@@ -190,22 +174,23 @@ public class JoueurTexte implements IJoueur // implements Joueur (quand Joueur e
 	
 		int num;
 		Scanner sc = new Scanner(System.in);
+		majMain();
 		do
 		{
-			System.out.println("Mettez une carte à l'ecart en donnant un chiffre entre 1 et "+pMain.nbCartesRestantes());
+			System.out.println("Mettez une carte à l'ecart en donnant un chiffre entre 1 et "+main.nbCartesRestantes());
 			num = sc.nextInt();
-			if(num < 0 || num >= pMain.nbCartesRestantes())
+			if(num < 0 || num >= main.nbCartesRestantes())
 			{
-				System.out.println("… entre 1 et "+pMain.nbCartesRestantes()+" !");
+				System.out.println("… entre 1 et "+main.nbCartesRestantes()+" !");
 			}
-		} while(num < 0 || num >= pMain.nbCartesRestantes());
+		} while(num < 0 || num >= main.nbCartesRestantes());
 		
-		return pMain.getCarte(num);
+		return main.getCarte(num);
 		
 	}
 	
 	
-	public Carte appelerRoi()
+	public Carte demanderRoi()
 	{
 		Carte Roi = null;
 		System.out.println("Donnez la couleur du roi que vous voulez appeler");
@@ -217,19 +202,19 @@ public class JoueurTexte implements IJoueur // implements Joueur (quand Joueur e
 			switch (id)
 			{
 			case 1:
-				System.out.println(" Vous avez appele le roi de coeur");
+				System.out.println("Vous avez appelé le roi de coeur");
 				Roi = new Carte(Couleur.Coeur, 14);
 				break;
 			case 2:
-				System.out.println("Vous avez appele le roi de pique");
+				System.out.println("Vous avez appelé le roi de pique");
 				Roi = new Carte(Couleur.Pique, 14);
 				break;
 			case 3:
-				System.out.println(" Vous avez appele le roi de treffle");
+				System.out.println("Vous avez appelé le roi de treffle");
 				Roi = new Carte(Couleur.Trefle, 14);
 				break;
 			case 4:
-				System.out.println(" Vous avez appele le roi de carreau");
+				System.out.println("Vous avez appelé le roi de carreau");
 				Roi = new Carte(Couleur.Carreau, 14);
 				break;
 			default:
@@ -242,7 +227,7 @@ public class JoueurTexte implements IJoueur // implements Joueur (quand Joueur e
 	
 	public boolean possedeRoi(Carte roi)
 	{
-		return pMain.roiDansLaMain(roi);
+		return main.roiDansLaMain(roi);
 	}
 
 	/* **********************************************
