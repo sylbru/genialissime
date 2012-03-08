@@ -106,10 +106,6 @@ public class Donne
 			 numeroDuJoueur = getNumJoueurApres(numeroDuJoueur);
 			 System.out.println();
 		 }
-		 for(int i = 0 ; i < nombreDeJoueurs ; i++)
-		 {
-			 P.getJoueur(i).setMain(mainsDesJoueurs[numeroDuJoueur]);
-		 }
 		 for(int i=0; i<4; i++)
 		 {
 			 mainsDesJoueurs[i].affiche();
@@ -516,8 +512,12 @@ public class Donne
 	}
 	public void mettreChienDansLaMainDuPreneur()
 	{
-		 P.getJoueur(preneur).addChienDansMain(chien);
+		for(Carte c : chien)
+		{
+			mainsDesJoueurs[preneur].addCarte(c);
+		}
 	}
+	
 	
 	/**
 	 * Informe les joueurs du chien révélé

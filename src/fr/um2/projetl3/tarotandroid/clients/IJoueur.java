@@ -7,8 +7,6 @@ import fr.um2.projetl3.tarotandroid.jeu.Main;
 
 public interface IJoueur
 {
-	void setMain(Main pMain);
-	void addChienDansMain(Carte[] chien);
 
 	void setNomDuJoueur(String s);
 	String getNomDuJoueur();
