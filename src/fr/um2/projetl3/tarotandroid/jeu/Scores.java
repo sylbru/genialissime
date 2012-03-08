@@ -42,7 +42,7 @@ public class Scores
 	 * puis calcul du nombre de bouts (inutile pour le moment au Vecteur Defense mais pourrait servir pour verifier qu'il
 	 * n'yait pas plus de 3 bouts ou moins
 	 */
-<<<<<<< .mine
+
 	public int calculDesPointsDansLeVecteurAttaque() //
 	{
 		int sommeDesValeursDesCartes = 0;
@@ -52,13 +52,6 @@ public class Scores
 			sommeDesValeursDesCartes += c.valeur();
 		}
 		return sommeDesValeursDesCartes;
-=======
-	public void phaseScore()
-	{	
-		int Gain =  calculGain(calculDesPointsDansLeVecteurAttaque(), calculNombreDeBoutsDansVecteurAttaque());
-
-		calculDerniereLigneScore(P.donne().getContratEnCours(), Gain, joueurReussi(Gain), P.donne().getPreneur());
->>>>>>> .r135
 	}
 	
 	public int calculNombreDeBoutsDansVecteurAttaque()
@@ -75,7 +68,7 @@ public class Scores
 		return nombreDeBoutsDansVecteurAttaque;
 	}
 	
-	public int calculDesPointsDansLeVecteurDefense() //
+	public int calculDesPointsDansLeVecteurDefense() 
 	{
 		int sommeDesValeursDesCartes = 0;
 		
@@ -117,7 +110,7 @@ public class Scores
 	{	
 		int Gain =  calculGain(calculDesPointsDansLeVecteurAttaque(), calculNombreDeBoutsDansVecteurAttaque());
 
-		calculDerniereLigneScore(P.donne().getContratEnCours(), Gain, joueurReussi(Gain), P.donne().getPreneur().getID());
+		calculDerniereLigneScore(P.donne().getContratEnCours(), Gain, joueurReussi(Gain), P.donne().getPreneur());
 	}
 	
 	public int meilleurScore()
@@ -291,92 +284,15 @@ public class Scores
 	/*
 	 * ----------------------------------------------------------------------------------
 	 * -------------------------affichage-------------------------------------------------
-	 * ---------------------------------------------------------------------------------- 
+	 * ---------------------------à faire----------------------------------------------- 
 	 */
-<<<<<<< .mine
-	public void affiche()
-=======
-	
-	public int calculDesPointsDansLeVecteurAttaque() //
-	{
-		int sommeDesValeursDesCartes = 0;
-		
-		for(Carte c : P.donne().plisAttaque)
-		{
-			sommeDesValeursDesCartes += c.valeur();
-		}
-		
-		return sommeDesValeursDesCartes;
-	}
-	
-	public int calculNombreDeBoutsDansVecteurAttaque()
->>>>>>> .r135
-	{
-		System.out.println("Scores : ");
-		int J = P.getNombreDeJoueurs();
-		int I = scores.size();
-		/*
-		 * pour afficher les noms de joueurs en debut de tableau // ? pourqoui l'avoir commenter c'etait bien non ?
-		 * 
-		 * for(int i = 0; i<J ; i++) {
-		 * 
-		 * System.out.print(getNomJoueur(i)); } /*
-		 */
-		for (int i = 0; i < I; i++)
-		{
-			for (int j = 0; j < J; j++)
-			{
-				System.out.print(scores.get(i)[j]);
-				System.out.print("\t");
-			}
-<<<<<<< .mine
-			System.out.println();
-=======
-		}
-		
-		return nombreDeBoutsDansVecteurAttaque;
-	}
-	
-	public int calculDesPointsDansLeVecteurDefense() //
-	{
-		int sommeDesValeursDesCartes = 0;
-		
-		for(Carte c : P.donne().plisDefense)
-		{
-			sommeDesValeursDesCartes += c.valeur();
->>>>>>> .r135
-		}
-<<<<<<< .mine
-
-=======
-		
-		return sommeDesValeursDesCartes;
->>>>>>> .r135
-	}
-<<<<<<< .mine
+    public void affiche(){}
 
 	/*
 	 * ----------------------------------------------------------------------------------
 	 * -----------------------------Test-------------------------------------------------
 	 * ---------------------------------------------------------------------------------- 
 	 */
-=======
-	
-	public int calculNombreDeBoutsDansVecteurDefense()
-	{
-		int nombreDeBoutsDansVecteurDefense = 0;
-		
-		for(Carte c : P.donne().plisDefense)
-		{
-			if(c.isBout())
-			{
-				nombreDeBoutsDansVecteurDefense ++;
-			}	
-		}
-		
-		return nombreDeBoutsDansVecteurDefense;
-	}
->>>>>>> .r135
 	
 	public static void main(String[] args)
 	{
