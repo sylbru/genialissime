@@ -244,12 +244,17 @@ public class Partie
 			Carte[] ecart = new Carte[nombreDeCartesPourLeChien];
 			boolean ecartPasValide = true;
 			
+			donne().setNumJoueurEnContact(donne().getPreneur());
+			
 			while(ecartPasValide) // ? faudrait rajouter un compteur et afficher quelque chose non ?
 			{
+
 				ecart = getJoueur(donne.getPreneur()).demanderEcart();
-				ecartPasValide = verificationEcartValide(ecart); 
+				ecartPasValide = verificationEcartValide(ecart);
+
 			}
 			
+			donne().setNumJoueurEnContact(donne().getNumDonneur()+1);
 			System.out.println("TEST CHIEN");
 			
 			for(int i=0; i<6; i++)
