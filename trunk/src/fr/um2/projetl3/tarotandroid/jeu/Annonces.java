@@ -117,10 +117,15 @@ public class Annonces
 			}
 			numeroDuJoueur = P.donne().getNumJoueurApres(numeroDuJoueur);
 		}
+		System.out.println("On est en derhors du while d'annonce");
 		P.donne().setContratEnCours(contrat);
-		P.donne().setPreneur(P.getNumeroJoueur(joueurQuiVaPrendre));
+		if (contrat != Contrat.AUCUN)
+		{
+			P.donne().setPreneur(P.getNumeroJoueur(joueurQuiVaPrendre));
+		}
 		
-		if(nombreDeJoueurs==5) {phaseAppelRoi();}
+		System.out.println("On est apres les setter pour contrat et preneur");
+		if(nombreDeJoueurs==5) {phaseAppelRoi(); System.out.println("pas possible que ça asse là ou grosse erreur");}
 	}
 	
 	public static void direJoueursAnnonce(Contrat c, IJoueur joueur)
