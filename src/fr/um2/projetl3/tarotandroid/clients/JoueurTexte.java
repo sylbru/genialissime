@@ -211,23 +211,30 @@ public class JoueurTexte implements IJoueur
 		return ecart;
 	}
 
-	private Carte demanderUneCartePourLecart() 
+	public Carte demanderUneCartePourLecart() 
 	{
 		int num;
 		Scanner sc = new Scanner(System.in);
-		majMain();
+		Carte c;
+		if(main == null || main.nbCartesRestantes() == 18) majMain();
 		do
 		{
 			System.out.println("Mettez une carte à l'ecart en donnant un chiffre entre 1 et "+ main.nbCartesRestantes());
-			num = sc.nextInt();
-			System.out.println("numero entrez : "+  num);
-			if(num <= 0 || num > main.nbCartesRestantes())
+			main.affiche();
+			num = sc.nextInt()-1;
+			main.getCarte(num).affiche();
+			if(num < 0 || num >= main.nbCartesRestantes())
 			{
 				System.out.println("… entre 1 et "+main.nbCartesRestantes()+" !");
 			}
-		} while(num <= 0 || num > main.nbCartesRestantes());
-		
-		return main.getCarte(num-1);
+			if(!P.verificationCarteEcartValide(main.getCarte(num)))
+			{
+				System.out.println("Carte invalide !");
+			}
+		} while((num < 0 || num >= main.nbCartesRestantes()) && P.verificationCarteEcartValide(main.getCarte(num)));
+		c = main.getCarte(num);
+		main.removeCarte(c);
+		return c;
 	}
 	
 	public Carte demanderRoi()

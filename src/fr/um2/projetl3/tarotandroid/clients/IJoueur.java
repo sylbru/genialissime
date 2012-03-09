@@ -16,6 +16,7 @@ public interface IJoueur
 	
 	Carte demanderCarte();
 	Carte demanderRoi();
+	Carte demanderUneCartePourLecart();
 	
 	boolean possedeRoi(Carte roi);
 	// TODO: À enlever, on ne demande pas au joueur s’il possède un roi, on regarde dans mainsDesJoueurs 

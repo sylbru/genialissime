@@ -117,4 +117,9 @@ public class JoueurIA implements IJoueur
 		
 	}
 
+	public Carte demanderUneCartePourLecart() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
