@@ -213,28 +213,40 @@ public class Partie
 				return true; // comme ça on verra tout de suite si on arrive dans ce cas (pas normal)
 		}
 	}
-	
+	/*
+	 * renvoie vrai si l'ecart est bon
+	 */
 	public boolean verificationEcartValide(Carte[] ecart)
 	{
+		boolean ecartvalide = true;
 		for(Carte c:ecart)
 		{
-			if (c.isAtout())// si c'est un atout pas le doit de mettre au chien
+			ecartvalide = ecartvalide &&verificationCarteEcartValide(c);
+		}
+		return ecartvalide;
+	}
+	/*
+	 * renvoie faut si une carte ne doit pas etre mis dans le chien
+	 * vrai si la carte peut etre mise dans le chien
+	 */
+	public boolean verificationCarteEcartValide(Carte c)
+	{
+		if (c.isAtout())// si c'est un atout pas le doit de mettre au chien
+		{
+			return false;
+		}
+		else if(c.isCouleur()) // c'est donc une carte couleur // ? on refait la verification ? if iscartecouleur ?
+		{
+			if (c.getOrdre() == 14) // si c'est un roi pas le droit de mettre au chien
 			{
-				return true;
-			}
-			else if(c.isCouleur()) // c'est donc une carte couleur // ? on refait la verification ? if iscartecouleur ?
-			{
-				if (c.getOrdre() == 14) // si c'est un roi pas le droit de mettre au chien
-				{
-					return true;
-				}
-			}
-			else if(c.isExcuse())
-			{
-				return true;
+				return false;
 			}
 		}
-		return false;
+		else if(c.isExcuse())
+		{
+			return false;
+		}
+	return true;
 	}
 	
 	public void phaseChienEcart()
@@ -246,14 +258,24 @@ public class Partie
 			donne.mettreChienDansPreneur();// ici il faut donner le chien au preneur
 			
 			Carte[] ecart = new Carte[nombreDeCartesPourLeChien];
-			boolean ecartPasValide = true;
+			boolean ecartPasValide = false;
+			boolean carteEcartValide = true;
 			
 			donne().setNumJoueurEnContact(donne().getPreneur());
 			
-			while(ecartPasValide) // ? faudrait rajouter un compteur et afficher quelque chose non ?
+			while(!ecartPasValide) // ? faudrait rajouter un compteur et afficher quelque chose non ?
 			{
-
-				ecart = getJoueur(donne.getPreneur()).demanderEcart();
+				int i=0;
+				while(i<nombreDeCartesPourLeChien)
+				{
+					ecart[i]= getJoueur(donne.getPreneur()).demanderUneCartePourLecart();
+					carteEcartValide = verificationCarteEcartValide(ecart[i]);
+					if(carteEcartValide)
+					{
+						//donne.getMain(donne.getPreneur()).removeCarte(ecart[i]);
+						i++;
+					}
+				}	
 				ecartPasValide = verificationEcartValide(ecart);
 
 			}
@@ -266,7 +288,7 @@ public class Partie
 				ecart[i].affiche();
 			}
 			donne.plisAttaque.addAll(Arrays.asList(ecart));
-			donne.getMain(donne.getPreneur()).enleverEcart(ecart);
+			//donne.getMain(donne.getPreneur()).enleverEcart(ecart);
 			
 		}
 		else if ( donne.getContratEnCours().isChienPourAttaque()) // garde sans
