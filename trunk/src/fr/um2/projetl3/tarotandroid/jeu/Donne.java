@@ -241,7 +241,6 @@ public class Donne
 			}
 			// nbCartesPosees == nbJoueurs : le tour est fini
 			numJoueurVainqueurPli = vainqueurDuPli(plisEnCours); 
-			System.out.println("vainqeur du pli !! :"+numJoueurVainqueurPli);
 			
 			if(isJoueurAttaque(numJoueurVainqueurPli)) 
 			{
@@ -259,7 +258,6 @@ public class Donne
 				plisEnCours[i] = null;
 			}
 			numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagné le pli entame au tour suivant
-			System.out.println("jeurvainqueufqjsdfg :"+numJoueurVainqueurPli+mainsDesJoueurs[numJoueurVainqueurPli].getNomProprietaire());
 		}
 	}
 	

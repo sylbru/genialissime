@@ -290,6 +290,7 @@ public class Partie
 	protected void lancerPartie()
 	{
 		initialisationPartie();
+		Contrat.initialiserContrats();
 		//donneEnCours.init();
 		while(!partieFinie())
 		{
