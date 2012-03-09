@@ -261,20 +261,33 @@ public class Scores
 	{
 		int resultat = 0;
 		if(Gain< 0)
-			resultat += -Gain;
+			resultat -= Gain;
 		else 
-			resultat += Gain;
-
+			resultat = Gain;
 			resultat +=typeDuContrat.getValeurContrat();
 			resultat *= typeDuContrat.getFacteur();
 
-		if(resultat % 10 < 5)
+		if(PrefsRegles.arrondirA5)
 		{
-			resultat = resultat - (resultat % 10);
+			if(resultat % 5 < 3)
+			{
+				resultat = resultat - (resultat % 5);
+			}
+			else 
+			{
+				resultat = resultat - (resultat % 5) + 5;
+			}
 		}
 		else 
 		{
-			resultat = resultat - (resultat % 10) + 10;
+			if(resultat % 10 < 5)
+			{
+				resultat = resultat - (resultat % 10);
+			}
+			else 
+			{
+				resultat = resultat - (resultat % 10) + 10;
+			}
 		}
 		return resultat;
 	}
