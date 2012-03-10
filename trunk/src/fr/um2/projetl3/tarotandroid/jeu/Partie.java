@@ -1,12 +1,14 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
+import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
+import static fr.um2.projetl3.tarotandroid.jeu.Context.D;
+
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Vector;
+import java.util.Stack;
 
 import fr.um2.projetl3.tarotandroid.clients.IJoueur;
 import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
-import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
 
 @SuppressWarnings("all")
 public class Partie
@@ -15,7 +17,7 @@ public class Partie
 	private Scores scores;
 	private int nombreDeJoueurs;
 	private int nombreDeCartesPourLeChien;
-	private Carte[] tas; // le tas de cartes, repris à la fin d’une donne pour être redistribué
+	private Stack<Carte> tas; // le tas de cartes, repris à la fin d’une donne pour être redistribué
 	private Donne donne; // la donne en cours
 	private boolean stopPartie; 
 	
@@ -34,12 +36,26 @@ public class Partie
 		return donne;
 	}
 	
+	/**
+	 * 
+	 * @param i
+	 * @return la carte du tas à l’indice i
+	 */
 	public Carte getCarteDansTas(int i)
 	{
-		return tas[i];
+		return tas.get(i);
 	}
 	
-	public Carte[] getTas()
+	/**
+	 * Enlève la première carte du tas, et la retourne.
+	 * @return la première carte du tas, et l’enlève.
+	 */
+	public Carte prendreCarteDuTas()
+	{
+		return tas.pop();
+	}
+	
+	public Stack<Carte> getTas()
 	{
 		return tas;
 	}
@@ -143,7 +159,7 @@ public class Partie
 
 		// Initialisation du tas de cartes
 
-		tas = new Carte[78];
+		tas = new Stack<Carte>();
 		int k = 0; // position dans le tableau tas[];
 		int i, val = 0;
 
@@ -152,14 +168,14 @@ public class Partie
 		{
 			for (i = 1; i <= 14; i++)
 			{
-				tas[k++] = new Carte(c, i);
+				tas.push(new Carte(c, i));
 			}
 		}
 
 		// Création des atouts
 		for (i = 0; i <= 21; i++)
 		{
-			tas[k++] = new Carte(i);
+			tas.push(new Carte(i));
 		}
 
 		// Test
@@ -168,8 +184,8 @@ public class Partie
 			System.out.print(tas[i].toString() + ", ");
 		System.out.println();
 		/**/
-		
-		Collections.shuffle(Arrays.asList(tas)); // on mélange (avant la première donne)
+		System.out.println(tas.size());
+		Collections.shuffle(tas); // on mélange (avant la première donne)
 	}
 
 	/*
@@ -182,14 +198,23 @@ public class Partie
 	 * Utilisé pour regrouper les différents paquets de cartes pour reformer
 	 * le tas à la fin de la donne. Fonctionne uniquement si tas[] est vide.
 	 */
-	protected void setTas(Carte[] nouveauTas)
+	protected void setTas(Stack<Carte> nouveauTas)
 	{
-		if(tas.length > 0)
-			System.out.println("Erreur : tentative de setTas() avec tas[] non vide");
+		if(tas.size() > 0)
+			System.out.println("Erreur : tentative de setTas() avec tas non vide");
 		else
 			tas = nouveauTas;
 	}
 
+	/**
+	 * @author niavlys
+	 * @param numJoueur un joueur
+	 * @return Le numéro du joueur se trouvant après le joueur désigné en paramètre
+	 */
+	public int getNumJoueurApres(int numJoueur)
+	{
+		return (numJoueur+1) % getNombreDeJoueurs();
+	}
 	
 	/**
 	 * @author niavlys

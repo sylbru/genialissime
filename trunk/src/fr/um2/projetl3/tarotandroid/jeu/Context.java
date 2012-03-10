@@ -14,7 +14,7 @@ package fr.um2.projetl3.tarotandroid.jeu;
 public class Context
 {
 	public static Partie P; // la partie en cours
-	public static Donne D; // la donne en cours (?)  ! Pas encore utilisé !
+	public static Donne D; // la donne en cours
 	
 	
 	public static void main(String[] args)

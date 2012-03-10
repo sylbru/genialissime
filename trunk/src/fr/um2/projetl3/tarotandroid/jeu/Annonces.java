@@ -25,7 +25,7 @@ public class Annonces
 		int nombreDeJoueurs = P.getNombreDeJoueurs(); 
 		tableauDesContrats = new Contrat[nombreDeJoueurs];
 		
-		int numeroDuJoueur = D.getNumJoueurApres(D.getNumDonneur());
+		int numeroDuJoueur = P.getNumJoueurApres(D.getNumDonneur());
 		System.out.print("Le donneur était " + P.getNomNumJoueur(D.getNumDonneur()) + ", ");
 		System.out.println("le premier à parler est " + P.getNomNumJoueur(numeroDuJoueur));
 		
@@ -121,7 +121,7 @@ public class Annonces
 					}
 				}
 			}
-			numeroDuJoueur = D.getNumJoueurApres(numeroDuJoueur);
+			numeroDuJoueur = P.getNumJoueurApres(numeroDuJoueur);
 		}
 
 		D.setContratEnCours(contrat);

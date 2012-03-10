@@ -1,8 +1,8 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
-import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
-
 import java.util.Arrays;
+import java.util.Random;
+import java.util.Stack;
 import java.util.Vector;
 
 import fr.um2.projetl3.tarotandroid.clients.IJoueur;
@@ -36,15 +36,14 @@ public class Donne
 	 * @author JB
 	 * methode de distribution des cartes
 	 * 
-	 *  // TODO test :	
 	 */
 
 	 protected void distribution()
 	 { 
 		 incrementerNumDonneur();
 		 int nombreDeJoueurs = P.getNombreDeJoueurs();
-		 int numeroDuJoueur = getNumJoueurApres(numDonneur);
-		 System.out.println(numeroDuJoueur);
+		 System.out.println("Donneur : "+P.getNomNumJoueur(numDonneur));
+		 int numeroDuJoueur = P.getNumJoueurApres(numDonneur);
 		 
 		 int possibilitesMisesAuChien = 0;		 
 		 int nombreDeCartesMisesAuChien = 0;
@@ -55,58 +54,50 @@ public class Donne
 			 mainsDesJoueurs[i] = new Main(P.getJoueur(i));
 		 
 		 chien = new Carte[nombreDeCartesPourLeChien];
-
+		 
 		 int randomMin = 1;
 		 int randomMax;
 		 // random(Min/Max) permette de savoir sur quel intervalle on doit faire le random
 		 
 		 int j=0,k=0, random;
-		 	 
+		 
 		 possibilitesMisesAuChien = (( Constantes.NOMBRE_CARTES_TOTALES - nombreDeCartesPourLeChien ) / Constantes.CARTES_DISTRIBU_PAR_JOUEUR) ;
 		 
-		 //je pense que ici sa doit etre !=0 
 		 while(( nombreDeCartesPourLeChien - nombreDeCartesMisesAuChien ) != 0) 
 		 {
 			 randomMax = possibilitesMisesAuChien - ( nombreDeCartesPourLeChien - nombreDeCartesMisesAuChien );
 			 
 			 random = randomMin + (int)(Math.random() * ((randomMax - randomMin)+1));
 			 // ! il faut que la valeur de retour soit comprise entre ]randomMin,randomMax] !
-			 System.out.println("random = "+random+" (entre "+randomMin+" et "+randomMax+")");
+			 //System.out.println("random = "+random+" (entre "+randomMin+" et "+randomMax+")");
 			 //nombreDeCartesMisesAuChien = (int) Math.random()*100 % 3; 
 			 while(j<=(random*Constantes.CARTES_DISTRIBU_PAR_JOUEUR))
 			 {
-				 System.out.print("Ajoute à joueur numéro "+numeroDuJoueur+" ");
-				 System.out.print(P.getCarteDansTas(j).toString()+", ");
-				 mainsDesJoueurs[numeroDuJoueur].addCarte(P.getCarteDansTas(j++));
+				 mainsDesJoueurs[numeroDuJoueur].addCarte(P.prendreCarteDuTas());
+				 mainsDesJoueurs[numeroDuJoueur].addCarte(P.prendreCarteDuTas());
+				 mainsDesJoueurs[numeroDuJoueur].addCarte(P.prendreCarteDuTas());
+				 j += 3;
 				 
-				 System.out.print(P.getCarteDansTas(j).toString()+", ");
-				 mainsDesJoueurs[numeroDuJoueur].addCarte(P.getCarteDansTas(j++));
-				 
-				 System.out.print(P.getCarteDansTas(j).toString()+".");
-				 mainsDesJoueurs[numeroDuJoueur].addCarte(P.getCarteDansTas(j++));
-				 
-				 numeroDuJoueur = getNumJoueurApres(numeroDuJoueur);
-				 System.out.println();
+				 numeroDuJoueur = P.getNumJoueurApres(numeroDuJoueur);
+				 // System.out.println("> "+ P.getTas().size());
 			 }
-			 	 System.out.println("Ajout au chien de "+P.getCarteDansTas(j)+" (k="+k+")");
-				 chien[k]=P.getCarteDansTas(j);
-				 nombreDeCartesMisesAuChien++;
-				 //System.out.println(chien[k].toString());
-				 j++;
-				 k++;
-				 randomMin = random+1;
+			System.out.println("Ajout au chien de "+P.getTas().peek()+" (k="+k+")");
+			chien[k]=P.prendreCarteDuTas();
+			// System.out.println("> "+ P.getTas().size());
+			nombreDeCartesMisesAuChien++;
+			j++;
+			k++;
+			randomMin = random+1;
+			System.out.println();
 		}
 		 while(j<Constantes.NOMBRE_CARTES_TOTALES-1)
 		 {
-			 System.out.print("Ajoute à joueur "+numeroDuJoueur+" ");
-			 System.out.print(P.getCarteDansTas(j).toString()+", ");
-			 mainsDesJoueurs[numeroDuJoueur].addCarte(P.getCarteDansTas(j++));
-			 System.out.print(P.getCarteDansTas(j).toString()+", ");
-			 mainsDesJoueurs[numeroDuJoueur].addCarte(P.getCarteDansTas(j++));
-			 System.out.print(P.getCarteDansTas(j).toString()+".");
-			 mainsDesJoueurs[numeroDuJoueur].addCarte(P.getCarteDansTas(j++));	 
-			 numeroDuJoueur = getNumJoueurApres(numeroDuJoueur);
-			 System.out.println();
+			 mainsDesJoueurs[numeroDuJoueur].addCarte(P.prendreCarteDuTas());
+			 mainsDesJoueurs[numeroDuJoueur].addCarte(P.prendreCarteDuTas());
+			 mainsDesJoueurs[numeroDuJoueur].addCarte(P.prendreCarteDuTas());
+			 j += 3;
+			 numeroDuJoueur = P.getNumJoueurApres(numeroDuJoueur);
+			 System.out.println(">> "+P.getTas().size()+" (j="+j+")");
 		 }
 		 for(int i=0; i<4; i++)
 		 {
@@ -143,7 +134,7 @@ public class Donne
 		{
 			for(IJoueur j: P.getJoueurs())
 			{
-				j.direCarteJouee(c, joueur);
+				j.direCarteJouee(c, joueur.toString());
 			}
 		}
 		
@@ -219,7 +210,7 @@ public class Donne
 	  */
 	protected void jeuDeLaCarte()
 	{
-		numJoueurEntame = getNumJoueurApres(numDonneur); // le premier à jouer (celui qui est après le donneur)
+		numJoueurEntame = P.getNumJoueurApres(numDonneur); // le premier à jouer (celui qui est après le donneur)
 		int nbCartesPosees; // cartes posées dans le tour (de 1 à 4, si 4 joueurs)
 		int numJoueur;
 		int numJoueurVainqueurPli;
@@ -228,15 +219,18 @@ public class Donne
 		{
 			System.out.println("jeueur entame "+numJoueurEntame);
 			numJoueurEnContact = numJoueurEntame;
-
+			
 			numJoueur = numJoueurEntame;
 			nbCartesPosees = 0;
 			
+			// TODO: On peut se débarasser de nbCartesPosees en regardant si joueur après numJoueur = numJoueurEntame
 			while (nbCartesPosees < P.getNombreDeJoueurs())
 			{
 				plisEnCours[numJoueur] = demanderCarteJoueur(numJoueur); //changement fabrice : jai suppose que l'orde de cartes n'estpas important
 				nbCartesPosees++;
-				numJoueur = getNumJoueurApres(numJoueur);
+				direJoueursCarteJouee(plisEnCours[numJoueur], P.getJoueur(numJoueur));
+				
+				numJoueur = P.getNumJoueurApres(numJoueur);
 				setJoueurEnContactApres();
 			}
 			// nbCartesPosees == nbJoueurs : le tour est fini
@@ -267,11 +261,12 @@ public class Donne
 	 * @param numJ un joueur
 	 * @return true si la carte posée par le joueur (paramètres) est légale 
 	 * 
-	 *  ok mettre plus d'explication svp des méthodes 
+	 * FIXME: souci au niveau des atouts : 
+	 * Ex : Est joue le 21, Sud joue le 16. Ouest ne peut jouer que son 19 alors qu’il a 1, 7, 8, 
 	 */
 	public boolean isCarteLegale(Carte c, int numJ) // svp des noms de variable explicite ...
 	{
-		if(numJ == numJoueurEntame || numJ == getNumJoueurApres(numJoueurEntame) && plisEnCours[numJoueurEntame].isExcuse())
+		if(numJ == numJoueurEntame || numJ == P.getNumJoueurApres(numJoueurEntame) && plisEnCours[numJoueurEntame].isExcuse())
 			return true; // si le joueur jouee en premier ou s’il joue après l’excuse
 		else if(c.isExcuse())
 			return true; // s’il joue l’excuse 
@@ -282,7 +277,7 @@ public class Donne
 			// on vérifie que l’atout est plus haut que les autres.
 			// (calcul de l’atout le plus haut dans le pli en cours)
 			Carte a = new Carte(0);
-			for(int i=numJoueurEntame; i!=numJ; i=getNumJoueurApres(i))
+			for(int i=numJoueurEntame; i!=numJ; i=P.getNumJoueurApres(i))
 			{
 				if (plisEnCours[i].isAtout() && plisEnCours[i].getOrdre() > a.getOrdre())
 				{
@@ -293,7 +288,7 @@ public class Donne
 			if (c.getOrdre() > a.getOrdre())
 			{
 				// l’atout est plus haut que les autres, reste à voir si il est autorisé en fonction de ce qui est demandé
-				if ((plisEnCours[numJoueurEntame].isExcuse() && plisEnCours[getNumJoueurApres(numJoueurEntame)].isAtout()) || plisEnCours[numJoueurEntame].isAtout())
+				if ((plisEnCours[numJoueurEntame].isExcuse() && plisEnCours[P.getNumJoueurApres(numJoueurEntame)].isAtout()) || plisEnCours[numJoueurEntame].isAtout())
 				{
 					return true; // si la 1re carte est Atout, ou bien Excuse puis Atout, c’est donc Atout demandé donc ok
 				}
@@ -302,7 +297,7 @@ public class Donne
 					Couleur coulDemandee;
 					if(plisEnCours[numJoueurEntame].isExcuse())
 					{
-						coulDemandee = plisEnCours[getNumJoueurApres(numJoueurEntame)].getCouleur();
+						coulDemandee = plisEnCours[P.getNumJoueurApres(numJoueurEntame)].getCouleur();
 					}
 					else
 					{
@@ -322,7 +317,7 @@ public class Donne
 			Couleur coulDemandee;
 			if(plisEnCours[numJoueurEntame].isExcuse())
 			{
-				coulDemandee = plisEnCours[getNumJoueurApres(numJoueurEntame)].getCouleur();
+				coulDemandee = plisEnCours[P.getNumJoueurApres(numJoueurEntame)].getCouleur();
 			}
 			else
 			{
@@ -392,26 +387,27 @@ public class Donne
 	 */
 	protected void reformerTas()
 	{
-		Carte[] nouveauTas = new Carte[78];
-		Carte[] arrayPlisAttaque = new Carte[78];
-		plisAttaque.toArray(arrayPlisAttaque);
-		Carte[] arrayPlisDefense = new Carte[78];
-		plisDefense.toArray(arrayPlisDefense);
-		
-		if((int)Math.random() == 1)
+		if(!P.getTas().empty())
 		{
-			// nouveauTas = Arrays.copyOf(arrayPlisAttaque, Constantes.NOMBRE_CARTES_TOTALES);
-			nouveauTas = arrayPlisAttaque;
-			System.arraycopy(plisAttaque, 0, nouveauTas, plisAttaque.size(), plisDefense.size());
+			System.out.println("Tas non vide ???");
 		}
 		else
 		{
-			// nouveauTas = Arrays.copyOf(arrayPlisDefense, arrayPlisDefense.length + arrayPlisAttaque.length);
-			nouveauTas = arrayPlisDefense;
-			System.arraycopy(plisDefense, 0, nouveauTas, plisDefense.size(), plisAttaque.size());
+			Stack<Carte> nouveauTas = new Stack<Carte>();
+			Random rand = new Random(); // TODO: À déplacer à un niveau plus haut pour pas en recréer un à chaque fois
+			if(rand.nextBoolean())
+			{
+				nouveauTas.addAll(plisAttaque);
+				nouveauTas.addAll(plisDefense);
+			}
+			else
+			{
+				nouveauTas.addAll(plisDefense);
+				nouveauTas.addAll(plisAttaque);
+			}
+			P.setTas(nouveauTas);
+			System.out.println(nouveauTas.size());
 		}
-		//P.setTas(nouveauTas);
-		System.out.println(nouveauTas.length+"\n"+nouveauTas);
 	}
 	
 	/*
@@ -477,40 +473,9 @@ public class Donne
 		this.contratEnCours = contratEnCours;
 	}
 	
-	/**
-	 * @author niavlys
-	 * @param numJoueur un joueur
-	 * @return Le numéro du joueur se trouvant après le joueur désigné en paramètre
-	 */
-	public int getNumJoueurApres(int numJoueur)
-	{
-		int nouvNum;
-		if(PrefsRegles.sensInverseAiguillesMontre)
-		{
-			nouvNum = numJoueur+1;
-		}
-		else
-		{
-			nouvNum = numJoueur-1;
-		}
-
-		nouvNum = nouvNum % P.getNombreDeJoueurs();
-		return 	nouvNum;
-	}
-	
-	
 	public void setJoueurEnContactApres()
 	{
-		
-		if(PrefsRegles.sensInverseAiguillesMontre)
-		{
-			numJoueurEnContact = numJoueurEnContact+1;
-		}
-		else
-		{
-			numJoueurEnContact = numJoueurEnContact-1;
-		}
-		numJoueurEnContact = numJoueurEnContact % P.getNombreDeJoueurs();
+		numJoueurEnContact = P.getNumJoueurApres(numJoueurEnContact);
 	}
 
 	public int getNumDonneur()
@@ -526,7 +491,7 @@ public class Donne
 	 */
 	public void incrementerNumDonneur()
 	{
-		numDonneur = getNumJoueurApres(numDonneur);
+		numDonneur = P.getNumJoueurApres(numDonneur);
 	}
 	
 	public int getPreneur() {
