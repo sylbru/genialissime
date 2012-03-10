@@ -12,6 +12,7 @@ public class Main
 
 	public boolean addCarte(Carte c)
 	{
+		System.out.println("Ajout de " + c + " au joueur" + proprietaire);
 		return cartes.add(c);
 	}
 

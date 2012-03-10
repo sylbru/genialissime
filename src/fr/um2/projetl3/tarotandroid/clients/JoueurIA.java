@@ -105,7 +105,7 @@ public class JoueurIA implements IJoueur
 		
 	}
 
-	public void direCarteJouee(Carte c, IJoueur j)
+	public void direCarteJouee(Carte c, String j)
 	{
 		// TODO Auto-generated method stub
 		

@@ -22,6 +22,6 @@ public interface IJoueur
 	// TODO: À enlever, on ne demande pas au joueur s’il possède un roi, on regarde dans mainsDesJoueurs 
 	
 	void direChien(Carte[] chien);
-	void direCarteJouee(Carte c, IJoueur j);
+	void direCarteJouee(Carte c, String j);
 	void direAnnonce(Contrat c, IJoueur j);
 }

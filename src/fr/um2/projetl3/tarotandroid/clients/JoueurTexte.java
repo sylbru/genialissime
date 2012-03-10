@@ -295,11 +295,25 @@ public class JoueurTexte implements IJoueur
 		}
 	}
 	
-	public void direCarteJouee(Carte c, IJoueur j)
+	public void direCarteJouee(Carte c, String j)
 	{
 		if(!quiet)
 		{
-			System.out.println(j.getNomDuJoueur() + " joue " + c);
+			System.out.println(j + " joue " + c);
+		}
+	}
+	
+	// TODO: Il faudrait peut-être que ça indique aussi qui ouvrait et quelle carte a remporté le pli
+	public void direPliRemporté(Carte[] pli, String joueur)
+	{
+		if(!quiet)
+		{
+			System.out.print("Pli ");
+			for(Carte c: pli)
+			{
+				c.affiche();
+			}
+			System.out.println(" remporté par " + joueur);
 		}
 	}
 	
