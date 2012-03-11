@@ -12,7 +12,7 @@ public class Main
 
 	public boolean addCarte(Carte c)
 	{
-		System.out.println("Ajout de " + c + " au joueur" + proprietaire);
+		// System.out.println("Ajout de " + c + " au joueur" + proprietaire);
 		return cartes.add(c);
 	}
 
@@ -80,7 +80,7 @@ public class Main
 		
 	public void affiche()
 	{
-		System.out.println("Main de "+proprietaire.getNomDuJoueur()+" :");
+		System.out.print("Main de "+proprietaire.getNomDuJoueur()+" : \t");
 		System.out.print("[ ");
 		for(Carte c: cartes)
 		{
@@ -90,7 +90,6 @@ public class Main
 				System.out.print("# ");
 		}
 		System.out.println("]");
-		System.out.println("-----");
 	}
 	
 	public String getNomProprietaire()

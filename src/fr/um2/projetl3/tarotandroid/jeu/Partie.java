@@ -278,9 +278,9 @@ public class Partie
 	{
 		if (donne.getContratEnCours().isChienRevele()) // petite ou garde
 		{
-			donne.reveleChien();// ici il faut révélé le chien
+			donne.reveleChien();
 			
-			donne.mettreChienDansPreneur();// ici il faut donner le chien au preneur
+			donne.mettreChienDansPreneur(); // svp mettre des noms de méthodes un peu moins obscènes
 			
 			Carte[] ecart = new Carte[nombreDeCartesPourLeChien];
 			boolean ecartPasValide = false;
