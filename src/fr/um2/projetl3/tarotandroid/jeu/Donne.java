@@ -284,9 +284,6 @@ public class Donne
 	 * @param numJ un joueur
 	 * @return true si la carte posée par le joueur (paramètres) est légale 
 	 * 
-	 * FIXME: souci au niveau des atouts : 
-	 * Ex : Est joue le 21, Sud joue le 16. Ouest ne peut jouer que son 19 alors qu’il a 1, 7, 8…
-	 * 
 	 */
 	public boolean isCarteLegale(Carte c, int numJ) // svp des noms de variable explicite ...
 	{

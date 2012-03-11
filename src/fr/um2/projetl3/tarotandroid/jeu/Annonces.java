@@ -65,7 +65,8 @@ public class Annonces
 					// System.out.println("Contrat du joueur "+P.getJoueur(numeroDuJoueur).getNomDuJoueur()+" : "+contrat.getName());
 					
 					tableauDesContrats[numeroDuJoueur] = contrat ; // on stocke les contrat que les joueur veulent faire
-	
+					afficherTableauDesContrats();
+					
 					if(contrat != Contrat.PASSE) // si un joueur passe pas
 					{
 						combienVeulentPrendre++;
@@ -123,13 +124,8 @@ public class Annonces
 			}
 			numeroDuJoueur = P.getNumJoueurApres(numeroDuJoueur);
 		}
-
-		D.setContratEnCours(contrat);
+		D.setContratEnCours(tableauDesContrats[joueurQuiVaPrendre]);
 		D.setPreneur(joueurQuiVaPrendre); // preneur est donc à -1 si personne n’a pris
-		if (joueurQuiVaPrendre != -1)
-		{
-			System.out.println("Contrat en cours : " + contrat+ " par " + P.getJoueur(joueurQuiVaPrendre).getNomDuJoueur()+ "(" + joueurQuiVaPrendre + ")");
-		}
 		
 		if(nombreDeJoueurs == 5)
 		{
@@ -137,6 +133,14 @@ public class Annonces
 		}
 	}
 	
+	private static void afficherTableauDesContrats()
+	{
+		for(int i=0; i<P.getNombreDeJoueurs(); i++) // on part de 0 donc pas besoin de modulo
+		{
+			System.out.println("Joueur "+i+" : "+tableauDesContrats[i].getName());
+		}
+	}
+
 	/**
 	 * Demande à un joueur son annonce, et vérifie si elle est valide (redemande jusqu’à recevoir une valide)
 	 * TODO: faire que ça teste la validité de l’annonce (pour l’instant c’est que dans JoueurTexte si je me trompe pas)
