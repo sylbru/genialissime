@@ -66,15 +66,15 @@ public class Annonces
 					
 					tableauDesContrats[numeroDuJoueur] = contrat ; // on stocke les contrat que les joueur veulent faire
 	
-					if(contrat != Contrat.PASSE) // si un joeur passe pas
+					if(contrat != Contrat.PASSE) // si un joueur passe pas
 					{
 						combienVeulentPrendre++;
 						
-						if(contrat.getPoids() == Contrat.GARDE_CONTRE.getPoids()) // alors c'est une garde_sans => la phase d'annonce est finit 
+						if(contrat == Contrat.GARDE_CONTRE) // alors c'est une garde contre => la phase d'annonce est finit 
 						{
 							joueurQuiVaPrendre = numeroDuJoueur;
 							conditionArret = false;
-							System.out.println("sortie d'annonce : garde sans");
+							System.out.println("sortie d'annonce : garde contre");
 						}
 						else 
 						{
@@ -139,6 +139,7 @@ public class Annonces
 	
 	/**
 	 * Demande à un joueur son annonce, et vérifie si elle est valide (redemande jusqu’à recevoir une valide)
+	 * TODO: faire que ça teste la validité de l’annonce (pour l’instant c’est que dans JoueurTexte si je me trompe pas)
 	 */
 	protected static Contrat demanderAnnonceJoueur(int num, Contrat contratMax)
 	{
@@ -158,6 +159,7 @@ public class Annonces
 	
 	/**
 	 * Indique au joueur les annonces qu’il peut dire.
+	 * TODO: à faire.
 	 */
 	public Contrat[] getAnnoncesValides()
 	{
@@ -167,11 +169,11 @@ public class Annonces
 	
 	protected static void phaseAppelRoi()
 	{
-		Carte Roi = P.getJoueur(D.getPreneur()).demanderRoi();
+		Carte roi = P.getJoueur(D.getPreneur()).demanderRoi();
 		int nombreDeJoueurs = P.getNombreDeJoueurs();
 		for(int i = 0; i<nombreDeJoueurs; i++)
 		{
-			if(P.getJoueur(i).possedeRoi(Roi))
+			if(D.getMain(i).possede(roi))
 			{
 				D.setJoueurAppele(i);
 			} 

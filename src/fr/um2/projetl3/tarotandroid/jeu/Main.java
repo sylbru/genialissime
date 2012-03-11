@@ -10,32 +10,60 @@ public class Main
 	private Vector<Carte> cartes;
 	private IJoueur proprietaire;
 
+	/**
+	 * Ajoute une carte passée en paramètre dans la main.
+	 * @param c une carte
+	 * @return false si l’opération a échoué, true si elle a réussi.
+	 */
 	public boolean addCarte(Carte c)
 	{
 		// System.out.println("Ajout de " + c + " au joueur" + proprietaire);
 		return cartes.add(c);
 	}
 
+	/**
+	 * Enlève une carte passée en paramètre de la main.
+	 * @param c une carte
+	 * @return false si l’opération a échoué, true si elle a réussi.
+	 */
 	public boolean removeCarte(Carte c)
 	{
 		return cartes.remove(c);
 	}
 	
+	/**
+	 * Donne le nombre de cartes restantes dans la main.
+	 * @return le nombre de cartes restantes
+	 */
 	public int nbCartesRestantes()
 	{
 		return cartes.size();
 	}
 	
-	public boolean contains(Carte c)
+	/**
+	 * Teste si une carte est dans la main ou pas.
+	 * @param c une carte
+	 * @return true si la main contient la carte c, false sinon.
+	 */
+	public boolean possede(Carte c)
 	{
 		return cartes.contains(c);
 	}
 	
+	/**
+	 * Retourne le vecteur des cartes
+	 * @return le vecteur contenant les cartes de la main.
+	 */
 	public Vector<Carte> getCartes()
 	{
 		return cartes;
 	}
 	
+	/**
+	 * Teste si la main possède la couleur passée en paramètre.
+	 * @param coul une couleur
+	 * @return true si la main possède au moins une carte de la couleur coul, false sinon.
+	 */
 	public boolean possedeCouleur(Couleur coul)
 	{
 		boolean couleurExiste = false;
@@ -53,6 +81,10 @@ public class Main
 		return couleurExiste;
 	}
 	
+	/**
+	 * Teste si la main possède de l’atout.
+	 * @return true si la main possède au moins un atout, false sinon.
+	 */
 	public boolean possedeAtout()
 	{
 		boolean atoutPresent = false;
@@ -67,17 +99,30 @@ public class Main
 		return atoutPresent;
 	}
 	
+	/**
+	 * Enlève de la main l’écart passé en paramètre.
+	 * @param ecart un tableau de cartes contenant l’écart
+	 */
 	public void enleverEcart(Carte[] ecart)
 	{
 		for(Carte c: ecart)
 		{
-			if(contains(c))
+			if(possede(c))
 			{
 				removeCarte(c);
 			}
+			else
+			{
+				System.out.println("??? enleverEcart : carte " + c + " pas dans la main du joueur " + proprietaire);
+			}
 		}
 	}
-		
+	
+	/**
+	 * Affiche la main, sous la forme :
+	 * 
+	 *   Main de NomDuJoueur : [ (7,♦) (2,♦) (3,♦) (4,♡) ]
+	 */
 	public void affiche()
 	{
 		System.out.print("Main de "+proprietaire.getNomDuJoueur()+" : \t");
@@ -92,19 +137,56 @@ public class Main
 		System.out.println("]");
 	}
 	
+	/**
+	 * Retourne le nom du propriétaire de la main.
+	 * @return le nom du propriétaire de la main.
+	 */
 	public String getNomProprietaire()
 	{
 		return proprietaire.getNomDuJoueur();
 	}
 	
+	/**
+	 * Constructeur, avec le joueur en paramètre.
+	 * @param proprietaire le joueur dont c’est la main
+	 */
 	public Main(IJoueur proprietaire)
 	{
 		this.proprietaire = proprietaire;
 		cartes = new Vector<Carte>();
 	}
+
+	/**
+	 * Donne la carte à l’indice indiqué en paramètre.
+	 * @param num
+	 * @return la carte à l’indice num
+	 */
+	public Carte getCarte(int num)
+	{
+		return cartes.elementAt(num);
+	}
+	
+	/**
+	 * Teste si la main possède un atout supérieur à l’ordre passé en paramètre
+	 * @param ordre la valeur de l’atout à tester
+	 * @return true si la main possède un atout supérieur à ordre (paramètre)
+	 */
+	public boolean possedeAtoutPlusGrand(int ordre)
+	{
+		// System.out.println("possede Atout plus grand que "+ordre+" ?");
+		for(int i = 0; i< cartes.size(); i++)
+		{
+			if (cartes.get(i).isAtout() && cartes.get(i).getOrdre() > ordre)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	public static void main(String[] args)
 	{
+		/*
 		IJoueur j1 = new JoueurTexte("Truc");
 		//System.out.println(j1.demanderAnnonce().getName()); erreur
 		
@@ -116,45 +198,7 @@ public class Main
 		m.addCarte(new Carte(Couleur.Carreau, 2));
 		//m.addCarte(new CarteCouleur(Couleur.Carreau, 1));
 		m.affiche();
-		System.out.println(m.cartes.size());
-	}
-
-	public Carte getCarte(int num)
-	{
-		return cartes.elementAt(num);
-	}
-	
-	
-	public boolean roiDansLaMain(Carte roi)
-	{ 
-		if(roi.getOrdre()==14)
-		{
-			for(int i=0; i<cartes.size(); i++)
-			{
-				if(cartes.get(i) == roi)
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-		else
-		{	
-			System.out.println("appel de Roi avec une carte non roi");
-			return false;
-		}
-	}
-
-	public boolean atoutPlusGrand( int ordre)
-	{
-		for(int i = 0; i< cartes.size(); i++)
-		{
-			if (cartes.get(i).isAtout() && cartes.get(i).getOrdre() > ordre)
-			{
-				return false;
-			}
-		}
-		return true;
+		System.out.println(m.cartes.size());*/
 	}
 
 }

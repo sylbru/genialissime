@@ -364,7 +364,7 @@ public class Partie
 			System.out.println("On est juste apres la phase d'annonce");		
 			if(donne.getContratEnCours() != Contrat.AUCUN) // si il n'y a pas de contrat il faut arreter la donne.
 			{
-				System.out.println("Contrat en cours"+donne.getContratEnCours());
+				System.out.println("Contrat en cours "+donne.getContratEnCours());
 				phaseChienEcart();
 				donne.jeuDeLaCarte();
 				scores.phaseScore();

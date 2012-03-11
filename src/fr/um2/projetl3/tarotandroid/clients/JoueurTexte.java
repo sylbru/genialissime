@@ -271,11 +271,6 @@ public class JoueurTexte implements IJoueur
 		}
 		return Roi;
 	}
-	
-	public boolean possedeRoi(Carte roi)
-	{
-		return main.roiDansLaMain(roi);
-	}
 
 	/* **********************************************
 	 * 
