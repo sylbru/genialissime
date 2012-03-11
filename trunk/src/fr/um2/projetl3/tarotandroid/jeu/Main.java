@@ -125,7 +125,7 @@ public class Main
 	 */
 	public void affiche()
 	{
-		System.out.print("Main de "+proprietaire.getNomDuJoueur()+" : \t");
+		System.out.print("Main de "+proprietaire.getNomDuJoueur()+" :\t");
 		System.out.print("[ ");
 		for(Carte c: cartes)
 		{

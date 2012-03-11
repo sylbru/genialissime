@@ -86,7 +86,7 @@ public class Contrat
 		return chienPourAttaque;
 	}
 	
-	public void setFacteur(int facteur)
+	private void setFacteur(int facteur)
 	{
 		this.facteur = facteur;
 	}
@@ -96,7 +96,7 @@ public class Contrat
 		return facteur;
 	}
 	
-	public void setValeurContrat(int valeurContrat)
+	private void setValeurContrat(int valeurContrat)
 	{
 		this.valeurContrat = valeurContrat;
 	}
@@ -106,12 +106,12 @@ public class Contrat
 		return valeurContrat;
 	}
 	
-	public void autoriser()
+	private void autoriser()
 	{
 		this.autorisé = true;
 	}
 	
-	public void interdire()
+	private void interdire()
 	{
 		this.autorisé = false;
 	}

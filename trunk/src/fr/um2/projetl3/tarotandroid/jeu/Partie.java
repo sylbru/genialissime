@@ -361,14 +361,14 @@ public class Partie
 			 */
 			donne.distribution();
 			Annonces.phaseAnnonce(); // à voir (il faudrait que ce soit lié à donneEnCours d’une manière ou d’une autre)
-			System.out.println("On est juste apres la phase d'annonce");		
+			
 			if(donne.getContratEnCours() != Contrat.AUCUN) // si il n'y a pas de contrat il faut arreter la donne.
 			{
-				System.out.println("Contrat en cours "+donne.getContratEnCours());
+				System.out.println("Contrat en cours : "+donne.getContratEnCours()+" par "+P.getNomNumJoueur(D.getPreneur()));
 				phaseChienEcart();
 				donne.jeuDeLaCarte();
 				scores.phaseScore();
-				donne.reformerTas(); // buggé (attend que tas devienne un vecteur)
+				donne.reformerTas();
 			}
 			else
 			{
