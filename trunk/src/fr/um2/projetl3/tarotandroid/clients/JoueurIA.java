@@ -111,15 +111,21 @@ public class JoueurIA implements IJoueur
 		
 	}
 
-	public void direAnnonce(Contrat c, IJoueur j)
+	public Carte demanderUneCartePourLecart() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void direAnnonce(Contrat c, String j)
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
-	public Carte demanderUneCartePourLecart() {
+	public void direPliRemporté(Carte[] pli, String joueur)
+	{
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 }

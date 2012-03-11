@@ -62,7 +62,7 @@ public class Annonces
 					{
 						contratMax = contrat;
 					}
-					System.out.println("Contrat du joueur "+P.getJoueur(numeroDuJoueur).getNomDuJoueur()+" : "+contrat.getName());
+					// System.out.println("Contrat du joueur "+P.getJoueur(numeroDuJoueur).getNomDuJoueur()+" : "+contrat.getName());
 					
 					tableauDesContrats[numeroDuJoueur] = contrat ; // on stocke les contrat que les joueur veulent faire
 	
@@ -152,7 +152,7 @@ public class Annonces
 	{
 		for(IJoueur j: P.getJoueurs())
 		{
-			j.direAnnonce(c, joueur);
+			j.direAnnonce(c, joueur.toString());
 		}
 	}
 	

@@ -1,6 +1,8 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 import java.util.Vector;
@@ -81,14 +83,12 @@ public class Donne
 				 numeroDuJoueur = P.getNumJoueurApres(numeroDuJoueur);
 				 // System.out.println("> "+ P.getTas().size());
 			 }
-			System.out.println("Ajout au chien de "+P.getTas().peek()+" (k="+k+")");
+			// System.out.println("Ajout au chien de "+P.getTas().peek()+" (k="+k+")");
 			chien[k]=P.prendreCarteDuTas();
-			// System.out.println("> "+ P.getTas().size());
 			nombreDeCartesMisesAuChien++;
 			j++;
 			k++;
 			randomMin = random+1;
-			System.out.println();
 		}
 		 while(j<Constantes.NOMBRE_CARTES_TOTALES-1)
 		 {
@@ -97,7 +97,6 @@ public class Donne
 			 mainsDesJoueurs[numeroDuJoueur].addCarte(P.prendreCarteDuTas());
 			 j += 3;
 			 numeroDuJoueur = P.getNumJoueurApres(numeroDuJoueur);
-			 System.out.println(">> "+P.getTas().size()+" (j="+j+")");
 		 }
 		 for(int i=0; i<4; i++)
 		 {
@@ -107,36 +106,50 @@ public class Donne
 		 
 	}
 
-		/*
-		 * --------------------------------------------------------------------------------------------
-		 * ------------------------------------ Méthodes --------------------------------------------
-		 * --------------------------------------------------------------------------------------------
-		 */
-	 
-		/**
-		 * Informe les joueurs du chien révélé
-		 */
-		public void reveleChien()
+	/*
+	 * --------------------------------------------------------------------------------------------
+	 * ------------------------------------ Méthodes --------------------------------------------
+	 * --------------------------------------------------------------------------------------------
+	 */
+ 
+	/**
+	 * Informe les joueurs du chien révélé
+	 */
+	public void reveleChien()
+	{
+		for(IJoueur j: P.getJoueurs())
 		{
-			for(IJoueur j: P.getJoueurs())
-			{
-				j.direChien(chien);
-			}
+			j.direChien(chien);
 		}
-		
-		/**
-		 * @author niavlys
-		 * Informe les joueurs du fait qu’une carte a été jouée par un joueur
-		 * @param c La carte jouée
-		 * @param joueur Le joueur qui a joué la carte
-		 */
-		public void direJoueursCarteJouee(Carte c, IJoueur joueur)
+	}
+	
+	/**
+	 * @author niavlys
+	 * Informe les joueurs du fait qu’une carte a été jouée par un joueur
+	 * @param c La carte jouée
+	 * @param joueur Le joueur qui a joué la carte
+	 */
+	public void direJoueursCarteJouee(Carte c, IJoueur joueur)
+	{
+		for(IJoueur j: P.getJoueurs())
 		{
-			for(IJoueur j: P.getJoueurs())
-			{
-				j.direCarteJouee(c, joueur.toString());
-			}
+			j.direCarteJouee(c, joueur.toString());
 		}
+	}
+	
+	/**
+	 * @author niavlys
+	 * Informe les joueurs du fait qu’une carte a été jouée par un joueur
+	 * @param c La carte jouée
+	 * @param joueur Le joueur qui a joué la carte
+	 */
+	public void direJoueursPliRemporté(Carte[] pli, IJoueur joueur)
+	{
+		for(IJoueur j: P.getJoueurs())
+		{
+			j.direPliRemporté(pli, joueur.toString());
+		}
+	}
 		
 	 /** Méthode fini mais à tester
 	  *  // TODO test
@@ -217,11 +230,20 @@ public class Donne
 		
 		while (!donneFinie()) // un tour de jeu, on commence à numJoueur = numJoueurEntame
 		{
-			System.out.println("jeueur entame "+numJoueurEntame);
+			// System.out.println("jeueur entame "+numJoueurEntame);
 			numJoueurEnContact = numJoueurEntame;
 			
 			numJoueur = numJoueurEntame;
 			nbCartesPosees = 0;
+			
+			assert	(mainsDesJoueurs[0].nbCartesRestantes() == mainsDesJoueurs[1].nbCartesRestantes())
+					&& (mainsDesJoueurs[1].nbCartesRestantes() == mainsDesJoueurs[2].nbCartesRestantes())
+					&& (mainsDesJoueurs[2].nbCartesRestantes() == mainsDesJoueurs[3].nbCartesRestantes())
+					: ("nb de cartes : "
+							+ mainsDesJoueurs[0].nbCartesRestantes()
+							+ mainsDesJoueurs[1].nbCartesRestantes()
+							+ mainsDesJoueurs[2].nbCartesRestantes()
+							+ mainsDesJoueurs[3].nbCartesRestantes());
 			
 			// TODO: On peut se débarasser de nbCartesPosees en regardant si joueur après numJoueur = numJoueurEntame
 			while (nbCartesPosees < P.getNombreDeJoueurs())
@@ -235,7 +257,7 @@ public class Donne
 			}
 			// nbCartesPosees == nbJoueurs : le tour est fini
 			numJoueurVainqueurPli = vainqueurDuPli(plisEnCours); 
-			
+			direJoueursPliRemporté(plisEnCours, P.getJoueur(numJoueurVainqueurPli));
 			if(isJoueurAttaque(numJoueurVainqueurPli)) 
 			{
 				plisAttaque.addAll(Arrays.asList(plisEnCours));
@@ -262,7 +284,10 @@ public class Donne
 	 * @return true si la carte posée par le joueur (paramètres) est légale 
 	 * 
 	 * FIXME: souci au niveau des atouts : 
-	 * Ex : Est joue le 21, Sud joue le 16. Ouest ne peut jouer que son 19 alors qu’il a 1, 7, 8, 
+	 * Ex : Est joue le 21, Sud joue le 16. Ouest ne peut jouer que son 19 alors qu’il a 1, 7, 8…
+	 * 
+	 * FIXME: autre souci : j’ai eu une partie où Sud n’avait plus de cartes alors que les autres
+	 * en avaient encore 3 =/ (on doit jouer une carte « … entre 1 et 0 ! ») 
 	 */
 	public boolean isCarteLegale(Carte c, int numJ) // svp des noms de variable explicite ...
 	{
@@ -393,6 +418,9 @@ public class Donne
 		}
 		else
 		{
+			System.out.println("Plis attaque : "+plisAttaque);
+			System.out.println("Plis défense : "+plisDefense);
+			
 			Stack<Carte> nouveauTas = new Stack<Carte>();
 			Random rand = new Random(); // TODO: À déplacer à un niveau plus haut pour pas en recréer un à chaque fois
 			if(rand.nextBoolean())
@@ -405,6 +433,12 @@ public class Donne
 				nouveauTas.addAll(plisDefense);
 				nouveauTas.addAll(plisAttaque);
 			}
+			System.out.println("Nouveau tas non rotaté : "+nouveauTas);
+			Random rGauss = new Random();
+			Collections.rotate(nouveauTas, (int)rGauss.nextGaussian());
+
+			System.out.println("Nouveau tas rotaté : "+nouveauTas);
+			
 			P.setTas(nouveauTas);
 			System.out.println(nouveauTas.size());
 		}

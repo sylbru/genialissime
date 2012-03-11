@@ -116,10 +116,8 @@ public class JoueurTexte implements IJoueur
 			do
 			{
 				main.affiche();
-				AfficheCarteLegales();
-				//indiquerCartesLegalesJoueur(num); // !! Cette fonction ne fait rien d'utile pour l'instant
-				
-				  System.out.println("Jouez une carte en donnant un chiffre entre 1 et "+P.donne().getMain().nbCartesRestantes());
+				afficheCarteLegales();
+				System.out.println(nom + ", jouez une carte entre 1 et "+P.donne().getMain().nbCartesRestantes());
 				
 				num = sc.nextInt()-1;
 				if(num < 0 || num >= main.nbCartesRestantes())
@@ -128,15 +126,16 @@ public class JoueurTexte implements IJoueur
 				}
 				
 			} while(num < 0 || num >= main.nbCartesRestantes());
-			main.getCarte(num).affiche();
+			// main.getCarte(num).affiche();
+			return main.getCarte(num);
 		}
 		else 
 		{
 			do
 			{
 				main.affiche();
-				AfficheCarteLegales();				
-				System.out.println("Jouez une carte en donnant un chiffre entre 1 et "+carteslegales.size());
+				afficheCarteLegales();				
+				System.out.println(nom + ", jouez une carte entre 1 et "+carteslegales.size());
 				
 				num = sc.nextInt()-1;
 				if(num < 0 || num >= carteslegales.size())
@@ -145,21 +144,22 @@ public class JoueurTexte implements IJoueur
 				}
 				
 			} while(num < 0 || num >= carteslegales.size());
-			carteslegales.get(num).affiche();
+			// carteslegales.get(num).affiche();
 		}
 		return carteslegales.get(num);
 	}
 	
-	private Vector<Carte> AfficheCarteLegales()
+	private Vector<Carte> afficheCarteLegales()
 	{
-		Vector<Carte> carteslegales;
-		carteslegales = P.donne().indiquerCartesLegalesJoueur();
-		System.out.println("vos cartes legales sont : ");
-		for(int i= 0; i< carteslegales.size() ; i++)
+		Vector<Carte> cartesLegales;
+		cartesLegales = P.donne().indiquerCartesLegalesJoueur();
+		System.out.println("Vos cartes légales sont : ");
+		for(Carte c: cartesLegales)
 		{
-			carteslegales.get(i).affiche();
+			c.affiche();
 		}
-		return carteslegales;
+		System.out.println();
+		return cartesLegales;
 	}
 	
 	public JoueurTexte(String nom)
@@ -216,7 +216,7 @@ public class JoueurTexte implements IJoueur
 		int num;
 		Scanner sc = new Scanner(System.in);
 		Carte c;
-		if(main == null || main.nbCartesRestantes() == 18) majMain();
+		if(main == null || main.nbCartesRestantes() == 18) majMain(); // ?? C’est pour quoi ce test ?
 		do
 		{
 			System.out.println("Mettez une carte à l'ecart en donnant un chiffre entre 1 et "+ main.nbCartesRestantes());
@@ -288,7 +288,7 @@ public class JoueurTexte implements IJoueur
 	{
 		if(!quiet)
 		{
-			System.out.println("Chien :");
+			System.out.println(">> Chien :");
 			for(Carte c: chien)
 				c.affiche();
 			System.out.println();
@@ -299,7 +299,7 @@ public class JoueurTexte implements IJoueur
 	{
 		if(!quiet)
 		{
-			System.out.println(j + " joue " + c);
+			System.out.println(">> " + j + " joue " + c);
 		}
 	}
 	
@@ -308,7 +308,7 @@ public class JoueurTexte implements IJoueur
 	{
 		if(!quiet)
 		{
-			System.out.print("Pli ");
+			System.out.print(">> Pli ");
 			for(Carte c: pli)
 			{
 				c.affiche();
@@ -317,11 +317,11 @@ public class JoueurTexte implements IJoueur
 		}
 	}
 	
-	public void direAnnonce(Contrat c, IJoueur j)
+	public void direAnnonce(Contrat c, String joueur)
 	{
 		if(!quiet)
 		{
-			System.out.println(j.getNomDuJoueur() + " annonce " + c);
+			System.out.println(">> " + joueur + " annonce " + c);
 		}
 	}
 

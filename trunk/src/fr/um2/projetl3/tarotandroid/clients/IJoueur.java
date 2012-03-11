@@ -23,5 +23,6 @@ public interface IJoueur
 	
 	void direChien(Carte[] chien);
 	void direCarteJouee(Carte c, String j);
-	void direAnnonce(Contrat c, IJoueur j);
+	void direAnnonce(Contrat c, String j);
+	void direPliRemporté(Carte[] pli, String joueur);
 }
