@@ -236,6 +236,7 @@ public class Donne
 			numJoueur = numJoueurEntame;
 			nbCartesPosees = 0;
 			
+			// assert vérifiant (à chaque tour) que les joueurs ont tous bien le même nombre de cartes
 			assert	(mainsDesJoueurs[0].nbCartesRestantes() == mainsDesJoueurs[1].nbCartesRestantes())
 					&& (mainsDesJoueurs[1].nbCartesRestantes() == mainsDesJoueurs[2].nbCartesRestantes())
 					&& (mainsDesJoueurs[2].nbCartesRestantes() == mainsDesJoueurs[3].nbCartesRestantes())
@@ -245,7 +246,7 @@ public class Donne
 							+ mainsDesJoueurs[2].nbCartesRestantes()
 							+ mainsDesJoueurs[3].nbCartesRestantes());
 			
-			// TODO: On peut se débarasser de nbCartesPosees en regardant si joueur après numJoueur = numJoueurEntame
+			// TODO: On peut se débarrasser de nbCartesPosees en regardant si joueur après numJoueur = numJoueurEntame
 			while (nbCartesPosees < P.getNombreDeJoueurs())
 			{
 				plisEnCours[numJoueur] = demanderCarteJoueur(numJoueur); //changement fabrice : jai suppose que l'orde de cartes n'estpas important
@@ -405,11 +406,7 @@ public class Donne
 		return plisAttaque.size() + plisDefense.size() == Constantes.NOMBRE_CARTES_TOTALES;
 	}
 	
-	/**
-	 * 
-	 * FIXME: fonctionne pas pour l’instant, peut-être qu’il faut songer à utiliser un Vector pour tas[],
-	 * ce serait plus simple. Mais dans ce cas ce serait bien de vérifier qu’il dépasse pas 78 cartes.
-	 */
+	
 	protected void reformerTas()
 	{
 		if(!P.getTas().empty())
@@ -434,9 +431,18 @@ public class Donne
 				nouveauTas.addAll(plisAttaque);
 			}
 			System.out.println("Nouveau tas non rotaté : "+nouveauTas);
+			// Coupe
 			Random rGauss = new Random();
-			Collections.rotate(nouveauTas, (int)rGauss.nextGaussian());
-
+			int coupe;
+			do
+			{
+				coupe = (int) Math.round(39 + rGauss.nextGaussian()*5);
+				// Gauss avec moyenne = 39 (78/2), variance = 5 (donne des résultats satisfaisants)
+			}
+			while(coupe < 3 || coupe > 75); // on réessaie si jamais on a un résultat trop petit ou trop grand (statistiquement possible)
+			System.out.println("Coupe à la carte numéro " + coupe);
+			Collections.rotate(nouveauTas, coupe); 
+			
 			System.out.println("Nouveau tas rotaté : "+nouveauTas);
 			
 			P.setTas(nouveauTas);
