@@ -287,35 +287,48 @@ public class Donne
 	 * FIXME: souci au niveau des atouts : 
 	 * Ex : Est joue le 21, Sud joue le 16. Ouest ne peut jouer que son 19 alors qu’il a 1, 7, 8…
 	 * 
-	 * FIXME: autre souci : j’ai eu une partie où Sud n’avait plus de cartes alors que les autres
-	 * en avaient encore 3 =/ (on doit jouer une carte « … entre 1 et 0 ! ») 
 	 */
 	public boolean isCarteLegale(Carte c, int numJ) // svp des noms de variable explicite ...
 	{
+		// System.out.println("isCarteLegale, numJ = "+numJ+", carte = "+c+", numEntame = "+numJoueurEntame);
 		if(numJ == numJoueurEntame || numJ == P.getNumJoueurApres(numJoueurEntame) && plisEnCours[numJoueurEntame].isExcuse())
-			return true; // si le joueur jouee en premier ou s’il joue après l’excuse
+		{
+			return true; // si le joueur joue en premier ou s’il joue après l’excuse
+		}
 		else if(c.isExcuse())
+		{
 			return true; // s’il joue l’excuse 
+		}
+		// TODO
 		// ! il ya un cas execptionnel ou il ne peut pas jouer l'excuse si autoriser3boutsDans1pli est à false et qu'il y a déja deux bout sur la table :)
 		// ! facile à implementer mais à faire au cas ou
+		// À mettre en tout premier (et pour n’importe quel bout, pas seulement l’excuse)
+		
 		else if (c.isAtout())
 		{
 			// on vérifie que l’atout est plus haut que les autres.
 			// (calcul de l’atout le plus haut dans le pli en cours)
-			Carte a = new Carte(0);
+			Carte atoutMax = new Carte(0);
 			for(int i=numJoueurEntame; i!=numJ; i=P.getNumJoueurApres(i))
 			{
-				if (plisEnCours[i].isAtout() && plisEnCours[i].getOrdre() > a.getOrdre())
+				if (plisEnCours[i].isAtout() && plisEnCours[i].getOrdre() > atoutMax.getOrdre())
 				{
-					a = plisEnCours[i];
+					atoutMax = plisEnCours[i];
 				}
 			}
+			// System.out.println("Atout max : "+atoutMax);
+			// System.out.println("Atout proposé : "+c);
 			
-			if (c.getOrdre() > a.getOrdre())
+			if (c.getOrdre() < atoutMax.getOrdre() && mainsDesJoueurs[numJ].possedeAtoutPlusGrand(atoutMax.getOrdre()))
 			{
-				// l’atout est plus haut que les autres, reste à voir si il est autorisé en fonction de ce qui est demandé
-				if ((plisEnCours[numJoueurEntame].isExcuse() && plisEnCours[P.getNumJoueurApres(numJoueurEntame)].isAtout()) || plisEnCours[numJoueurEntame].isAtout())
+				// System.out.println("sortie atout mauvais, pas ok");
+				return false; // s’il n’a pas monté sur l’atout le plus haut alors qu’il pouvait
+			}
+			else // il a monté sur l’atout le plus haut ou bien il n’a pas monté mais ne pouvait pas, reste à voir s’il pouvait jouer atout.
+			{
+				if (plisEnCours[numJoueurEntame].isAtout() || (plisEnCours[numJoueurEntame].isExcuse() && plisEnCours[P.getNumJoueurApres(numJoueurEntame)].isAtout()))
 				{
+					// System.out.println("sortie atout demandé, ok");
 					return true; // si la 1re carte est Atout, ou bien Excuse puis Atout, c’est donc Atout demandé donc ok
 				}
 				else // Reste cas où 1re carte est Couleur, ou bien Excuse et la 2e est Couleur
@@ -329,13 +342,10 @@ public class Donne
 					{
 						coulDemandee = plisEnCours[numJoueurEntame].getCouleur();
 					}
-					 // il faut que le joueur ne possède pas la couleur demandée pour pouvoir jouer atout :
+					// il faut que le joueur ne possède pas la couleur demandée pour pouvoir jouer atout :
+					// System.out.println("sortie couleur demandée, "+!mainsDesJoueurs[numJ].possedeCouleur(coulDemandee));
 					return !mainsDesJoueurs[numJ].possedeCouleur(coulDemandee);					
 				}
-			} 
-			else
-			{
-				return mainsDesJoueurs[numJ].atoutPlusGrand(c.getOrdre());
 			}
 		}
 		else // c.isCouleur() == true 
@@ -371,7 +381,7 @@ public class Donne
 			 * if(isCarteLegale(carteProposee, num)) System.out.println("cartelegale");
 			 */
 		}
-		while(!(mainsDesJoueurs[num].contains(carteProposee)&& isCarteLegale(carteProposee, num)));
+		while(!(mainsDesJoueurs[num].possede(carteProposee)&& isCarteLegale(carteProposee, num)));
 		
 		mainsDesJoueurs[num].removeCarte(carteProposee);
 		
@@ -567,7 +577,7 @@ public class Donne
 	{
 		for(Carte c : chien)
 		{
-			System.out.println("crate mises au chien : "+c);
+			System.out.println("Carte du chien donnée au preneur : "+c);
 			mainsDesJoueurs[preneur].addCarte(c);
 		}
 	}
