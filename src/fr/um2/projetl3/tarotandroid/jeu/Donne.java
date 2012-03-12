@@ -443,7 +443,7 @@ public class Donne
 			int coupe;
 			do
 			{
-				coupe = (int) Math.round(39 + rGauss.nextGaussian()*5);
+				coupe = (int) Math.round(Constantes.NOMBRE_CARTES_TOTALES/2 + rGauss.nextGaussian()*5);
 				// Gauss avec moyenne = 39 (78/2), variance = 5 (donne des résultats satisfaisants)
 			}
 			while(coupe < 3 || coupe > 75); // on réessaie si jamais on a un résultat trop petit ou trop grand (statistiquement possible)
@@ -520,7 +520,7 @@ public class Donne
 		this.contratEnCours = contratEnCours;
 	}
 	
-	public void setJoueurEnContactApres()
+	private void setJoueurEnContactApres()
 	{
 		numJoueurEnContact = P.getNumJoueurApres(numJoueurEnContact);
 	}
@@ -551,14 +551,14 @@ public class Donne
 	public Carte[] getPlisPrecedent() {
 		return plisPrecedent;
 	}
-	public void setPlisPrecedent(Carte plisPrecedent[]) {
+	private void setPlisPrecedent(Carte plisPrecedent[]) {
 		this.plisPrecedent = plisPrecedent;
 	}
 	
 	public Carte[] getPlisEnCours() {
 		return plisEnCours;
 	}
-	public void setPlisEnCours(Carte plisEnCours[]) {
+	private void setPlisEnCours(Carte plisEnCours[]) {
 		this.plisEnCours = plisEnCours;
 	}
 
