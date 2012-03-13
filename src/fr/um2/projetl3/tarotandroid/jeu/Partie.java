@@ -238,6 +238,13 @@ public class Partie
 				return true; // comme ça on verra tout de suite si on arrive dans ce cas (pas normal)
 		}
 	}
+	
+	
+	/**
+	 * --------------------------------------------------------------------------------------------------
+	 * ---------------------------------------Phase chien / ecart----------------------------------
+	 * ---------------------------------------à mettre peut-être dans donne--------------------------------------------
+	 */
 	/*
 	 * renvoie vrai si l'ecart est bon
 	 */
@@ -246,7 +253,7 @@ public class Partie
 		boolean ecartvalide = true;
 		for(Carte c:ecart)
 		{
-			ecartvalide = ecartvalide &&verificationCarteEcartValide(c);
+			ecartvalide = ecartvalide && verificationCarteEcartValide(c);
 		}
 		return ecartvalide;
 	}
@@ -282,38 +289,21 @@ public class Partie
 			
 			donne.mettreChienDansPreneur(); // svp mettre des noms de méthodes un peu moins obscènes
 			
-			Carte[] ecart = new Carte[nombreDeCartesPourLeChien];
-			boolean ecartPasValide = false;
-			boolean carteEcartValide = true;
-			
 			donne().setNumJoueurEnContact(donne().getPreneur());
 			
-			while(!ecartPasValide) // ? faudrait rajouter un compteur et afficher quelque chose non ?
-			{
-				int i=0;
-				while(i<nombreDeCartesPourLeChien)
-				{
-					ecart[i]= getJoueur(donne.getPreneur()).demanderUneCartePourLecart();
-					carteEcartValide = verificationCarteEcartValide(ecart[i]);
-					if(carteEcartValide)
-					{
-						//donne.getMain(donne.getPreneur()).removeCarte(ecart[i]);
-						i++;
-					}
-				}	
-				ecartPasValide = verificationEcartValide(ecart);
-
-			}
+			Carte[] ecart = new Carte[P.nombreDeCartesPourLeChien];
+			ecart = demandeEcartPreneur();
 			
 			donne().setNumJoueurEnContact(donne().getNumDonneur()+1);
+			
 			System.out.println("TEST CHIEN");
 			
-			for(int i=0; i<6; i++)
+			for(int i=0; i<P.nombreDeCartesPourLeChien; i++)
 			{
 				ecart[i].affiche();
 			}
 			donne.plisAttaque.addAll(Arrays.asList(ecart));
-			//donne.getMain(donne.getPreneur()).enleverEcart(ecart);
+			donne.getMain(donne.getPreneur()).enleverEcart(ecart);
 			
 		}
 		else if ( donne.getContratEnCours().isChienPourAttaque()) // garde sans
@@ -328,6 +318,21 @@ public class Partie
 		}
 	}
 	
+	private Carte[] demandeEcartPreneur() 
+	{
+		Carte ecart[] = new Carte[P.getnombreDeCartesPourLeChien()]; 
+		
+		do
+		{
+			ecart = joueurs[D.getPreneur()].demanderEcart();
+		}
+		while(!verificationEcartValide(ecart));
+		
+		return ecart;
+		
+		
+	}
+
 	/**
 	 * --------------------------------------------------------------------------------------------------
 	 * ---------------------------------------lancement de la partie----------------------------------

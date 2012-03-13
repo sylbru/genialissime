@@ -159,15 +159,11 @@ public class Annonces
 	
 	private static boolean annonceValide(Contrat annonceProposée) 
 	{
-		System.out.println("annonce proposé :"+annonceProposée);
-		
 		if (annonceProposée != Contrat.PASSE)
 		{	
-			System.out.println("annonce proposé != passe");
 			
 			if (annonceProposée.getPoids() < getContratMax().getPoids())
 			{
-				System.out.println("annonce proposé inferieur à l'annonce max");
 				return false;
 			}
 		}

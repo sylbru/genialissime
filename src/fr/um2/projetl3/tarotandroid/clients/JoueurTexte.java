@@ -29,7 +29,6 @@ public class JoueurTexte implements IJoueur
 		this.main = P.donne().getMain();
 	}
 	
-	// TODO: La vérification de la validité du contrat ne doit pas se faire ici mais dans Annonces
 	public Contrat demanderAnnonce(Contrat contrat)
 	{
 		Contrat c = null;
@@ -208,14 +207,16 @@ public class JoueurTexte implements IJoueur
 		{
 			ecart[i] = demanderUneCartePourLecart();
 		}
+		
 		return ecart;
 	}
 
 	public Carte demanderUneCartePourLecart() 
 	{
+		// TODO : à modifier pour ne pas supprimer les cartes
 		int num;
 		Scanner sc = new Scanner(System.in);
-		Carte c;
+		Carte c = null;
 		if(main == null || main.nbCartesRestantes() == 18) majMain(); // ?? C’est pour quoi ce test ?
 		do
 		{
@@ -231,9 +232,10 @@ public class JoueurTexte implements IJoueur
 			{
 				System.out.println("Carte invalide !");
 			}
-		} while((num < 0 || num >= main.nbCartesRestantes()) && P.verificationCarteEcartValide(main.getCarte(num)));
+			
+		} while((num < 0 || num >= main.nbCartesRestantes()) && !P.verificationCarteEcartValide(main.getCarte(num)));
 		c = main.getCarte(num);
-		main.removeCarte(c);
+		
 		return c;
 	}
 	
