@@ -18,11 +18,11 @@ import android.os.Message;
 public class SplashScreen extends Activity 
 {
 	/**
-	 * SPLASHTIME contient le décalage de 5 secondes
+	 * SPLASHTIME contient le décalage de 2 secondes
 	 * STOPSPLASH est la demande d'arrêt
 	 */
     private static final int STOPSPLASH = 0;
-    private static final long SPLASHTIME = 5000;
+    private static final long SPLASHTIME = 2000;
 
     private Handler splashHandler = new Handler() 
     {
