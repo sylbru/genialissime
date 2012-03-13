@@ -152,21 +152,23 @@ public class Annonces
 		{
 			annonceProposée = P.getJoueur(num).demanderAnnonce(contratMax);
 		}
-		while(annonceValide(annonceProposée));
+		while(!annonceValide(annonceProposée));
 		
 		return annonceProposée;
 	}
 	
-	private static boolean annonceValide(Contrat annonceProposée) {
+	private static boolean annonceValide(Contrat annonceProposée) 
+	{
+		System.out.println("annonce proposé :"+annonceProposée);
 		
 		if (annonceProposée != Contrat.PASSE)
 		{	
-			for(int i=0;i<P.getNombreDeJoueurs();i++)
+			System.out.println("annonce proposé != passe");
+			
+			if (annonceProposée.getPoids() < getContratMax().getPoids())
 			{
-				if ( annonceProposée.getPoids() < tableauDesContrats[i].getPoids() )
-				{
-					return false;
-				}
+				System.out.println("annonce proposé inferieur à l'annonce max");
+				return false;
 			}
 		}
 		
