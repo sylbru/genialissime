@@ -13,7 +13,7 @@ public class Annonces
 	 *  ------------------------Juste la méthode pour effectuer la phase des annonces----------------
 	 *  ------------------------------------faut encore faire des tests----------------------------------------
 	 */
-	
+
 	/**
 	 * @author JB
 	 *   permet de connaitre le preneur et le type de contrat fait par le joueur
@@ -147,12 +147,32 @@ public class Annonces
 	 */
 	protected static Contrat demanderAnnonceJoueur(int num, Contrat contratMax)
 	{
-		// TODO: demanderAnnonce jusqu’à recevoir une annonce valide
 		Contrat annonceProposée = Contrat.AUCUN;
-		annonceProposée = P.getJoueur(num).demanderAnnonce(contratMax);
+		do
+		{
+			annonceProposée = P.getJoueur(num).demanderAnnonce(contratMax);
+		}
+		while(annonceValide(annonceProposée));
+		
 		return annonceProposée;
 	}
 	
+	private static boolean annonceValide(Contrat annonceProposée) {
+		
+		if (annonceProposée != Contrat.PASSE)
+		{	
+			for(int i=0;i<P.getNombreDeJoueurs();i++)
+			{
+				if ( annonceProposée.getPoids() < tableauDesContrats[i].getPoids() )
+				{
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+
 	protected static void direJoueursAnnonce(Contrat c, IJoueur joueur)
 	{
 		for(IJoueur j: P.getJoueurs())
@@ -165,10 +185,22 @@ public class Annonces
 	 * Indique au joueur les annonces qu’il peut dire.
 	 * TODO: à faire.
 	 */
-	public Contrat[] getAnnoncesValides()
+	public static Contrat getContratMax()
 	{
-		Contrat[] annoncesValides = null;
-		return annoncesValides;
+		Contrat contratmax = Contrat.AUCUN;
+		for(int i=0;i<P.getNombreDeJoueurs();i++)
+		{
+			if(contratmax.getPoids() < tableauDesContrats[i].getPoids())
+			{
+				contratmax = tableauDesContrats[i];
+			}
+		}
+		
+		return contratmax;
+	}
+	
+	public static Contrat[] getTableauDesContrats() {
+		return tableauDesContrats;
 	}
 	
 	protected static void phaseAppelRoi()
