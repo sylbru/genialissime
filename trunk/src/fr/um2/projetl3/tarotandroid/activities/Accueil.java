@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -75,6 +78,28 @@ public class Accueil extends Activity
         
     }
     
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.mainmenu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+		case R.id.itemprefs:
+			Intent myIntent = new Intent(getApplicationContext(), PreferencesActivity.class);
+			startActivity(myIntent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
     @Override
     public void onConfigurationChanged(Configuration newConfig) {        
         super.onConfigurationChanged(newConfig);
