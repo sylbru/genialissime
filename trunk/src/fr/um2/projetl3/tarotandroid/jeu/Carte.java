@@ -2,7 +2,7 @@ package fr.um2.projetl3.tarotandroid.jeu;
 
 import fr.um2.projetl3.tarotandroid.exceptions.CarteUIDInvalideException;
 
-// test
+// test2
 
 public class Carte
 {
