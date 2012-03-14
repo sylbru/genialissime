@@ -34,67 +34,67 @@ public class JoueurGraphique implements IJoueur {
 		
 	}
 
-	@Override
+	
 	public void setNomDuJoueur(String s) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
+	
 	public String getNomDuJoueur() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public Contrat demanderAnnonce(Contrat contrat) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public Carte[] demanderEcart() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public Carte demanderCarte() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public Carte demanderRoi() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public Carte demanderUneCartePourLecart() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public void direChien(Carte[] chien) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
+	
 	public void direCarteJouee(Carte c, String j) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
+	
 	public void direAnnonce(Contrat c, String j) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
+	
 	public void direPliRemporté(Carte[] pli, String joueur) {
 		// TODO Auto-generated method stub
 
