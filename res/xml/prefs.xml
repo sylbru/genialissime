@@ -5,5 +5,9 @@
     <CheckBoxPreference
         android:summaryOff="La préférence n’est pas activée"
         android:summaryOn="La préférence est activée" android:key="pref01" android:title="Test de préférence"/>
+    
+    <PreferenceScreen android:key="PR" android:title="Préférences Règles">
+        <CheckBoxPreference android:summaryOn="Sens Inverse des aiguilles d'une montre" android:key="SDJ" android:summaryOff="Sens des aiguilles d'une montre" android:title="Sens du jeu"/>
+    </PreferenceScreen>
 
 </PreferenceScreen>
