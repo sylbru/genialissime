@@ -255,6 +255,16 @@ public class Partie
 		{
 			ecartvalide = ecartvalide && verificationCarteEcartValide(c);
 		}
+		for(int i=0;i<getnombreDeCartesPourLeChien();i++)
+		{
+			for(int j=i+1; j<getnombreDeCartesPourLeChien();j++)
+			{
+				if (ecart[i] == ecart[j])
+				{
+					ecartvalide = false;
+				}
+			}
+		}
 		return ecartvalide;
 	}
 	/*
