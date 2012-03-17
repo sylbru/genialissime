@@ -1,11 +1,15 @@
 package fr.um2.projetl3.tarotandroid.clients;
 
+
 import org.keplerproject.luajava.LuaException;
 import org.keplerproject.luajava.LuaState;
+import org.keplerproject.luajava.LuaObject;
 import org.keplerproject.luajava.LuaStateFactory;
+import org.xmlpull.v1.XmlPullParser;
 
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
+import fr.um2.projetl3.tarotandroid.jeu.Couleur;
 import fr.um2.projetl3.tarotandroid.jeu.Main;
 
 public class JoueurIA implements IJoueur
@@ -17,8 +21,10 @@ public class JoueurIA implements IJoueur
 	
 	private LuaState L;
 	
-	public JoueurIA()
+	public JoueurIA(String nom, XmlPullParser iaDefaut, int pID)
 	{
+		this.nom = nom;
+		this.pID = pID;
 		L = LuaStateFactory.newLuaState();
 		L.openLibs();
 		try {
@@ -28,6 +34,72 @@ public class JoueurIA implements IJoueur
 			e.printStackTrace();
 		}
 		L.setGlobal("javapi");
+		try {
+			XmlPullParser xpp = iaDefaut;
+			while (xpp.getEventType()!=XmlPullParser.END_DOCUMENT) {
+				if (xpp.getEventType()==XmlPullParser.START_TAG){
+					if(xpp.getName().equals("luascript")){
+						//s = L.getLuaObject("s").getString()+"\n"+xpp.getAttributeValue(0);
+						L.LdoString(xpp.getAttributeValue(null, "lua"));
+					} else {
+						//s = xpp.getName()+" Echoué";
+					}
+				}
+				xpp.next();
+			}
+		} catch (Throwable t) {
+		}
+	}
+	
+	public String popFluxus()
+	{
+		String s;
+		
+		try
+		{
+			L.LdoString("s = fluxus.pop()");
+			s = L.getLuaObject("s").getString();
+		}
+		catch (Throwable t)
+		{
+			s = "Echec d'appel de Fluxus";
+		}
+		
+		return s;
+	}
+	
+	public String checkFluxus()
+	{
+		String s;
+		
+		try
+		{
+			L.LdoString("s = fluxus[1]");
+			s = L.getLuaObject("s").getString();
+		}
+		catch (Throwable t)
+		{
+			s = "Echec d'appel de Fluxus";
+		}
+		
+		return s;
+	}
+	
+	public Boolean fluxusVide()
+	{
+		Boolean b;
+		
+		try
+		{
+			L.LdoString("b = fluxus.isEmpty()");
+			b = L.getLuaObject("b").getBoolean();
+		}
+		catch (Throwable t)
+		{
+			b = true;
+		}
+		
+		return b;
 	}
 	
 	public void setID(int pID)
@@ -54,19 +126,19 @@ public class JoueurIA implements IJoueur
 
 	public void setNomDuJoueur(String s)
 	{
-		this.nom = s;
+		this.nom = "s";
 	}
 
 	public String getNomDuJoueur() 
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return this.nom;
 	}
 
 	public Contrat demanderAnnonce(Contrat contrat)
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return Contrat.AUCUN;
 	}
 
 	public Carte[] demanderEcart()
@@ -77,8 +149,10 @@ public class JoueurIA implements IJoueur
 
 	public Carte demanderCarte()
 	{
-		// LOOOL
-		return null;
+		int c;
+		L.LdoString("c = tarot.rndCard()");
+		c = (int) L.getLuaObject("c").getNumber();
+		return new Carte(c);
 	}
 
 	public Carte demanderRoi()

@@ -21,10 +21,37 @@ public class Carte implements Serializable
 	 *  - (moche) si deux paramètres boolean et int, l’int est l’uid de la carte à créer
 	 */
 	
-	public Carte(int ordreAtout)
+	public Carte(int ordreCarte)
 	{
-		carteCouleur = false;
-		ordre = ordreAtout;
+		if (ordreCarte < 0 || ordreCarte > 77) // Erreur
+		{
+			this.carteCouleur = false;
+			this.ordre = -1;
+		} else if (ordreCarte < 22) // Atout
+		{
+			this.carteCouleur = false;
+			this.ordre = ordreCarte;
+		} else if (ordreCarte < 36) // Coeur
+		{
+			this.carteCouleur = true;
+			this.ordre = ordreCarte - 21;
+			this.couleur = Couleur.Coeur;
+		} else if (ordreCarte < 50) // Pique
+		{
+			this.carteCouleur = true;
+			this.ordre = ordreCarte - 35;
+			this.couleur = Couleur.Pique;
+		} else if (ordreCarte < 64) // Carreau
+		{
+			this.carteCouleur = true;
+			this.ordre = ordreCarte - 49;
+			this.couleur = Couleur.Carreau;
+		} else						// Trèfle
+		{
+			this.carteCouleur = true;
+			this.ordre = ordreCarte - 63;
+			this.couleur = Couleur.Trefle;
+		}
 	}
 	
 	public Carte(Couleur couleur, int ordre)
@@ -256,26 +283,28 @@ public class Carte implements Serializable
 		if(isCouleur())
 		{
 			String s;
-			if(ordre <= 10)
+			if (ordre==1)
+				s = "As";
+			else if(ordre <= 10)
 				s = Integer.toString(ordre);
 			else if(ordre == 11)
-				s = "V";
+				s = "Valet";
 			else if(ordre == 12)
-				s = "C";
+				s = "Cavalier";
 			else if(ordre == 13)
-				s = "D";
+				s = "Dame";
 			else if(ordre == 14)
-				s = "R";
+				s = "Roi";
 			else
 				s = "?";
-			return s + couleur.name().toLowerCase();			
+			return s + " de " + couleur.name().toLowerCase();			
 		}
 		else
 		{
 			if(ordre == 0)
 				return "Excuse";
 			else
-				return Integer.toString(ordre) + "Atout";
+				return Integer.toString(ordre) + " d'atout";
 		}
 	}
 

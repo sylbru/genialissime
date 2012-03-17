@@ -6,5 +6,6 @@
     <string name="exit">Quitter</string>
     <string name="preferencesTitre">Préférences</string>
     <string name="itemprefs">Préférences</string>
+    <string name="testlua">s=\"This is a test from strings.xml\"</string>
 
 </resources>

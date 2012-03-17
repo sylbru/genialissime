@@ -22,7 +22,7 @@ public class SplashScreen extends Activity
 	 * STOPSPLASH est la demande d'arrêt
 	 */
     private static final int STOPSPLASH = 0;
-    private static final long SPLASHTIME = 2000;
+    private static final long SPLASHTIME = 0;
 
     private Handler splashHandler = new Handler() 
     {

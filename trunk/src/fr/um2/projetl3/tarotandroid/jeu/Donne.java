@@ -158,8 +158,9 @@ public class Donne
 	  * 	
 	  * @param tableauContenantLePli
 	  * @return l'indice du tableau ou se trouve la carte qui remporte le plis grâce à ça on peut retrouver qui remporte le plis
+	 * @throws Throwable 
 	  */
-	 public int vainqueurDuPli(Carte[] tableauContenantLePli) 
+	 public int vainqueurDuPli(Carte[] tableauContenantLePli)
 	 {
 		int indice = -1;
 		int nombreDeJoueur = P.getNombreDeJoueurs();
