@@ -38,21 +38,4 @@ private String compl;
  
 }
 
-class Cartes implements Serializable{
 
-	private static final long serialVersionUID = 6098455379378002199L;
-	private Vector<Carte> carte;
-	
-	public Cartes(Vector<Carte> c){
-		carte = c;
-	}
-	
-	public void set(Vector<Carte> c){
-		carte = c;
-	}
-	
-	public Vector<Carte> get(){
-		return carte;
-	}
-	
-}

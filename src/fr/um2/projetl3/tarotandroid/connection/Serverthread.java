@@ -10,34 +10,30 @@ public class Serverthread extends Thread {
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	private MessageObjet message;
-	private int id;
+	public static int id;
 	private Carte carte;
 	
 
     Serverthread(Socket socket, int id) {
 	super("ServerThread");
 	this.socket = socket;
-	this.id = id;
+	Serverthread.id = id;
     }
 
     public void run() // il semble que la methode doit etre appele run autremend Serverthread(serverSocket.accept()).start(); ne marche pas parcque la methode start fait appel uniquement a une methode run
     {
+    	ProtocolServeur sp = new ProtocolServeur();
     		try
-    		{
-    			System.out.println("kennt en hei un ?");
+    		{	
     			out = new ObjectOutputStream(socket.getOutputStream());
     			out.flush();
     			in = new ObjectInputStream(socket.getInputStream());
-
-    			message = new MessageObjet( 1, "premier envoi");
-    			sendMessage();
-    			carte =(Carte) in.readObject();
-    			System.out.print("message recu par le thread id ="+id+" carte : ");carte.affiche();
-    			System.out.println("message gescheckt");
+    			out = sp.traiterEntreeDonnes(null);
+    			out.flush();
+    			out = sp.traiterEntreeDonnes(null);
+    			out.flush();
+    			
     		} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				System.out.println("Classe non trouve");
 				e.printStackTrace();
 			}
     		finally{

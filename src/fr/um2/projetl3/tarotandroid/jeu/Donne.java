@@ -477,8 +477,9 @@ public class Donne
 	 * @author niavlys
 	 * @param j
 	 * @return la main du joueur j
+	 * !changement fabrice : mis en public pour faire des tests.. Joueur en contact ne fonctionera pas avec le serveur qu'on a pour l'instant
 	 */
-	protected Main getMain(int numJoueur)
+	public Main getMain(int numJoueur)
 	{
 		return mainsDesJoueurs[numJoueur];
 	}
