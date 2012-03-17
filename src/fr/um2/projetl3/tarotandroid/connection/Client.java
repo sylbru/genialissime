@@ -1,22 +1,22 @@
 package fr.um2.projetl3.tarotandroid.connection;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
+import fr.um2.projetl3.tarotandroid.jeu.Carte;
 
 
 public class Client 
 {
 	Socket socket = null;
-	private BufferedOutputStream out;
-	private BufferedInputStream in;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
 	private String messagederreur;
-	private int message;
+	private MessageObjet message;
 	private String host = "localhost";
 	private int port = 4444;
 	private boolean interompu = false;
+	private Carte c;
 	
 	Client(){}
 	
@@ -26,16 +26,20 @@ public class Client
 		{
 
 			socket = new Socket(host, port);
-			out = new BufferedOutputStream(socket.getOutputStream());
+			out = new ObjectOutputStream(socket.getOutputStream());
 			out.flush();
-			in = new BufferedInputStream(socket.getInputStream());
+			in = new ObjectInputStream(socket.getInputStream());
 			
 
 			do
 			{
-				System.out.println(in.available());
-				message = in.read();
+				//System.out.println(in.available());
+				message = (MessageObjet) in.readObject();
 				traitermessage();
+				c.affiche();
+				out.writeObject(c);
+
+				out.flush();
 			
 			}while(!interompu);
 			
@@ -78,7 +82,7 @@ public class Client
 	
 	private void traitermessage()
 	{
-		switch (message) 
+		switch (message.getmessage()) 
 		{
 			case -1: 
 			{
@@ -90,11 +94,19 @@ public class Client
 			case 1: 
 			{
 				System.out.println("demander Carte");
+				System.out.println(message.getcompl());
 				//demandeCarte();
+				c = new Carte(8);
 				break;
 			}
 			case 2:
 			{
+				//demanderCarteEcart();
+				break;
+			} 	
+			case 5:
+			{
+				System.out.println("le thread a envoie un message");
 				//demanderCarteEcart();
 				break;
 			} 	

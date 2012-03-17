@@ -8,6 +8,7 @@ public class MultiServeur {
 	
 	ServerSocket serverSocket;
 	boolean listening;
+	int id = 0;
 
 	
 	MultiServeur()
@@ -31,8 +32,11 @@ public class MultiServeur {
 		while (listening)
 			try {
 				System.out.println("vierum thread");
-				new Serverthread(serverSocket.accept()).start();
-				System.out.println("nom thread");
+				Serverthread server = new Serverthread(serverSocket.accept(), id );
+				server.start();
+				id++;
+				//System.out.println("nom thread");
+				//server.envoyermessage(1);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

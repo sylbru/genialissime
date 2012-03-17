@@ -1,11 +1,15 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
+import java.io.Serializable;
+
 import fr.um2.projetl3.tarotandroid.exceptions.CarteUIDInvalideException;
 
 // test42
 
-public class Carte
+public class Carte implements Serializable
 {
+
+	private static final long serialVersionUID = 1L;
 	private boolean carteCouleur; // ? si je mets à Atout c’est moins clair au niveau de l’excuse
 	private Couleur couleur;
 	private int ordre; // à la fois ordre de CarteCouleur et num de CarteAtout

@@ -3,15 +3,21 @@ package fr.um2.projetl3.tarotandroid.connection;
 import java.net.*;
 import java.io.*;
 
+import fr.um2.projetl3.tarotandroid.jeu.Carte;
+
 public class Serverthread extends Thread {
     private Socket socket = null;
-	private BufferedOutputStream out;
-	private BufferedInputStream in;
-	private int message;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
+	private MessageObjet message;
+	private int id;
+	private Carte carte;
+	
 
-    public Serverthread(Socket socket) {
+    Serverthread(Socket socket, int id) {
 	super("ServerThread");
 	this.socket = socket;
+	this.id = id;
     }
 
     public void run() // il semble que la methode doit etre appele run autremend Serverthread(serverSocket.accept()).start(); ne marche pas parcque la methode start fait appel uniquement a une methode run
@@ -19,14 +25,19 @@ public class Serverthread extends Thread {
     		try
     		{
     			System.out.println("kennt en hei un ?");
-    			out = new BufferedOutputStream(socket.getOutputStream());
+    			out = new ObjectOutputStream(socket.getOutputStream());
     			out.flush();
-    			in = new BufferedInputStream(socket.getInputStream());
+    			in = new ObjectInputStream(socket.getInputStream());
 
-    			message = 1;
+    			message = new MessageObjet( 1, "premier envoi");
     			sendMessage();
+    			carte =(Carte) in.readObject();
+    			System.out.print("message recu par le thread id ="+id+" carte : ");carte.affiche();
     			System.out.println("message gescheckt");
     		} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				System.out.println("Classe non trouve");
 				e.printStackTrace();
 			}
     		finally{
@@ -45,12 +56,37 @@ public class Serverthread extends Thread {
     	void sendMessage()
     	{
     		try{
-    			out.write(message);
+    			out.writeObject(message);
     			out.flush();
-    			System.out.println("server>" + message);
+    			//System.out.println("server>" + message);
     		}
     		catch(IOException ioException){
     			ioException.printStackTrace();
+    		}
+    	}
+    	/*
+    	 * envoier message sert a envoier des message au joueurs a partir du jeu
+    	 * ces message ne sont pas supposé engendrer une reponse si l'id vaut 5 (tous les joueuers)
+    	 * par exemple :	- envoier le chien au joueurs pour l'affiche
+    	 * 				 	- envoier le score pour l'afficher
+    	 * 					- informer les joueurs si une personne a quitte la partie 
+    	 * 					- etc
+    	 * 
+    	 * sinon on envoie le message uniquement au joueur correstpondant a l'id 
+    	 */
+    	public void envoyermessage(int id)
+    	{
+    		if(id==this.id || id == 5)
+    		{
+        		try
+        		{
+        			out.write(1);
+        			out.flush();
+        			System.out.println("server>" + 1);
+        		}
+        		catch(IOException ioException){
+        			ioException.printStackTrace();
+        		}
     		}
     	}
     	
