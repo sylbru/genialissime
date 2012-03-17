@@ -3,6 +3,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
+
+import static fr.um2.projetl3.tarotandroid.connection.Context.client;
+import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
 
 
@@ -17,8 +20,12 @@ public class Client
 	private int port = 4444;
 	private boolean interompu = false;
 	private Carte c;
+	public static JoueurTexte joueur;
 	
-	Client(){}
+	Client()
+	{
+		joueur = new JoueurTexte("LUC");
+	}
 	
 	void lancer()
 	{
@@ -29,16 +36,11 @@ public class Client
 			out = new ObjectOutputStream(socket.getOutputStream());
 			out.flush();
 			in = new ObjectInputStream(socket.getInputStream());
-			
+			ProtocolClient pc = new ProtocolClient();
 
 			do
 			{
-				//System.out.println(in.available());
-				message = (MessageObjet) in.readObject();
-				traitermessage();
-				c.affiche();
-				out.writeObject(c);
-
+				out  = pc.traiterEntreeDonnes(in);
 				out.flush();
 			
 			}while(!interompu);
@@ -80,48 +82,18 @@ public class Client
 		}
 	}
 	
-	private void traitermessage()
+	public JoueurTexte getJoueur()
 	{
-		switch (message.getmessage()) 
-		{
-			case -1: 
-			{
-				messagederreur = "rien a lire";
-				System.out.println("rien a lire");
-				interompu = true;
-				break;
-			}
-			case 1: 
-			{
-				System.out.println("demander Carte");
-				System.out.println(message.getcompl());
-				//demandeCarte();
-				c = new Carte(8);
-				break;
-			}
-			case 2:
-			{
-				//demanderCarteEcart();
-				break;
-			} 	
-			case 5:
-			{
-				System.out.println("le thread a envoie un message");
-				//demanderCarteEcart();
-				break;
-			} 	
-			default :
-			{
-				messagederreur = "commande inconnue";
-				interompu = true;
-				break;
-			}
-		}	
+		return joueur;
+	}
+	public void interompre()
+	{
+		interompu = true;
 	}
 	
 	public static void main(String args[])
 	{
-		Client client = new Client();
+		client = new Client();
 		client.lancer();
 	}
 }

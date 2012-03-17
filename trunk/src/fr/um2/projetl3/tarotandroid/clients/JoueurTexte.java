@@ -5,6 +5,7 @@ import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
 import java.util.Scanner;
 import java.util.Vector;
 
+import fr.um2.projetl3.tarotandroid.connection.Cartes;
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
 import fr.um2.projetl3.tarotandroid.jeu.Couleur;
@@ -320,6 +321,16 @@ public class JoueurTexte implements IJoueur
 		{
 			System.out.println(">> " + joueur + " annonce " + c);
 		}
+	}
+
+
+	public void recevoirMain(Cartes c) {
+		for(int i=0; i<c.size();i++)
+		{
+			main.addCarte(c.getcarte(i));
+		}
+			
+		
 	}
 
 }
