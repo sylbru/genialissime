@@ -3,6 +3,7 @@ package fr.um2.projetl3.tarotandroid.clients;
 import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
 import android.app.Activity;
 import fr.um2.projetl3.tarotandroid.activities.EcranJeu;
+import fr.um2.projetl3.tarotandroid.connection.Cartes;
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
 import fr.um2.projetl3.tarotandroid.jeu.Donne;
@@ -98,6 +99,12 @@ public class JoueurGraphique implements IJoueur {
 	public void direPliRemporté(Carte[] pli, String joueur) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void recevoirMain(Cartes c) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

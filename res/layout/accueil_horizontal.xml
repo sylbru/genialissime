@@ -30,7 +30,7 @@
         android:layout_alignRight="@+id/boutonReprendre"
         android:layout_below="@+id/boutonReprendre"
         android:layout_marginTop="22dp"
-        android:text="Tests" />
+        android:text="Jouer en ligne" />
 
     <ImageView
         android:id="@+id/imageView1"
@@ -67,5 +67,14 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/imageView1"
         android:src="@drawable/jeu_cartes" />
+
+    <Button
+        android:id="@+id/butOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView2"
+        android:layout_marginRight="71dp"
+        android:layout_toLeftOf="@+id/imageView4"
+        android:text="Options" />
 
 </RelativeLayout>
