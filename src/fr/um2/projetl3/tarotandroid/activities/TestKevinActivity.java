@@ -93,7 +93,7 @@ public class TestKevinActivity extends Activity {
 				//s = L.getLuaObject("s").toString();
 				
 				// I WAS HERE ! L.LdoString(xpp);
-				boutonTest.setTextSize(30);
+				boutonTest.setTextSize(20);
 				boutonTest.setText(s);
 			}
 		});

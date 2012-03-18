@@ -16,9 +16,9 @@ public class Carte implements Serializable
 	
 	/* ****************************************************
 	 * Constructeurs :
-	 *  - si un seul paramètre, c’est un atout (ou excuse)
+	 *  - si un seul paramètre, on déduit la couleur de par la convention
 	 *  - si deux paramètres Couleur et int, c’est une carte de couleur
-	 *  - (moche) si deux paramètres boolean et int, l’int est l’uid de la carte à créer
+	 *  - (inutile) si deux paramètres boolean et int, l’int est l’uid de la carte à créer
 	 */
 	
 	public Carte(int ordreCarte)

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<intelligence>
+	<luascript
+		nom="Gestion du flux de sortie"
+		commentaire="Crée un tableau de chaines de charatères et des fonctions associées"
+		executer="true"
+		lua="
+			fluxus = {}
+			
+			function fluxus.pop()
+				local str = 'Fluxus vide...'
+				if #fluxus >= 1 then
+					str = fluxus[1]
+				end
+				table.remove(fluxus, 1)
+				return str
+			end
+			
+			function fluxus.push(str)
+					fluxus[#fluxus+1]=str
+			end
+			
+			function fluxus.clear()
+				while #fluxus>0 do 
+					fluxus.pop()
+				end
+			end
+			
+			function fluxus.isEmpty()
+				return #fluxus==0
+			end
+			
+			fluxus.push('Fluxus initialisé')			
+		"
+	/>
+	
+	<luascript
+		nom="Initialisation du namespace 'tarot'"
+		commentaire="Crée une table 'tarot' qui sera utilisée par les différentes fonctions de l'IA"
+		executer="true"
+		lua="
+			tarot={}
+			fluxus.push('Namespace tarot créé')
+		"
+	/>
+	
+	<luascript
+		nom="Carte aléatoire"
+		commentaire=""
+		executer="true"
+		lua="
+			function tarot.rndCard()
+				return math.random(0,77)
+			end
+		"
+	/>
+	
+	<luascript
+		nom="Script de test Lua"
+		commentaire="Script sans réelle utilité, ne sert que pour vérifier que Lua est chargé."
+		executer="false"
+		lua="
+			fluxus.push('Script de test chargé')
+		"
+	/>
+	
+</intelligence>
+
