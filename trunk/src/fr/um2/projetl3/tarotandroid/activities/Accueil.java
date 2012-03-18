@@ -56,8 +56,8 @@ public class Accueil extends Activity
         
         boutonCommencer.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
-        		Toast.makeText(getBaseContext(),
-        				"Vous allez commencer une nouvelle partie !",Toast.LENGTH_SHORT).show();
+    			Intent Intent = new Intent(getApplicationContext(), EcranJeu.class);
+    			startActivity(Intent);
         	}
         });
  
@@ -72,7 +72,7 @@ public class Accueil extends Activity
         	public void onClick(View v) {
         		Toast.makeText(getBaseContext(),
         				"Heu...",Toast.LENGTH_SHORT).show();
-        		startActivity(new Intent(getApplicationContext(), TestKevinActivity.class));
+        		//startActivity(new Intent(getApplicationContext(), TestKevinActivity.class));
         	}
         });
         
