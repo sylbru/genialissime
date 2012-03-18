@@ -7,6 +7,7 @@ import org.keplerproject.luajava.LuaObject;
 import org.keplerproject.luajava.LuaStateFactory;
 import org.xmlpull.v1.XmlPullParser;
 
+import fr.um2.projetl3.tarotandroid.connection.Cartes;
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
 import fr.um2.projetl3.tarotandroid.jeu.Couleur;
@@ -198,6 +199,12 @@ public class JoueurIA implements IJoueur
 
 	public void direPliRemporté(Carte[] pli, String joueur)
 	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void recevoirMain(Cartes c) {
 		// TODO Auto-generated method stub
 		
 	}
