@@ -1,8 +1,11 @@
 package fr.um2.projetl3.tarotandroid.connection;
-
+import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
 
 import java.net.*;
 import java.io.*;
+
+import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
+
 
 public class MultiServeur {
 	
@@ -11,13 +14,13 @@ public class MultiServeur {
 	int id = 0;
 
 	
-	MultiServeur()
+	public MultiServeur()
 	{
 		serverSocket = null;
 		listening = true;
 	}
 	
-	void lancer()
+	public void lancer()
 	{
 		try 
 		{
@@ -28,13 +31,12 @@ public class MultiServeur {
 			System.err.println("Could not listen on port: 4444.");
 	        System.exit(-1);
 		}
-	
-		while (listening)
+		int i =0;
+		while (i<P.getNombreDeJoueurs())
 			try {
-				System.out.println("vierum thread");
-				Serverthread server = new Serverthread(serverSocket.accept(), id );
-				server.start();
-				id++;
+				JoueurDistant  joueur = new JoueurDistant(serverSocket); 
+				System.out.println("joueur numero "+i+" connectee (peut etre)");
+				P.setJoueur(i, joueur);
 				//System.out.println("nom thread");
 				//server.envoyermessage(1);
 			} catch (IOException e) {

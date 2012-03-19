@@ -9,6 +9,7 @@ import java.util.Stack;
 
 import fr.um2.projetl3.tarotandroid.clients.IJoueur;
 import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
+import fr.um2.projetl3.tarotandroid.connection.MultiServeur;
 
 @SuppressWarnings("all")
 public class Partie
@@ -79,7 +80,7 @@ public class Partie
 		return joueurs[num] + " (n°" + num + ")";
 	}
 
-	protected void setJoueur(int i, IJoueur joueur) // private ?
+	public void setJoueur(int i, IJoueur joueur) //! changement fabrice : mis en public Pour pouvoir initialiser le tableau de joueurs a partir du server
 	{
 		joueurs[i] = joueur;
 	}
@@ -409,6 +410,14 @@ public class Partie
 		setJoueur(3, new JoueurTexte("Ouest", true));
 		
 		lancerPartie();
+	}	
+	
+	public void lancerPartieDistante()
+	{
+		setNombreDeJoueurs(4);
+		MultiServeur server = new MultiServeur();
+			server.lancer();
+		
 	}
 
 	/*
@@ -431,6 +440,7 @@ public class Partie
 	public static void main(String[] args)
 	{
 		P = new Partie();
+		P.lancerPartieDistante();
 		P.lancerPartie4JoueursTexte();
 		//D = P.donneEnCours;
 		
