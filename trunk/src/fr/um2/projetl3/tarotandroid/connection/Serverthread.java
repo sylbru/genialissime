@@ -3,6 +3,7 @@ package fr.um2.projetl3.tarotandroid.connection;
 import java.net.*;
 import java.io.*;
 
+import fr.um2.projetl3.tarotandroid.exceptions.entreeNulleException;
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
 
 public class Serverthread extends Thread {
@@ -14,12 +15,16 @@ public class Serverthread extends Thread {
 	private Carte carte;
 	
 
-    Serverthread(Socket socket, int id) {
+    Serverthread(Socket socket) {
 	super("ServerThread");
 	this.socket = socket;
-	Serverthread.id = id;
     }
 
+    public ObjectOutputStream getOutputStream() throws IOException
+    {
+    	return (ObjectOutputStream) socket.getOutputStream();
+    }
+    
     public void run() // il semble que la methode doit etre appele run autremend Serverthread(serverSocket.accept()).start(); ne marche pas parcque la methode start fait appel uniquement a une methode run
     {
     	ProtocolServeur sp = new ProtocolServeur();
@@ -49,7 +54,7 @@ public class Serverthread extends Thread {
     			}
     		}
     	}
-    	void sendMessage()
+    	public void sendMessage(Object message)
     	{
     		try{
     			out.writeObject(message);
@@ -84,6 +89,17 @@ public class Serverthread extends Thread {
         			ioException.printStackTrace();
         		}
     		}
+    	}
+    	public Object liremessage() throws OptionalDataException, ClassNotFoundException, IOException, entreeNulleException
+    	{
+    		Object o;
+    		if(in.available()!=-1)
+    		{
+    			o = in.readObject();
+    		}
+    		else throw new entreeNulleException("liremessage");
+    		
+    		return o;
     	}
     	
     	
