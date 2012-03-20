@@ -11,7 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.um2.projetl3.tarotandroid.R;
+import fr.um2.projetl3.tarotandroid.R;
+import static fr.um2.projetl3.tarotandroid.activities.Contexts.applicationContext;
 
 /**
  * Seconde page appelée après la page de garde
@@ -27,6 +28,7 @@ public class Accueil extends Activity
 	Button boutonCommencer;
 	Button boutonReprendre;
 	Button boutonTest;
+	Button boutonOptions;
 	
     private void setLayout(int orientation) {
  
@@ -49,10 +51,12 @@ public class Accueil extends Activity
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.accueil);
         setLayout(getResources().getConfiguration().orientation);
+        applicationContext = getApplicationContext();
         
         boutonCommencer = (Button) findViewById(R.id.boutonCommencer);
         boutonReprendre = (Button) findViewById(R.id.boutonReprendre);
         boutonTest = (Button) findViewById(R.id.boutonTest);
+        boutonOptions = (Button) findViewById(R.id.butOptions);
         
         boutonCommencer.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
@@ -75,6 +79,15 @@ public class Accueil extends Activity
         		//startActivity(new Intent(getApplicationContext(), TestKevinActivity.class));
         	}
         });
+        
+        boutonOptions.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View arg0)
+			{
+				startActivity(new Intent(getApplicationContext(), PreferencesActivity.class));
+			}
+		});
         
     }
     

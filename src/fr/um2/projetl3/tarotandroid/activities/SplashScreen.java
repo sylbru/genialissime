@@ -1,13 +1,15 @@
 package fr.um2.projetl3.tarotandroid.activities;
 
-import com.um2.projetl3.tarotandroid.R;
+import fr.um2.projetl3.tarotandroid.R;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -18,14 +20,14 @@ import android.widget.Toast;
  * @author Jennifer
  */
 
-public class SplashScreen extends Activity 
+public class SplashScreen extends Activity implements OnTouchListener
 {
 	/**
 	 * SPLASHTIME contient le décalage de 2 secondes
 	 * STOPSPLASH est la demande d'arrêt
 	 */
     private static final int STOPSPLASH = 0;
-    private static final long SPLASHTIME = 0;
+    private static final long SPLASHTIME = 2000;
 
     private Handler splashHandler = new Handler() 
     {
@@ -84,4 +86,14 @@ public class SplashScreen extends Activity
         msg.what = STOPSPLASH;
         splashHandler.sendMessageDelayed(msg, SPLASHTIME);
     }
+
+
+	@Override
+	public boolean onTouch(View v, MotionEvent me)
+	{
+		Message msg = new Message();
+		msg.what = STOPSPLASH;
+		splashHandler.sendMessage(msg);
+		return true;
+	}
 }

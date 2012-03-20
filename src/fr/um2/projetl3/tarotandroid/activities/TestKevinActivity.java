@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.um2.projetl3.tarotandroid.R;
+import fr.um2.projetl3.tarotandroid.R;
 
 import fr.um2.projetl3.tarotandroid.clients.JoueurIA;
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
