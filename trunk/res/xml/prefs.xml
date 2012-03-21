@@ -8,6 +8,20 @@
     
     <PreferenceScreen android:key="PR" android:title="Préférences Règles">
         <CheckBoxPreference android:summaryOn="Sens Inverse des aiguilles d'une montre" android:key="SDJ" android:summaryOff="Sens des aiguilles d'une montre" android:title="Sens du jeu"/>
+        <PreferenceScreen android:key="CTR" android:title="Contrats">
+            <CheckBoxPreference android:key="PAR" android:title="Autoriser Parole"/>
+            <CheckBoxPreference android:key="PET" android:title="Autoriser Petite"/>
+            <CheckBoxPreference android:key="POU" android:title="Autoriser Pousse"/>
+            <CheckBoxPreference android:title="Autoriser GAE" android:key="GAE"/>
+        </PreferenceScreen>
+        <PreferenceScreen android:key="SCO" android:title="Scores">
+            <ListPreference android:title="Manière de compter" android:key="Compt-Pts"/>
+            <CheckBoxPreference android:title="Compter Misère" android:key="MIS"/>
+            <CheckBoxPreference android:title="Compter Petit au bout" android:key="PAB" android:summaryOn="Seulement si Petit au dernier pli"/>
+            <CheckBoxPreference android:title="Compter Roi au bout" android:key="RAB" android:summaryOn="Seulement si Roi au dernier pli"/>
+            <CheckBoxPreference android:title="Arrondir à 5" android:key="AA5" android:summaryOn="Arrondir au multiple de 5 supérieur"/>
+        </PreferenceScreen>
+        <CheckBoxPreference android:summaryOff="Interdiction de poser les 3 bouts dans un pli" android:title="Autoriser 3 Bouts" android:key="A3BDP" android:summaryOn="Autorisation de poser les 3 bouts dans un pli"/>
     </PreferenceScreen>
 
 </PreferenceScreen>

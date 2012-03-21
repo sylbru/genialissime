@@ -82,7 +82,6 @@ public class Accueil extends Activity
         
         boutonOptions.setOnClickListener(new View.OnClickListener()
 		{
-			@Override
 			public void onClick(View arg0)
 			{
 				startActivity(new Intent(getApplicationContext(), PreferencesActivity.class));
