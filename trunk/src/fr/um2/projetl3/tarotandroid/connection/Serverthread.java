@@ -90,14 +90,14 @@ public class Serverthread extends Thread {
         		}
     		}
     	}
-    	public Object liremessage() throws OptionalDataException, ClassNotFoundException, IOException, entreeNulleException
+    	public Object liremessage() throws OptionalDataException, ClassNotFoundException, IOException
     	{
     		Object o;
-    		if(in.available()!=-1)
+    		if(in.available()<=0)
     		{
     			o = in.readObject();
     		}
-    		else throw new entreeNulleException("liremessage");
+    		else return null;
     		
     		return o;
     	}

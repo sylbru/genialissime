@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OptionalDataException;
 import static fr.um2.projetl3.tarotandroid.connection.Context.client;
+import static fr.um2.projetl3.tarotandroid.jeu.Context.D;
 
 import fr.um2.projetl3.tarotandroid.connection.Client;
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
@@ -17,6 +18,7 @@ public class ProtocolClient implements IProtocol
 	private boolean initialisé;
 	private MessageObjet message;
 	private String messagederreur;
+	private int requetteJoueur;
 	
 	
     ProtocolClient()
@@ -67,6 +69,15 @@ public class ProtocolClient implements IProtocol
 					    message = (MessageObjet) entree.readObject();
 					    etat = traitermessage();
 					}
+					if(requetteJoueur!=0)
+					{
+						message.setmessage(requetteJoueur);
+						sortie.writeObject(message);
+						message = (MessageObjet) entree.readObject();
+						System.out.println(message.getcompl());
+						reponserequette(requetteJoueur,entree);
+						requetteJoueur = 0;
+					}
 				}
 				catch (OptionalDataException e) 
 				{
@@ -106,6 +117,38 @@ public class ProtocolClient implements IProtocol
         return sortie;
     }
 
+	private void reponserequette(int req, ObjectInputStream entree) {
+		MessageObjet mess;
+		if(req==1)
+		{
+
+			Cartes c = null;
+			try {
+				c =(Cartes) entree.readObject();
+			} catch (OptionalDataException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//c.afficherpli(); //! il faudra faire le fonction de demande
+			
+ 		}
+		else if(req==2)
+		{
+
+ 		}
+		else if(req==2)
+		{
+
+ 		}
+	}
+
+
 	private int traitermessage()
 	{
 		switch (message.getmessage()) 
@@ -135,5 +178,9 @@ public class ProtocolClient implements IProtocol
 				return ERREUR;
 			}
 		}	
+	}
+	public void setRequetteJoueur(int i)
+	{
+		requetteJoueur = i;
 	}
 }
