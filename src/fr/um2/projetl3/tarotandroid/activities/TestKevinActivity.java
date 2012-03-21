@@ -1,32 +1,40 @@
 package fr.um2.projetl3.tarotandroid.activities;
 
-import org.keplerproject.luajava.LuaException;
-import org.keplerproject.luajava.LuaState;
-import org.keplerproject.luajava.LuaObject;
-import org.keplerproject.luajava.LuaStateFactory;
-import org.xmlpull.v1.XmlPullParser;
+import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
+//import android.R;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import fr.um2.projetl3.tarotandroid.R;
 
 import fr.um2.projetl3.tarotandroid.clients.JoueurIA;
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
+import fr.um2.projetl3.tarotandroid.jeu.Partie;
 
 public class TestKevinActivity extends Activity {
 	JoueurIA testy;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		testy = new JoueurIA("Archimède", getResources().getXml(R.xml.intelligence), 3);
+		JoueurIA testy2 = new JoueurIA("Bertrand", getResources().getXml(R.xml.intelligence), 3);
+		JoueurIA testy3 = new JoueurIA("Clovis", getResources().getXml(R.xml.intelligence), 3);
+		JoueurIA testy4 = new JoueurIA("Dartagnan", getResources().getXml(R.xml.intelligence), 3);
+		P = new Partie();
+		
+		P.lancerPartie4JoueursIA(testy, testy2, testy3, testy4);
+		//Partie.testPartie(testy, testy, testy, testy);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.kevlayout);
-		testy = new JoueurIA("Archimède", getResources().getXml(R.xml.intelligence), 3);
+		//testy = new JoueurIA("Archimède", getResources().getXml(R.xml.intelligence), 3);
 		/*final LuaState L = LuaStateFactory.newLuaState();
 		L.openLibs();
 		try {
@@ -42,15 +50,23 @@ public class TestKevinActivity extends Activity {
 		{
 			public void onClick(View v)
 			{
+				//ImageView iv = new ImageView();
 				
 				String s = "Pas reçu d'objet depuis Lua";
-				if (!testy.fluxusVide())
+				while (!testy.fluxusVide())
+				{
+					Toast.makeText(getBaseContext(),
+        				testy.popFluxus(),Toast.LENGTH_SHORT).show();
+				}
+				/*if (!testy.fluxusVide())
 				{
 					s = testy.popFluxus();
 				} else {
 					Carte c = testy.demanderCarte();
 					s = c.toString();
-				}
+				}*/
+				Carte c = testy.demanderCarte();
+				s = c.toString();
 				/*try {
 					L.pushObjectValue(s);
 				} catch (LuaException e) {
@@ -93,6 +109,7 @@ public class TestKevinActivity extends Activity {
 				//s = L.getLuaObject("s").toString();
 				
 				// I WAS HERE ! L.LdoString(xpp);
+				
 				boutonTest.setTextSize(20);
 				boutonTest.setText(s);
 			}

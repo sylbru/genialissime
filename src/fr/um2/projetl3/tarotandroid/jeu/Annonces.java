@@ -124,6 +124,8 @@ public class Annonces
 			}
 			numeroDuJoueur = P.getNumJoueurApres(numeroDuJoueur);
 		}
+		System.out.println("Flalblalal"+joueurQuiVaPrendre);
+		System.out.println(nombreDeJoueurs);
 		D.setContratEnCours(tableauDesContrats[joueurQuiVaPrendre]);
 		D.setPreneur(joueurQuiVaPrendre); // preneur est donc à -1 si personne n’a pris
 		
@@ -150,7 +152,9 @@ public class Annonces
 		Contrat annonceProposée = Contrat.AUCUN;
 		do
 		{
+			System.out.println("Hey! "+num+" Tu annonce quoi?");
 			annonceProposée = P.getJoueur(num).demanderAnnonce(contratMax);
+			System.out.println(num+" annonce "+annonceProposée.getName());
 		}
 		while(!annonceValide(annonceProposée));
 		

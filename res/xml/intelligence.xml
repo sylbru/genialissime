@@ -40,7 +40,8 @@
 		executer="true"
 		lua="
 			tarot={}
-			fluxus.push('Namespace tarot créé')
+			tarot.main={}
+			fluxus.push('Namespaces créés')
 		"
 	/>
 	
@@ -53,6 +54,59 @@
 				return math.random(0,77)
 			end
 		"
+	/>
+	
+	<luascript
+		nom="Fonctions sur les cartes"
+		commentaire=""
+		executer="true"
+		lua="
+			function tarot.main.pop(target)
+				target = target or 1
+				local card = -1
+				if #tarot.main >= 1 then
+					card = tarot.main[(target%#tarot.main)+1]
+				end
+				table.remove(tarot.main, (target%#tarot.main)+1)
+				return card
+			end
+			
+			function tarot.main.push(card)
+					card = card or -1
+					tarot.main[#tarot.main+1]=card
+			end
+			
+			function tarot.main.clear()
+				while #tarot.main>0 do 
+					tarot.main.pop()
+				end
+			end
+			
+			function tarot.main.isEmpty()
+				return #tarot.main==0
+			end
+			
+			function tarot.main.rndGetCard()
+				return tarot.main[math.random(1, #tarot.main)]
+			end
+			function tarot.main.rndPopCard()
+				return tarot.main.pop(math.random(#tarot.main))
+			end
+			
+			fluxus.push('Fonctions sur la main créés')
+		"
+	/>
+	
+	<luascript
+		nom="Contrats"
+		commentaire="WOOHOO"
+		executer="true"
+		lua="
+			tarot.rndContrat()
+				return math.random(0,4)
+			end 
+		"
+	
 	/>
 	
 	<luascript

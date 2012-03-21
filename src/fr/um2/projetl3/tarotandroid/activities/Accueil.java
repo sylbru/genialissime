@@ -76,7 +76,7 @@ public class Accueil extends Activity
         	public void onClick(View v) {
         		Toast.makeText(getBaseContext(),
         				"Heu...",Toast.LENGTH_SHORT).show();
-        		//startActivity(new Intent(getApplicationContext(), TestKevinActivity.class));
+        		startActivity(new Intent(getApplicationContext(), TestKevinActivity.class));
         	}
         });
         
