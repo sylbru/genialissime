@@ -19,9 +19,16 @@
             <CheckBoxPreference android:title="Compter Misère" android:key="MIS"/>
             <CheckBoxPreference android:title="Compter Petit au bout" android:key="PAB" android:summaryOn="Seulement si Petit au dernier pli"/>
             <CheckBoxPreference android:title="Compter Roi au bout" android:key="RAB" android:summaryOn="Seulement si Roi au dernier pli"/>
-            <CheckBoxPreference android:title="Arrondir à 5" android:key="AA5" android:summaryOn="Arrondir au multiple de 5 supérieur"/>
+            <CheckBoxPreference android:title="Arrondir à 5" android:key="AA5" android:summaryOn="Arrondir les points au multiple de 5 supérieur"/>
+            <CheckBoxPreference android:title="Arrondir à 10" android:key="AA10" android:summaryOn="Arrondir les points au multiple de 10 supérieur"/>
         </PreferenceScreen>
         <CheckBoxPreference android:summaryOff="Interdiction de poser les 3 bouts dans un pli" android:title="Autoriser 3 Bouts" android:key="A3BDP" android:summaryOn="Autorisation de poser les 3 bouts dans un pli"/>
+    </PreferenceScreen>
+    <PreferenceScreen android:key="PA" android:title="Préférences Application">
+        <EditTextPreference android:title="Nom du joueur 1" android:key="NJ"/>
+        <EditTextPreference android:key="AD1" android:title="Nom du joueur 2"/>
+        <EditTextPreference android:key="AD2" android:title="Nom du joueur 3"/>
+        <EditTextPreference android:title="Nom du joueur 4" android:key="AD3"/>
     </PreferenceScreen>
 
 </PreferenceScreen>
