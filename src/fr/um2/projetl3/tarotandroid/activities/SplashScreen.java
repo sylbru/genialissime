@@ -88,7 +88,6 @@ public class SplashScreen extends Activity implements OnTouchListener
     }
 
 
-	@Override
 	public boolean onTouch(View v, MotionEvent me)
 	{
 		Message msg = new Message();

@@ -101,7 +101,6 @@ public class JoueurGraphique implements IJoueur {
 
 	}
 
-	@Override
 	public void recevoirMain(Cartes c) {
 		// TODO Auto-generated method stub
 		

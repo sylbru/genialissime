@@ -420,7 +420,6 @@ public class Partie
 		
 	}
 
-	/*
 	public Partie(int nombreDeJoueurs)
 	
 	{
@@ -428,21 +427,20 @@ public class Partie
 		joueurs = new JoueurTexte[nombreDeJoueurs];
 		nombreDeCartesPourLeChien = (nombreDeJoueurs == 5)? 3 : 6;
 		
-		initialisationPartie();
+		// initialisationPartie();
 	}
 
 	public Partie()
 	{
 		setNombreDeJoueurs(4);
-		initialisationPartie();
-	}*/
+		// initialisationPartie();
+	}
 
 	public static void main(String[] args)
 	{
 		P = new Partie();
 		P.lancerPartieDistante();
 		P.lancerPartie4JoueursTexte();
-		//D = P.donneEnCours;
 		
 	}
 
