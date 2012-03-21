@@ -7,7 +7,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Stack;
 
+import fr.um2.projetl3.tarotandroid.R;
 import fr.um2.projetl3.tarotandroid.clients.IJoueur;
+import fr.um2.projetl3.tarotandroid.clients.JoueurIA;
 import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
 import fr.um2.projetl3.tarotandroid.connection.MultiServeur;
 
@@ -410,6 +412,17 @@ public class Partie
 		setJoueur(3, new JoueurTexte("Ouest", true));
 		
 		lancerPartie();
+	}
+	
+	public void lancerPartie4JoueursIA(IJoueur a, IJoueur b, IJoueur c, IJoueur d)
+	{
+		setNombreDeJoueurs(4);
+		setJoueur(0, a);
+		setJoueur(1, b);
+		setJoueur(2, c);
+		setJoueur(3, d);
+		
+		lancerPartie();
 	}	
 	
 	public void lancerPartieDistante()
@@ -418,6 +431,28 @@ public class Partie
 		MultiServeur server = new MultiServeur();
 			server.lancer();
 		
+	}
+	
+	//! TODO Cette méthode est à SUPPRIMER quand l'application sera finie
+	//! Breche de sécurité importante, utile uniquement pour tests.
+	public static void testPartie(IJoueur a, IJoueur b, IJoueur c, IJoueur d)
+	{
+		P = new Partie();
+		P.setNombreDeJoueurs(4);
+		P.setJoueur(0, a);
+		P.setJoueur(1, b);
+		P.setJoueur(2, c);
+		P.setJoueur(3, d);
+		P.initialisationPartie();
+		//P.lancerPartie();
+		P.initialisationPartie();
+		Contrat.initialiserContrats();
+		D = new Donne();
+		D.distribution();
+		D.setContratEnCours(Contrat.GARDE);
+		D.setPreneur(0);
+		
+
 	}
 
 	public Partie(int nombreDeJoueurs)
@@ -433,7 +468,6 @@ public class Partie
 	public Partie()
 	{
 		setNombreDeJoueurs(4);
-		// initialisationPartie();
 	}
 
 	public static void main(String[] args)

@@ -28,7 +28,14 @@ public class Main
 	 */
 	public boolean removeCarte(Carte c)
 	{
-		return cartes.remove(c);
+		for (int i=0;i<cartes.size();i++)
+		{
+			if (c.uid()==cartes.get(i).uid()){
+				cartes.remove(i);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -47,7 +54,13 @@ public class Main
 	 */
 	public boolean possede(Carte c)
 	{
-		return cartes.contains(c);
+		for (Carte ca: cartes)
+		{
+			if (c.uid()==ca.uid()){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**

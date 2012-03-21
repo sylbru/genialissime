@@ -373,6 +373,7 @@ public class Donne
 		do
 		{
 			carteProposee = P.getJoueur(num).demanderCarte();
+			//System.out.println(carteProposee.toString()+" Carte légales: "+isCarteLegale(carteProposee, num)+"Carte possédée: "+mainsDesJoueurs[num].possede(carteProposee));
 			/*
 			 * test des condition de la boucle 
 			 * if(mainsDesJoueurs[num].contains(carteProposee)) System.out.println("contains !!!");
@@ -402,6 +403,7 @@ public class Donne
 			{
 				if(isCarteLegale(c, numJoueurEnContact))
 				{
+					//System.out.println(c.toString()+" est légal");
 					cartesLegales.add(c);
 				}
 			}
