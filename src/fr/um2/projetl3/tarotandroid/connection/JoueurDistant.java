@@ -9,6 +9,7 @@ import fr.um2.projetl3.tarotandroid.clients.IJoueur;
 import fr.um2.projetl3.tarotandroid.connection.Cartes;
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
+import fr.um2.projetl3.tarotandroid.jeu.Main;
 import fr.um2.projetl3.tarotandroid.connection.Serverthread;
 import fr.um2.projetl3.tarotandroid.exceptions.entreeNulleException;
 
@@ -27,7 +28,41 @@ public class JoueurDistant implements IJoueur{
 	}
 	public void setNomDuJoueur(String s) {}
 	public String getNomDuJoueur(){return null;}
-	public void recevoirMain(Cartes c){}
+	public void direMain(Main m)
+	{
+		boolean mainnonenvoie = true;
+		while(mainnonenvoie)
+		{
+			
+			try 
+			{
+				message = new MessageObjet(1,"envoi main initialisation");
+				server.sendMessage(message);
+				message = (MessageObjet) server.liremessage();
+				if (message.getmessage()== 1)
+				{
+					Cartes c = null;
+					c.set(m.getCartes());
+					server.sendMessage(c);
+					message = (MessageObjet) server.liremessage();
+					mainnonenvoie = false;
+					
+				}
+			} 
+			catch (OptionalDataException e) 
+			{
+				e.printStackTrace();
+			} 
+			catch (ClassNotFoundException e) 
+			{
+				e.printStackTrace();
+			} 
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	public Contrat demanderAnnonce(Contrat contrat){return null;}
 	public Carte[] demanderEcart(){return null;}

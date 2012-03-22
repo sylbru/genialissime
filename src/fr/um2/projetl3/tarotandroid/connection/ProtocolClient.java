@@ -37,10 +37,12 @@ public class ProtocolClient implements IProtocol
 
         if(etat == INITIALISATION)
         {
-        	Cartes main = null;
+        	MessageObjet mess = null;
 			try 
 			{
-				main = (Cartes) entree.readObject();
+				mess = (MessageObjet) entree.readObject();
+				etat = mess.getmessage();
+				mess = new MessageObjet(etat, "message recu");
 			}
 			catch (OptionalDataException e) 
 			{
@@ -54,8 +56,27 @@ public class ProtocolClient implements IProtocol
 			{
 				e.printStackTrace();
 			}
-        	Client.joueur.recevoirMain(main);
-        	etat= ATTENTE;
+
+        }
+        else if (etat == ATTENTEMAIN)
+        {
+        	Cartes c = null;
+        	try {
+				c = (Cartes) entree.readObject();
+				Main m = new Main (c);
+				Client.joueur.direMain(m);
+	        	MessageObjet mess = new MessageObjet(2, "cartes recus");				
+			} catch (OptionalDataException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	etat = ATTENTE;
         }
         else if (etat == ATTENTE) 
         {
