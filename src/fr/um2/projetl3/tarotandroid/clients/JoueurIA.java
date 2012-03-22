@@ -252,4 +252,16 @@ public class JoueurIA implements IJoueur
 		
 	}
 
+	public void recupererMain() {
+		// TODO Auto-generated method stub
+	}
+
+	public void recupererPliEnCours() {
+		// TODO Auto-generated method stub
+	}
+
+	public void recupererPliPrecedent() {
+		// TODO Auto-generated method stub
+	}
+
 }
