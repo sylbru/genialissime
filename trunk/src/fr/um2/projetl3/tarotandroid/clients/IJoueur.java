@@ -10,7 +10,12 @@ public interface IJoueur
 
 	void setNomDuJoueur(String s);
 	String getNomDuJoueur();
-	void recevoirMain(Cartes c);
+	
+	/*
+	 * ------------------------------------------------------------------------------------------
+	 * -------------------------------demande initier par le seveur---------------------------------------------
+	 * -------------------------------------------------------------------------------------------
+	 */
 	
 	Contrat demanderAnnonce(Contrat contrat);
 	Carte[] demanderEcart();
@@ -23,4 +28,16 @@ public interface IJoueur
 	void direCarteJouee(Carte c, String j);
 	void direAnnonce(Contrat c, String j);
 	void direPliRemporté(Carte[] pli, String joueur);
+	
+	
+	/*
+	 * ------------------------------------------------------------------------------------------
+	 * -------------------------------demande initier par le joueur---------------------------------------------
+	 * -------------------------------------------------------------------------------------------
+	 */
+	
+	void recupererMain();
+	void recupererPliEnCours();
+	void recupererPliPrecedent();
+	
 }
