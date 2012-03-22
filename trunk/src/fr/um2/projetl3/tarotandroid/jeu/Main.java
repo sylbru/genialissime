@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import fr.um2.projetl3.tarotandroid.clients.IJoueur;
 import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
+import fr.um2.projetl3.tarotandroid.connection.Cartes;
 
 public class Main
 {
@@ -167,6 +168,14 @@ public class Main
 	{
 		this.proprietaire = proprietaire;
 		cartes = new Vector<Carte>();
+	}
+	
+	public Main(Cartes c)
+	{
+		for(int i = 0 ; i<c.size() ; i++)
+		{
+			cartes.add(c.getcarte(i));
+		}
 	}
 
 	/**

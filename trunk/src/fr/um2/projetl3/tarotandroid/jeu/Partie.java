@@ -474,7 +474,8 @@ public class Partie
 	{
 		P = new Partie();
 		P.lancerPartieDistante();
-		//P.lancerPartie4JoueursTexte();
+	//	P.lancerPartie4JoueursTexte();
+
 		
 	}
 

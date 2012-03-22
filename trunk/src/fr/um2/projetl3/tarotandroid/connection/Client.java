@@ -24,7 +24,16 @@ public class Client
 	
 	Client()
 	{
-		joueur = new JoueurTexte("LUC");
+		joueur = new JoueurTexte("LUC");	
+		try {
+			socket = new Socket(host, port);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	void lancer()
@@ -32,10 +41,11 @@ public class Client
 		try
 		{
 
-			socket = new Socket(host, port);
+
 			out = new ObjectOutputStream(socket.getOutputStream());
 			out.flush();
 			in = new ObjectInputStream(socket.getInputStream());
+			
 			ProtocolClient pc = new ProtocolClient();
 
 			do
