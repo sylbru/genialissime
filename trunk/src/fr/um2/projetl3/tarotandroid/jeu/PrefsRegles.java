@@ -40,6 +40,8 @@ public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge d
 	public static int pointRoiAuBout = 10;
 	
 	public static boolean arrondirA5 = true; //pour arrondir le comptage des points a 5, sinon il est arrondi a 10
+	public static boolean arrondirA10 = false;
+	public static boolean nePasArrondir = false;
 	
 	//Poignée : 
 	
