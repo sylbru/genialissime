@@ -15,7 +15,9 @@
             <CheckBoxPreference android:title="Autoriser GAE" android:key="GAE" android:summaryOff="Le Contrat GAE n'est pas autorisé" android:summaryOn="Le Contrat GAE est autorisé"/>
         </PreferenceScreen>
         <PreferenceScreen android:key="SCO" android:title="Scores">
-            <ListPreference android:title="Manière de compter" android:key="Compt-Pts"/>
+            <ListPreference android:title="Manière de compter" android:key="Compt-Pts"
+                            android:entries="@array/listTEntries" android:entryValues="@array/listTValues"
+                            android:defaultValue="1" android:negativeButtonText="Annuler"></ListPreference>
             <CheckBoxPreference android:title="Compter Misère" android:key="MIS"/>
             <CheckBoxPreference android:title="Compter Petit au bout" android:key="PAB" android:summaryOn="Seulement si Petit au dernier pli"/>
             <CheckBoxPreference android:title="Compter Roi au bout" android:key="RAB" android:summaryOn="Seulement si Roi au dernier pli"/>
