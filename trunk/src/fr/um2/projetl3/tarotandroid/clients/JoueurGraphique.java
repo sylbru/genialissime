@@ -1,6 +1,9 @@
 package fr.um2.projetl3.tarotandroid.clients;
 
 import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
+
+import java.util.Vector;
+
 import android.app.Activity;
 import fr.um2.projetl3.tarotandroid.activities.EcranJeu;
 import fr.um2.projetl3.tarotandroid.connection.Cartes;
@@ -54,7 +57,7 @@ public class JoueurGraphique implements IJoueur {
 	}
 
 	
-	public Carte[] demanderEcart() {
+	public Vector<Carte> demanderEcart() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -78,7 +81,7 @@ public class JoueurGraphique implements IJoueur {
 	}
 
 	
-	public void direChien(Carte[] chien) {
+	public void direChien(Vector<Carte> chien) {
 		// TODO Auto-generated method stub
 
 	}
@@ -96,7 +99,7 @@ public class JoueurGraphique implements IJoueur {
 	}
 
 	
-	public void direPliRemporté(Carte[] pli, String joueur) {
+	public void direPliRemporté(Vector<Carte> pli, String joueur) {
 		// TODO Auto-generated method stub
 
 	}

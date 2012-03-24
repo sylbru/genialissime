@@ -1,6 +1,8 @@
 
 package fr.um2.projetl3.tarotandroid.clients;
 
+import java.util.Vector;
+
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
 import fr.um2.projetl3.tarotandroid.jeu.Main;
@@ -16,17 +18,17 @@ public interface IJoueur
 	/*--- Méthodes "demander" ---*/
 	/* Les méthodes "demander" servent à demander une action de jeu, comme jouer une carte ou annoncer un contrat */
 	Contrat demanderAnnonce(Contrat contrat);
-	Carte[] demanderEcart();
+	Vector<Carte> demanderEcart();
 	Carte demanderCarte();
 	Carte demanderRoi();
 	Carte demanderUneCartePourLecart();
 	
 	/*--- Méthodes "dire" ---*/
 	/* Les méthodes "dire" servent à informer les joueurs des évènements de la partie */
-	void direChien(Carte[] chien);
+	void direChien(Vector<Carte> chien);
 	void direCarteJouee(Carte c, String j);
 	void direAnnonce(Contrat c, String j);
-	void direPliRemporté(Carte[] pli, String joueur);
+	void direPliRemporté(Vector<Carte> pli, String joueur);
 	void direMain(Main m);
 	void direScore();
 	

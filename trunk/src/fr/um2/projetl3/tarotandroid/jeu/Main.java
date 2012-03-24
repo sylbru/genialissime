@@ -125,7 +125,7 @@ public class Main
 	 * @param ecart un tableau de cartes contenant l’écart
 	 * On pourrait dire le nom du proprietaire de la main
 	 */
-	public void enleverEcart(Carte[] ecart)
+	public void enleverEcart(Vector<Carte> ecart)
 	{
 		for(Carte c: ecart)
 		{

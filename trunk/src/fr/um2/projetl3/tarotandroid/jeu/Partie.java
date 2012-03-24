@@ -6,6 +6,7 @@ import static fr.um2.projetl3.tarotandroid.jeu.Context.D;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Stack;
+import java.util.Vector;
 
 import fr.um2.projetl3.tarotandroid.R;
 import fr.um2.projetl3.tarotandroid.clients.IJoueur;
@@ -251,18 +252,19 @@ public class Partie
 	/*
 	 * renvoie vrai si l'ecart est bon
 	 */
-	public boolean verificationEcartValide(Carte[] ecart)
+	public boolean verificationEcartValide(Vector<Carte> ecart)
 	{
 		boolean ecartvalide = true;
-		for(Carte c:ecart)
-		{
+		for(int i = 0; i< ecart.size(); i++)
+		{	
+			Carte c = ecart.elementAt(i);
 			ecartvalide = ecartvalide && verificationCarteEcartValide(c);
 		}
 		for(int i=0;i<getnombreDeCartesPourLeChien();i++)
 		{
 			for(int j=i+1; j<getnombreDeCartesPourLeChien();j++)
 			{
-				if (ecart[i] == ecart[j])
+				if (ecart.elementAt(i).uid() == ecart.elementAt(j).uid())
 				{
 					ecartvalide = false;
 				}
@@ -304,7 +306,7 @@ public class Partie
 			
 			donne().setNumJoueurEnContact(donne().getPreneur());
 			
-			Carte[] ecart = new Carte[P.nombreDeCartesPourLeChien];
+			Vector<Carte> ecart = new Vector<Carte>();
 			ecart = demandeEcartPreneur();
 			
 			donne().setNumJoueurEnContact(donne().getNumDonneur()+1);
@@ -313,9 +315,9 @@ public class Partie
 			
 			for(int i=0; i<P.nombreDeCartesPourLeChien; i++)
 			{
-				ecart[i].affiche();
+				ecart.elementAt(i).affiche();
 			}
-			donne.plisAttaque.addAll(Arrays.asList(ecart));
+			donne.plisAttaque.addAll(ecart);
 			donne.getMain(donne.getPreneur()).enleverEcart(ecart);
 			
 		}
@@ -331,12 +333,13 @@ public class Partie
 		}
 	}
 	
-	private Carte[] demandeEcartPreneur() 
+	private Vector<Carte> demandeEcartPreneur() 
 	{
-		Carte ecart[] = new Carte[P.getnombreDeCartesPourLeChien()]; 
+		Vector<Carte> ecart = new Vector<Carte>(); 
 		
 		do
 		{
+			
 			ecart = joueurs[D.getPreneur()].demanderEcart();
 		}
 		while(!verificationEcartValide(ecart));
