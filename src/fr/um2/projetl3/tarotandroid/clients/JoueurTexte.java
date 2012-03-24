@@ -333,6 +333,7 @@ public class JoueurTexte implements IJoueur
 		
 	}
 
+
 	public void direMain(Main m) {
 		// TODO Auto-generated method stub
 		
@@ -347,5 +348,16 @@ public class JoueurTexte implements IJoueur
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void direMain1(Main m) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void direPliRemporté1(Carte[] pli, String joueur) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

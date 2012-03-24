@@ -44,6 +44,8 @@ public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge d
 	//Poignée : 
 	
 	//points selon le type de poignee
+	// ces valeurs font un peu beaucoup :
+	// JOR simple 10 double 20 et triple 30 ça me parait mieux
 	public static int pointPoigneeSimple = 20; 
 	public static int pointPoigneeDouble = 30;
 	public static int pointPoigneeTriple = 40;
