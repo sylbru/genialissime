@@ -53,7 +53,7 @@ public class Donne
 	
 		 mainsDesJoueurs = new Main[nombreDeJoueurs];
 		 for(int i=0; i<nombreDeJoueurs; i++)
-			 mainsDesJoueurs[i] = new Main(P.getJoueur(i));
+			 mainsDesJoueurs[i] = new Main();
 		 
 		 chien = new Carte[nombreDeCartesPourLeChien];
 		 

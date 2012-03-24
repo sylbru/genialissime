@@ -9,8 +9,15 @@ import fr.um2.projetl3.tarotandroid.connection.Cartes;
 public class Main
 {
 	private Vector<Carte> cartes;
-	private IJoueur proprietaire;
 
+	/**
+	 * constructeur de main vide
+	 */
+	public Main()
+	{
+		cartes = new Vector<Carte>();
+	}
+	
 	/**
 	 * Ajoute une carte passée en paramètre dans la main.
 	 * @param c une carte
@@ -116,6 +123,7 @@ public class Main
 	/**
 	 * Enlève de la main l’écart passé en paramètre.
 	 * @param ecart un tableau de cartes contenant l’écart
+	 * On pourrait dire le nom du proprietaire de la main
 	 */
 	public void enleverEcart(Carte[] ecart)
 	{
@@ -127,7 +135,7 @@ public class Main
 			}
 			else
 			{
-				System.out.println("??? enleverEcart : carte " + c + " pas dans la main du joueur " + proprietaire);
+				System.out.println("??? enleverEcart : carte " + c + " pas dans la main du joueur ");
 			}
 		}
 	}
@@ -136,10 +144,11 @@ public class Main
 	 * Affiche la main, sous la forme :
 	 * 
 	 *   Main de NomDuJoueur : [ (7,♦) (2,♦) (3,♦) (4,♡) ]
+	 *   
 	 */
 	public void affiche()
 	{
-		System.out.print("Main de "+proprietaire.getNomDuJoueur()+" :\t");
+		//System.out.print("Main de "+proprietaire.getNomDuJoueur()+" :\t");
 		System.out.print("[ ");
 		for(Carte c: cartes)
 		{
@@ -149,25 +158,6 @@ public class Main
 				System.out.print("# ");
 		}
 		System.out.println("]");
-	}
-	
-	/**
-	 * Retourne le nom du propriétaire de la main.
-	 * @return le nom du propriétaire de la main.
-	 */
-	public String getNomProprietaire()
-	{
-		return proprietaire.getNomDuJoueur();
-	}
-	
-	/**
-	 * Constructeur, avec le joueur en paramètre.
-	 * @param proprietaire le joueur dont c’est la main
-	 */
-	public Main(IJoueur proprietaire)
-	{
-		this.proprietaire = proprietaire;
-		cartes = new Vector<Carte>();
 	}
 	
 	public Main(Cartes c)
