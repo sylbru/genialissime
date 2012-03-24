@@ -11,19 +11,22 @@ public interface IJoueur
 
 	void setNomDuJoueur(String s);
 	String getNomDuJoueur();
-	void recevoirMain(Cartes c);
 	
+	
+	/*--- Méthodes "demander" ---*/
+	/* Les méthodes "demander" servent à demander une action de jeu, comme jouer une carte ou annoncer un contrat */
 	Contrat demanderAnnonce(Contrat contrat);
 	Carte[] demanderEcart();
-	
 	Carte demanderCarte();
 	Carte demanderRoi();
 	Carte demanderUneCartePourLecart();
 	
+	/*--- Méthodes "dire" ---*/
+	/* Les méthodes "dire" servent à informer les joueurs des évènements de la partie */
 	void direChien(Carte[] chien);
 	void direCarteJouee(Carte c, String j);
 	void direAnnonce(Contrat c, String j);
-	void direPliRemporté1(Carte[] pli, String joueur);
+	void direPliRemporté(Carte[] pli, String joueur);
 	void direMain(Main m);
 	void direScore();
 	
@@ -41,7 +44,5 @@ public interface IJoueur
 	// le joueur doit pouvoir acceder au dernier pli
 	void recupererScores();
 	*/
-
-	void direPliRemporté(Carte[] pli, String joueur);
 
 }
