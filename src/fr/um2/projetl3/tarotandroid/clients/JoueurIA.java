@@ -21,26 +21,17 @@ import fr.um2.projetl3.tarotandroid.jeu.Main;
 
 public class JoueurIA implements IJoueur
 {
-
-	private int pID;
-	private Main pMain;
-	private String nom;
+	/*--- Attributs ---*/
+	private Main pMain;		// Peut-être inutile
+	private String pNom;	// Nom du joueur, arbitraire et sans incidence
+	private LuaState L;		// Instance de la machine virtuelle Lua
 	
-	private LuaState L;
-	
-	public JoueurIA(String nom, XmlPullParser iaDefaut, int pID)
+	/*--- Constructeurs ---*/
+	public JoueurIA(String pNom, XmlPullParser iaDefaut, int pID)
 	{
-		this.nom = nom;
-		this.pID = pID;
+		this.pNom = pNom;
 		L = LuaStateFactory.newLuaState();
 		L.openLibs();
-		try {
-			L.pushObjectValue(this);
-		} catch (LuaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		L.setGlobal("javapi");
 		try {
 			XmlPullParser xpp = iaDefaut;
 			while (xpp.getEventType()!=XmlPullParser.END_DOCUMENT) {
@@ -58,6 +49,7 @@ public class JoueurIA implements IJoueur
 		}
 	}
 	
+	/*--- Fluxus ---*/
 	public String popFluxus()
 	{
 		String s;
@@ -108,40 +100,19 @@ public class JoueurIA implements IJoueur
 		
 		return b;
 	}
-	
-	public void setID(int pID)
-	{
-		this.pID=pID;
-
-	}
-
-	public int getID()
-	{
-		return pID;
-	}
-
-	public void setMain(Main pMain)
-	{
-		//this.pMain = pMain;
-	}
-
-
-	public void addChienDansMain(Carte[] chien)
-	{
-		// LOOOOL
-	}
 
 	public void setNomDuJoueur(String s)
 	{
-		this.nom = "s";
+		this.pNom = "s";
 	}
 
 	public String getNomDuJoueur() 
 	{
 		// TODO Auto-generated method stub
-		return this.nom;
+		return this.pNom;
 	}
 
+	/*--- Methodes "demander" ---*/
 	public Contrat demanderAnnonce(Contrat contrat)
 	{
 		L.LdoString("cont = math.random(0,4)");
@@ -162,7 +133,7 @@ public class JoueurIA implements IJoueur
 			return Contrat.PASSE;
 		}
 	}
-
+	
 	public Carte[] demanderEcart()
 	{
 		// LOOOL
@@ -199,24 +170,20 @@ public class JoueurIA implements IJoueur
 		c = (int) L.getLuaObject("c").getNumber();
 		return new Carte(c);
 	}
-
+	
 	public Carte demanderRoi()
 	{
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	public boolean possedeRoi(Carte roi)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public String nom()
-	{
+	}	
+	
+	public Carte demanderUneCartePourLecart() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
+	/*--- Methodes "dire" ---*/
 
 	public void direChien(Carte[] chien)
 	{
@@ -229,12 +196,7 @@ public class JoueurIA implements IJoueur
 		// TODO Auto-generated method stub
 		
 	}
-
-	public Carte demanderUneCartePourLecart() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	public void direAnnonce(Contrat c, String j)
 	{
 		// TODO Auto-generated method stub
@@ -247,51 +209,12 @@ public class JoueurIA implements IJoueur
 		
 	}
 
-	public void recupererMain() {
-		// TODO Auto-generated method stub
-	}
-
-
-	public void recupererPliEnCours() {
-	
-	}
-
-	public void recupererMain1() {
-
-		// TODO Auto-generated method stub
-	}
-
-	public void recupererPliPrecedent() {
-		// TODO Auto-generated method stub
-	}
-
 	public void direMain(Main m) {
 		// TODO Auto-generated method stub
 		
 	}
 
-
-	public void direMain1(Main m) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void direScore() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void recupererScores() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void recevoirMain(Cartes c) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void direPliRemporté1(Carte[] pli, String joueur) {
 		// TODO Auto-generated method stub
 		
 	}
