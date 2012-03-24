@@ -69,22 +69,35 @@ public class JoueurDistant implements IJoueur{
 	
 	public Carte demanderCarte()
 	{
-		message = new MessageObjet(1,"premiere demande de carte");
-		server.sendMessage(message);
 		Carte c = null;
+
 		try {
-		   	 c = (Carte) server.liremessage();
+			if((message = (MessageObjet) server.liremessage())!=null) // on commence par regarder si le joueur n'a pas fait une requette
+			{
+				effectuerRequetteJoueur(message);					//si oui on la traite
+			}	
+				message = new MessageObjet(1,"premiere demande de carte"); // sinon on demande leu jeu d'une carte
+				server.sendMessage(message);
+				message = (MessageObjet) server.liremessage(); 
+				if(message.getmessage()!= 0)						//on controle si le joueur n'a pas fait un autre requette 0 signifie que le joueur a bien recu la demande
+				{
+					effectuerRequetteJoueur(message);
+					message = (MessageObjet) server.liremessage();  // on lit si'il a bien recu la demande 
+				}
+				c = (Carte) server.liremessage();         // on attend la carte
+				
+			
+		} catch (OptionalDataException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		catch (OptionalDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		return c;
 		
 	}
@@ -95,17 +108,6 @@ public class JoueurDistant implements IJoueur{
 	public void direCarteJouee(Carte c, String j){}
 	public void direAnnonce(Contrat c, String j){}
 	public void direPliRemporté(Carte[] pli, String joueur){}
-	
-	
-	public void recupererMain() {
-		// TODO Auto-generated method stub
-	}
-	public void recupererPliEnCours() {
-		// TODO Auto-generated method stub
-	}
-	public void recupererPliPrecedent() {
-		// TODO Auto-generated method stub
-	}
 	
 	public void effectuerRequetteJoueur(MessageObjet o)
 	{
@@ -131,6 +133,18 @@ public class JoueurDistant implements IJoueur{
 			mess= new MessageObjet(-1,"requette inconnue");
 			server.sendMessage(mess);
 		}
+	}
+	public void direScore() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void recupererScores() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void recevoirMain(Cartes c) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

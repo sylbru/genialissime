@@ -333,16 +333,19 @@ public class JoueurTexte implements IJoueur
 		
 	}
 
-	public void recupererMain() {
+	public void direMain(Main m) {
 		// TODO Auto-generated method stub
+		
 	}
 
-	public void recupererPliEnCours() {
+	public void direScore() {
 		// TODO Auto-generated method stub
+		
 	}
 
-	public void recupererPliPrecedent() {
+	public void recupererScores() {
 		// TODO Auto-generated method stub
+		
 	}
 
 }

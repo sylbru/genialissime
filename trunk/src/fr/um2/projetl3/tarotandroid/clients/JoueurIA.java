@@ -21,7 +21,7 @@ import fr.um2.projetl3.tarotandroid.jeu.Main;
 
 public class JoueurIA implements IJoueur
 {
-	
+
 	private int pID;
 	private Main pMain;
 	private String nom;
@@ -252,6 +252,7 @@ public class JoueurIA implements IJoueur
 		
 	}
 
+
 	public void recupererMain() {
 		// TODO Auto-generated method stub
 	}
@@ -262,6 +263,21 @@ public class JoueurIA implements IJoueur
 
 	public void recupererPliPrecedent() {
 		// TODO Auto-generated method stub
+	}
+
+	public void direMain(Main m) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void direScore() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void recupererScores() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
