@@ -23,7 +23,7 @@ public interface IJoueur
 	void direChien(Carte[] chien);
 	void direCarteJouee(Carte c, String j);
 	void direAnnonce(Contrat c, String j);
-	void direPliRemporté(Carte[] pli, String joueur);
+	void direPliRemporté1(Carte[] pli, String joueur);
 	void direMain(Main m);
 	void direScore();
 	
@@ -41,4 +41,7 @@ public interface IJoueur
 	// le joueur doit pouvoir acceder au dernier pli
 	void recupererScores();
 	*/
+
+	void direPliRemporté(Carte[] pli, String joueur);
+
 }

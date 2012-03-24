@@ -9,20 +9,21 @@
     <PreferenceScreen android:key="PR" android:title="Préférences Règles">
         <CheckBoxPreference android:summaryOn="Sens Inverse des aiguilles d'une montre" android:key="SDJ" android:summaryOff="Sens des aiguilles d'une montre" android:title="Sens du jeu"/>
         <PreferenceScreen android:key="CTR" android:title="Contrats">
-            <CheckBoxPreference android:key="PAR" android:title="Autoriser Parole"/>
-            <CheckBoxPreference android:key="PET" android:title="Autoriser Petite"/>
-            <CheckBoxPreference android:key="POU" android:title="Autoriser Pousse"/>
-            <CheckBoxPreference android:title="Autoriser GAE" android:key="GAE"/>
+            <CheckBoxPreference android:key="PAR" android:title="Autoriser Parole" android:summaryOff="Le Contrat Parole n'est pas autorisé" android:summaryOn="Le Contrat Parole est autorisé"/>
+            <CheckBoxPreference android:key="PET" android:title="Autoriser Petite" android:summaryOff="Le Contrat Petite n'est pas autorisé" android:summaryOn="Le Contrat Petite est autorisé"/>
+            <CheckBoxPreference android:key="POU" android:title="Autoriser Pousse" android:summaryOff="Le Contrat Pousse n'est pas autorisé" android:summaryOn="Le Contrat Pousse est autorisé"/>
+            <CheckBoxPreference android:title="Autoriser GAE" android:key="GAE" android:summaryOff="Le Contrat GAE n'est pas autorisé" android:summaryOn="Le Contrat GAE est autorisé"/>
         </PreferenceScreen>
         <PreferenceScreen android:key="SCO" android:title="Scores">
-            <ListPreference android:title="Manière de compter" android:key="Compt-Pts" 
-            android:entries="@array/listTEntries" android:entryValues="@array/listTValues"
-  			android:defaultValue="1" android:negativeButtonText="Annuler"/>
+            <ListPreference android:title="Manière de compter" android:key="Compt-Pts"/>
             <CheckBoxPreference android:title="Compter Misère" android:key="MIS"/>
             <CheckBoxPreference android:title="Compter Petit au bout" android:key="PAB" android:summaryOn="Seulement si Petit au dernier pli"/>
             <CheckBoxPreference android:title="Compter Roi au bout" android:key="RAB" android:summaryOn="Seulement si Roi au dernier pli"/>
-            <CheckBoxPreference android:title="Arrondir à 5" android:key="AA5" android:summaryOn="Arrondir les points au multiple de 5 supérieur"/>
-            <CheckBoxPreference android:title="Arrondir à 10" android:key="AA10" android:summaryOn="Arrondir les points au multiple de 10 supérieur"/>
+            <PreferenceScreen android:key="PTS" android:title="Points">
+                <CheckBoxPreference android:key="NPA" android:title="Ne pas arrondir" android:summaryOn="Les points ne sont pas arrondis"/>
+                <CheckBoxPreference android:key="AA5" android:title="Arrondir à 5" android:summaryOn="Les points sont arrondis au multiple de 5 supérieur"/>
+                <CheckBoxPreference android:key="AA10" android:title="Arrondir à 10" android:summaryOn="Les points seront arrondis au multiple de 10 supérieur" android:enabled="true"/>
+            </PreferenceScreen>
         </PreferenceScreen>
         <CheckBoxPreference android:summaryOff="Interdiction de poser les 3 bouts dans un pli" android:title="Autoriser 3 Bouts" android:key="A3BDP" android:summaryOn="Autorisation de poser les 3 bouts dans un pli"/>
     </PreferenceScreen>

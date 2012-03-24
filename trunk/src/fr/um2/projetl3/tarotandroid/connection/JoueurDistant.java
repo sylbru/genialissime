@@ -146,5 +146,9 @@ public class JoueurDistant implements IJoueur{
 		// TODO Auto-generated method stub
 		
 	}
+	public void direPliRemporté1(Carte[] pli, String joueur) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
