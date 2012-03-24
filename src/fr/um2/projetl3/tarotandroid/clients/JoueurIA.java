@@ -134,7 +134,7 @@ public class JoueurIA implements IJoueur
 		}
 	}
 	
-	public Carte[] demanderEcart()
+	public Vector<Carte> demanderEcart()
 	{
 		// LOOOL
 		return null;
@@ -185,7 +185,7 @@ public class JoueurIA implements IJoueur
 	
 	/*--- Methodes "dire" ---*/
 
-	public void direChien(Carte[] chien)
+	public void direChien(Vector<Carte> chien)
 	{
 		// TODO Auto-generated method stub
 		
@@ -203,7 +203,7 @@ public class JoueurIA implements IJoueur
 		
 	}
 
-	public void direPliRemporté(Carte[] pli, String joueur)
+	public void direPliRemporté(Vector<Carte> pli, String joueur)
 	{
 		// TODO Auto-generated method stub
 		

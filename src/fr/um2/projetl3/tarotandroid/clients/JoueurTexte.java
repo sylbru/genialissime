@@ -198,15 +198,15 @@ public class JoueurTexte implements IJoueur
 	 * 
 	 * ********************************************* */
 	
-	public Carte[] demanderEcart() 
+	public Vector<Carte> demanderEcart() 
 	{
 		majMain();
-		Carte ecart[] = new Carte[P.getnombreDeCartesPourLeChien()];
+		Vector<Carte> ecart = new Vector<Carte>();
 		System.out.println("Vous allez devoir choisir "+P.getnombreDeCartesPourLeChien()+" cartes à mettre dans le votre ecart");
 		main.affiche();
 		for(int i=0;i < P.getnombreDeCartesPourLeChien();i++)
 		{
-			ecart[i] = demanderUneCartePourLecart();
+			 ecart.add(demanderUneCartePourLecart());
 		}
 		
 		return ecart;
@@ -282,7 +282,7 @@ public class JoueurTexte implements IJoueur
 	 * 
 	 * ********************************************* */
 	
-	public void direChien(Carte[] chien)
+	public void direChien(Vector<Carte> chien)
 	{
 		if(!quiet)
 		{
@@ -302,7 +302,7 @@ public class JoueurTexte implements IJoueur
 	}
 	
 	// TODO: Il faudrait peut-être que ça indique aussi qui ouvrait et quelle carte a remporté le pli
-	public void direPliRemporté(Carte[] pli, String joueur)
+	public void direPliRemporté(Vector<Carte> pli, String joueur)
 	{
 		if(!quiet)
 		{

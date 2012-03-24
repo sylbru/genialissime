@@ -4,6 +4,7 @@ import java.io.IOException;
 import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
 import static fr.um2.projetl3.tarotandroid.jeu.Context.D;
 import java.net.*;
+import java.util.Vector;
 
 import fr.um2.projetl3.tarotandroid.clients.IJoueur;
 import fr.um2.projetl3.tarotandroid.connection.Cartes;
@@ -65,7 +66,7 @@ public class JoueurDistant implements IJoueur{
 	}
 	
 	public Contrat demanderAnnonce(Contrat contrat){return null;}
-	public Carte[] demanderEcart(){return null;}
+	public Vector<Carte> demanderEcart(){return null;}
 	
 	public Carte demanderCarte()
 	{
@@ -104,10 +105,10 @@ public class JoueurDistant implements IJoueur{
 	public Carte demanderRoi(){return null;}
 	public Carte demanderUneCartePourLecart(){return null;}
 	
-	public void direChien(Carte[] chien){}
+	public void direChien(Vector<Carte> chien){}
 	public void direCarteJouee(Carte c, String j){}
 	public void direAnnonce(Contrat c, String j){}
-	public void direPliRemporté(Carte[] pli, String joueur){}
+	public void direPliRemporté(Vector<Carte> pli, String joueur){}
 	
 	public void effectuerRequetteJoueur(MessageObjet o)
 	{

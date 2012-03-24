@@ -103,7 +103,7 @@ public class Donne
 			 mainsDesJoueurs[i].affiche();
 			 P.getJoueur(i).direMain(mainsDesJoueurs[i]);
 		 }
-		 reveleChien();
+		 //reveleChien();
 		 
 	}
 
@@ -120,7 +120,13 @@ public class Donne
 	{
 		for(IJoueur j: P.getJoueurs())
 		{
-			j.direChien(chien);
+			Vector<Carte> vChien = new Vector<Carte>(); 
+			int i = 0;
+			while (chien[i]==null)
+			{
+				vChien.add(chien[i]);
+			}
+			j.direChien(vChien);
 		}
 	}
 	
@@ -148,11 +154,17 @@ public class Donne
 	{
 		for(IJoueur j: P.getJoueurs())
 		{
-			j.direPliRemporté(pli, joueur.toString());
+			Vector<Carte> vPli = new Vector<Carte>(); 
+			int i = 0;
+			while (pli[i]==null)
+			{
+				vPli.add(pli[i]);
+			}
+			j.direPliRemporté(vPli, joueur.toString());
 		}
 	}
 		
-	 /** Méthode fini mais à tester
+	 /** Méthode fini maisobject à tester
 	  *  // TODO test
 	  * @author JB
 	  * @author hhachiche
