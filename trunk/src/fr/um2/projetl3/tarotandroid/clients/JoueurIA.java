@@ -100,7 +100,8 @@ public class JoueurIA implements IJoueur
 		
 		return b;
 	}
-
+	
+	/*--- Gestion des paramètres du joueur ---*/
 	public void setNomDuJoueur(String s)
 	{
 		this.pNom = "s";
@@ -115,7 +116,7 @@ public class JoueurIA implements IJoueur
 	/*--- Methodes "demander" ---*/
 	public Contrat demanderAnnonce(Contrat contrat)
 	{
-		L.LdoString("cont = math.random(0,4)");
+		L.LdoString("cont = tarot.demander.annonce()");
 		int c = (int) L.getLuaObject("cont").getNumber();
 		System.out.println(c);
 		switch (c){
@@ -136,8 +137,21 @@ public class JoueurIA implements IJoueur
 	
 	public Vector<Carte> demanderEcart()
 	{
-		// LOOOL
-		return null;
+		L.LdoString("ecart = tarot.demander.ecart()");
+		Vector<Carte> ecart = new Vector<Carte>();
+		int cecart[] = new int[6];
+		try {
+			cecart = (int[]) L.getLuaObject("ecart").getObject();
+		} catch (LuaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (int i=0; i<6; i++)
+		{
+			ecart.add(new Carte(cecart[i]));
+		}
+		
+		return ecart;
 	}
 
 	public Carte demanderCarte()
@@ -177,12 +191,6 @@ public class JoueurIA implements IJoueur
 		return null;
 	}	
 	
-	public Carte demanderUneCartePourLecart() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 	/*--- Methodes "dire" ---*/
 
 	public void direChien(Vector<Carte> chien)
@@ -209,7 +217,7 @@ public class JoueurIA implements IJoueur
 		
 	}
 
-	public void direMain(Main m) {
+	public void direMain(Vector<Carte> m) {
 		// TODO Auto-generated method stub
 		
 	}

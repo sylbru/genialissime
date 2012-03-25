@@ -64,7 +64,7 @@ public class ProtocolClient implements IProtocol
         	try {
 				c = (Cartes) entree.readObject();
 				Main m = new Main (c);
-				Client.joueur.direMain(m);
+				Client.joueur.direMain(m.getCartes());
 	        	MessageObjet mess = new MessageObjet(2, "cartes recus");				
 			} catch (OptionalDataException e) {
 				// TODO Auto-generated catch block

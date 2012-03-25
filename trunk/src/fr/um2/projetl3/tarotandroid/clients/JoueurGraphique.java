@@ -123,14 +123,7 @@ public class JoueurGraphique implements IJoueur {
 	}
 
 
-	public void direMain1(Main m) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-
-
-	public void direMain(Main m) {
+	public void direMain(Vector<Carte> m) {
 		// TODO Auto-generated method stub
 		
 	}

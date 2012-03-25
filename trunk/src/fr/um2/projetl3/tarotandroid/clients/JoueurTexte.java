@@ -334,7 +334,7 @@ public class JoueurTexte implements IJoueur
 	}
 
 
-	public void direMain(Main m) {
+	public void direMain(Vector<Carte> m) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -345,11 +345,6 @@ public class JoueurTexte implements IJoueur
 	}
 
 	public void recupererScores() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void direMain1(Main m) {
 		// TODO Auto-generated method stub
 		
 	}

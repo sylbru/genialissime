@@ -18,6 +18,11 @@ public class Main
 		cartes = new Vector<Carte>();
 	}
 	
+	public Main(Vector<Carte> vCartes)
+	{
+		cartes = vCartes;
+	}
+	
 	/**
 	 * Ajoute une carte passée en paramètre dans la main.
 	 * @param c une carte

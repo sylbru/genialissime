@@ -29,7 +29,7 @@ public class JoueurDistant implements IJoueur{
 	}
 	public void setNomDuJoueur(String s) {}
 	public String getNomDuJoueur(){return null;}
-	public void direMain(Main m)
+	public void direMain(Vector<Carte> m)
 	{
 		boolean mainnonenvoie = true;
 		while(mainnonenvoie)
@@ -43,7 +43,7 @@ public class JoueurDistant implements IJoueur{
 				if (message.getmessage()== 1)
 				{
 					Cartes c = null;
-					c.set(m.getCartes());
+					c.set(m);
 					server.sendMessage(c);
 					message = (MessageObjet) server.liremessage();
 					mainnonenvoie = false;
