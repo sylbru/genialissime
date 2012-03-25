@@ -110,6 +110,74 @@
 	/>
 	
 	<luascript
+		nom="Tables standard"
+		commentaire="Utilisés par l'IA par défaut et utilisables par des IA customisés"
+		executer="true"
+		lua="
+			tarot.chien={}
+			tarot.joueur={}
+			for i=1,4 do
+				tarot.joueur[i]={}
+				tarot.joueur[i].plis={}
+				tarot.joueur[i].cartes={}
+				tarot.joueur[i].cartes.possible={}
+				tarot.joueur[i].cartes.probable={}
+				for c=0,77 do
+					tarot.joueur[i].cartes.possible[i]=true
+					tarot.joueur[i].cartes.probable[i]=100
+				end
+			end
+					
+		"
+	
+	/>
+	
+	<luascript
+		nom="Operations Callback"
+		commentaire="Fonctions à redéfinir pour créer une IA"
+		executer="true"
+		lua="
+			tarot.demander = {}
+			tarot.dire = {}
+			
+			function tarot.demander.annonce()
+				return math.random(0,4)
+			end
+			
+			function tarot.demander.ecart()
+				local ecart = {}
+				for i=1,6 do
+					ecart[i]=math.random(0,77)
+				end
+				return ecart
+			end
+			
+			function tarot.demander.carte()
+				return math.random(0,77)
+			end
+			
+			function tarot.dire.chien(chien)
+			end
+			
+			function tarot.dire.cartejouee(carte, joueur)
+			end
+			
+			function tarot.dire.annonce(annonce, joueur)
+			end
+			
+			function tarot.dire.pliRemporte(pli, joueur)
+			end
+			
+			function tarot.dire.main(main)
+			end
+			
+			function tarot.dire.score(score)
+			end
+		"
+	
+	/>
+	
+	<luascript
 		nom="Script de test Lua"
 		commentaire="Script sans réelle utilité, ne sert que pour vérifier que Lua est chargé."
 		executer="false"

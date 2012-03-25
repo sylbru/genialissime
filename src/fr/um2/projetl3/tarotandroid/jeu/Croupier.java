@@ -1,5 +1,7 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
+import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
+
 public class Croupier {
 
 	/**
@@ -11,7 +13,7 @@ public class Croupier {
 	 */
 	void direMain(int i)
 	{
-		
+		P.getJoueur(i).direMain(P.donne().getMain(i).getCartes());
 	}
 	
 	/**
