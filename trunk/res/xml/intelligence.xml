@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <intelligence>
 	<luascript
+		nom="Cue"
+		commentaire="Système de files simple"
+		executer="true"
+		lua="
+			cue = {}
+
+			function cue.new()
+			local self = {}
+
+			function self:push(data)
+				self[#self+1]=data
+			end
+
+			function self:pop(index)
+				index = index or 1
+				if #self >= index then
+					local data = self[index]
+					table.remove(self, index)
+					return data
+				end
+			end
+
+			function self:isEmpty()
+				return #self == 0
+			end
+
+			function self:clear()
+				while not self:isEmpty() do
+					self:pop()
+				end
+			end
+
+			return self
+		end
+		"
+	
+	/>
+	<luascript
 		nom="Gestion du flux de sortie"
 		commentaire="Crée un tableau de chaines de charatères et des fonctions associées"
 		executer="true"
@@ -126,8 +164,7 @@
 					tarot.joueur[i].cartes.possible[i]=true
 					tarot.joueur[i].cartes.probable[i]=100
 				end
-			end
-					
+			end					
 		"
 	
 	/>
@@ -153,7 +190,7 @@
 			end
 			
 			function tarot.demander.carte()
-				return math.random(0,77)
+				return tarot.main.pop(math.random(0,#tarot.main))
 			end
 			
 			function tarot.dire.chien(chien)
@@ -169,6 +206,10 @@
 			end
 			
 			function tarot.dire.main(main)
+				tarot.main.clear()
+				for k,v in ipairs(main) do
+					tarot.main.push(v)
+				end
 			end
 			
 			function tarot.dire.score(score)

@@ -266,7 +266,6 @@ public class Donne
 				plisEnCours[numJoueur] = demanderCarteJoueur(numJoueur); //changement fabrice : jai suppose que l'orde de cartes n'estpas important
 				nbCartesPosees++;
 				direJoueursCarteJouee(plisEnCours[numJoueur], P.getJoueur(numJoueur));
-				
 				numJoueur = P.getNumJoueurApres(numJoueur);
 				setJoueurEnContactApres();
 			}
@@ -386,7 +385,7 @@ public class Donne
 		do
 		{
 			carteProposee = P.getJoueur(num).demanderCarte();
-			//System.out.println(carteProposee.toString()+" Carte légales: "+isCarteLegale(carteProposee, num)+"Carte possédée: "+mainsDesJoueurs[num].possede(carteProposee));
+			System.out.println(P.getJoueur(num).getNomDuJoueur()+" "+carteProposee.toString());
 			/*
 			 * test des condition de la boucle 
 			 * if(mainsDesJoueurs[num].contains(carteProposee)) System.out.println("contains !!!");
