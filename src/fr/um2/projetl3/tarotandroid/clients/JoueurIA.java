@@ -159,7 +159,7 @@ public class JoueurIA implements IJoueur
 		int c;
 		//this.pMain = D.getMain();
 		//D.getMain().affiche();
-		L.LdoString("tarot.main.clear()");
+		/*L.LdoString("tarot.main.clear()");
 		Vector<Carte> vCartes = D.indiquerCartesLegalesJoueur();
 		for (int i=0;i<vCartes.size();i++)
 		{
@@ -171,11 +171,11 @@ public class JoueurIA implements IJoueur
 			}
 			L.setGlobal("input");
 			L.LdoString("tarot.main.push(input)");
-		}
+		}*/
 		//L.LdoString("tarot.main.push(1) tarot.main.push(21) tarot.main.push(30) fluxus.push('Added cardz')");
-		L.LdoString("c = tarot.main.rndGetCard()");
+		L.LdoString("c = tarot.demander.carte()");
 		c = (int) L.getLuaObject("c").getNumber();
-		Carte ca = new Carte(c);
+		//Carte ca = new Carte(c);
 		//Log.d("played", ca.toString());
 		//L.LdoString("fluxus.push('Flal')");
 		//L.LdoString("tarot.main.push(1) tarot.main.push(21) tarot.main.push(30)");
@@ -218,6 +218,22 @@ public class JoueurIA implements IJoueur
 	}
 
 	public void direMain(Vector<Carte> m) {
+		//int icartes[] = new int[m.size()];
+		
+		L.LdoString("tarot.main.clear()");
+				for (int i=0;i<m.size();i++)
+		{
+			try {
+				L.pushObjectValue(m.elementAt(i).uid());
+			} catch (LuaException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			L.setGlobal("input");
+			L.LdoString("tarot.main.push(input)");
+		}
+
+		
 		// TODO Auto-generated method stub
 		
 	}

@@ -5,8 +5,6 @@ import java.util.Vector;
 
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
-import fr.um2.projetl3.tarotandroid.jeu.Main;
-import fr.um2.projetl3.tarotandroid.connection.Cartes;
 
 public interface IJoueur
 {
