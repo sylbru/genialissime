@@ -43,30 +43,7 @@
 		commentaire="Crée un tableau de chaines de charatères et des fonctions associées"
 		executer="true"
 		lua="
-			fluxus = {}
-			
-			function fluxus.pop()
-				local str = 'Fluxus vide...'
-				if #fluxus >= 1 then
-					str = fluxus[1]
-				end
-				table.remove(fluxus, 1)
-				return str
-			end
-			
-			function fluxus.push(str)
-					fluxus[#fluxus+1]=str
-			end
-			
-			function fluxus.clear()
-				while #fluxus>0 do 
-					fluxus.pop()
-				end
-			end
-			
-			function fluxus.isEmpty()
-				return #fluxus==0
-			end
+			fluxus = cue.new()
 			
 			fluxus.push('Fluxus initialisé')			
 		"
@@ -78,7 +55,9 @@
 		executer="true"
 		lua="
 			tarot={}
-			tarot.main={}
+			tarot.main=cue.new()
+			tarot.legal=cue.new()
+			tarot.pli=cue.new()
 			fluxus.push('Namespaces créés')
 		"
 	/>
@@ -99,31 +78,6 @@
 		commentaire=""
 		executer="true"
 		lua="
-			function tarot.main.pop(target)
-				target = target or 1
-				local card = -1
-				if #tarot.main >= 1 then
-					card = tarot.main[(target%#tarot.main)+1]
-				end
-				table.remove(tarot.main, (target%#tarot.main)+1)
-				return card
-			end
-			
-			function tarot.main.push(card)
-					card = card or -1
-					tarot.main[#tarot.main+1]=card
-			end
-			
-			function tarot.main.clear()
-				while #tarot.main>0 do 
-					tarot.main.pop()
-				end
-			end
-			
-			function tarot.main.isEmpty()
-				return #tarot.main==0
-			end
-			
 			function tarot.main.rndGetCard()
 				return tarot.main[math.random(1, #tarot.main)]
 			end
@@ -152,17 +106,17 @@
 		commentaire="Utilisés par l'IA par défaut et utilisables par des IA customisés"
 		executer="true"
 		lua="
-			tarot.chien={}
+			tarot.chien=cue.new()
 			tarot.joueur={}
 			for i=1,4 do
 				tarot.joueur[i]={}
-				tarot.joueur[i].plis={}
+				tarot.joueur[i].plis=cue.new()
 				tarot.joueur[i].cartes={}
 				tarot.joueur[i].cartes.possible={}
 				tarot.joueur[i].cartes.probable={}
 				for c=0,77 do
 					tarot.joueur[i].cartes.possible[i]=true
-					tarot.joueur[i].cartes.probable[i]=100
+					tarot.joueur[i].cartes.probable[i]=50
 				end
 			end					
 		"
@@ -190,7 +144,7 @@
 			end
 			
 			function tarot.demander.carte()
-				return tarot.main.pop(math.random(0,#tarot.main))
+				return tarot.legal:pop(math.random(0,#tarot.legal))
 			end
 			
 			function tarot.dire.chien(chien)

@@ -153,41 +153,71 @@ public class JoueurIA implements IJoueur
 		
 		return ecart;
 	}
-
-	public Carte demanderCarte()
-	{
-		int c;
-		//this.pMain = D.getMain();
-		//D.getMain().affiche();
-		/*L.LdoString("tarot.main.clear()");
+	
+	private void chargerLegal(){
+		L.LdoString("tarot.legal:clear()");
 		Vector<Carte> vCartes = D.indiquerCartesLegalesJoueur();
 		for (int i=0;i<vCartes.size();i++)
 		{
 			try {
 				L.pushObjectValue(vCartes.elementAt(i).uid());
+				L.setGlobal("input");
+				L.LdoString("tarot.legal:push(input)");
+				//System.out.println("Pushed a "+vCartes.elementAt(i).toString());
 			} catch (LuaException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			L.setGlobal("input");
-			L.LdoString("tarot.main.push(input)");
-		}*/
-		//L.LdoString("tarot.main.push(1) tarot.main.push(21) tarot.main.push(30) fluxus.push('Added cardz')");
+		}
+	}
+	
+	private void chargerPli(){
+		L.LdoString("tarot.pli:clear()");
+		Vector<Carte> vCartes = new Vector<Carte>();
+		System.out.println("Chargement du pli");
+		for (int i=0; i<4; i++)
+		{
+			System.out.println("Carte du pli numero "+i);
+			if (D.getPlisEnCours()[i]!=null)
+			{
+				System.out.println(D.getPlisEnCours()[i].toString());
+				vCartes.add(D.getPlisEnCours()[i]);
+			}
+		}
+		
+		for (int i=0;i<vCartes.size();i++)
+		{
+			try {
+				if (vCartes.elementAt(i) != null)
+				{
+					System.out.println("Poussage de "+i);
+					L.pushObjectValue(vCartes.elementAt(i).uid());
+					L.setGlobal("input");
+					L.LdoString("tarot.pli:push(input)");
+				}
+				//System.out.println("Pushed a "+vCartes.elementAt(i).toString());
+			} catch (LuaException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public Carte demanderCarte()
+	{
+		int c;
+		
+		chargerLegal();
+		chargerPli();
 		L.LdoString("c = tarot.demander.carte()");
 		c = (int) L.getLuaObject("c").getNumber();
-		//Carte ca = new Carte(c);
-		//Log.d("played", ca.toString());
-		//L.LdoString("fluxus.push('Flal')");
-		//L.LdoString("tarot.main.push(1) tarot.main.push(21) tarot.main.push(30)");
-		//L.LdoString("c = tarot.main.rndGetCard()");
-		//L.LdoString("c = tarot.rndCard()");
-		c = (int) L.getLuaObject("c").getNumber();
+		//System.out.println(this.pNom+" "+new Carte(c).toString());
 		return new Carte(c);
 	}
 	
 	public Carte demanderRoi()
 	{
-		// TODO Auto-generated method stub
+		//! TODO Méthode inutile à mon humble avis
 		return null;
 	}	
 	
@@ -195,13 +225,14 @@ public class JoueurIA implements IJoueur
 
 	public void direChien(Vector<Carte> chien)
 	{
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	public void direCarteJouee(Carte c, String j)
 	{
 		// TODO Auto-generated method stub
+		
 		
 	}
 	
@@ -232,6 +263,9 @@ public class JoueurIA implements IJoueur
 			L.setGlobal("input");
 			L.LdoString("tarot.main.push(input)");
 		}
+				
+		L.LdoString("tarot.dire.main(tarot.main)");
+		System.out.println(new Main(m).toString());
 
 		
 		// TODO Auto-generated method stub
@@ -242,6 +276,10 @@ public class JoueurIA implements IJoueur
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	private void updateLObjects()
+	{
+		
+	}
 
 }
