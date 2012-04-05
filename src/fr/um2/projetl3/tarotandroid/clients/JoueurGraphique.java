@@ -69,7 +69,7 @@ public class JoueurGraphique implements IJoueur {
 	}
 
 	
-	public Carte demanderRoi() {
+	public Carte demanderAppelAuRoi() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -87,19 +87,19 @@ public class JoueurGraphique implements IJoueur {
 	}
 
 	
-	public void direCarteJouee(Carte c, String j) {
+	public void direCarteJouee(Carte c, int j) {
 		// TODO Auto-generated method stub
 
 	}
 
 	
-	public void direAnnonce(Contrat c, String j) {
+	public void direAnnonce(Contrat c, int j) {
 		// TODO Auto-generated method stub
 
 	}
 
 	
-	public void direPliRemporté(Vector<Carte> pli, String joueur) {
+	public void direPliRemporté(Vector<Carte> pli, int joueur) {
 		// TODO Auto-generated method stub
 
 	}

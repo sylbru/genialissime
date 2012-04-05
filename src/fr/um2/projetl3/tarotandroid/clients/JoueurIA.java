@@ -3,6 +3,7 @@ package fr.um2.projetl3.tarotandroid.clients;
 import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
 import static fr.um2.projetl3.tarotandroid.jeu.Context.D;
 
+import java.util.Iterator;
 import java.util.Vector;
 
 import org.keplerproject.luajava.LuaException;
@@ -116,6 +117,7 @@ public class JoueurIA implements IJoueur
 	/*--- Methodes "demander" ---*/
 	public Contrat demanderAnnonce(Contrat contrat)
 	{
+		this.updateLObjects();
 		L.LdoString("cont = tarot.demander.annonce()");
 		int c = (int) L.getLuaObject("cont").getNumber();
 		System.out.println(c);
@@ -137,6 +139,7 @@ public class JoueurIA implements IJoueur
 	
 	public Vector<Carte> demanderEcart()
 	{
+		this.updateLObjects();
 		L.LdoString("ecart = tarot.demander.ecart()");
 		Vector<Carte> ecart = new Vector<Carte>();
 		int cecart[] = new int[6];
@@ -206,18 +209,17 @@ public class JoueurIA implements IJoueur
 	public Carte demanderCarte()
 	{
 		int c;
-		
-		chargerLegal();
-		chargerPli();
+		this.updateLObjects();
 		L.LdoString("c = tarot.demander.carte()");
 		c = (int) L.getLuaObject("c").getNumber();
 		//System.out.println(this.pNom+" "+new Carte(c).toString());
 		return new Carte(c);
 	}
 	
-	public Carte demanderRoi()
+	public Carte demanderAppelAuRoi()
 	{
-		//! TODO Méthode inutile à mon humble avis
+		this.updateLObjects();
+		// TODO 
 		return null;
 	}	
 	
@@ -225,24 +227,27 @@ public class JoueurIA implements IJoueur
 
 	public void direChien(Vector<Carte> chien)
 	{
-		
-		
+		L.LdoString("tarot.chien:clear()");
+		for(Iterator<Carte> it=chien.iterator();it.hasNext(); )
+		{
+			L.LdoString("tarot.chien:push("+it.next().uid()+")");
+		}
 	}
 
-	public void direCarteJouee(Carte c, String j)
+	public void direCarteJouee(Carte c, int j)
 	{
 		// TODO Auto-generated method stub
 		
 		
 	}
 	
-	public void direAnnonce(Contrat c, String j)
+	public void direAnnonce(Contrat c, int j)
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void direPliRemporté(Vector<Carte> pli, String joueur)
+	public void direPliRemporté(Vector<Carte> pli, int joueur)
 	{
 		// TODO Auto-generated method stub
 		
@@ -279,7 +284,10 @@ public class JoueurIA implements IJoueur
 	
 	private void updateLObjects()
 	{
-		
+		this.direMain(D.getMain().getCartes());
+		this.chargerLegal();
+		this.chargerPli();
+		this.direAnnonce(D.getContratEnCours(), D.getPreneur());
 	}
 
 }

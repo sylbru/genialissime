@@ -136,11 +136,12 @@ public class Donne
 	 * @param c La carte jouée
 	 * @param joueur Le joueur qui a joué la carte
 	 */
-	public void direJoueursCarteJouee(Carte c, IJoueur joueur)
+	public void direJoueursCarteJouee(Carte c, int joueur)
 	{
+		int pos = 0; 
 		for(IJoueur j: P.getJoueurs())
 		{
-			j.direCarteJouee(c, joueur.toString());
+			j.direCarteJouee(c, (pos-joueur)%P.getNombreDeJoueurs());
 		}
 	}
 	
@@ -150,8 +151,9 @@ public class Donne
 	 * @param c La carte jouée
 	 * @param joueur Le joueur qui a joué la carte
 	 */
-	public void direJoueursPliRemporté(Carte[] pli, IJoueur joueur)
+	public void direJoueursPliRemporté(Carte[] pli, int joueur)
 	{
+		int pos = 0;
 		for(IJoueur j: P.getJoueurs())
 		{
 			Vector<Carte> vPli = new Vector<Carte>(); 
@@ -160,7 +162,7 @@ public class Donne
 			{
 				vPli.add(pli[i]);
 			}
-			j.direPliRemporté(vPli, joueur.toString());
+			j.direPliRemporté(vPli, (pos-joueur)%P.getNombreDeJoueurs());
 		}
 	}
 		
@@ -265,13 +267,13 @@ public class Donne
 			{
 				plisEnCours[numJoueur] = demanderCarteJoueur(numJoueur); //changement fabrice : jai suppose que l'orde de cartes n'estpas important
 				nbCartesPosees++;
-				direJoueursCarteJouee(plisEnCours[numJoueur], P.getJoueur(numJoueur));
+				direJoueursCarteJouee(plisEnCours[numJoueur], numJoueur);
 				numJoueur = P.getNumJoueurApres(numJoueur);
 				setJoueurEnContactApres();
 			}
 			// nbCartesPosees == nbJoueurs : le tour est fini
 			numJoueurVainqueurPli = vainqueurDuPli(plisEnCours); 
-			direJoueursPliRemporté(plisEnCours, P.getJoueur(numJoueurVainqueurPli));
+			direJoueursPliRemporté(plisEnCours, numJoueurVainqueurPli);
 			if(isJoueurAttaque(numJoueurVainqueurPli)) 
 			{
 				plisAttaque.addAll(Arrays.asList(plisEnCours));

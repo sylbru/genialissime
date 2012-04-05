@@ -240,7 +240,7 @@ public class JoueurTexte implements IJoueur
 		return c;
 	}
 	
-	public Carte demanderRoi()
+	public Carte demanderAppelAuRoi()
 	{
 		Carte Roi = null;
 		System.out.println("Donnez la couleur du roi que vous voulez appeler");
@@ -293,7 +293,7 @@ public class JoueurTexte implements IJoueur
 		}
 	}
 	
-	public void direCarteJouee(Carte c, String j)
+	public void direCarteJouee(Carte c, int j)
 	{
 		if(!quiet)
 		{
@@ -302,7 +302,7 @@ public class JoueurTexte implements IJoueur
 	}
 	
 	// TODO: Il faudrait peut-être que ça indique aussi qui ouvrait et quelle carte a remporté le pli
-	public void direPliRemporté(Vector<Carte> pli, String joueur)
+	public void direPliRemporté(Vector<Carte> pli, int joueur)
 	{
 		if(!quiet)
 		{
@@ -315,7 +315,7 @@ public class JoueurTexte implements IJoueur
 		}
 	}
 	
-	public void direAnnonce(Contrat c, String joueur)
+	public void direAnnonce(Contrat c, int joueur)
 	{
 		if(!quiet)
 		{
