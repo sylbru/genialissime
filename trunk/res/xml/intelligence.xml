@@ -14,6 +14,18 @@
 				self[#self+1]=data
 			end
 
+			function self:getTruthTable()
+				local tab = {}
+				
+				for i=0,77 do
+					tab[i]=false
+				end
+				for i=1,#self do
+					tab[self[i]]=true
+				end
+				return tab
+			end
+			
 			function self:pop(index)
 				index = index or 1
 				if #self >= index then
