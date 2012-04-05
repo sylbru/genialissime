@@ -18,15 +18,15 @@ public interface IJoueur
 	Contrat demanderAnnonce(Contrat contrat);
 	Vector<Carte> demanderEcart();
 	Carte demanderCarte();
-	Carte demanderRoi(); //? A quoi sert cette fonction, ne serait-elle pas plus à se place dans Donne.getMain().possedeRoi() ?
+	Carte demanderAppelAuRoi(); //? A quoi sert cette fonction, ne serait-elle pas plus à se place dans Donne.getMain().possedeRoi() ?
 	// Carte demanderUneCartePourLecart(); // Obsolète, préferer la méthode Vector<Carte> demanderEcart()
 	
 	/*--- Méthodes "dire" ---*/
 	/* Les méthodes "dire" servent à informer les joueurs des évènements de la partie */
 	void direChien(Vector<Carte> chien);
-	void direCarteJouee(Carte c, String j);
-	void direAnnonce(Contrat c, String j);
-	void direPliRemporté(Vector<Carte> pli, String joueur);
+	void direCarteJouee(Carte c, int j);
+	void direAnnonce(Contrat c, int j);
+	void direPliRemporté(Vector<Carte> pli, int joueur);
 	void direMain(Vector<Carte> m);
 	void direScore();
 	

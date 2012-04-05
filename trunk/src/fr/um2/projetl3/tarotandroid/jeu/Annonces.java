@@ -56,7 +56,7 @@ public class Annonces
 				else
 				{
 					contrat = demanderAnnonceJoueur(numeroDuJoueur, contratMax);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
-					direJoueursAnnonce(contrat, P.getJoueur(numeroDuJoueur));
+					direJoueursAnnonce(contrat, numeroDuJoueur);
 					
 					if (contrat.getPoids() > contratMax.getPoids())
 					{
@@ -175,11 +175,13 @@ public class Annonces
 		return true;
 	}
 
-	protected static void direJoueursAnnonce(Contrat c, IJoueur joueur)
+	protected static void direJoueursAnnonce(Contrat c, int joueur)
 	{
+		int pos = 0;
 		for(IJoueur j: P.getJoueurs())
 		{
-			j.direAnnonce(c, joueur.toString());
+			j.direAnnonce(c, (joueur-pos)%P.getNombreDeJoueurs());
+			pos++;
 		}
 	}
 	
@@ -207,7 +209,7 @@ public class Annonces
 	
 	protected static void phaseAppelRoi()
 	{
-		Carte roi = P.getJoueur(D.getPreneur()).demanderRoi();
+		Carte roi = P.getJoueur(D.getPreneur()).demanderAppelAuRoi();
 		int nombreDeJoueurs = P.getNombreDeJoueurs();
 		for(int i = 0; i<nombreDeJoueurs; i++)
 		{

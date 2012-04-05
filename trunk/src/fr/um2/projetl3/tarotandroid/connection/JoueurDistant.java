@@ -102,13 +102,13 @@ public class JoueurDistant implements IJoueur{
 		return c;
 		
 	}
-	public Carte demanderRoi(){return null;}
+	public Carte demanderAppelAuRoi(){return null;}
 	public Carte demanderUneCartePourLecart(){return null;}
 	
 	public void direChien(Vector<Carte> chien){}
-	public void direCarteJouee(Carte c, String j){}
-	public void direAnnonce(Contrat c, String j){}
-	public void direPliRemporté(Vector<Carte> pli, String joueur){}
+	public void direCarteJouee(Carte c, int j){}
+	public void direAnnonce(Contrat c, int j){}
+	public void direPliRemporté(Vector<Carte> pli, int joueur){}
 	
 	public void effectuerRequetteJoueur(MessageObjet o)
 	{
