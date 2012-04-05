@@ -385,7 +385,7 @@ public class Donne
 		do
 		{
 			carteProposee = P.getJoueur(num).demanderCarte();
-			System.out.println(P.getJoueur(num).getNomDuJoueur()+" "+carteProposee.toString());
+			//System.out.println(P.getJoueur(num).getNomDuJoueur()+" "+carteProposee.toString());
 			/*
 			 * test des condition de la boucle 
 			 * if(mainsDesJoueurs[num].contains(carteProposee)) System.out.println("contains !!!");
