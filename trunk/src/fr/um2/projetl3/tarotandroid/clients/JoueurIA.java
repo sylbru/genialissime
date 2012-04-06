@@ -120,14 +120,18 @@ public class JoueurIA implements IJoueur
 		this.updateLObjects();
 		L.LdoString("cont = tarot.demander.annonce()");
 		int c = (int) L.getLuaObject("cont").getNumber();
-		System.out.println(c);
+		//int c = (int) Math.floor(Math.random()*5);
+		System.out.println("Je m'appelle "+this.pNom+".\nMa main est ");
+		D.getMain().affiche();
+		System.out.println("et je fais le contrat numero "+c);
+		System.out.println("Mon flal est "+(int) L.getLuaObject("flal").getNumber());
 		switch (c){
 		case 0:
 			return Contrat.PASSE;
 		case 1:
-			return Contrat.GARDE_SANS;
+			return Contrat.PETITE;
 		case 2:
-			return Contrat.GARDE_CONTRE;
+			return Contrat.GARDE;
 		case 3:
 			return Contrat.GARDE_SANS;
 		case 4:
@@ -135,26 +139,43 @@ public class JoueurIA implements IJoueur
 		default:
 			return Contrat.PASSE;
 		}
+		
 	}
 	
 	public Vector<Carte> demanderEcart()
 	{
-		this.updateLObjects();
+		//this.updateLObjects();
+		this.chargerMain();
 		L.LdoString("ecart = tarot.demander.ecart()");
+		int c;
 		Vector<Carte> ecart = new Vector<Carte>();
-		int cecart[] = new int[6];
-		try {
-			cecart = (int[]) L.getLuaObject("ecart").getObject();
-		} catch (LuaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		System.out.println("Mon écart qui tue:");
+		for (int i=1; i<=6; i++)
+		{	
+			L.LdoString("c = ecart:pop()");
+			c = (int) L.getLuaObject("c").getNumber();
+			//c = (int) Math.floor(Math.random()*78);
+			System.out.println(new Carte(c).toString());
+			ecart.add(new Carte(c));
 		}
-		for (int i=0; i<6; i++)
-		{
-			ecart.add(new Carte(cecart[i]));
-		}
-		
 		return ecart;
+	}
+	
+	private void chargerMain(){
+		L.LdoString("tarot.main:clear()");
+		Vector<Carte> vCartes = D.getMain().getCartes();
+		for (int i=0;i<vCartes.size();i++)
+		{
+			try {
+				L.pushObjectValue(vCartes.elementAt(i).uid());
+				L.setGlobal("input");
+				L.LdoString("tarot.main:push(input)");
+				//System.out.println("Pushed a "+vCartes.elementAt(i).toString());
+			} catch (LuaException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	private void chargerLegal(){
@@ -177,13 +198,13 @@ public class JoueurIA implements IJoueur
 	private void chargerPli(){
 		L.LdoString("tarot.pli:clear()");
 		Vector<Carte> vCartes = new Vector<Carte>();
-		System.out.println("Chargement du pli");
+		//System.out.println("Chargement du pli");
 		for (int i=0; i<4; i++)
 		{
-			System.out.println("Carte du pli numero "+i);
+			//System.out.println("Carte du pli numero "+i);
 			if (D.getPlisEnCours()[i]!=null)
 			{
-				System.out.println(D.getPlisEnCours()[i].toString());
+				//System.out.println(D.getPlisEnCours()[i].toString());
 				vCartes.add(D.getPlisEnCours()[i]);
 			}
 		}
@@ -193,7 +214,7 @@ public class JoueurIA implements IJoueur
 			try {
 				if (vCartes.elementAt(i) != null)
 				{
-					System.out.println("Poussage de "+i);
+					//System.out.println("Poussage de "+i);
 					L.pushObjectValue(vCartes.elementAt(i).uid());
 					L.setGlobal("input");
 					L.LdoString("tarot.pli:push(input)");
@@ -208,10 +229,12 @@ public class JoueurIA implements IJoueur
 
 	public Carte demanderCarte()
 	{
+		this.chargerLegal();
 		int c;
-		this.updateLObjects();
+		//this.updateLObjects();
 		L.LdoString("c = tarot.demander.carte()");
 		c = (int) L.getLuaObject("c").getNumber();
+		//D.getMain().affiche();
 		//System.out.println(this.pNom+" "+new Carte(c).toString());
 		return new Carte(c);
 	}
@@ -269,8 +292,8 @@ public class JoueurIA implements IJoueur
 			L.LdoString("tarot.main.push(input)");
 		}
 				
-		L.LdoString("tarot.dire.main(tarot.main)");
-		System.out.println(new Main(m).toString());
+		//L.LdoString("tarot.dire.main(tarot.main)");
+		//System.out.println(new Main(m).toString());
 
 		
 		// TODO Auto-generated method stub
@@ -284,8 +307,8 @@ public class JoueurIA implements IJoueur
 	
 	private void updateLObjects()
 	{
-		this.direMain(D.getMain().getCartes());
-		this.chargerLegal();
+		this.chargerMain();
+		//this.chargerLegal();
 		this.chargerPli();
 		this.direAnnonce(D.getContratEnCours(), D.getPreneur());
 	}

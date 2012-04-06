@@ -16,15 +16,14 @@
 
 			function self:getTruthTable()
 				local tab = {}
-				
 				for i=0,77 do
 					tab[i]=false
 				end
 				for i=1,#self do
 					tab[self[i]]=true
 				end
-				return tab
 			end
+					
 			
 			function self:pop(index)
 				index = index or 1
@@ -57,7 +56,7 @@
 		lua="
 			fluxus = cue.new()
 			
-			fluxus.push('Fluxus initialisé')			
+			fluxus:push('Fluxus initialisé')			
 		"
 	/>
 	
@@ -70,7 +69,7 @@
 			tarot.main=cue.new()
 			tarot.legal=cue.new()
 			tarot.pli=cue.new()
-			fluxus.push('Namespaces créés')
+			fluxus:push('Namespaces créés')
 		"
 	/>
 	
@@ -94,10 +93,10 @@
 				return tarot.main[math.random(1, #tarot.main)]
 			end
 			function tarot.main.rndPopCard()
-				return tarot.main.pop(math.random(#tarot.main))
+				return tarot.main:pop(math.random(#tarot.main))
 			end
 			
-			fluxus.push('Fonctions sur la main créés')
+			fluxus:push('Fonctions sur la main créés')
 		"
 	/>
 	
@@ -106,7 +105,7 @@
 		commentaire="WOOHOO"
 		executer="true"
 		lua="
-			tarot.rndContrat()
+			function tarot.rndContrat()
 				return math.random(0,4)
 			end 
 		"
@@ -148,9 +147,9 @@
 			end
 			
 			function tarot.demander.ecart()
-				local ecart = {}
+				local ecart = cue.new()
 				for i=1,6 do
-					ecart[i]=math.random(0,77)
+					ecart:push(tarot.main:pop(math.random(0,#tarot.main)))
 				end
 				return ecart
 			end
@@ -172,10 +171,6 @@
 			end
 			
 			function tarot.dire.main(main)
-				tarot.main.clear()
-				for k,v in ipairs(main) do
-					tarot.main.push(v)
-				end
 			end
 			
 			function tarot.dire.score(score)
@@ -189,7 +184,7 @@
 		commentaire="Script sans réelle utilité, ne sert que pour vérifier que Lua est chargé."
 		executer="false"
 		lua="
-			fluxus.push('Script de test chargé')
+			fluxus:push('Script de test chargé')
 		"
 	/>
 	
@@ -198,117 +193,117 @@
 		commentaire=" Permet de renvoyer l'annonce que veux faire l'IA (indexer 0 à 4)"
 		executer="true"
 		lua="
-			function tarot.demander.annonce()
-				local c = 0
-				local i = function(n)
-					local n=(n or 1)
-					c = c + n	
-				end
+			flal = 12
+function tarot.demander.annonce()
+	local c = 0
+	function inc(n)
+		local n=(n or 1)
+		c = c + n	
+	end
+	
+	local j = 21
+	local tempC = 0
+	nbrCarteParCouleur = {}
+	nbrAtout = 0
+	nbrAtoutMajeur =0
+	
+	maMain = tarot.main:getTruthTable()
+	
+	for i=0,21 do
+		if maMain[i] then 
+			nbrAtout = nbrAtout + 1
+		end
+	end
+	
+	for i=16,21 do
+		if maMain[i] then
+			nbrAtoutMajeur = nbrAtoutMajeur + 1
+		end
+	end
+
+	inc(nbrAtoutMajeur*2)
+
+	for i=17,21 do
+	if maMain[i-1] and maMain[i] then
+		inc()
+	end
 				
-				local j = 21
-				local tempC = 0
-				nbrCarteParCouleur = {}
-				nbrAtout = 0
-				nbrAtoutMajeur =0
-				
-				maMain = tarot.main:getTruthTable()
-				
-				for (i=0,21) do
-					if (maMain[i]) then 
-						nbrAtout = nbrAtout + 1
-					end
-				end
-				
-				for (i=16,21) do
-					if (maMain[i]) then
-						nbrAtoutMajeur = nbrAtoutMajeur + 1
-					end
-				end
+	if maMain[21] then
+		inc(10)
+	end
+	if maMain[0] then
+		inc(8)
+	end
+	
+	if maMain[1] then
+		if 5 > nbrAtout then
+		end
+		if nbrAtout == 4 then
+			inc(5)
+		end
+		if nbrAtout == 5 then
+			inc(7)
+		end
+		if nbrAtout >= 6 then
+			inc(9)
+		end
 			
-				i(nbrAtoutMajeur*2)
-			
-				for (i=17,21) do
-				if (maMain[i-1] and maMain[i]) then
-					i()
-				end
+		if nbrAtout > 4 then
+			inc(nbrAtout*2)
+		end	
 				
-				if (maMain[21]) then
-					i(10)
-				end
-				if (maMain[0]) then
-					i(8)
-				end
-				
-				if (maMain[1]) then
-					if (5 > nbrAtout) then
-					end
-					if (nbrAtout == 4) then
-						i(5)
-					end
-					if (nbrAtout == 5) then
-						i(7)
-					end
-					if (nbrAtout >= 6) then
-						i(9)
-					end
-				end
-				
-				if (nbrAtout > 4) then
-					i(nbrAtout*2)
-				end	
-				
-				for (i=1,4) do
-				
-					if (maMain[j+14] and maMain[j + 13]) then 
-						i()
-					end
-					if maMain[j+14] then 
-						i(6)
-					end
-					if maMain[j + 13] then 
-						i(3)
-					end
-					if maMain[j + 12] then 
-						i(2)
-					end
-					if maMain[j + 11] then 
-						i()
-					end
-					
-					for(k=1,14) do
-						if maMain[j+k] then 
-							nbrCarteParCouleur[i] = nbrCarteParCouleur[i] + 1
-						end
-					end
-					
-					if (nbrCarteParCouleur[i] == 0) then 
-						i(6)
-					else if (nbrCarteParCouleur == 1) then 
-						i(3)
-					else if (nbrCarteParCouleur == 5) then 
-						i(5)
-					else if (nbrCarteParCouleur == 6) then 
-						i(7)
-					else if (nbrCarteParCouleur >= 7) then 
-						i(9)
-					end
-					
-					j = j + 14
-				end
-				
-				if (c > 80) then 
-					return 4
-				else if (c	> 70) then 
-					return 3
-				else if (c > 55) then
-					return 2
-				else if (c > 40) then 
-					return 1
-				else
-					return 0
-				end
-				
+		for i=1,4 do
+			if maMain[j+14] and maMain[j + 13] then 
+				inc()
 			end
+			if maMain[j+14] then 
+				inc(6)
+			end
+			if maMain[j + 13] then 
+				inc(3)
+			end
+			if maMain[j + 12] then 
+				inc(2)
+			end
+			if maMain[j + 11] then 
+				inc()
+			end
+			
+			for k=1,14 do
+				if maMain[j+k] then 
+					nbrCarteParCouleur[i] = nbrCarteParCouleur[i] + 1
+				end
+			end
+			
+			if nbrCarteParCouleur[i] == 0 then 
+				inc(6)
+			elseif nbrCarteParCouleur == 1 then 
+				inc(3)
+			elseif nbrCarteParCouleur == 5 then 
+				inc(5)
+			elseif nbrCarteParCouleur == 6 then 
+				inc(7)
+			elseif nbrCarteParCouleur >= 7 then 
+				inc(9)
+			end
+			
+			j = j + 14
+		end
+		flal = c
+		if c > 80 then 
+			return 4
+		elseif c > 70 then 
+			return 3
+		elseif c > 55 then
+			return 2
+		elseif c > 40 then 
+			return 1
+		else
+			return 0
+		end
+		
+	end
+end
 			
 		"
 	/>
