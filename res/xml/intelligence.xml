@@ -22,6 +22,7 @@
 				for i=1,#self do
 					tab[self[i]]=true
 				end
+				return tab
 			end
 					
 			
@@ -81,6 +82,7 @@
 			function tarot.rndCard()
 				return math.random(0,77)
 			end
+			flal = 5
 		"
 	/>
 	
@@ -142,7 +144,7 @@
 			tarot.demander = {}
 			tarot.dire = {}
 			
-			function tarot.demander.annonce()
+			function tarot.demander.annonce2()
 				return math.random(0,4)
 			end
 			
@@ -193,14 +195,9 @@
 		commentaire=" Permet de renvoyer l'annonce que veux faire l'IA (indexer 0 à 4)"
 		executer="true"
 		lua="
-			flal = 12
+flal = 1
 function tarot.demander.annonce()
-	local c = 0
-	function inc(n)
-		local n=(n or 1)
-		c = c + n	
-	end
-	
+	local c = 0	
 	local j = 21
 	local tempC = 0
 	nbrCarteParCouleur = {}
@@ -221,52 +218,53 @@ function tarot.demander.annonce()
 		end
 	end
 
-	inc(nbrAtoutMajeur*2)
+	c=(c+(nbrAtoutMajeur*2))
 
 	for i=17,21 do
-	if maMain[i-1] and maMain[i] then
-		inc()
+		if maMain[i-1] and maMain[i] then
+			c=(c+1)
+		end
 	end
 				
 	if maMain[21] then
-		inc(10)
+		c=(c+10)
 	end
 	if maMain[0] then
-		inc(8)
+		c=(c+8)
 	end
 	
 	if maMain[1] then
 		if 5 > nbrAtout then
 		end
 		if nbrAtout == 4 then
-			inc(5)
+			c=(c+5)
 		end
 		if nbrAtout == 5 then
-			inc(7)
+			c=(c+7)
 		end
 		if nbrAtout >= 6 then
-			inc(9)
+			c=(c+9)
 		end
 			
 		if nbrAtout > 4 then
-			inc(nbrAtout*2)
+			c=(c+(nbrAtout*2))
 		end	
 				
 		for i=1,4 do
 			if maMain[j+14] and maMain[j + 13] then 
-				inc()
+				c=(c+1)
 			end
 			if maMain[j+14] then 
-				inc(6)
+				c=(c+6)
 			end
 			if maMain[j + 13] then 
-				inc(3)
+				c=(c+3)
 			end
 			if maMain[j + 12] then 
-				inc(2)
+				c=(c+2)
 			end
 			if maMain[j + 11] then 
-				inc()
+				c=(c+1)
 			end
 			
 			for k=1,14 do
@@ -276,34 +274,34 @@ function tarot.demander.annonce()
 			end
 			
 			if nbrCarteParCouleur[i] == 0 then 
-				inc(6)
+				c=(c+6)
 			elseif nbrCarteParCouleur == 1 then 
-				inc(3)
+				c=(c+3)
 			elseif nbrCarteParCouleur == 5 then 
-				inc(5)
+				c=(c+5)
 			elseif nbrCarteParCouleur == 6 then 
-				inc(7)
+				c=(c+7)
 			elseif nbrCarteParCouleur >= 7 then 
-				inc(9)
+				c=(c+9)
 			end
 			
 			j = j + 14
 		end
-		flal = c
+		flal=c
 		if c > 80 then 
-			return 4
+			return 4, flal
 		elseif c > 70 then 
-			return 3
+			return 3, flal
 		elseif c > 55 then
-			return 2
+			return 2, flal
 		elseif c > 40 then 
-			return 1
+			return 1, flal
 		else
-			return 0
+			return 0, flal
 		end
-		
 	end
 end
+flal = 2
 			
 		"
 	/>
