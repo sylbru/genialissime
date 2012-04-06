@@ -58,58 +58,6 @@ public class TestKevinActivity extends Activity {
 					Toast.makeText(getBaseContext(),
         				testy.popFluxus(),Toast.LENGTH_SHORT).show();
 				}
-				/*if (!testy.fluxusVide())
-				{
-					s = testy.popFluxus();
-				} else {
-					Carte c = testy.demanderCarte();
-					s = c.toString();
-				}*/
-				Carte c = testy.demanderCarte();
-				s = c.toString();
-				/*try {
-					L.pushObjectValue(s);
-				} catch (LuaException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				L.setGlobal("s");*/
-				//InputStream is = getResources().openRawResource(R.raw.test);
-				//L.LdoFile("raw/test");  //getResources().getResourceName(R.raw.test)+".lua");
-				/*try {
-					s = "You what?";
-					L.LdoString("s='start'");
-					XmlPullParser xpp = getResources().getXml(R.xml.intelligence);
-					while (xpp.getEventType()!=XmlPullParser.END_DOCUMENT) {
-						if (xpp.getEventType()==XmlPullParser.START_TAG){
-							if(xpp.getName().equals("luascript")){
-								//s = L.getLuaObject("s").getString()+"\n"+xpp.getAttributeValue(0);
-								L.LdoString(xpp.getAttributeValue(null, "lua"));
-							} else {
-								//s = xpp.getName()+" Echoué";
-							}
-						}
-						xpp.next();
-					}
-				} catch (Throwable t) {
-					s = t.toString();
-				}*/
-				//LuaObject fluxvide = L.getLuaObject("fluxus.estVide");
-				//L.LdoString("s=test()");
-				/*try {
-					while (){
-						L.LdoString("");
-					}
-				} catch (LuaException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
-
-				
-				//s = L.getLuaObject("s").toString();
-				
-				// I WAS HERE ! L.LdoString(xpp);
-				
 				boutonTest.setTextSize(20);
 				boutonTest.setText(s);
 			}

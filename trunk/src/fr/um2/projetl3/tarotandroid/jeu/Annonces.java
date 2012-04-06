@@ -152,8 +152,12 @@ public class Annonces
 		Contrat annonceProposée = Contrat.AUCUN;
 		do
 		{
-			System.out.println("Hey! "+num+" Tu annonce quoi?");
+			//System.out.println("Hey! "+num+" Tu annonce quoi?");
 			annonceProposée = P.getJoueur(num).demanderAnnonce(contratMax);
+			if (annonceProposée.getPoids() <= contratMax.getPoids())
+			{
+				annonceProposée = Contrat.PASSE;
+			}
 			System.out.println(num+" annonce "+annonceProposée.getName());
 		}
 		while(!annonceValide(annonceProposée));

@@ -39,7 +39,15 @@ public class JoueurIA implements IJoueur
 				if (xpp.getEventType()==XmlPullParser.START_TAG){
 					if(xpp.getName().equals("luascript")){
 						//s = L.getLuaObject("s").getString()+"\n"+xpp.getAttributeValue(0);
-						L.LdoString(xpp.getAttributeValue(null, "lua"));
+						//System.out.println(xpp.getAttributeValue(null, "executer"));
+						if (xpp.getAttributeValue(null, "executer").equals(new String("true")))
+						{
+							//System.out.println("Did lua");
+							L.LdoString(xpp.getAttributeValue(null, "lua"));
+						} else {
+							//System.out.println("Skipped");
+						}
+						
 					} else {
 						//s = xpp.getName()+" Echoué";
 					}
@@ -57,7 +65,7 @@ public class JoueurIA implements IJoueur
 		
 		try
 		{
-			L.LdoString("s = fluxus.pop()");
+			L.LdoString("s = fluxus:pop()");
 			s = L.getLuaObject("s").getString();
 		}
 		catch (Throwable t)
@@ -91,7 +99,7 @@ public class JoueurIA implements IJoueur
 		
 		try
 		{
-			L.LdoString("b = fluxus.isEmpty()");
+			L.LdoString("b = fluxus:isEmpty()");
 			b = L.getLuaObject("b").getBoolean();
 		}
 		catch (Throwable t)
@@ -110,7 +118,6 @@ public class JoueurIA implements IJoueur
 
 	public String getNomDuJoueur() 
 	{
-		// TODO Auto-generated method stub
 		return this.pNom;
 	}
 
@@ -118,13 +125,14 @@ public class JoueurIA implements IJoueur
 	public Contrat demanderAnnonce(Contrat contrat)
 	{
 		this.updateLObjects();
-		L.LdoString("cont = tarot.demander.annonce()");
+		L.LdoString("cont,flal = tarot.demander.annonce()");
 		int c = (int) L.getLuaObject("cont").getNumber();
 		//int c = (int) Math.floor(Math.random()*5);
 		System.out.println("Je m'appelle "+this.pNom+".\nMa main est ");
 		D.getMain().affiche();
 		System.out.println("et je fais le contrat numero "+c);
-		System.out.println("Mon flal est "+(int) L.getLuaObject("flal").getNumber());
+		int flal = (int) L.getLuaObject("flal").getNumber();
+		System.out.println("Mon flal est "+flal);
 		switch (c){
 		case 0:
 			return Contrat.PASSE;
@@ -149,13 +157,13 @@ public class JoueurIA implements IJoueur
 		L.LdoString("ecart = tarot.demander.ecart()");
 		int c;
 		Vector<Carte> ecart = new Vector<Carte>();
-		System.out.println("Mon écart qui tue:");
+		//System.out.println("Mon écart qui tue:");
 		for (int i=1; i<=6; i++)
 		{	
 			L.LdoString("c = ecart:pop()");
 			c = (int) L.getLuaObject("c").getNumber();
 			//c = (int) Math.floor(Math.random()*78);
-			System.out.println(new Carte(c).toString());
+			//System.out.println(new Carte(c).toString());
 			ecart.add(new Carte(c));
 		}
 		return ecart;
