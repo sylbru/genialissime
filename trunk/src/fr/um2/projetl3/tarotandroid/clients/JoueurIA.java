@@ -135,7 +135,7 @@ public class JoueurIA implements IJoueur
 		System.out.println("Mon flal est "+flal);
 		switch (c){
 		case 0:
-			return Contrat.PASSE;
+			return Contrat.PETITE;
 		case 1:
 			return Contrat.PETITE;
 		case 2:
