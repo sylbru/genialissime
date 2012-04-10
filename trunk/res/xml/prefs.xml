@@ -21,15 +21,7 @@
             <CheckBoxPreference android:title="Compter Misère" android:key="MIS"/>
             <CheckBoxPreference android:title="Compter Petit au bout" android:key="PAB" android:summaryOn="Seulement si Petit au dernier pli"/>
             <CheckBoxPreference android:title="Compter Roi au bout" android:key="RAB" android:summaryOn="Seulement si Roi au dernier pli"/>
-            <PreferenceScreen android:key="PTS" android:title="Points">
-                <RadioGroup android:padding="5px" android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_width="fill_parent" android:id="@+id/RadioGroup1"> 
-				<RadioButton android:id="@+id/radio1" android:text= "Ne pas arrondir" android:layout_width="fill_parent"/>
-                <RadioButton android:id="@+id/radio2" android:text= "Ne pas arrondir" android:layout_width="fill_parent"/>
-                <RadioButton android:id="@+id/radio3" android:text= "Ne pas arrondir" android:layout_width="fill_parent"/>
-                </RadioGroup>
-            </PreferenceScreen>
+            
         </PreferenceScreen>
         <CheckBoxPreference android:summaryOff="Interdiction de poser les 3 bouts dans un pli" android:title="Autoriser 3 Bouts" android:key="A3BDP" android:summaryOn="Autorisation de poser les 3 bouts dans un pli"/>
     </PreferenceScreen>
