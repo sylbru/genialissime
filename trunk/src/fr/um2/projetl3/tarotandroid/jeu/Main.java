@@ -218,4 +218,8 @@ public class Main
 		System.out.println(m.cartes.size());*/
 	}
 
+	public void clear() {
+		cartes.clear();	
+	}
+
 }

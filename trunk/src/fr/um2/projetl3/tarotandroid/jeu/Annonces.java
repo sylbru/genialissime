@@ -56,14 +56,13 @@ public class Annonces
 				else
 				{
 					contrat = demanderAnnonceJoueur(numeroDuJoueur, contratMax);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
-					direJoueursAnnonce(contrat, numeroDuJoueur);
+					System.out.println("coucou");
+//					direJoueursAnnonce(contrat, numeroDuJoueur);
 					
 					if (contrat.getPoids() > contratMax.getPoids())
 					{
 						contratMax = contrat;
 					}
-					// System.out.println("Contrat du joueur "+P.getJoueur(numeroDuJoueur).getNomDuJoueur()+" : "+contrat.getName());
-					
 					tableauDesContrats[numeroDuJoueur] = contrat ; // on stocke les contrat que les joueur veulent faire
 					afficherTableauDesContrats();
 					
@@ -83,12 +82,6 @@ public class Annonces
 							numDernierJoueurTemporaire = numeroDuJoueur;
 						}
 					}
-					/*   Test
-					 *	
-					 *	System.out.println("numero du joueur : "+ numeroDuJoueur);
-						System.out.println("numero du dernier : "+ numDernierJoueur);
-						System.out.println("numero du dernier temporaire : "+ numDernierJoueurTemporaire); 
-					 */
 					if(numeroDuJoueur == numDernierJoueur) // si on as fait un tour d'annonce
 					{
 						System.out.println("4");
@@ -124,14 +117,23 @@ public class Annonces
 			}
 			numeroDuJoueur = P.getNumJoueurApres(numeroDuJoueur);
 		}
-		System.out.println("Flalblalal"+joueurQuiVaPrendre);
-		System.out.println(nombreDeJoueurs);
-		D.setContratEnCours(tableauDesContrats[joueurQuiVaPrendre]);
-		D.setPreneur(joueurQuiVaPrendre); // preneur est donc à -1 si personne n’a pris
 		
-		if(nombreDeJoueurs == 5)
+		System.out.println("Joueur qui va prendre : "+joueurQuiVaPrendre);
+		System.out.println(nombreDeJoueurs);
+		
+		if(joueurQuiVaPrendre != -1)
 		{
-			phaseAppelRoi();
+			D.setContratEnCours(tableauDesContrats[joueurQuiVaPrendre]);
+			D.setPreneur(joueurQuiVaPrendre); // preneur est donc à -1 si personne n’a pris
+			
+			if(nombreDeJoueurs == 5)
+			{
+				phaseAppelRoi();
+			}
+		}
+		else 
+		{
+			D.setContratEnCours(Contrat.AUCUN);
 		}
 	}
 	
@@ -149,10 +151,13 @@ public class Annonces
 	 */
 	protected static Contrat demanderAnnonceJoueur(int num, Contrat contratMax)
 	{
+		// TODO ajouter une limite
 		Contrat annonceProposée = Contrat.AUCUN;
+		int tentative = 0 ;
 		do
 		{
-			//System.out.println("Hey! "+num+" Tu annonce quoi?");
+			tentative++;
+			
 			annonceProposée = P.getJoueur(num).demanderAnnonce(contratMax);
 			if (annonceProposée.getPoids() <= contratMax.getPoids())
 			{
@@ -160,7 +165,13 @@ public class Annonces
 			}
 			System.out.println(num+" annonce "+annonceProposée.getName());
 		}
-		while(!annonceValide(annonceProposée));
+		while(!annonceValide(annonceProposée) && tentative < 3);
+		
+		if (tentative == 3)
+		{
+			System.out.println("Trop d'annonce invalide donc contrat := Passe");
+			annonceProposée = Contrat.PASSE;
+		}
 		
 		return annonceProposée;
 	}

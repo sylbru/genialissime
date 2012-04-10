@@ -33,12 +33,10 @@ public class JoueurTexte implements IJoueur
 	public Contrat demanderAnnonce(Contrat contrat)
 	{
 		Contrat c = null;
-		int compteur=0;//pour que le joueur ne puisse pas rentrer plus de 5 fois une mauvaise garde
 		boolean mauvais_Contrat=true;
 		System.out.println(nom + ", à vous de parler :");
-		while(mauvais_Contrat && compteur<5)
+		while(mauvais_Contrat)
 		{
-			compteur++;
 			switch(contrat.getPoids())
 			{
 			case 0:
@@ -93,13 +91,7 @@ public class JoueurTexte implements IJoueur
 			{
 				mauvais_Contrat=false;
 			}
-		}
-		if(compteur==5)
-		{
-			c = Contrat.PASSE;
-			System.out.println("trop de mauvais choix, Passe par defaut");
-		}
-			
+		}	
 		return c;
 	}
 	
@@ -161,7 +153,7 @@ public class JoueurTexte implements IJoueur
 		System.out.println();
 		return cartesLegales;
 	}
-	
+// velizar.vesselinov@gmail.com	
 	public JoueurTexte(String nom)
 	{
 		this.nom = nom;

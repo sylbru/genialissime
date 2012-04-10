@@ -357,6 +357,7 @@ public class Partie
 	
 	protected void lancerPartie()
 	{
+		System.out.println("coucou");
 		initialisationPartie();
 		Contrat.initialiserContrats();
 		//donneEnCours.init();
@@ -370,10 +371,6 @@ public class Partie
 			 * logiquement on as une partie qui contient X donne et une donne peut ou peut ne pas être jouer
 			 * 
 			 *   Alors ? quelqu'un en pense quelque chose ?
-			 *   
-			 *   non je pense que c'est meiu de le laisser là pourqui :
-			 *   dans l while(!partieFinie)
-			 *   	on à les phase d'une donne répéter tant que la partie n'est pas finie
 			 * 
 			 * 	faudrait arreter de mettre des choses dans donne sinon on va se retrouver avec 1K de ligen de code et se sera un peu la erde pour si retrouver
 			 *  dans partie il n'y apas tant de ligne que ça et ça ne dérage pas.
@@ -382,21 +379,20 @@ public class Partie
 			 */
 			donne.distribution();
 			Annonces.phaseAnnonce(); // à voir (il faudrait que ce soit lié à donneEnCours d’une manière ou d’une autre)
-			
+			System.out.println(donne.getContratEnCours());
 			if(donne.getContratEnCours() != Contrat.AUCUN) // si il n'y a pas de contrat il faut arreter la donne.
 			{
 				System.out.println("Contrat en cours : "+donne.getContratEnCours()+" par "+P.getNomNumJoueur(D.getPreneur()));
 				phaseChienEcart();
 				donne.jeuDeLaCarte();
 				scores.phaseScore();
-				donne.reformerTas();
 			}
 			else
 			{
 				System.out.println("Aucun contrat de fait => nouvelle donne");
 				// C’est le cas où tout le monde a passé.
-				// Montrer les jeux de tout le monde avant de redistribuer ?
 			}
+			donne.reformerTas();
 		}
 	}
 	
@@ -476,17 +472,10 @@ public class Partie
 	public static void main(String[] args)
 	{
 		P = new Partie();
-		P.lancerPartieDistante();
-
-
-	//	P.lancerPartie4JoueursTexte();
 
 		P.lancerPartie4JoueursTexte();
-
-
-		P.lancerPartie4JoueursTexte();
-		
-
+		System.out.println("coucou1");
+	
 	}
 
 
