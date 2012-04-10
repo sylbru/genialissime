@@ -2,7 +2,6 @@ package fr.um2.projetl3.tarotandroid.jeu;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 import java.util.Vector;
@@ -12,14 +11,14 @@ import fr.um2.projetl3.tarotandroid.clients.IJoueur;
 public class Donne
 {
 	private Main mainsDesJoueurs[];
-	private Carte chien[];
+	private Vector<Carte> chien;
 	private Partie P; // la partie à laquelle appartient cette donne
 	
 	private Contrat contratEnCours;
 	private int preneur;
 	private int appelee;// LE joueur appele dans le mode a 5 joueurs
-	private Carte plisEnCours[];
-	private Carte plisPrecedent[];
+	private Vector<Carte> plisEnCours;
+	private Vector<Carte> plisPrecedent;
 	
 	private int numJoueurEntame; // premier à jouer dans le pli
 	// protected pour calculer les pts des plis Attaque/Defense
@@ -55,7 +54,7 @@ public class Donne
 		 for(int i=0; i<nombreDeJoueurs; i++)
 			 mainsDesJoueurs[i] = new Main();
 		 
-		 chien = new Carte[nombreDeCartesPourLeChien];
+		 chien = new Vector<Carte>();
 		 
 		 int randomMin = 1;
 		 int randomMax;
@@ -84,7 +83,7 @@ public class Donne
 				 // System.out.println("> "+ P.getTas().size());
 			 }
 			// System.out.println("Ajout au chien de "+P.getTas().peek()+" (k="+k+")");
-			chien[k]=P.prendreCarteDuTas();
+			chien.add(k, P.prendreCarteDuTas());
 			nombreDeCartesMisesAuChien++;
 			j++;
 			k++;
@@ -121,10 +120,9 @@ public class Donne
 		for(IJoueur j: P.getJoueurs())
 		{
 			Vector<Carte> vChien = new Vector<Carte>(); 
-			int i = 0;
-			while (chien[i]==null)
+			for(Carte c :chien)
 			{
-				vChien.add(chien[i]);
+				vChien.add(c);
 			}
 			j.direChien(vChien);
 		}
@@ -151,16 +149,16 @@ public class Donne
 	 * @param c La carte jouée
 	 * @param joueur Le joueur qui a joué la carte
 	 */
-	public void direJoueursPliRemporté(Carte[] pli, int joueur)
+	public void direJoueursPliRemporté(Vector<Carte> pli, int joueur)
 	{
 		int pos = 0;
 		for(IJoueur j: P.getJoueurs())
 		{
 			Vector<Carte> vPli = new Vector<Carte>(); 
 			int i = 0;
-			while (pli[i]==null)
+			while (pli.get(i)==null)
 			{
-				vPli.add(pli[i]);
+				vPli.add(pli.get(i));
 			}
 			j.direPliRemporté(vPli, (pos-joueur)%P.getNombreDeJoueurs());
 		}
@@ -171,11 +169,11 @@ public class Donne
 	  * @author JB
 	  * @author hhachiche
 	  * 	
-	  * @param tableauContenantLePli
+	  * @param vecteurContenantLePli
 	  * @return l'indice du tableau ou se trouve la carte qui remporte le plis grâce à ça on peut retrouver qui remporte le plis
 	 * @throws Throwable 
 	  */
-	 public int vainqueurDuPli(Carte[] tableauContenantLePli)
+	 public int vainqueurDuPli(Vector<Carte> vecteurContenantLePli)
 	 {
 		int indice = -1;
 		int nombreDeJoueur = P.getNombreDeJoueurs();
@@ -184,11 +182,11 @@ public class Donne
 		Carte maxAtout = new Carte(0);
 		for(i=0;i < nombreDeJoueur;i++)					//A chaque pli on commence par regarder s'il y a des atouts,si oui on prend la plus forte
 		{
-			if(tableauContenantLePli[i].isAtout())
+			if(vecteurContenantLePli.get(i).isAtout())
 			{
-				if((maxAtout.getOrdre()) < (tableauContenantLePli[i].getOrdre()))
+				if((maxAtout.getOrdre()) < (vecteurContenantLePli.get(i).getOrdre()))
 				{
-					maxAtout = tableauContenantLePli[i];
+					maxAtout = vecteurContenantLePli.get(i);
 					indice = i;
 				}
 			}
@@ -202,25 +200,25 @@ public class Donne
 		{
 			Couleur couleurDemander = null;
 			
-			if(tableauContenantLePli[0].isExcuse())
+			if(vecteurContenantLePli.get(0).isExcuse())
 			{			
-				couleurDemander = tableauContenantLePli[1].getCouleur();
+				couleurDemander = vecteurContenantLePli.get(1).getCouleur();
 			}
 			else // if(! tableauContenantLePlis[2].isAtout()) // le code est bien ecrit du coup cette verification est inutile
 			{
-				couleurDemander = tableauContenantLePli[0].getCouleur();
+				couleurDemander = vecteurContenantLePli.get(0).getCouleur();
 			}
 			
 			Carte maxCouleur = new Carte(couleurDemander, 0);
 			for(i=0;i < nombreDeJoueur;i++)					
 			{
-				if(tableauContenantLePli[i].isCouleur())
+				if(vecteurContenantLePli.get(i).isCouleur())
 				{
-					if(tableauContenantLePli[i].getCouleur() == couleurDemander)
+					if(vecteurContenantLePli.get(i).getCouleur() == couleurDemander)
 					{
-						if(maxCouleur.getOrdre() < tableauContenantLePli[i].getOrdre())
+						if(maxCouleur.getOrdre() < vecteurContenantLePli.get(i).getOrdre())
 						{	
-							maxCouleur = tableauContenantLePli[i];
+							maxCouleur = vecteurContenantLePli.get(i);
 							indice = i;
 						}		
 					}	
@@ -265,9 +263,9 @@ public class Donne
 			// TODO: On peut se débarrasser de nbCartesPosees en regardant si joueur après numJoueur = numJoueurEntame
 			while (nbCartesPosees < P.getNombreDeJoueurs())
 			{
-				plisEnCours[numJoueur] = demanderCarteJoueur(numJoueur); //changement fabrice : jai suppose que l'orde de cartes n'estpas important
+				plisEnCours.add(numJoueur,demanderCarteJoueur(numJoueur)); //changement fabrice : jai suppose que l'orde de cartes n'estpas important
 				nbCartesPosees++;
-				direJoueursCarteJouee(plisEnCours[numJoueur], numJoueur);
+				direJoueursCarteJouee(plisEnCours.get(numJoueur), numJoueur);
 				numJoueur = P.getNumJoueurApres(numJoueur);
 				setJoueurEnContactApres();
 			}
@@ -276,19 +274,19 @@ public class Donne
 			direJoueursPliRemporté(plisEnCours, numJoueurVainqueurPli);
 			if(isJoueurAttaque(numJoueurVainqueurPli)) 
 			{
-				plisAttaque.addAll(Arrays.asList(plisEnCours));
+				plisAttaque.addAll(plisEnCours);
 			}
 			else
 			{
-				plisDefense.addAll(Arrays.asList(plisEnCours));
+				plisDefense.addAll(plisEnCours);
 			}
 			
 			for(int i=0; i<P.getNombreDeJoueurs(); i++)// transfert de pliEnCours dans pliPrecedent 
 			{
 				int a = (i + numJoueurEntame)% P.getNombreDeJoueurs();
-				plisPrecedent[i] = plisEnCours[a];
-				plisEnCours[i] = null;
+				plisPrecedent.add(i,plisEnCours.get(a));
 			}
+			plisEnCours.clear();
 			numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagné le pli entame au tour suivant
 		}
 	}
@@ -303,7 +301,7 @@ public class Donne
 	public boolean isCarteLegale(Carte c, int numJ) // svp des noms de variable explicite ...
 	{
 		// System.out.println("isCarteLegale, numJ = "+numJ+", carte = "+c+", numEntame = "+numJoueurEntame);
-		if(numJ == numJoueurEntame || numJ == P.getNumJoueurApres(numJoueurEntame) && plisEnCours[numJoueurEntame].isExcuse())
+		if(numJ == numJoueurEntame || numJ == P.getNumJoueurApres(numJoueurEntame) && plisEnCours.get(numJoueurEntame).isExcuse())
 		{
 			return true; // si le joueur joue en premier ou s’il joue après l’excuse
 		}
@@ -323,9 +321,9 @@ public class Donne
 			Carte atoutMax = new Carte(0);
 			for(int i=numJoueurEntame; i!=numJ; i=P.getNumJoueurApres(i))
 			{
-				if (plisEnCours[i].isAtout() && plisEnCours[i].getOrdre() > atoutMax.getOrdre())
+				if (plisEnCours.get(i).isAtout() && plisEnCours.get(i).getOrdre() > atoutMax.getOrdre())
 				{
-					atoutMax = plisEnCours[i];
+					atoutMax = plisEnCours.get(i);
 				}
 			}
 			// System.out.println("Atout max : "+atoutMax);
@@ -338,7 +336,7 @@ public class Donne
 			}
 			else // il a monté sur l’atout le plus haut ou bien il n’a pas monté mais ne pouvait pas, reste à voir s’il pouvait jouer atout.
 			{
-				if (plisEnCours[numJoueurEntame].isAtout() || (plisEnCours[numJoueurEntame].isExcuse() && plisEnCours[P.getNumJoueurApres(numJoueurEntame)].isAtout()))
+				if (plisEnCours.get(numJoueurEntame).isAtout() || (plisEnCours.get(numJoueurEntame).isExcuse() && plisEnCours.get(P.getNumJoueurApres(numJoueurEntame)).isAtout()))
 				{
 					// System.out.println("sortie atout demandé, ok");
 					return true; // si la 1re carte est Atout, ou bien Excuse puis Atout, c’est donc Atout demandé donc ok
@@ -346,13 +344,13 @@ public class Donne
 				else // Reste cas où 1re carte est Couleur, ou bien Excuse et la 2e est Couleur
 				{
 					Couleur coulDemandee;
-					if(plisEnCours[numJoueurEntame].isExcuse())
+					if(plisEnCours.get(numJoueurEntame).isExcuse())
 					{
-						coulDemandee = plisEnCours[P.getNumJoueurApres(numJoueurEntame)].getCouleur();
+						coulDemandee = plisEnCours.get(P.getNumJoueurApres(numJoueurEntame)).getCouleur();
 					}
 					else
 					{
-						coulDemandee = plisEnCours[numJoueurEntame].getCouleur();
+						coulDemandee = plisEnCours.get(numJoueurEntame).getCouleur();
 					}
 					// il faut que le joueur ne possède pas la couleur demandée pour pouvoir jouer atout :
 					// System.out.println("sortie couleur demandée, "+!mainsDesJoueurs[numJ].possedeCouleur(coulDemandee));
@@ -363,13 +361,13 @@ public class Donne
 		else // c.isCouleur() == true 
 		{
 			Couleur coulDemandee;
-			if(plisEnCours[numJoueurEntame].isExcuse())
+			if(plisEnCours.get(numJoueurEntame).isExcuse())
 			{
-				coulDemandee = plisEnCours[P.getNumJoueurApres(numJoueurEntame)].getCouleur();
+				coulDemandee = plisEnCours.get(P.getNumJoueurApres(numJoueurEntame)).getCouleur();
 			}
 			else
 			{
-				coulDemandee = plisEnCours[numJoueurEntame].getCouleur();
+				coulDemandee = plisEnCours.get(numJoueurEntame).getCouleur();
 			}
 			return (coulDemandee == c.getCouleur()) || !mainsDesJoueurs[numJ].possedeCouleur(coulDemandee) && !mainsDesJoueurs[numJ].possedeAtout();
 		}
@@ -433,16 +431,18 @@ public class Donne
 	
 	protected void reformerTas()
 	{
+		Stack<Carte> nouveauTas = new Stack<Carte>();
+		
 		if(!P.getTas().empty())
 		{
 			System.out.println("Tas non vide ???");
 		}
-		else
+		else if (contratEnCours != Contrat.AUCUN)
 		{
 			System.out.println("Plis attaque : "+plisAttaque);
 			System.out.println("Plis défense : "+plisDefense);
 			
-			Stack<Carte> nouveauTas = new Stack<Carte>();
+			
 			Random rand = new Random(); // TODO: À déplacer à un niveau plus haut pour pas en recréer un à chaque fois
 			if(rand.nextBoolean())
 			{
@@ -454,6 +454,10 @@ public class Donne
 				nouveauTas.addAll(plisDefense);
 				nouveauTas.addAll(plisAttaque);
 			}
+			plisAttaque.clear();
+			plisDefense.clear();
+			
+			
 			System.out.println("Nouveau tas non rotaté : "+nouveauTas);
 			// Coupe
 			Random rGauss = new Random();
@@ -471,6 +475,32 @@ public class Donne
 			
 			P.setTas(nouveauTas);
 			System.out.println(nouveauTas.size());
+		}
+		else
+		{
+			System.out.println("test");
+			int random = (int)(Math.random() * P.getNombreDeJoueurs());
+			Random rand = new Random();
+			
+			for(int i=0;i<P.getNombreDeJoueurs();i++)
+			{
+				if(!chien.isEmpty() || rand.nextBoolean())
+				{
+					nouveauTas.addAll(chien);
+					chien.clear();
+				}
+				nouveauTas.addAll(mainsDesJoueurs[random].getCartes());
+				mainsDesJoueurs[random].clear();
+				random = (random + 1) % P.getNombreDeJoueurs();
+			}
+			
+			if(!chien.isEmpty())
+			{
+				nouveauTas.addAll(chien);
+				chien.clear();
+			}
+			
+			P.setTas(nouveauTas);
 		}
 	}
 	
@@ -566,27 +596,29 @@ public class Donne
 		this.preneur = preneur;
 	}
 
-	public Carte[] getPlisPrecedent() {
+	public Vector<Carte> getPlisPrecedent() {
 		return plisPrecedent;
 	}
-	private void setPlisPrecedent(Carte plisPrecedent[]) {
+	@SuppressWarnings("unused")
+	private void setPlisPrecedent(Vector<Carte> plisPrecedent) {
 		this.plisPrecedent = plisPrecedent;
 	}
 	
-	public Carte[] getPlisEnCours() {
+	public Vector<Carte> getPlisEnCours() {
 		return plisEnCours;
 	}
-	private void setPlisEnCours(Carte plisEnCours[]) {
+	@SuppressWarnings("unused")
+	private void setPlisEnCours(Vector<Carte> plisEnCours) {
 		this.plisEnCours = plisEnCours;
 	}
 
 	public void mettreChienDansLesPlisDeLAttaque()
 	{
-		 plisAttaque.addAll(Arrays.asList(chien));
+		 plisAttaque.addAll(chien);
 	}
 	public void mettreChienDansLesPlisDeLaDefense()
 	{
-		 plisDefense.addAll(Arrays.asList(chien));
+		 plisDefense.addAll(chien);
 	}
 	public void mettreChienDansPreneur()
 	{
@@ -627,8 +659,8 @@ public class Donne
 	public void init()
 	{
 		mainsDesJoueurs = new Main[P.getNombreDeJoueurs()];
-		plisEnCours = new Carte[P.getNombreDeJoueurs()];
-		plisPrecedent = new Carte[P.getNombreDeJoueurs()];
+		plisEnCours = new Vector<Carte>();
+		plisPrecedent = new Vector<Carte>();
 		plisDefense = new Vector<Carte>();
 		plisAttaque = new Vector<Carte>();
 	}

@@ -1,23 +1,14 @@
 package fr.um2.projetl3.tarotandroid.clients;
 
-import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
 import static fr.um2.projetl3.tarotandroid.jeu.Context.D;
-
 import java.util.Iterator;
 import java.util.Vector;
-
 import org.keplerproject.luajava.LuaException;
 import org.keplerproject.luajava.LuaState;
-import org.keplerproject.luajava.LuaObject;
 import org.keplerproject.luajava.LuaStateFactory;
 import org.xmlpull.v1.XmlPullParser;
-
-import android.util.Log;
-
-import fr.um2.projetl3.tarotandroid.connection.Cartes;
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
-import fr.um2.projetl3.tarotandroid.jeu.Couleur;
 import fr.um2.projetl3.tarotandroid.jeu.Main;
 
 public class JoueurIA implements IJoueur
@@ -210,10 +201,10 @@ public class JoueurIA implements IJoueur
 		for (int i=0; i<4; i++)
 		{
 			//System.out.println("Carte du pli numero "+i);
-			if (D.getPlisEnCours()[i]!=null)
+			if (D.getPlisEnCours().get(i) != null)
 			{
 				//System.out.println(D.getPlisEnCours()[i].toString());
-				vCartes.add(D.getPlisEnCours()[i]);
+				vCartes.add(D.getPlisEnCours().get(i));
 			}
 		}
 		
