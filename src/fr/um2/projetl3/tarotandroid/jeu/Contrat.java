@@ -1,5 +1,8 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
+import java.util.Arrays;
+import java.util.Vector;
+
 public class Contrat
 {
 
@@ -20,19 +23,19 @@ public class Contrat
 	 */
 	private Contrat(boolean autorisé, String nom, int poids)
 	{
-		this.autorisé = autorisé;
+		this.autorisé = true;
 		this.nom = nom;
 		this.poids = poids;
 		// ! la valeur de chienRevele et de chienPourAttaque depende du nom de contrat é modifier :
+		// En fait l’idée c’est qu’on définit les contrats statiquement dans cette classe, et qu’on interdit
+		// de les construire ailleurs (constructeurs privés).
 		chienRevele = true;
 		chienPourAttaque = true;
 	}
 	
 	private Contrat(boolean autorisé, String nom, int poids, boolean chienRevele)
 	{
-		this.autorisé = autorisé;
-		this.nom = nom;
-		this.poids = poids;
+		this(autorisé, nom, poids);
 		this.chienRevele = chienRevele;
 		// ! pareil que pour le constructeur précédent.
 		chienPourAttaque = true;
@@ -40,10 +43,7 @@ public class Contrat
 	
 	private Contrat(boolean autorisé, String nom, int poids, boolean chienRevele, boolean chienPourAttaque)
 	{
-		this.autorisé = autorisé;
-		this.nom = nom;
-		this.poids = poids;
-		this.chienRevele = chienRevele;
+		this(autorisé, nom, poids, chienRevele);
 		this.chienPourAttaque = chienPourAttaque;
 	}
 
@@ -52,17 +52,6 @@ public class Contrat
 	 * ----------------------------------- getteur / setteur ----------------------------------------------
 	 * ----------------------------------------------------------------------------------------------------
 	 */
-	
-	public Contrat(boolean autorisé, String nom, int poids, boolean chienRevele, boolean chienPourAttaque, int facteur, int valeurContrat)
-	{
-		this.autorisé = autorisé;
-		this.nom = nom;
-		this.poids = poids;
-		this.chienRevele = chienRevele;
-		this.chienPourAttaque = chienPourAttaque;
-		this.facteur = facteur;
-		this.valeurContrat = valeurContrat;
-	}
 	
 	public String getName()
 	{
@@ -109,11 +98,13 @@ public class Contrat
 	private void autoriser()
 	{
 		this.autorisé = true;
+		listeContratsDisponibles.add(this);
 	}
 	
 	private void interdire()
 	{
 		this.autorisé = false;
+		listeContratsDisponibles.remove(this);
 	}
 	
 	public String toString()
@@ -150,9 +141,9 @@ public class Contrat
 	
 	// Initialisation des différents contrats existants (permettre d’en désactiver certains selon les options)
 	
-	public static Contrat AUCUN = new Contrat(true, "Aucune prise", -1); // utilisé seulement pour contratEnCours,
+	public static Contrat AUCUN = new Contrat(false, "Aucune prise", -1); // utilisé seulement pour contratEnCours,
 																   		 // quand tout le monde a passé
-	public static Contrat PASSE = new Contrat(false, "Passe", 0);
+	public static Contrat PASSE = new Contrat(true, "Passe", 0);
 	public static Contrat PAROLE = new Contrat(false, "Parole", 1);
 	public static Contrat PETITE = new Contrat(false, "Petite", 2);
 	public static Contrat POUSSE = new Contrat(false, "Pousse", 3);
@@ -160,6 +151,20 @@ public class Contrat
 	public static Contrat GARDE = new Contrat(true, "Garde", 5);
 	public static Contrat GARDE_SANS = new Contrat(true, "Garde sans", 6, false);
 	public static Contrat GARDE_CONTRE = new Contrat(true, "Garde contre", 7, false, false);
+
+	public static Vector<Contrat> listeContratsDisponibles = new Vector<Contrat>();
+	static
+	{
+		listeContratsDisponibles.add(Contrat.PASSE);
+		listeContratsDisponibles.add(Contrat.GARDE);
+		listeContratsDisponibles.add(Contrat.GARDE_SANS);
+		listeContratsDisponibles.add(Contrat.GARDE_CONTRE);
+	}
+	public static Vector<Contrat> getListeContratsDisponibles()
+	{
+		return listeContratsDisponibles;
+	}
+	
 	
 	public static void initialiserContrats() // methode qui autorise ou non les contrats selon le type de comptage de points
 	{

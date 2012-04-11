@@ -1,8 +1,9 @@
 package fr.um2.projetl3.tarotandroid.connection;
 import java.io.IOException;
+import java.net.*;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.*;
+import android.net.*;
 
 import static fr.um2.projetl3.tarotandroid.connection.Context.client;
 import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
@@ -16,13 +17,13 @@ public class Client
 	private ObjectInputStream in;
 	private String messagederreur;
 	private MessageObjet message;
-	private String host = "localhost";
+	private String host = "162.38.121.192";
 	private int port = 4444;
 	private boolean interompu = false;
 	private Carte c;
 	public static JoueurTexte joueur;
 	
-	Client()
+	public Client()
 	{
 		joueur = new JoueurTexte("LUC");	
 		try {
@@ -36,7 +37,7 @@ public class Client
 		}
 	}
 	
-	void lancer()
+	public void lancer()
 	{
 		try
 		{
@@ -75,7 +76,7 @@ public class Client
 		} 
 		finally 
 		{
-			System.out.println("eurreur : "+messagederreur);
+			System.out.println("messagess : "+messagederreur);
 			try 
 			{
 				if (socket != null)

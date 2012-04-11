@@ -226,6 +226,15 @@ public class Carte implements Serializable
 	 */
 	public void affiche()
 	{
+		System.out.print(toStringShort());
+	}
+	
+	/**
+	 * @author niavlys
+	 * @return String de la forme (V,♥), (4,A)…
+	 */
+	public String toStringShort()
+	{
 		if(isCouleur())
 		{
 			String s = "(";
@@ -263,20 +272,20 @@ public class Carte implements Serializable
 			
 			s += ")";
 			
-			System.out.print(s+" ");
+			return s+" ";
 		}
 		else
 		{
 			if(ordre == 0)
-				System.out.print("(*Ex) ");
+				return "(*Ex) ";
 			else
-				System.out.print("("+ordre+","+"A) ");
-		}
+				return "("+ordre+","+"A) ";
+		}		
 	}
 	
 	/**
 	 * @author niavlys
-	 * @return String de la forme Vcoeur, 4Atout…
+	 * @return String de la forme Valet de coeur, 4 d’atout…
 	 */
 	public String toString()
 	{
@@ -284,7 +293,7 @@ public class Carte implements Serializable
 		{
 			String s;
 			if (ordre==1)
-				s = "As";
+				s = "1";
 			else if(ordre <= 10)
 				s = Integer.toString(ordre);
 			else if(ordre == 11)

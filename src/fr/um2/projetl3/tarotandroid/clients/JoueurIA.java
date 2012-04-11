@@ -311,5 +311,11 @@ public class JoueurIA implements IJoueur
 		this.chargerPli();
 		this.direAnnonce(D.getContratEnCours(), D.getPreneur());
 	}
+	
+	@Override
+	public String toString()
+	{
+		return pNom;
+	}
 
 }

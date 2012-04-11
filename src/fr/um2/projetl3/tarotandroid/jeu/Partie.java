@@ -15,7 +15,7 @@ import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
 import fr.um2.projetl3.tarotandroid.connection.MultiServeur;
 
 @SuppressWarnings("all")
-public class Partie
+public class Partie extends Thread
 {
 	private IJoueur[] joueurs; // initialisé de taille 3, 4 ou 5 selon type partie
 	private Scores scores;
@@ -355,9 +355,9 @@ public class Partie
 	 * --------------------------------------------------------------------------------------------------
 	 */
 	
-	protected void lancerPartie()
+	// niavlys : remis en public parce qu’il y a bien besoin de lancer la partie depuis l’interface graphique
+	public void lancerPartie()
 	{
-		System.out.println("coucou");
 		initialisationPartie();
 		Contrat.initialiserContrats();
 		//donneEnCours.init();
@@ -371,6 +371,10 @@ public class Partie
 			 * logiquement on as une partie qui contient X donne et une donne peut ou peut ne pas être jouer
 			 * 
 			 *   Alors ? quelqu'un en pense quelque chose ?
+			 *   
+			 *   non je pense que c'est meiu de le laisser là pourqui :
+			 *   dans l while(!partieFinie)
+			 *   	on à les phase d'une donne répéter tant que la partie n'est pas finie
 			 * 
 			 * 	faudrait arreter de mettre des choses dans donne sinon on va se retrouver avec 1K de ligen de code et se sera un peu la erde pour si retrouver
 			 *  dans partie il n'y apas tant de ligne que ça et ça ne dérage pas.
@@ -428,7 +432,7 @@ public class Partie
 	{
 		setNombreDeJoueurs(4);
 		MultiServeur server = new MultiServeur();
-			server.lancer();
+			server.run();
 		
 	}
 	
@@ -468,10 +472,27 @@ public class Partie
 	{
 		setNombreDeJoueurs(4);
 	}
+	
+	@Override
+	public void run()
+	{
+		// P.lancerPartie4JoueursTexte();
+		try
+		{
+			Thread.sleep(1000);
+		} catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		lancerPartie();
+	}
 
 	public static void main(String[] args)
 	{
 		P = new Partie();
+		
+		//P.lancerPartie4JoueursTexte();
 
 		P.lancerPartie4JoueursTexte();
 		System.out.println("coucou1");

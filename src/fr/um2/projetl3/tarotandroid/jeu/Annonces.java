@@ -147,7 +147,6 @@ public class Annonces
 
 	/**
 	 * Demande à un joueur son annonce, et vérifie si elle est valide (redemande jusqu’à recevoir une valide)
-	 * TODO: faire que ça teste la validité de l’annonce (pour l’instant c’est que dans JoueurTexte si je me trompe pas)
 	 */
 	protected static Contrat demanderAnnonceJoueur(int num, Contrat contratMax)
 	{
