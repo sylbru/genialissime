@@ -27,7 +27,7 @@ public class SplashScreen extends Activity implements OnTouchListener
 	 * STOPSPLASH est la demande d'arrêt
 	 */
     private static final int STOPSPLASH = 0;
-    private static final long SPLASHTIME = 2000;
+    private static final long SPLASHTIME = 3000;
 
     private Handler splashHandler = new Handler() 
     {
@@ -48,6 +48,7 @@ public class SplashScreen extends Activity implements OnTouchListener
                     //remove SplashScreen from view
                     Intent intent = new Intent(SplashScreen.this, Accueil.class);
                     startActivity(intent);
+                    finish();
                     break;
             }
             super.handleMessage(msg);
@@ -63,7 +64,7 @@ public class SplashScreen extends Activity implements OnTouchListener
      * @throws erreurs possibles ?
      * @author Jennifer
      * 
-     * La fonction onCreate appelle super.onCreate puis affiche le layout (slash_screen.xml)
+     * La fonction onCreate appelle super.onCreate puis affiche le layout (splash_screen.xml)
      */
     @Override
     public void onCreate(Bundle savedInstanceState) 
@@ -77,8 +78,9 @@ public class SplashScreen extends Activity implements OnTouchListener
         View Carte_ecran = findViewById(R.id.Carte_ecran);
         Carte_ecran.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
-                Intent intent = new Intent(SplashScreen.this, Accueil.class);
-                startActivity(intent);
+        		Message msg = new Message();
+        		msg.what = STOPSPLASH;
+                splashHandler.sendMessage(msg);
         	}
         });
         

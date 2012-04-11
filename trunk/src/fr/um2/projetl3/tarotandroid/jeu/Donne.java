@@ -99,10 +99,8 @@ public class Donne
 		 }
 		 for(int i=0; i<4; i++)
 		 {
-			 mainsDesJoueurs[i].affiche();
 			 P.getJoueur(i).direMain(mainsDesJoueurs[i].getCartes());
 		 }
-		 //reveleChien();
 		 
 	}
 

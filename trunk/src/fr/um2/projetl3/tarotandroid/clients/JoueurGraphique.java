@@ -4,7 +4,13 @@ import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
 
 import java.util.Vector;
 
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.location.GpsStatus.Listener;
+import android.os.Looper;
+import android.preference.ListPreference;
+import android.widget.EditText;
+import android.widget.Toast;
 import fr.um2.projetl3.tarotandroid.activities.EcranJeu;
 import fr.um2.projetl3.tarotandroid.connection.Cartes;
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
@@ -15,16 +21,24 @@ import fr.um2.projetl3.tarotandroid.jeu.Main;
 public class JoueurGraphique implements IJoueur {
 		
 	private EcranJeu ecran;
-	private Donne DonneDuJoueur;
+	private Donne DonneDuJoueur; // ??
 	
 	private String nom;
 	private Main main;
 	
-	public JoueurGraphique(){
-		
+	public JoueurGraphique(EcranJeu ecran)
+	{
+		this.ecran = ecran;
 	}
 	
-	public JoueurGraphique(Donne d){
+	public JoueurGraphique(String nom, EcranJeu ecran)
+	{
+		this.nom = nom;
+		this.ecran = ecran;
+	}
+	
+	public JoueurGraphique(Donne d)
+	{
 		DonneDuJoueur = d;
 	}
 	
@@ -52,8 +66,7 @@ public class JoueurGraphique implements IJoueur {
 
 	
 	public Contrat demanderAnnonce(Contrat contrat) {
-		// TODO Auto-generated method stub
-		return null;
+		return ecran.demanderAnnonce(contrat);
 	}
 
 	
@@ -88,20 +101,19 @@ public class JoueurGraphique implements IJoueur {
 
 	
 	public void direCarteJouee(Carte c, int j) {
-		// TODO Auto-generated method stub
-
+		ecran.log(P.getNomNumJoueur(j) + "(?) joue " + c);
 	}
 
 	
 	public void direAnnonce(Contrat c, int j) {
+		ecran.log(P.getNomNumJoueur(j) + "(?) annonce " + c);
 		// TODO Auto-generated method stub
 
 	}
 
 	
 	public void direPliRemporté(Vector<Carte> pli, int joueur) {
-		// TODO Auto-generated method stub
-
+		ecran.log("Pli remporté par " + P.getNomNumJoueur(joueur));
 	}
 
 	public void recevoirMain(Cartes c) {
@@ -123,9 +135,8 @@ public class JoueurGraphique implements IJoueur {
 	}
 
 
-	public void direMain(Vector<Carte> m) {
-		// TODO Auto-generated method stub
-		
+	public void direMain(Vector<Carte> main) {
+		ecran.direMain(main);
 	}
 
 	public void direScore() {
@@ -142,5 +153,11 @@ public class JoueurGraphique implements IJoueur {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	@Override
+	public String toString()
+	{
+		return nom;
+	}
+	
 }

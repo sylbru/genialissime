@@ -15,7 +15,7 @@ public class Serverthread extends Thread {
 	private Carte carte;
 	
 
-    Serverthread(Socket socket) {
+    public Serverthread(Socket socket) {
 	super("ServerThread");
 	this.socket = socket;
     }

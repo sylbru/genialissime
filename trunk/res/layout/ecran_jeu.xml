@@ -17,4 +17,36 @@
     
     <!-- Ici, mettre les ImageView correspondant aux cartes (?)
          (ça doit se faire dans le code Java)                   -->
+
+    <Button
+        android:id="@+id/bLancer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Lancer" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/bLancer" >
+
+        <LinearLayout
+            android:id="@+id/logLL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/log"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(zone de log)" />
+
+        </LinearLayout>
+    </ScrollView>
+
  </RelativeLayout>
