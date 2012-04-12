@@ -115,7 +115,9 @@ public class JoueurIA implements IJoueur
 	/*--- Methodes "demander" ---*/
 	public Contrat demanderAnnonce(Contrat contrat)
 	{
-		this.updateLObjects();
+		//this.updateLObjects();
+		//this.chargerLegal();
+		this.chargerMain();
 		L.LdoString("cont,flal = tarot.demander.annonce()");
 		int c = (int) L.getLuaObject("cont").getNumber();
 		//int c = (int) Math.floor(Math.random()*5);
@@ -234,7 +236,7 @@ public class JoueurIA implements IJoueur
 		L.LdoString("c = tarot.demander.carte()");
 		c = (int) L.getLuaObject("c").getNumber();
 		//D.getMain().affiche();
-		//System.out.println(this.pNom+" "+new Carte(c).toString());
+		System.out.println(this.pNom+" "+new Carte(c).toString());
 		return new Carte(c);
 	}
 	
