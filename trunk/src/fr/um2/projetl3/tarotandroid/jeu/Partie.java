@@ -71,7 +71,7 @@ public class Partie extends Thread
 	
 	public IJoueur getJoueur(int num)
 	{
-		return joueurs[num];
+		return joueurs[num%P.getNombreDeJoueurs()];
 	}
 	
 	/**

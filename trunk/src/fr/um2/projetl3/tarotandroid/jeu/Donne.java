@@ -259,10 +259,19 @@ public class Donne
 							+ mainsDesJoueurs[3].nbCartesRestantes());
 			
 			// TODO: On peut se débarrasser de nbCartesPosees en regardant si joueur après numJoueur = numJoueurEntame
+			/*plisEnCours.clear();
+			for (int fillerup=0;fillerup<4;fillerup++)
+			{
+				plisEnCours.addElement(new Carte(-1));
+			}*/
 			while (nbCartesPosees < P.getNombreDeJoueurs())
 			{
-				plisEnCours.add(numJoueur,demanderCarteJoueur(numJoueur)); //changement fabrice : jai suppose que l'orde de cartes n'estpas important
+				System.out.println("On a posé "+nbCartesPosees+" cartes");
+				System.out.println("Taille du pli "+plisEnCours.size());
+				System.out.println("Le joueur en cours est "+numJoueur);
+				plisEnCours.add(numJoueur, demanderCarteJoueur(numJoueur)); //changement fabrice : jai suppose que l'orde de cartes n'estpas important
 				nbCartesPosees++;
+				System.out.println("Taille du pli "+plisEnCours.size());
 				direJoueursCarteJouee(plisEnCours.get(numJoueur), numJoueur);
 				numJoueur = P.getNumJoueurApres(numJoueur);
 				setJoueurEnContactApres();
@@ -382,18 +391,19 @@ public class Donne
 		Carte carteProposee;
 		do
 		{
-			carteProposee = P.getJoueur(num).demanderCarte();
-			//System.out.println(P.getJoueur(num).getNomDuJoueur()+" "+carteProposee.toString());
+			System.out.println("Demandons au joueur "+num+ " soit "+(num%P.getNombreDeJoueurs()));
+			carteProposee = P.getJoueur(num%P.getNombreDeJoueurs()).demanderCarte();
+			System.out.println(P.getJoueur(num%P.getNombreDeJoueurs()).getNomDuJoueur()+" "+carteProposee.toString());
 			/*
 			 * test des condition de la boucle 
 			 * if(mainsDesJoueurs[num].contains(carteProposee)) System.out.println("contains !!!");
 			 * if(isCarteLegale(carteProposee, num)) System.out.println("cartelegale");
 			 */
 		}
-		while(!(mainsDesJoueurs[num].possede(carteProposee)&& isCarteLegale(carteProposee, num)));
-		
-		mainsDesJoueurs[num].removeCarte(carteProposee);
-		
+		while(!(mainsDesJoueurs[num%P.getNombreDeJoueurs()].possede(carteProposee)&& isCarteLegale(carteProposee, num%P.getNombreDeJoueurs())));
+		System.out.println("C'est cool mec!");
+		mainsDesJoueurs[num%P.getNombreDeJoueurs()].removeCarte(carteProposee);
+		System.out.println("Renvoyons "+carteProposee.toString());
 		return carteProposee;
 	}
 	
@@ -665,7 +675,7 @@ public class Donne
 	
 	public Donne()
 	{
-		P = Context.P;
+		this.P = Context.P;
 		init();
 	}	
 	
