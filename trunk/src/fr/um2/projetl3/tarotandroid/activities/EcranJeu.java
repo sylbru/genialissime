@@ -81,7 +81,8 @@ public class EcranJeu extends Activity
 		
 		rl.addView(imgV, lp); // ajout d’une image
 		setContentView(rl); // bizarre, on remplace tout le layout ecran_jeu par le RelativeLayout qui était dedans
-							// à changer peut-être
+							// à changer peut-être 
+							// Il est possible de le faire en xml et ce serait plus propre, non ?
 		
 		// Bouton pour lancer la partie (temporaire)
 		Button bLancer = (Button)findViewById(R.id.bLancer);
@@ -103,7 +104,7 @@ public class EcranJeu extends Activity
 				log("Lancement de la partie");
 				
 				// P.run(); // ← bloquant
-				P.start();  // ← cool
+				P.start();  // ← cool // Il mène à quoi ce start() ?
 			}
 		});		
 	}
@@ -165,7 +166,7 @@ public class EcranJeu extends Activity
 						}
 						else
 						{
-							resultatAnnonce = null; // ou aucun ? ou Passe ?
+							resultatAnnonce = null; // ou aucun ? ou Passe ? 
 						}
 					}
 				});
@@ -190,6 +191,7 @@ public class EcranJeu extends Activity
 			texteMain += c.toString() + ", ";
 		}
 		makeToast(texteMain);
+		
 	}
 	
 	Handler h = new Handler();
