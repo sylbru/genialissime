@@ -158,11 +158,12 @@ public class JoueurTexte implements IJoueur
 	{
 		this.nom = nom;
 		this.quiet = false;
+		this.main = new Main();
 	}
 	
 	public JoueurTexte(String nom, boolean quiet)
 	{
-		this.nom = nom;
+		this(nom);
 		this.quiet = quiet;
 	}
 
@@ -327,8 +328,9 @@ public class JoueurTexte implements IJoueur
 
 
 	public void direMain(Vector<Carte> m) {
-		// TODO Auto-generated method stub
-		
+		main.getCartes().addAll(m);
+		System.out.print("Joueur "+nom+" > ");
+		main.affiche();
 	}
 
 	public void direScore() {

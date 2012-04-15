@@ -137,15 +137,15 @@ public class Donne
 		int pos = 0; 
 		for(IJoueur j: P.getJoueurs())
 		{
-			j.direCarteJouee(c, (pos-joueur)%P.getNombreDeJoueurs());
+			j.direCarteJouee(c, (pos-joueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
 		}
 	}
 	
 	/**
 	 * @author niavlys
-	 * Informe les joueurs du fait qu’une carte a été jouée par un joueur
-	 * @param c La carte jouée
-	 * @param joueur Le joueur qui a joué la carte
+	 * Informe les joueurs du fait qu’un pli a été remporté
+	 * @param pli le contenu du pli remporté
+	 * @param joueur Le joueur qui a remporté le pli
 	 */
 	public void direJoueursPliRemporté(Vector<Carte> pli, int joueur)
 	{
@@ -233,6 +233,7 @@ public class Donne
 	  * (pour info, l’expression « jeu de la carte », ça vient pas de moi,
 	  * voir http://www.fftarot.fr/index.php/Decouvrir/Le-Jeu-de-la-carte.html )
 	  */
+	@SuppressWarnings("unchecked")
 	protected void jeuDeLaCarte()
 	{
 		numJoueurEntame = P.getNumJoueurApres(numDonneur); // le premier à jouer (celui qui est après le donneur)
@@ -242,7 +243,6 @@ public class Donne
 		
 		while (!donneFinie()) // un tour de jeu, on commence à numJoueur = numJoueurEntame
 		{
-			// System.out.println("jeueur entame "+numJoueurEntame);
 			numJoueurEnContact = numJoueurEntame;
 			
 			numJoueur = numJoueurEntame;
@@ -259,25 +259,28 @@ public class Donne
 							+ mainsDesJoueurs[3].nbCartesRestantes());
 			
 			// TODO: On peut se débarrasser de nbCartesPosees en regardant si joueur après numJoueur = numJoueurEntame
-			/*plisEnCours.clear();
-			for (int fillerup=0;fillerup<4;fillerup++)
+			for (int fillerup=0;fillerup<P.getNombreDeJoueurs();fillerup++)
 			{
-				plisEnCours.addElement(new Carte(-1));
-			}*/
+				plisEnCours.add(new Carte(-1));
+			}
 			while (nbCartesPosees < P.getNombreDeJoueurs())
 			{
 				System.out.println("On a posé "+nbCartesPosees+" cartes");
 				System.out.println("Taille du pli "+plisEnCours.size());
 				System.out.println("Le joueur en cours est "+numJoueur);
-				plisEnCours.add(numJoueur, demanderCarteJoueur(numJoueur)); //changement fabrice : jai suppose que l'orde de cartes n'estpas important
+				
+				plisEnCours.add(numJoueur, demanderCarteJoueur(numJoueur));
 				nbCartesPosees++;
+				
 				System.out.println("Taille du pli "+plisEnCours.size());
 				direJoueursCarteJouee(plisEnCours.get(numJoueur), numJoueur);
 				numJoueur = P.getNumJoueurApres(numJoueur);
 				setJoueurEnContactApres();
 			}
 			// nbCartesPosees == nbJoueurs : le tour est fini
-			numJoueurVainqueurPli = vainqueurDuPli(plisEnCours); 
+			
+			numJoueurVainqueurPli = vainqueurDuPli(plisEnCours);
+			
 			direJoueursPliRemporté(plisEnCours, numJoueurVainqueurPli);
 			if(isJoueurAttaque(numJoueurVainqueurPli)) 
 			{
@@ -288,11 +291,7 @@ public class Donne
 				plisDefense.addAll(plisEnCours);
 			}
 			
-			for(int i=0; i<P.getNombreDeJoueurs(); i++)// transfert de pliEnCours dans pliPrecedent 
-			{
-				int a = (i + numJoueurEntame)% P.getNombreDeJoueurs();
-				plisPrecedent.add(i,plisEnCours.get(a));
-			}
+			plisPrecedent = (Vector<Carte>) plisEnCours.clone(); // transfert de pliEnCours dans pliPrecedent
 			plisEnCours.clear();
 			numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagné le pli entame au tour suivant
 		}

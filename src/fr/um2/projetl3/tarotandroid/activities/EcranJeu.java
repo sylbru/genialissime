@@ -34,6 +34,7 @@ import fr.um2.projetl3.tarotandroid.jeu.Partie;
 public class EcranJeu extends Activity
 {
 	IJoueur moi, ia1, ia2, ia3;
+	IJoueur moi1, moi2, moi3;
 	TextView logT;
 
 	public void makeToast(String s, boolean court)
