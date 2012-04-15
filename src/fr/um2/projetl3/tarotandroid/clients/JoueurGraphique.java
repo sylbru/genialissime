@@ -77,8 +77,7 @@ public class JoueurGraphique implements IJoueur {
 
 	
 	public Carte demanderCarte() {
-		// TODO Auto-generated method stub
-		return null;
+		return ecran.demanderCarte();
 	}
 
 	

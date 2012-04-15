@@ -158,7 +158,7 @@ public class Donne
 			{
 				vPli.add(pli.get(i));
 			}
-			j.direPliRemporté(vPli, (pos-joueur)%P.getNombreDeJoueurs());
+			j.direPliRemporté(vPli, (pos-joueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
 		}
 	}
 		
