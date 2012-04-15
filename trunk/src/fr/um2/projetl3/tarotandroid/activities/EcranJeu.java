@@ -66,14 +66,14 @@ public class EcranJeu extends Activity
 		logT = (TextView)findViewById(R.id.log);
 		
 		ImageView imgV = new ImageView(this);
-		try
+		/*try
 		{
 			imgV.setImageDrawable((new CarteGraphique(42)).mImageView.getDrawable());
 		}
 		catch (CarteUIDInvalideException e)
 		{
 			e.printStackTrace();
-		}
+		}*/
 		
 		// RelativeLayout principal (plateau)
 		RelativeLayout rl = (RelativeLayout) findViewById(R.id.mainLayout);
