@@ -11,8 +11,10 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -34,27 +36,9 @@ import fr.um2.projetl3.tarotandroid.jeu.Partie;
 public class EcranJeu extends Activity
 {
 	IJoueur moi, ia1, ia2, ia3;
-	IJoueur moi1, moi2, moi3;
+	IJoueur moi1;
 	TextView logT;
-
-	public void makeToast(String s, boolean court)
-	{
-		final String rS = s;
-		final boolean rCourt = court;
-		runOnUiThread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				Toast.makeText(EcranJeu.this, rS, (rCourt ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG)).show();
-				log("Toast : " + rS);				
-			}	
-		});
-	}
-	public void makeToast(String s)
-	{
-		makeToast(s, false);
-	}
+	RelativeLayout rl;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) 
@@ -76,7 +60,7 @@ public class EcranJeu extends Activity
 		}*/
 		
 		// RelativeLayout principal (plateau)
-		RelativeLayout rl = (RelativeLayout) findViewById(R.id.mainLayout);
+		rl = (RelativeLayout) findViewById(R.id.mainLayout);
 		LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		
@@ -104,28 +88,24 @@ public class EcranJeu extends Activity
 				
 				log("Lancement de la partie");
 				
-				// P.run(); // ← bloquant
-				P.start();  // ← cool // Il mène à quoi ce start() ?
+				// P.start() permet de lancer le thread, fait appel à P.run(), lequel fait appel à P.lancerPartie()
+				P.start();
 			}
 		});		
 	}
 
-	public Contrat resultatAnnonce;
-	public Contrat demanderAnnonce(Contrat contrat)
+	private Contrat resultatAnnonce;
+	private AlertDialog alerte = null;
+	private void afficherDemandeAnnonce()
 	{
-		resultatAnnonce = Contrat.AUCUN;
 		runOnUiThread(new Runnable()
 		{
 			@Override
 			public void run()
 			{
-						
 				AlertDialog.Builder alert = new AlertDialog.Builder(EcranJeu.this);
-			
 				alert.setTitle("Annonce");
 				
-				// TODO: proposer uniquement les annonces valides (et construire automatiquement)
-				// final CharSequence[] listeAnnonces = {"Passe", "Petite", "Garde", "Garde sans", "Garde contre"};
 				Vector<Contrat> listeAnnoncesDispo = Contrat.getListeContratsDisponibles();
 				Contrat contratMax = Annonces.getContratMax();
 				Vector<CharSequence> listeAnnoncesCS = new Vector<CharSequence>();
@@ -167,21 +147,133 @@ public class EcranJeu extends Activity
 						}
 						else
 						{
-							resultatAnnonce = null; // ou aucun ? ou Passe ? 
+							resultatAnnonce = Contrat.AUCUN; 
 						}
+						alerte.dismiss();
+					}
+				});
+				alerte = alert.create();
+				alerte.show();
+			}
+		});
+	}
+	public Contrat demanderAnnonce(Contrat contrat)
+	{
+		resultatAnnonce = Contrat.AUCUN;
+		final Button bDemandeAnnonce = new Button(this);
+		bDemandeAnnonce.setText("Annoncer");
+		bDemandeAnnonce.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				afficherDemandeAnnonce();
+			}
+		});
+		final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		//lp.addRule(RelativeLayout.ABOVE, R.id.scrollView1);
+		lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		
+		runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				rl.addView(bDemandeAnnonce, lp);
+			}
+		});
+				
+		while(resultatAnnonce == Contrat.AUCUN)
+		{} // On attend que resultatAnnonce soit différent de Contrat.AUCUN
+		
+		runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				rl.removeView(bDemandeAnnonce);
+			}
+		});
+		
+		// resultatAnnonce != Contrat.AUCUN
+		System.out.println("On va retourner "+resultatAnnonce);
+		return resultatAnnonce;
+	}
+	
+	Carte resultatCarte;
+	public void afficherDemandeCarte()
+	{
+		runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				AlertDialog.Builder alert = new AlertDialog.Builder(EcranJeu.this);
+				alert.setTitle("Jouer une carte");
+				
+				final Vector<Carte> cartesLegales = P.donne().indiquerCartesLegalesJoueur();
+				Vector<CharSequence> vListeCartesLegalesCS = new Vector<CharSequence>();
+				for(Carte c: cartesLegales)
+				{
+					vListeCartesLegalesCS.add(c.toStringShort());
+				}
+				
+				final CharSequence[] listeCarteLegales = new CharSequence[vListeCartesLegalesCS.size()];
+				vListeCartesLegalesCS.toArray(listeCarteLegales);
+				alert.setSingleChoiceItems(listeCarteLegales, -1, new DialogInterface.OnClickListener()
+				{	
+					@Override
+					public void onClick(DialogInterface arg0, int i)
+					{
+						resultatCarte = cartesLegales.get(i);
 					}
 				});
 				alert.show();
 			}
 		});
-		
-		// On a lancé l’affichage de la boîte de dialogue, on attend la réponse
-		while(resultatAnnonce == Contrat.AUCUN)
+	
+	}
+	
+	public Carte demanderCarte()
+	{
+		resultatCarte = null;
+		final Button bDemandeCarte = new Button(this);
+		bDemandeCarte.setText("Jouer une carte");
+		bDemandeCarte.setOnClickListener(new View.OnClickListener()
 		{
-			// ne rien faire ? Il faut juste attendre que resultatAnnonce soit différent de Contrat.AUCUN
-		}
-		System.out.println("On va retourner "+resultatAnnonce);
-		return resultatAnnonce;
+			@Override
+			public void onClick(View v)
+			{
+				afficherDemandeCarte();
+			}
+		});
+		final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		//lp.addRule(RelativeLayout.ABOVE, R.id.scrollView1);
+		lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		
+		runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				rl.addView(bDemandeCarte, lp);
+			}
+		});
+		// On a lancé l’affichage de la boîte de dialogue, on attend la réponse
+		while(resultatCarte == null)
+		{} // On attend.
+		
+		runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				rl.removeView(bDemandeCarte);
+			}
+		});
+		
+		System.out.println("On va retourner "+resultatCarte);
+		return resultatCarte;
 	}
 	
 	public void direMain(Vector<Carte> main)
@@ -189,13 +281,31 @@ public class EcranJeu extends Activity
 		String texteMain = "Main : ";
 		for(Carte c: main)
 		{
-			texteMain += c.toString() + ", ";
+			texteMain += c.toStringShort() + ", ";
 		}
-		makeToast(texteMain);
-		
+		// makeToast(texteMain);
+		log(texteMain);
+	}
+
+	public void makeToast(String s, boolean court)
+	{
+		final String rS = s;
+		final boolean rCourt = court;
+		runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				Toast.makeText(EcranJeu.this, rS, (rCourt ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG)).show();
+				log("Toast : " + rS);				
+			}	
+		});
 	}
 	
-	Handler h = new Handler();
+	public void makeToast(String s)
+	{
+		makeToast(s, false);
+	}
 	
 	public void log(String s)
 	{
@@ -211,4 +321,5 @@ public class EcranJeu extends Activity
 			}
 		});
 	}
+
 }
