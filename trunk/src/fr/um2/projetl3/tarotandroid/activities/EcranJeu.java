@@ -90,9 +90,58 @@ public class EcranJeu extends Activity
 				
 				// P.start() permet de lancer le thread, fait appel à P.run(), lequel fait appel à P.lancerPartie()
 				P.start();
+				//afficherMain(P.donne().getMain().getCartes());
 			}
 		});		
 	}
+	
+	/*public void afficherMain(final Vector<Carte> main)
+	{
+		runOnUiThread(new Runnable()
+		{
+			public void run()
+			{
+				for(int i = 0; (i < 26); ++i)
+				{
+					int imageViewId = 0;
+					Carte card = (i >= main.size()) ? null : main.get(i);
+					String imageViewIdName = "imageCarte"+Integer.toString(i);
+			
+					try {
+						imageViewId = R.id.class.getDeclaredField(imageViewIdName).getInt(null);
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SecurityException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (NoSuchFieldException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			
+					ImageView imageView = (ImageView) findViewById(imageViewId);
+			
+					if (card == null) {
+						imageView.setVisibility(View.GONE);
+					} else {
+						imageView.setVisibility(View.VISIBLE);
+						// si visible on lui donne la bonne image....
+						//imageView.setDrawableResource(card.getResource());
+						try {
+							imageView.setImageDrawable((new CarteGraphique(card.uid())).mImageView.getDrawable());
+						} catch (CarteUIDInvalideException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		});
+	}*/
 
 	private Contrat resultatAnnonce;
 	private AlertDialog alerte = null;
