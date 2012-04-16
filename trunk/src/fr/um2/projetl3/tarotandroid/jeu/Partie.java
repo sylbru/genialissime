@@ -71,7 +71,7 @@ public class Partie extends Thread
 	
 	public IJoueur getJoueur(int num)
 	{
-		return joueurs[num%P.getNombreDeJoueurs()];
+		return joueurs[(num+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()];
 	}
 	
 	/**
@@ -217,7 +217,7 @@ public class Partie extends Thread
 	 */
 	public int getNumJoueurApres(int numJoueur)
 	{
-		return (numJoueur+1) % getNombreDeJoueurs();
+		return ((numJoueur+1)+P.getNombreDeJoueurs()) % P.getNombreDeJoueurs();
 	}
 	
 	/**

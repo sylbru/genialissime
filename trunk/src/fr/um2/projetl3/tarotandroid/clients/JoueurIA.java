@@ -164,6 +164,7 @@ public class JoueurIA implements IJoueur
 	
 	private void chargerMain(){
 		L.LdoString("tarot.main:clear()");
+		//System.out.println("Je suis "+pNom+" et je demande ma main");
 		Vector<Carte> vCartes = D.getMain().getCartes();
 		for (int i=0;i<vCartes.size();i++)
 		{
