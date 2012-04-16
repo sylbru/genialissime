@@ -61,6 +61,40 @@ public class Carte implements Serializable
 		this.ordre = ordre;
 	}
 	
+	
+	public void set(int ordreCarte)
+	{
+		if (ordreCarte < 0 || ordreCarte > 77) // Erreur
+		{
+			this.carteCouleur = false;
+			this.ordre = -1;
+		} else if (ordreCarte < 22) // Atout
+		{
+			this.carteCouleur = false;
+			this.ordre = ordreCarte;
+		} else if (ordreCarte < 36) // Coeur
+		{
+			this.carteCouleur = true;
+			this.ordre = ordreCarte - 21;
+			this.couleur = Couleur.Coeur;
+		} else if (ordreCarte < 50) // Pique
+		{
+			this.carteCouleur = true;
+			this.ordre = ordreCarte - 35;
+			this.couleur = Couleur.Pique;
+		} else if (ordreCarte < 64) // Carreau
+		{
+			this.carteCouleur = true;
+			this.ordre = ordreCarte - 49;
+			this.couleur = Couleur.Carreau;
+		} else						// Trèfle
+		{
+			this.carteCouleur = true;
+			this.ordre = ordreCarte - 63;
+			this.couleur = Couleur.Trefle;
+		}
+	}
+	
 	// le boolean sert uniquement à différencier le constructeur (moche, je sais)
 	// donc il peut être à true ou false, on s’en fout.
 	public Carte(boolean pourUid, int uid) throws CarteUIDInvalideException
