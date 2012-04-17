@@ -101,7 +101,7 @@ public class EcranJeu extends Activity
 		{
 			public void run()
 			{
-				for(int i = 1; (i < 26); ++i)
+				for(int i = 0; (i < 26); ++i)
 				{
 					int imageViewId = 0;
 					Carte card = (i >= main.size()) ? null : main.get(i);
@@ -221,7 +221,6 @@ public class EcranJeu extends Activity
 		});
 		final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		lp.addRule(RelativeLayout.ABOVE, R.id.horizontalScrollView1);
-		//lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		
 		runOnUiThread(new Runnable()
 		{
@@ -297,8 +296,7 @@ public class EcranJeu extends Activity
 			}
 		});
 		final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		//lp.addRule(RelativeLayout.ABOVE, R.id.scrollView1);
-		lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		lp.addRule(RelativeLayout.ABOVE, R.id.horizontalScrollView1);
 		
 		runOnUiThread(new Runnable()
 		{
@@ -308,13 +306,12 @@ public class EcranJeu extends Activity
 				rl.addView(bDemandeCarte, lp);
 			}
 		});
-		// On a lancé l’affichage de la boîte de dialogue, on attend la réponse
+		
 		while(resultatCarte == null)
 		{} // On attend.
 		
 		runOnUiThread(new Runnable()
 		{
-			
 			public void run()
 			{
 				rl.removeView(bDemandeCarte);
@@ -322,6 +319,7 @@ public class EcranJeu extends Activity
 		});
 		
 		System.out.println("On va retourner "+resultatCarte);
+		afficherMain(P.donne().getMain().getCartes());
 		return resultatCarte;
 	}
 	

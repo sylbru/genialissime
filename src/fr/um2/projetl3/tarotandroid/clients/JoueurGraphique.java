@@ -88,8 +88,7 @@ public class JoueurGraphique implements IJoueur {
 
 	
 	public void direChien(Vector<Carte> chien) {
-		// TODO Auto-generated method stub
-
+		ecran.log("Chien : "+chien.toString());
 	}
 
 	
@@ -106,12 +105,6 @@ public class JoueurGraphique implements IJoueur {
 	public void direPliRemporté(Vector<Carte> pli, int joueur) {
 		ecran.log("Pli remporté par " + P.getNomNumJoueur(joueur));
 	}
-
-	public void recevoirMain(Cartes c) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 	private void recupererMain() {
 		// TODO Auto-generated method stub
