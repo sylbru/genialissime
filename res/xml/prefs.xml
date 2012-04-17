@@ -6,7 +6,7 @@
         android:summaryOff="La préférence n’est pas activée"
         android:summaryOn="La préférence est activée" android:key="pref01" android:title="Test de préférence"/>
     
-    <PreferenceScreen android:key="PR" android:title="Préférences Règles">
+    <PreferenceScreen android:id="@+id/valide" android:key="PR" android:title="Préférences Règles">
         <CheckBoxPreference android:summaryOn="Sens Inverse des aiguilles d'une montre" android:key="SDJ" android:summaryOff="Sens des aiguilles d'une montre" android:title="Sens du jeu"/>
         <PreferenceScreen android:key="CTR" android:title="Contrats">
             <CheckBoxPreference android:key="PAR" android:title="Autoriser Parole" android:summaryOff="Le Contrat Parole n'est pas autorisé" android:summaryOn="Le Contrat Parole est autorisé"/>
@@ -20,9 +20,7 @@
                             android:defaultValue="1" android:negativeButtonText="Annuler"></ListPreference>
             <CheckBoxPreference android:title="Compter Misère" android:key="MIS"/>
             <CheckBoxPreference android:title="Compter Petit au bout" android:key="PAB" android:summaryOn="Seulement si Petit au dernier pli"/>
-            <CheckBoxPreference android:title="Compter Roi au bout" android:key="RAB" android:summaryOn="Seulement si Roi au dernier pli"/>
-            
-        </PreferenceScreen>
+            <CheckBoxPreference android:title="Compter Roi au bout" android:key="RAB" android:summaryOn="Seulement si Roi au dernier pli"></CheckBoxPreference></PreferenceScreen>
         <CheckBoxPreference android:summaryOff="Interdiction de poser les 3 bouts dans un pli" android:title="Autoriser 3 Bouts" android:key="A3BDP" android:summaryOn="Autorisation de poser les 3 bouts dans un pli"/>
     </PreferenceScreen>
     <PreferenceScreen android:key="PA" android:title="Préférences Application">
@@ -30,6 +28,7 @@
         <EditTextPreference android:key="AD1" android:title="Nom du joueur 2"/>
         <EditTextPreference android:key="AD2" android:title="Nom du joueur 3"/>
         <EditTextPreference android:title="Nom du joueur 4" android:key="AD3"/>
+        
     </PreferenceScreen>
-
+	
 </PreferenceScreen>
