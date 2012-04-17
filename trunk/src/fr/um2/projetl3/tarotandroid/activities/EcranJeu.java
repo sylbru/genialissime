@@ -73,7 +73,6 @@ public class EcranJeu extends Activity
 		Button bLancer = (Button)findViewById(R.id.bLancer);
 		bLancer.setOnClickListener(new View.OnClickListener()
 		{
-			@Override
 			public void onClick(View view)
 			{
 				P = new Partie();
@@ -95,13 +94,14 @@ public class EcranJeu extends Activity
 		});		
 	}
 	
-	/*public void afficherMain(final Vector<Carte> main)
+	/**/
+	public void afficherMain(final Vector<Carte> main)
 	{
 		runOnUiThread(new Runnable()
 		{
 			public void run()
 			{
-				for(int i = 0; (i < 26); ++i)
+				for(int i = 1; (i < 26); ++i)
 				{
 					int imageViewId = 0;
 					Carte card = (i >= main.size()) ? null : main.get(i);
@@ -141,7 +141,7 @@ public class EcranJeu extends Activity
 				}
 			}
 		});
-	}*/
+	}/**/
 
 	private Contrat resultatAnnonce;
 	private AlertDialog alerte = null;
@@ -149,7 +149,7 @@ public class EcranJeu extends Activity
 	{
 		runOnUiThread(new Runnable()
 		{
-			@Override
+			
 			public void run()
 			{
 				AlertDialog.Builder alert = new AlertDialog.Builder(EcranJeu.this);
@@ -170,7 +170,7 @@ public class EcranJeu extends Activity
 				listeAnnoncesCS.toArray(listeAnnonces);
 				alert.setSingleChoiceItems(listeAnnonces, -1, new DialogInterface.OnClickListener()
 				{	
-					@Override
+					
 					public void onClick(DialogInterface arg0, int i)
 					{
 						makeToast((String)listeAnnonces[i]);
@@ -213,19 +213,19 @@ public class EcranJeu extends Activity
 		bDemandeAnnonce.setText("Annoncer");
 		bDemandeAnnonce.setOnClickListener(new View.OnClickListener()
 		{
-			@Override
+			
 			public void onClick(View v)
 			{
 				afficherDemandeAnnonce();
 			}
 		});
 		final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		//lp.addRule(RelativeLayout.ABOVE, R.id.scrollView1);
-		lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		lp.addRule(RelativeLayout.ABOVE, R.id.horizontalScrollView1);
+		//lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		
 		runOnUiThread(new Runnable()
 		{
-			@Override
+			
 			public void run()
 			{
 				rl.addView(bDemandeAnnonce, lp);
@@ -237,7 +237,7 @@ public class EcranJeu extends Activity
 		
 		runOnUiThread(new Runnable()
 		{
-			@Override
+			
 			public void run()
 			{
 				rl.removeView(bDemandeAnnonce);
@@ -254,7 +254,7 @@ public class EcranJeu extends Activity
 	{
 		runOnUiThread(new Runnable()
 		{
-			@Override
+			
 			public void run()
 			{
 				AlertDialog.Builder alert = new AlertDialog.Builder(EcranJeu.this);
@@ -271,7 +271,7 @@ public class EcranJeu extends Activity
 				vListeCartesLegalesCS.toArray(listeCarteLegales);
 				alert.setSingleChoiceItems(listeCarteLegales, -1, new DialogInterface.OnClickListener()
 				{	
-					@Override
+					
 					public void onClick(DialogInterface arg0, int i)
 					{
 						resultatCarte = cartesLegales.get(i);
@@ -290,7 +290,7 @@ public class EcranJeu extends Activity
 		bDemandeCarte.setText("Jouer une carte");
 		bDemandeCarte.setOnClickListener(new View.OnClickListener()
 		{
-			@Override
+			
 			public void onClick(View v)
 			{
 				afficherDemandeCarte();
@@ -302,7 +302,7 @@ public class EcranJeu extends Activity
 		
 		runOnUiThread(new Runnable()
 		{
-			@Override
+			
 			public void run()
 			{
 				rl.addView(bDemandeCarte, lp);
@@ -314,7 +314,7 @@ public class EcranJeu extends Activity
 		
 		runOnUiThread(new Runnable()
 		{
-			@Override
+			
 			public void run()
 			{
 				rl.removeView(bDemandeCarte);
@@ -334,6 +334,7 @@ public class EcranJeu extends Activity
 		}
 		// makeToast(texteMain);
 		log(texteMain);
+		afficherMain(main);
 	}
 
 	public void makeToast(String s, boolean court)
@@ -342,7 +343,7 @@ public class EcranJeu extends Activity
 		final boolean rCourt = court;
 		runOnUiThread(new Runnable()
 		{
-			@Override
+			
 			public void run()
 			{
 				Toast.makeText(EcranJeu.this, rS, (rCourt ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG)).show();
@@ -362,7 +363,7 @@ public class EcranJeu extends Activity
 		final String msg = s;
 		runOnUiThread(new Runnable()
 		{
-			@Override
+			
 			public void run()
 			{
 				System.out.println("Log : "+msg);

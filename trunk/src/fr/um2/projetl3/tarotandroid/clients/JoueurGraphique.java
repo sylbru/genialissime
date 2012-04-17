@@ -21,7 +21,6 @@ import fr.um2.projetl3.tarotandroid.jeu.Main;
 public class JoueurGraphique implements IJoueur {
 		
 	private EcranJeu ecran;
-	private Donne DonneDuJoueur; // ??
 	
 	private String nom;
 	private Main main;
@@ -35,11 +34,6 @@ public class JoueurGraphique implements IJoueur {
 	{
 		this.nom = nom;
 		this.ecran = ecran;
-	}
-	
-	public JoueurGraphique(Donne d)
-	{
-		DonneDuJoueur = d;
 	}
 	
 	private void majMain()
@@ -100,14 +94,12 @@ public class JoueurGraphique implements IJoueur {
 
 	
 	public void direCarteJouee(Carte c, int j) {
-		ecran.log(P.getNomNumJoueur(j) + "(?) joue " + c);
+		ecran.log(P.getNomNumJoueur(j) + " joue " + c);
 	}
 
 	
 	public void direAnnonce(Contrat c, int j) {
-		ecran.log(P.getNomNumJoueur(j) + "(?) annonce " + c);
-		// TODO Auto-generated method stub
-
+		ecran.log(P.getNomNumJoueur(j) + " dit " + c);
 	}
 
 	
@@ -121,15 +113,15 @@ public class JoueurGraphique implements IJoueur {
 	}
 
 
-	public void recupererMain() {
+	private void recupererMain() {
 		// TODO Auto-generated method stub
 	}
 
-	public void recupererPliEnCours() {
+	private void recupererPliEnCours() {
 		// TODO Auto-generated method stub
 	}
 
-	public void recupererPliPrecedent() {
+	private void recupererPliPrecedent() {
 		// TODO Auto-generated method stub
 	}
 
