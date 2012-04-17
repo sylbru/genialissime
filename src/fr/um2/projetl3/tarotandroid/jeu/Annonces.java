@@ -59,7 +59,7 @@ public class Annonces
 					//System.out.println("Je demande l'annonce du joueur "+numeroDuJoueur);
 					contrat = demanderAnnonceJoueur(numeroDuJoueur, contratMax);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
 					System.out.println("coucou");
-//					direJoueursAnnonce(contrat, numeroDuJoueur);
+					direJoueursAnnonce(contrat, numeroDuJoueur);
 					
 					if (contrat.getPoids() > contratMax.getPoids())
 					{
