@@ -55,8 +55,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom"
         android:background="@drawable/border"
-        android:layout_alignParentRight="true" >
+        android:fillViewport="true" >
 
         <LinearLayout
             android:id="@+id/linearLayout1"
