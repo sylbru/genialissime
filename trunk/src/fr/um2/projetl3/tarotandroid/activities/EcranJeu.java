@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,28 +50,17 @@ public class EcranJeu extends Activity
 		// TextView pour log
 		logT = (TextView)findViewById(R.id.log);
 		
-		ImageView imgV = new ImageView(this);
-		/*try
-		{
-			imgV.setImageDrawable((new CarteGraphique(42)).mImageView.getDrawable());
-		}
-		catch (CarteUIDInvalideException e)
-		{
-			e.printStackTrace();
-		}*/
-		
 		// RelativeLayout principal (plateau)
 		rl = (RelativeLayout) findViewById(R.id.mainLayout);
 		LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		
-		rl.addView(imgV, lp); // ajout d’une image
 		setContentView(rl); // bizarre, on remplace tout le layout ecran_jeu par le RelativeLayout qui était dedans
 							// à changer peut-être 
 							// Il est possible de le faire en xml et ce serait plus propre, non ?
 		
-		// Bouton pour lancer la partie (temporaire)
-		Button bLancer = (Button)findViewById(R.id.bLancer);
+		// Bouton pour lancer la partie
+		final Button bLancer = (Button)findViewById(R.id.bLancer);
 		bLancer.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View view)
@@ -89,6 +79,8 @@ public class EcranJeu extends Activity
 				
 				// P.start() permet de lancer le thread, fait appel à P.run(), lequel fait appel à P.lancerPartie()
 				P.start();
+				
+				rl.removeView(bLancer);
 				//afficherMain(P.donne().getMain().getCartes());
 			}
 		});		
@@ -110,16 +102,12 @@ public class EcranJeu extends Activity
 					try {
 						imageViewId = R.id.class.getDeclaredField(imageViewIdName).getInt(null);
 					} catch (IllegalArgumentException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (SecurityException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (NoSuchFieldException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 			
@@ -224,7 +212,6 @@ public class EcranJeu extends Activity
 		
 		runOnUiThread(new Runnable()
 		{
-			
 			public void run()
 			{
 				rl.addView(bDemandeAnnonce, lp);
@@ -274,9 +261,11 @@ public class EcranJeu extends Activity
 					public void onClick(DialogInterface arg0, int i)
 					{
 						resultatCarte = cartesLegales.get(i);
+						alerte.dismiss();
 					}
 				});
-				alert.show();
+				alerte = alert.create();
+				alerte.show();
 			}
 		});
 	
@@ -325,16 +314,56 @@ public class EcranJeu extends Activity
 	
 	public void direMain(Vector<Carte> main)
 	{
+		/* *
 		String texteMain = "Main : ";
 		for(Carte c: main)
 		{
 			texteMain += c.toStringShort() + ", ";
 		}
-		// makeToast(texteMain);
-		log(texteMain);
+		makeToast(texteMain);
+		log(texteMain); /**/
 		afficherMain(main);
 	}
+	
+	public void direAnnonce(final Contrat c, int j)
+	{
+		final TextView tvAnnonce;
+		boolean ok = true;
+		switch(j)
+		{
+		case 0:
+			tvAnnonce = (TextView) findViewById(R.id.annonceS);
+			break;
+		case 1:
+			tvAnnonce = (TextView) findViewById(R.id.annonceO);
+			break;
+		case 2:
+			tvAnnonce = (TextView) findViewById(R.id.annonceN);
+			break;
+		case 3:
+			tvAnnonce = (TextView) findViewById(R.id.annonceE);
+			break;
+		default:
+			log("Annonce de joueur inconnu "+j);
+			tvAnnonce = null;
+			ok = false;
+		}
+		
+		if(ok)
+		{
+			hh.post(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					tvAnnonce.setText(c.toString());
+				}
+			});
+		}
+	}
 
+	Handler hh = new Handler();
+	
 	public void makeToast(String s, boolean court)
 	{
 		final String rS = s;
@@ -361,10 +390,9 @@ public class EcranJeu extends Activity
 		final String msg = s;
 		runOnUiThread(new Runnable()
 		{
-			
 			public void run()
 			{
-				System.out.println("Log : "+msg);
+				Log.d("Genialissime","Log : "+msg);
 				logT.append((CharSequence)"\n"+msg);
 			}
 		});

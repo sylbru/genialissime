@@ -98,7 +98,7 @@ public class JoueurGraphique implements IJoueur {
 
 	
 	public void direAnnonce(Contrat c, int j) {
-		ecran.log(P.getNomNumJoueur(j) + " dit " + c);
+		ecran.direAnnonce(c, j);
 	}
 
 	
