@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:id="@+id/mainLayout" >
     
+    <!-- 
     <TextView
       android:id="@+id/text"
       android:text="Plateau"
@@ -14,17 +15,15 @@
       android:gravity="center_horizontal"
       android:textColor="#88ffffff"
       android:textSize="24sp"/>
+    -->
     
-    <!-- Ici, mettre les ImageView correspondant aux cartes (?)
-         (ça doit se faire dans le code Java)                   -->
-
     <Button
         android:id="@+id/bLancer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="Lancer" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/lancer" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -48,11 +47,13 @@
 
         </LinearLayout>
     </ScrollView>
+    
+    
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
@@ -62,175 +63,212 @@
 
         <LinearLayout
             android:id="@+id/linearLayout1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal" >
 
             <ImageView
                 android:id="@+id/imageCarte0"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                  android:layout_marginRight="-20dp" 
                 android:clickable="true"/>
             
             <ImageView
                 android:id="@+id/imageCarte1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                  android:layout_marginRight="-20dp" 
                 android:clickable="true"/>
 
             <ImageView
                 android:id="@+id/imageCarte2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp"/>
 
             <ImageView
                 android:id="@+id/imageCarte3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp"/>            
                     
             <ImageView
                 android:id="@+id/imageCarte4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp"/>
             
             <ImageView
                 android:id="@+id/imageCarte5"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp" />
             
             <ImageView
                 android:id="@+id/imageCarte6"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp" android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/imageCarte7"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp"/>            
                     
             <ImageView
                 android:id="@+id/imageCarte8"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp"/>
   
             <ImageView
                 android:id="@+id/imageCarte9"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp"/>
             
             <ImageView
                 android:id="@+id/imageCarte10"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp" />
 
             <ImageView
                 android:id="@+id/imageCarte11"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp"/>            
                     
             <ImageView
                 android:id="@+id/imageCarte12"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp" />
             
             <ImageView
                 android:id="@+id/imageCarte13"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp"/>
             
             <ImageView
                 android:id="@+id/imageCarte14"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp"/>
 
             <ImageView
                 android:id="@+id/imageCarte15"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp" />            
                     
             <ImageView
                 android:id="@+id/imageCarte16"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp"/>   
                 
             <ImageView
                 android:id="@+id/imageCarte17"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp" />
             
             <ImageView
                 android:id="@+id/imageCarte18"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp" />
             
             <ImageView
                 android:id="@+id/imageCarte19"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp"/>
 
             <ImageView
                 android:id="@+id/imageCarte20"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp"/>            
                     
             <ImageView
                 android:id="@+id/imageCarte21"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp" /> 
             
             <ImageView
                 android:id="@+id/imageCarte22"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp" />
             
             <ImageView
                 android:id="@+id/imageCarte23"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp" />
             
             <ImageView
                 android:id="@+id/imageCarte24"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp"/>
 
             <ImageView
                 android:id="@+id/imageCarte25"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="-20dp"/>            
                     
             <ImageView
                 android:id="@+id/imageCarte26"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
+                android:layout_height="match_parent" 
                 android:layout_marginRight="-20dp"/> 
             </LinearLayout>
         
     </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/annonceS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/horizontalScrollView1"
+        android:layout_centerVertical="true"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <TextView
+        android:id="@+id/annonceO"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/annonceE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/annonceN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
  </RelativeLayout>
