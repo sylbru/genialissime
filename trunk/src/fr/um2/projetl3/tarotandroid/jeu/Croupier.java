@@ -2,6 +2,10 @@ package fr.um2.projetl3.tarotandroid.jeu;
 
 import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
 
+import java.util.Vector;
+
+import fr.um2.projetl3.tarotandroid.clients.IJoueur;
+
 public class Croupier {
 
 	/**
@@ -22,7 +26,7 @@ public class Croupier {
 	 */
 	void direMains()
 	{
-		int nbJoueur = 4; // prb pr recup le nb de joueur
+		int nbJoueur = P.getNombreDeJoueurs();
 		for(int i=0;i<nbJoueur;i++)
 		{
 			direMain(i);
@@ -36,69 +40,60 @@ public class Croupier {
 	 * inclure donner le chien au preneur ?
 	 * 
 	 */
-	void reveleChien()
+	void reveleChien(Vector<Carte> chien)
 	{
-		
-	}
-	
-	/**
-	 * @author JB
-	 * 
-	 * Demande l'ecart au preneur
-	 * le recupere et le met dans le plis de l'attaque
-	 */
-	void phaseEcart()
-	{
-		
-	}
-	
-	/**
-	 * @author JB
-	 * 
-	 * c'est la phase des plis
-	 * 	on demande une carte à un joueur on la valide
-	 *   ensuite on fait de même pour les autres joueurs.
-	 *  puis on range le pli dans le bon vecteur (defense ou attaque)
-	 *  et ceci tant qu'il reste des cartes au joueur
-	 */
-	void jeuDeLaCarte()
-	{
-		int modifierLorsqueJePourrais = (Constantes.NOMBRE_CARTES_TOTALES-6)/4;
-		
-		for(int i=0;i<modifierLorsqueJePourrais;i++)
+		for(IJoueur j: P.getJoueurs())
 		{
-			
+			j.direChien(chien);
+		}
+	}
+	/**
+	 * @author niavlys
+	 * Informe les joueurs du fait qu’une carte a été jouée par un joueur
+	 * @param c La carte jouée
+	 * @param joueur Le joueur qui a joué la carte
+	 */
+	public void direJoueursCarteJouee(Carte c, int joueur)
+	{
+		int pos = 0; 
+		for(IJoueur j: P.getJoueurs())
+		{
+			j.direCarteJouee(c, (pos-joueur)%P.getNombreDeJoueurs());
+		}
+	}
+	/**
+	 * @author niavlys
+	 * Informe les joueurs du fait qu’un pli a été remporté
+	 * @param pli le contenu du pli remporté
+	 * @param joueur Le joueur qui a remporté le pli
+	 */
+	public void direJoueursPliRemporté(Vector<Carte> pli, int joueur)
+	{
+		int pos = 0;
+		for(IJoueur j: P.getJoueurs())
+		{
+			Vector<Carte> vPli = new Vector<Carte>(); 
+			int i = 0;
+			while (pli.get(i)==null)
+			{
+				vPli.add(pli.get(i));
+			}
+			j.direPliRemporté(vPli, (pos-joueur)%P.getNombreDeJoueurs());
 		}
 	}
 	
-	/**
-	 * @author JB
-	 * 
-	 * appel la méthode de calcule des scores puis montre le resultat aux joueurs
-	 */
-	void montrerScore()
+	public Carte demanderCarteJoueur(int num)
 	{
-		
+		Carte carteProposee;
+
+			System.out.println("demande carte joueur croupier");
+			System.out.println("Demandons au joueur "+num+ " soit "+(num%P.getNombreDeJoueurs()));
+			carteProposee = P.getJoueur(num%P.getNombreDeJoueurs()).demanderCarte();
+			System.out.println(P.getJoueur(num%P.getNombreDeJoueurs()).getNomDuJoueur()+" "+carteProposee.toString());
+
+		return carteProposee;
 	}
 	
-	/**
-	 * @author JB
-	 * 
-	 * deroulement d'une donne
-	 */
-	void faireDonne()
-	{
-		
-	}
-	
-	/**
-	 * @author JB
-	 * 
-	 * deroulement d'une partie.
-	 */
-	void fairePartie()
-	{
-		
-	}
+	public Croupier(){}
 
 }

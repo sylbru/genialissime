@@ -12,6 +12,7 @@ public class Donne
 {
 	private Main mainsDesJoueurs[];
 	private Vector<Carte> chien;
+	private Croupier croupier;
 	private Partie P; // la partie à laquelle appartient cette donne
 	
 	private Contrat contratEnCours;
@@ -109,59 +110,11 @@ public class Donne
 	 * ------------------------------------ Méthodes --------------------------------------------
 	 * --------------------------------------------------------------------------------------------
 	 */
+	 
+	void reveleChien(){
+		croupier.reveleChien(chien);
+	}
  
-	/**
-	 * Informe les joueurs du chien révélé
-	 */
-	public void reveleChien()
-	{
-		for(IJoueur j: P.getJoueurs())
-		{
-			Vector<Carte> vChien = new Vector<Carte>(); 
-			for(Carte c :chien)
-			{
-				vChien.add(c);
-			}
-			j.direChien(vChien);
-		}
-	}
-	
-	/**
-	 * @author niavlys
-	 * Informe les joueurs du fait qu’une carte a été jouée par un joueur
-	 * @param c La carte jouée
-	 * @param joueur Le joueur qui a joué la carte
-	 */
-	public void direJoueursCarteJouee(Carte c, int joueur)
-	{
-		int pos = 0; 
-		for(IJoueur j: P.getJoueurs())
-		{
-			j.direCarteJouee(c, (pos-joueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
-		}
-	}
-	
-	/**
-	 * @author niavlys
-	 * Informe les joueurs du fait qu’un pli a été remporté
-	 * @param pli le contenu du pli remporté
-	 * @param joueur Le joueur qui a remporté le pli
-	 */
-	public void direJoueursPliRemporté(Vector<Carte> pli, int joueur)
-	{
-		int pos = 0;
-		for(IJoueur j: P.getJoueurs())
-		{
-			Vector<Carte> vPli = new Vector<Carte>(); 
-			int i = 0;
-			while (pli.get(i)==null)
-			{
-				vPli.add(pli.get(i));
-			}
-			j.direPliRemporté(vPli, (pos-joueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
-		}
-	}
-		
 	 /** Méthode fini maisobject à tester
 	  *  // TODO test
 	  * @author JB
@@ -241,8 +194,9 @@ public class Donne
 		int numJoueur;
 		int numJoueurVainqueurPli;
 		
-		while (!donneFinie()) // un tour de jeu, on commence à numJoueur = numJoueurEntame
+		while (!donneFinie()) //donne comporte tous les pli sauf le dernier qui est regarde differament à cause du comportement different de l'excuse etc...
 		{
+			 // un tour de jeu, on commence à numJoueur = numJoueurEntame
 			numJoueurEnContact = numJoueurEntame;
 			
 			numJoueur = numJoueurEntame;
@@ -274,7 +228,7 @@ public class Donne
 				nbCartesPosees++;
 				
 				System.out.println("Taille du pli "+plisEnCours.size());
-				direJoueursCarteJouee(plisEnCours.get((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()), (numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
+				croupier.direJoueursCarteJouee(plisEnCours.get((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()), (numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
 				numJoueur = P.getNumJoueurApres((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
 				setJoueurEnContactApres();
 			}
@@ -282,20 +236,149 @@ public class Donne
 			
 			numJoueurVainqueurPli = vainqueurDuPli(plisEnCours);
 			
-			direJoueursPliRemporté(plisEnCours, numJoueurVainqueurPli);
+			croupier.direJoueursPliRemporté(plisEnCours, numJoueurVainqueurPli);
 			if(isJoueurAttaque(numJoueurVainqueurPli)) 
 			{
-				plisAttaque.addAll(plisEnCours);
+				int a;
+				if((a = excuseDanslePlis() )< 0)
+				{
+					plisAttaque.addAll(plisEnCours);
+				}
+				else //l'excuse est dans le pli
+				{ 	
+					if(isJoueurAttaque(a))//excuse remporte par l'attaque (partie a 5)
+					{
+						plisAttaque.addAll(plisEnCours);
+					}
+					else//excuse gardee par la defence
+					{
+						remplacerExcuse(plisDefense, plisEnCours,a);
+						plisAttaque.addAll(plisEnCours);
+					}
+				}
 			}
 			else
 			{
-				plisDefense.addAll(plisEnCours);
+
+				int a;
+				if((a = excuseDanslePlis() )< 0)
+				{
+					plisDefense.addAll(plisEnCours);
+				}
+				else //l'excuse est dans le pli
+				{ 	
+					if(isJoueurDefense(a))//excuse remporte par la defence (partie a 5)
+					{
+						plisDefense.addAll(plisEnCours);
+					}
+					else//excuse gardee par l'attaque
+					{
+						remplacerExcuse(plisAttaque, plisEnCours,a);
+						plisDefense.addAll(plisEnCours);
+					}
+				}
 			}
 			
 			plisPrecedent = (Vector<Carte>) plisEnCours.clone(); // transfert de pliEnCours dans pliPrecedent
 			plisEnCours.clear();
 			numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagné le pli entame au tour suivant
 		}
+		dernierPli(numJoueurEntame);
+	}
+	
+	public void remplacerExcuse(Vector<Carte> v1, Vector<Carte> v2, int a)
+	{
+		Carte c;
+		c= v2.get(a);
+		v2.remove(a);
+		boolean echange=false;
+		if(c.isExcuse()==false)
+		{
+			System.out.println("erreur critique : l'excuse n'est la ou elle devrait etre");
+			return;
+		}
+		else
+		{
+			if(v1.size()==0)
+			{
+				System.out.println("le plis est vide on ne peut pas encore remplacer l'excuse");
+				return;
+			}
+			else
+			{
+				int i=0;
+				while(!echange)
+				{
+					Carte c2 = v1.get(i);
+					if(c2.isCouleur() && c2.getOrdre()<10)
+					{
+						v2.add(c2);
+						v1.remove(c2);
+						v1.add(c);
+						echange=true;
+						return;
+					}
+					else
+					{
+						i++;
+					}
+				}
+			}
+			if(!echange)
+			{
+				System.out.println("On a pas trouve de carte a echanger");
+			}
+		}
+	}
+	
+	public void dernierPli(int numJoueurEntame)
+	{
+		System.out.println("on entre dans le dernier pli ici  : le joueur qui entame est le joueeur numero : "+numJoueurEntame);
+		int numJoueur = numJoueurEntame;
+		int numJoueurVainqueurPli;
+		int nbCartesPosees = 0;
+		for(int i=0; i<P.getNombreDeJoueurs();i++)
+		{
+			assert	(mainsDesJoueurs[i].nbCartesRestantes() == 1);
+			System.out.println("nombre des cartes dans la main des joueur = "+mainsDesJoueurs[i].nbCartesRestantes());
+		}
+		while (nbCartesPosees < P.getNombreDeJoueurs())
+		{
+			System.out.println("On a posé "+nbCartesPosees+" cartes");
+			System.out.println("Taille du pli "+plisEnCours.size());
+			System.out.println("Le joueur en cours est "+numJoueur);
+			
+			//plisEnCours.insertElementAt(demanderCarteJoueur((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()), (numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
+			plisEnCours.get((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).set(demanderCarteJoueur((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).uid());
+			nbCartesPosees++;
+			
+			System.out.println("Taille du pli "+plisEnCours.size());
+			croupier.direJoueursCarteJouee(plisEnCours.get((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()), (numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
+			numJoueur = P.getNumJoueurApres((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
+			setJoueurEnContactApres();
+		}
+		
+		numJoueurVainqueurPli = vainqueurDuPli(plisEnCours);
+		if(excuseDanslePlis()>=0)
+		croupier.direJoueursPliRemporté(plisEnCours, numJoueurVainqueurPli);
+		if(isJoueurAttaque(numJoueurVainqueurPli)) 
+				plisAttaque.addAll(plisEnCours);
+		else
+				plisDefense.addAll(plisEnCours);
+		plisPrecedent = (Vector<Carte>) plisEnCours.clone(); // transfert de pliEnCours dans pliPrecedent
+		plisEnCours.clear();
+		numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagné le pli entame au tour suivant
+	
+	}
+	//retourne la position de l'excuse dans le plis et -1 si l'excuse n'est pas dans le pli
+	public int excuseDanslePlis()
+	{
+		for(int i=0; i< P.getNombreDeJoueurs(); i++ )
+		{
+			if(plisEnCours.get(i).isExcuse())
+				return i;
+		}
+		return -1;
 	}
 	
 	/**
@@ -394,9 +477,7 @@ public class Donne
 		Carte carteProposee;
 		do
 		{
-			System.out.println("Demandons au joueur "+num+ " soit "+(num%P.getNombreDeJoueurs()));
-			carteProposee = P.getJoueur((num+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).demanderCarte();
-			System.out.println(P.getJoueur(num%P.getNombreDeJoueurs()).getNomDuJoueur()+" "+carteProposee.toString());
+			carteProposee = croupier.demanderCarteJoueur(num);
 			/*
 			 * test des condition de la boucle 
 			 * if(mainsDesJoueurs[num].contains(carteProposee)) System.out.println("contains !!!");
@@ -436,7 +517,7 @@ public class Donne
 	
 	public boolean donneFinie()
 	{
-		return plisAttaque.size() + plisDefense.size() == Constantes.NOMBRE_CARTES_TOTALES;
+		return plisAttaque.size() + plisDefense.size() == Constantes.NOMBRE_CARTES_TOTALES-P.getNombreDeJoueurs();
 	}
 	
 	
@@ -675,6 +756,7 @@ public class Donne
 		plisPrecedent = new Vector<Carte>();
 		plisDefense = new Vector<Carte>();
 		plisAttaque = new Vector<Carte>();
+		croupier = new Croupier();
 	}
 	
 	public Donne()
