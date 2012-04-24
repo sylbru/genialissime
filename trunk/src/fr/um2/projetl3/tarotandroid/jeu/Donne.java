@@ -292,6 +292,17 @@ public class Donne
 		c= v2.get(a);
 		v2.remove(a);
 		boolean echange=false;
+		System.out.println("remplace excuse l'escuse se a l'endroit "+a);
+		System.out.println("cartes dans v1");
+		for(int i=0; i<v1.size();i++)
+		{
+			System.out.println(v1.get(i).uid());
+		}
+		System.out.println("cartes dans plis en cours");
+		for(int i=0; i<v2.size();i++)
+		{
+			System.out.println(v2.get(i).uid());
+		}
 		if(c.isExcuse()==false)
 		{
 			System.out.println("erreur critique : l'excuse n'est la ou elle devrait etre");
@@ -320,7 +331,9 @@ public class Donne
 					}
 					else
 					{
+						if(i<v1.size())
 						i++;
+						else return;
 					}
 				}
 			}
@@ -342,11 +355,16 @@ public class Donne
 			assert	(mainsDesJoueurs[i].nbCartesRestantes() == 1);
 			System.out.println("nombre des cartes dans la main des joueur = "+mainsDesJoueurs[i].nbCartesRestantes());
 		}
+		for (int fillerup=0;fillerup<P.getNombreDeJoueurs();fillerup++)
+		{
+			plisEnCours.add(new Carte(21));
+		}
 		while (nbCartesPosees < P.getNombreDeJoueurs())
 		{
+			System.out.println("Le joueur en cours est "+numJoueur);
 			System.out.println("On a posé "+nbCartesPosees+" cartes");
 			System.out.println("Taille du pli "+plisEnCours.size());
-			System.out.println("Le joueur en cours est "+numJoueur);
+
 			
 			//plisEnCours.insertElementAt(demanderCarteJoueur((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()), (numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
 			plisEnCours.get((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).set(demanderCarteJoueur((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).uid());
@@ -354,6 +372,7 @@ public class Donne
 			
 			System.out.println("Taille du pli "+plisEnCours.size());
 			croupier.direJoueursCarteJouee(plisEnCours.get((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()), (numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
+			System.out.println("kennt en hei un ?");
 			numJoueur = P.getNumJoueurApres((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
 			setJoueurEnContactApres();
 		}
