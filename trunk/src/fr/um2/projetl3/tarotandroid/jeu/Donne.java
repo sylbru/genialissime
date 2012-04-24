@@ -372,7 +372,6 @@ public class Donne
 			
 			System.out.println("Taille du pli "+plisEnCours.size());
 			croupier.direJoueursCarteJouee(plisEnCours.get((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()), (numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
-			System.out.println("kennt en hei un ?");
 			numJoueur = P.getNumJoueurApres((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
 			setJoueurEnContactApres();
 		}
@@ -504,7 +503,6 @@ public class Donne
 			 */
 		}
 		while(!(mainsDesJoueurs[(num+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()].possede(carteProposee)&& isCarteLegale(carteProposee, (num+P.getNombreDeJoueurs())%P.getNombreDeJoueurs())));
-		System.out.println("C'est cool mec!");
 		mainsDesJoueurs[(num+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()].removeCarte(carteProposee);
 		System.out.println("Renvoyons "+carteProposee.toString());
 		return carteProposee;
