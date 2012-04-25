@@ -1,9 +1,12 @@
 package fr.um2.projetl3.tarotandroid.activities;
 
+import fr.um2.projetl3.tarotandroid.jeu.PrefsRegles;
+import static fr.um2.projetl3.tarotandroid.activities.Contexts.applicationContext;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -68,5 +71,6 @@ public class PreferencesActivity extends PreferenceActivity implements
     public void onCreate1(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);}
+    
  
 }

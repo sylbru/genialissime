@@ -1,7 +1,9 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
 import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
-
+import static fr.um2.projetl3.tarotandroid.activities.Contexts.applicationContext;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge de la liaison graphique pour les préférences
 						// (niavlys) de toute façon cette classe ne va rien contenir de graphique normalement 
 {
@@ -103,5 +105,29 @@ public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge d
 		
 		public static boolean conditionFinDonnesMax = false;
 		public static int donnesMax = 42;
+		
+		public static void preferencesActives()  //Methode permettant de, au moment d'une partie, de prendre en compte toutes les préférences
+		{
+	    	//SharedPreferences pm = applicationContext.getSharedPreferences(name, mode).getPreferenceManager().getDefaultSharedPreferences(applicationContext);
+			SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(applicationContext);
+	    	PrefsRegles.sensInverseAiguillesMontre = pm.getBoolean("SDJ", false);
+	    	PrefsRegles.autoriserParole = pm.getBoolean("PAR", false);
+	    	PrefsRegles.autoriserPetite = pm.getBoolean("PET", false);
+	    	PrefsRegles.autoriserPousse = pm.getBoolean("POU", false);
+	    	PrefsRegles.autoriserGAE = pm.getBoolean("GAE", false);
+	    	
+	    	if (pm.getString("SDJ", "Kevin")== "Kevin")
+	    	{
+	    		PrefsRegles.ManiereDeCompter = false;
+	    	}
+	    	else PrefsRegles.ManiereDeCompter = true;
+	    	
+	    	PrefsRegles.compterMisere = pm.getBoolean("MIS", false);
+	    	PrefsRegles.petitAuBout = pm.getBoolean("PAB", false);
+	    	PrefsRegles.roiAuBout = pm.getBoolean("RAB", false);
+	    	
+	    	
+		}	
+	
 	
 }
