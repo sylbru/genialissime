@@ -356,8 +356,12 @@ public class Partie extends Thread
 	 */
 	
 	// niavlys : remis en public parce qu’il y a bien besoin de lancer la partie depuis l’interface graphique
-	public void lancerPartie()
+	public void lancerPartie(boolean pref) //ajout d'un parametre pour savoir si on lance le jeu en prenant encompte les preferences ou non
 	{
+		if(pref)
+		{
+			PrefsRegles.preferencesActives();// methode de Prefs.Regles permettant ainsi d'activer les préférences
+		}
 		initialisationPartie();
 		Contrat.initialiserContrats();
 		//donneEnCours.init();
@@ -400,6 +404,7 @@ public class Partie extends Thread
 		}
 	}
 	
+	
 
 	/*
 	 * --------------------------------------------------------------------------------------------
@@ -414,7 +419,7 @@ public class Partie extends Thread
 		setJoueur(2, new JoueurTexte("Sud", true));
 		setJoueur(3, new JoueurTexte("Ouest", true));
 		
-		lancerPartie();
+		lancerPartie(false);
 	}
 	
 	public void lancerPartie4JoueursIA(IJoueur a, IJoueur b, IJoueur c, IJoueur d)
@@ -425,7 +430,7 @@ public class Partie extends Thread
 		setJoueur(2, c);
 		setJoueur(3, d);
 		
-		lancerPartie();
+		lancerPartie(false);
 	}	
 	
 	public void lancerPartieDistante()
@@ -477,7 +482,7 @@ public class Partie extends Thread
 	public void run()
 	{
 		// vérifier que les joueurs sont settés et tout ?
-		lancerPartie();
+		lancerPartie(true); //true par ce que on passe par l'IG
 	}
 
 	public static void main(String[] args)
