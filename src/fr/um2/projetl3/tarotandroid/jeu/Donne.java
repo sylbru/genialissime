@@ -510,7 +510,6 @@ public class Donne
 	
 	/**
 	 * 
-	 * @param numJoueur
 	 * @return un vecteur contenant les Cartes possibles (légales) à jouer pour le joueur numJoueur
 	 * Actuellement ça regarde toutes ses cartes et fait appel à isCarteLegale() pour chacune.
 	 * Est-ce que ce serait plus efficace de procéder plus intelligemment ? À voir.
@@ -530,6 +529,26 @@ public class Donne
 			}
 		}
 		return cartesLegales;
+	}
+	
+	/**
+	 * 
+	 * @return un vecteur contenant les cartes possibles pour l’écart
+	 */
+	public Vector<Carte> indiquerCartesLegalesEcart()
+	{
+		Vector<Carte> cartesLegalesEcart = new Vector<Carte>();
+		if(numJoueurEnContact < P.getNombreDeJoueurs())
+		{
+			for(Carte c: mainsDesJoueurs[(numJoueurEnContact+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()].getCartes())
+			{
+				if(!c.isBout() && !c.isAtout() && !(c.isCouleur() && c.getOrdre()==14))
+				{
+					cartesLegalesEcart.add(c);
+				}
+			}
+		}
+		return cartesLegalesEcart;
 	}
 	
 	public boolean donneFinie()

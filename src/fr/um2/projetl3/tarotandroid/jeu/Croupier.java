@@ -58,7 +58,7 @@ public class Croupier {
 		int pos = 0; 
 		for(IJoueur j: P.getJoueurs())
 		{
-			j.direCarteJouee(c, (pos-joueur)%P.getNombreDeJoueurs());
+			j.direCarteJouee(c, ((pos-joueur)+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
 		}
 	}
 	/**
@@ -78,7 +78,7 @@ public class Croupier {
 			{
 				vPli.add(pli.get(i));
 			}
-			j.direPliRemporté(vPli, (pos-joueur)%P.getNombreDeJoueurs());
+			j.direPliRemporté(vPli, ((pos-joueur)+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
 		}
 	}
 	
