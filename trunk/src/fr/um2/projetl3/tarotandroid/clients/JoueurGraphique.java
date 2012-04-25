@@ -65,8 +65,7 @@ public class JoueurGraphique implements IJoueur {
 
 	
 	public Vector<Carte> demanderEcart() {
-		// TODO Auto-generated method stub
-		return null;
+		return ecran.demanderEcart();
 	}
 
 	

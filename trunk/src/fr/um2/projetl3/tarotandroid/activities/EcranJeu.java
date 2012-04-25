@@ -2,6 +2,7 @@ package fr.um2.projetl3.tarotandroid.activities;
 
 import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Vector;
 
@@ -17,10 +18,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import fr.um2.projetl3.tarotandroid.R;
@@ -39,6 +43,7 @@ public class EcranJeu extends Activity
 	IJoueur moi, ia1, ia2, ia3;
 	IJoueur moi1;
 	TextView logT;
+	ScrollView logSV;
 	RelativeLayout rl;
 	
 	@Override
@@ -49,13 +54,11 @@ public class EcranJeu extends Activity
 
 		// TextView pour log
 		logT = (TextView)findViewById(R.id.log);
+		logSV = (ScrollView)findViewById(R.id.logSV);
 		
 		// RelativeLayout principal (plateau)
-		rl = (RelativeLayout) findViewById(R.id.mainLayout);
-		LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		
-		setContentView(rl); // bizarre, on remplace tout le layout ecran_jeu par le RelativeLayout qui était dedans
+		rl = (RelativeLayout) findViewById(R.id.mainLayout);		
+		//setContentView(rl); // bizarre, on remplace tout le layout ecran_jeu par le RelativeLayout qui était dedans
 							// à changer peut-être 
 							// Il est possible de le faire en xml et ce serait plus propre, non ?
 		
@@ -81,7 +84,6 @@ public class EcranJeu extends Activity
 				P.start();
 				
 				rl.removeView(bLancer);
-				//afficherMain(P.donne().getMain().getCartes());
 			}
 		});		
 	}
@@ -132,12 +134,12 @@ public class EcranJeu extends Activity
 	}/**/
 
 	private Contrat resultatAnnonce;
+	private boolean ecartOK;
 	private AlertDialog alerte = null;
 	private void afficherDemandeAnnonce()
 	{
 		runOnUiThread(new Runnable()
 		{
-			
 			public void run()
 			{
 				AlertDialog.Builder alert = new AlertDialog.Builder(EcranJeu.this);
@@ -209,6 +211,7 @@ public class EcranJeu extends Activity
 		});
 		final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		lp.addRule(RelativeLayout.ABOVE, R.id.horizontalScrollView1);
+		lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		
 		runOnUiThread(new Runnable()
 		{
@@ -235,43 +238,151 @@ public class EcranJeu extends Activity
 		return resultatAnnonce;
 	}
 	
-	Carte resultatCarte;
-	public void afficherDemandeCarte()
+	public Vector<Carte> resultatEcart = new Vector<Carte>();
+	public Vector<Carte> demanderEcart()
+	{
+		resultatEcart.clear();
+		ecartOK = false;
+		final Vector<Carte> cartesLegalesEcart = P.donne().indiquerCartesLegalesEcart();
+		checked = new boolean[cartesLegalesEcart.size()];
+		Arrays.fill(checked, false);
+				
+		final Button bDemandeEcart = new Button(this);
+		bDemandeEcart.setText("Faire son écart");
+		bDemandeEcart.setOnClickListener(new View.OnClickListener()
+		{
+			public void onClick(View v)
+			{
+				afficherDemandeEcart(cartesLegalesEcart);
+			}
+		});
+		final Button bValideEcart = new Button(this);
+		bValideEcart.setText("Valider");
+		bValideEcart.setOnClickListener(new View.OnClickListener()
+		{
+			public void onClick(View v)
+			{
+				if(resultatEcart.size() == P.getnombreDeCartesPourLeChien())
+				{
+					ecartOK = true;
+					
+				}
+				else
+					makeToast("Il faut "+P.getnombreDeCartesPourLeChien()+" cartes dans le chien, pas "+resultatEcart.size()+".");
+			}
+		});
+		
+		final LinearLayout llEcart = new LinearLayout(this);
+		final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		lp.addRule(RelativeLayout.ABOVE, R.id.horizontalScrollView1);
+		lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		
+		runOnUiThread(new Runnable()
+		{
+			public void run()
+			{
+				rl.addView(llEcart, lp);
+				llEcart.addView(bDemandeEcart);
+				llEcart.addView(bValideEcart);
+			}
+		});
+				
+		while(!ecartOK)
+		{}
+		
+		runOnUiThread(new Runnable()
+		{
+			public void run()
+			{
+				rl.removeView(llEcart);
+			}
+		});
+		
+		return resultatEcart;
+	}
+	
+	boolean[] checked;
+
+	public void afficherDemandeEcart(final Vector<Carte> cartesLegalesEcart)
 	{
 		runOnUiThread(new Runnable()
 		{
-			
 			public void run()
 			{
 				AlertDialog.Builder alert = new AlertDialog.Builder(EcranJeu.this);
-				alert.setTitle("Jouer une carte");
+				alert.setTitle("Faire son écart");
 				
-				final Vector<Carte> cartesLegales = P.donne().indiquerCartesLegalesJoueur();
 				Vector<CharSequence> vListeCartesLegalesCS = new Vector<CharSequence>();
-				for(Carte c: cartesLegales)
+				for(Carte c: cartesLegalesEcart)
 				{
 					vListeCartesLegalesCS.add(c.toStringShort());
 				}
 				
-				final CharSequence[] listeCarteLegales = new CharSequence[vListeCartesLegalesCS.size()];
-				vListeCartesLegalesCS.toArray(listeCarteLegales);
-				alert.setSingleChoiceItems(listeCarteLegales, -1, new DialogInterface.OnClickListener()
+				final CharSequence[] listeCartesLegalesCS = new CharSequence[vListeCartesLegalesCS.size()];
+				vListeCartesLegalesCS.toArray(listeCartesLegalesCS);
+				
+				alert.setMultiChoiceItems(listeCartesLegalesCS, checked, new DialogInterface.OnMultiChoiceClickListener()
 				{	
-					
-					public void onClick(DialogInterface arg0, int i)
+					public void onClick(DialogInterface arg0, int i, boolean b)
 					{
-						resultatCarte = cartesLegales.get(i);
-						alerte.dismiss();
+						if(!b) // décochage
+						{
+							for(Carte c: resultatEcart)
+							{
+								if(c.uid() == cartesLegalesEcart.get(i).uid())
+								{
+									resultatEcart.remove(c);
+									checked[i] = false;
+									break;
+								}
+							}
+						}
+						else // cochage
+						{
+							resultatEcart.add(cartesLegalesEcart.get(i));
+							checked[i] = true;
+						}
 					}
 				});
 				alerte = alert.create();
 				alerte.show();
 			}
 		});
-	
 	}
 	
-	public Carte demanderCarte()
+	private Carte resultatCarte;
+    public void afficherDemandeCarte()
+    {
+		runOnUiThread(new Runnable()
+		{
+	        public void run()
+	        {
+	            AlertDialog.Builder alert = new AlertDialog.Builder(EcranJeu.this);
+	            alert.setTitle("Jouer une carte");
+	            
+	            final Vector<Carte> cartesLegales = P.donne().indiquerCartesLegalesJoueur();
+	            Vector<CharSequence> vListeCartesLegalesCS = new Vector<CharSequence>();
+	            for(Carte c: cartesLegales)
+	            {
+	            	vListeCartesLegalesCS.add(c.toStringShort());
+	            }
+	            
+	            final CharSequence[] listeCarteLegales = new CharSequence[vListeCartesLegalesCS.size()];
+	            vListeCartesLegalesCS.toArray(listeCarteLegales);
+	            alert.setSingleChoiceItems(listeCarteLegales, -1, new DialogInterface.OnClickListener()
+	            {
+	                public void onClick(DialogInterface arg0, int i)
+	                {
+	                    resultatCarte = cartesLegales.get(i);
+	                    alerte.dismiss();
+	                }
+	            });
+	            alerte = alert.create();
+            alerte.show();
+	        }
+		});
+	}
+    public Carte demanderCarte()
 	{
 		resultatCarte = null;
 		final Button bDemandeCarte = new Button(this);
@@ -286,6 +397,7 @@ public class EcranJeu extends Activity
 		});
 		final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		lp.addRule(RelativeLayout.ABOVE, R.id.horizontalScrollView1);
+		lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		
 		runOnUiThread(new Runnable()
 		{
@@ -374,7 +486,7 @@ public class EcranJeu extends Activity
 			public void run()
 			{
 				Toast.makeText(EcranJeu.this, rS, (rCourt ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG)).show();
-				log("Toast : " + rS);				
+				// log("Toast : " + rS);				
 			}	
 		});
 	}
@@ -394,8 +506,11 @@ public class EcranJeu extends Activity
 			{
 				Log.d("Genialissime","Log : "+msg);
 				logT.append((CharSequence)"\n"+msg);
+				logSV.fullScroll(ScrollView.FOCUS_DOWN);
+				
 			}
 		});
 	}
+
 
 }
