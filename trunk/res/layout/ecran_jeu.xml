@@ -71,165 +71,165 @@
                 android:id="@+id/imageCarte0"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                 android:layout_marginRight="-20dp" 
+
                 android:clickable="true"/>
             
             <ImageView
                 android:id="@+id/imageCarte1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                 android:layout_marginRight="-20dp" 
+  
                 android:clickable="true"/>
 
             <ImageView
                 android:id="@+id/imageCarte2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp"/>
+                />
 
             <ImageView
                 android:id="@+id/imageCarte3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp"/>            
+                />            
                     
             <ImageView
                 android:id="@+id/imageCarte4"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp"/>
+                />
             
             <ImageView
                 android:id="@+id/imageCarte5"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp" />
+                 />
             
             <ImageView
                 android:id="@+id/imageCarte6"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp" android:visibility="gone"/>
+                 android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/imageCarte7"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp"/>            
+                />            
                     
             <ImageView
                 android:id="@+id/imageCarte8"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp"/>
+                />
   
             <ImageView
                 android:id="@+id/imageCarte9"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp"/>
+                />
             
             <ImageView
                 android:id="@+id/imageCarte10"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp" />
+                 />
 
             <ImageView
                 android:id="@+id/imageCarte11"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp"/>            
+                />            
                     
             <ImageView
                 android:id="@+id/imageCarte12"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp" />
+                 />
             
             <ImageView
                 android:id="@+id/imageCarte13"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp"/>
+                />
             
             <ImageView
                 android:id="@+id/imageCarte14"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp"/>
+                />
 
             <ImageView
                 android:id="@+id/imageCarte15"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp" />            
+                 />            
                     
             <ImageView
                 android:id="@+id/imageCarte16"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp"/>   
+                />   
                 
             <ImageView
                 android:id="@+id/imageCarte17"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp" />
+                 />
             
             <ImageView
                 android:id="@+id/imageCarte18"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp" />
+                 />
             
             <ImageView
                 android:id="@+id/imageCarte19"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp"/>
+                />
 
             <ImageView
                 android:id="@+id/imageCarte20"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp"/>            
+                />            
                     
             <ImageView
                 android:id="@+id/imageCarte21"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp" /> 
+                 /> 
             
             <ImageView
                 android:id="@+id/imageCarte22"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp" />
+                 />
             
             <ImageView
                 android:id="@+id/imageCarte23"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp" />
+                 />
             
             <ImageView
                 android:id="@+id/imageCarte24"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp"/>
+                />
 
             <ImageView
                 android:id="@+id/imageCarte25"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="-20dp"/>            
+                />            
                     
             <ImageView
                 android:id="@+id/imageCarte26"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" 
-                android:layout_marginRight="-20dp"/> 
+                /> 
             </LinearLayout>
         
     </HorizontalScrollView>
