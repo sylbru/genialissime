@@ -9,6 +9,7 @@ import java.util.Vector;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -128,6 +129,7 @@ public class EcranJeu extends Activity
 							e.printStackTrace();
 						}
 					}
+					
 				}
 			}
 		});
