@@ -1,12 +1,19 @@
 package fr.um2.projetl3.tarotandroid.clients;
 
 import static fr.um2.projetl3.tarotandroid.jeu.Context.D;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.Vector;
 import org.keplerproject.luajava.LuaException;
 import org.keplerproject.luajava.LuaState;
 import org.keplerproject.luajava.LuaStateFactory;
 import org.xmlpull.v1.XmlPullParser;
+
+import android.content.Context;
+import android.content.res.AssetManager;
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
 import fr.um2.projetl3.tarotandroid.jeu.Main;
@@ -21,10 +28,27 @@ public class JoueurIA implements IJoueur
 	/*--- Constructeurs ---*/
 	public JoueurIA(String pNom, XmlPullParser iaDefaut, int pID)
 	{
-		this.pNom = pNom;
+		//AssetManager am = fr.um2.projetl3.tarotandroid.activities.Contexts.applicationContext.getAssets();
 		L = LuaStateFactory.newLuaState();
 		L.openLibs();
+		
 		try {
+			InputStream is = fr.um2.projetl3.tarotandroid.activities.Contexts.applicationContext.getAssets().open("luascripts/default.lua");
+			int size = is.available();
+			byte[] buffer = new byte[size];
+			is.read(buffer);
+			is.close();
+			String script = new String(buffer);
+			System.out.println(script);
+			L.LdoString(script);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		this.pNom = pNom;
+		/*try {
 			XmlPullParser xpp = iaDefaut;
 			while (xpp.getEventType()!=XmlPullParser.END_DOCUMENT) {
 				if (xpp.getEventType()==XmlPullParser.START_TAG){
@@ -46,7 +70,8 @@ public class JoueurIA implements IJoueur
 				xpp.next();
 			}
 		} catch (Throwable t) {
-		}
+		}*/
+		
 	}
 	
 	/*--- Fluxus ---*/

@@ -2,9 +2,9 @@
 ---- Système de files simple
 
 
-	cue = {}
+cue = {}
 
-	function cue.new()
+function cue.new()
 	local self = {}
 
 	function self:push(data)
@@ -51,9 +51,9 @@ end
 ---- Crée un tableau de chaines de charatères et des fonctions associées
 
 
-	fluxus = cue.new()
+fluxus = cue.new()
 	
-	fluxus:push('Fluxus initialisé')			
+fluxus:push('Fluxus initialisé')			
 
 
 
@@ -61,11 +61,11 @@ end
 ---- Crée une table 'tarot' qui sera utilisée par les différentes fonctions de l'IA
 
 
-	tarot={}
-	tarot.main=cue.new()
-	tarot.legal=cue.new()
-	tarot.pli=cue.new()
-	fluxus:push('Namespaces créés')
+tarot={}
+tarot.main=cue.new()
+tarot.legal=cue.new()
+tarot.pli=cue.new()
+fluxus:push('Namespaces créés')
 
 
 
@@ -73,10 +73,10 @@ end
 ---- 
 
 
-	function tarot.rndCard()
-		return math.random(0,77)
-	end
-	flal = 5
+function tarot.rndCard()
+	return math.random(0,77)
+end
+flal = 5
 
 
 
@@ -84,14 +84,14 @@ end
 ---- 
 
 
-	function tarot.main.rndGetCard()
-		return tarot.main[math.random(1, #tarot.main)]
-	end
-	function tarot.main.rndPopCard()
-		return tarot.main:pop(math.random(#tarot.main))
-	end
+function tarot.main.rndGetCard()
+	return tarot.main[math.random(1, #tarot.main)]
+end
+function tarot.main.rndPopCard()
+	return tarot.main:pop(math.random(#tarot.main))
+end
 	
-	fluxus:push('Fonctions sur la main créés')
+fluxus:push('Fonctions sur la main créés')
 
 
 
@@ -99,9 +99,9 @@ end
 ---- WOOHOO
 
 
-	function tarot.rndContrat()
-		return math.random(0,4)
-	end 
+function tarot.rndContrat()
+	return math.random(0,4)
+end 
 
 
 
@@ -110,69 +110,67 @@ end
 ---- Utilisés par l'IA par défaut et utilisables par des IA customisés
 
 
-	tarot.chien=cue.new()
-	tarot.joueur={}
-	for i=1,4 do
-		tarot.joueur[i]={}
-		tarot.joueur[i].plis=cue.new()
-		tarot.joueur[i].cartes={}
-		tarot.joueur[i].cartes.possible={}
-		tarot.joueur[i].cartes.probable={}
-		for c=0,77 do
-			tarot.joueur[i].cartes.possible[i]=true
-			tarot.joueur[i].cartes.probable[i]=50
-		end
-	end					
+tarot.chien=cue.new()
+tarot.joueur={}
+for i=1,4 do
+	tarot.joueur[i]={}
+	tarot.joueur[i].plis=cue.new()
+	tarot.joueur[i].cartes={}
+	tarot.joueur[i].cartes.possible={}
+	tarot.joueur[i].cartes.probable={}
+	for c=0,77 do
+		tarot.joueur[i].cartes.possible[i]=true
+		tarot.joueur[i].cartes.probable[i]=50
+	end
+end					
 
 -- Script : Operations Callback
 ---- Fonctions à redéfinir pour créer une IA
 
 
-	tarot.demander = {}
-	tarot.dire = {}
+tarot.demander = {}
+tarot.dire = {}
 	
-	function tarot.demander.annonce2()
-		return math.random(0,4)
-	end
+function tarot.demander.annonce2()
+	return math.random(0,4)
+end
 	
-	function tarot.demander.ecart()
-		local ecart = cue.new()
-		for i=1,6 do
-			ecart:push(tarot.main:pop(math.random(0,#tarot.main)))
-		end
-		return ecart
+function tarot.demander.ecart()
+	local ecart = cue.new()
+	for i=1,6 do
+		ecart:push(tarot.main:pop(math.random(0,#tarot.main)))
 	end
+	return ecart
+end
 	
-	function tarot.demander.carte()
-		return tarot.legal:pop(math.random(0,#tarot.legal))
-	end
+function tarot.demander.carte()
+	return tarot.legal:pop(math.random(0,#tarot.legal))
+end
 	
-	function tarot.dire.chien(chien)
-	end
+function tarot.dire.chien(chien)
+end
 	
-	function tarot.dire.cartejouee(carte, joueur)
-	end
+function tarot.dire.cartejouee(carte, joueur)
+end
 	
-	function tarot.dire.annonce(annonce, joueur)
-	end
+function tarot.dire.annonce(annonce, joueur)
+end
 	
-	function tarot.dire.pliRemporte(pli, joueur)
-	end
+function tarot.dire.pliRemporte(pli, joueur)
+end
 	
-	function tarot.dire.main(main)
-	end
+function tarot.dire.main(main)
+end
 	
-	function tarot.dire.score(score)
-	end
-
-
+function tarot.dire.score(score)
+end
 
 
 -- Script : Script de test Lua
 ---- Script sans réelle utilité, ne sert que pour vérifier que Lua est chargé.
 
 
-	fluxus:push('Script de test chargé')
+fluxus:push('Script de test chargé')
 
 
 
