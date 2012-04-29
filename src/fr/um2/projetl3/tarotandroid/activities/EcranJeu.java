@@ -422,7 +422,7 @@ public class EcranJeu extends Activity
 		});
 		
 		System.out.println("On va retourner "+resultatCarte);
-		afficherMain(P.donne().getMain().getCartes());
+		afficherMain(P.donne().indiquerCartesLegalesJoueur());
 		return resultatCarte;
 	}
 	
