@@ -10,10 +10,11 @@ import java.util.Vector;
 import org.keplerproject.luajava.LuaException;
 import org.keplerproject.luajava.LuaState;
 import org.keplerproject.luajava.LuaStateFactory;
-import org.xmlpull.v1.XmlPullParser;
 
-import android.content.Context;
-import android.content.res.AssetManager;
+import android.widget.Toast;
+
+//import android.content.Context;
+//import android.content.res.AssetManager;
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
 import fr.um2.projetl3.tarotandroid.jeu.Main;
@@ -26,12 +27,11 @@ public class JoueurIA implements IJoueur
 	private LuaState L;		// Instance de la machine virtuelle Lua
 	
 	/*--- Constructeurs ---*/
-	public JoueurIA(String pNom, XmlPullParser iaDefaut, int pID)
+	public JoueurIA(String pNom, int pID)
 	{
-		//AssetManager am = fr.um2.projetl3.tarotandroid.activities.Contexts.applicationContext.getAssets();
 		L = LuaStateFactory.newLuaState();
 		L.openLibs();
-		
+		System.out.println("Jusqu'ici tout va bien");
 		try {
 			InputStream is = fr.um2.projetl3.tarotandroid.activities.Contexts.applicationContext.getAssets().open("luascripts/default.lua");
 			int size = is.available();
@@ -39,39 +39,20 @@ public class JoueurIA implements IJoueur
 			is.read(buffer);
 			is.close();
 			String script = new String(buffer);
-			System.out.println(script);
+			//System.out.println(script);
+			System.out.println("Script chargé?");
 			L.LdoString(script);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println("OMFG Exception!");
 			e.printStackTrace();
 		}
+		System.out.println("Normalement, c'est bon...");
+		//fluxusToSyso();
 		
 
 		this.pNom = pNom;
-		/*try {
-			XmlPullParser xpp = iaDefaut;
-			while (xpp.getEventType()!=XmlPullParser.END_DOCUMENT) {
-				if (xpp.getEventType()==XmlPullParser.START_TAG){
-					if(xpp.getName().equals("luascript")){
-						//s = L.getLuaObject("s").getString()+"\n"+xpp.getAttributeValue(0);
-						//System.out.println(xpp.getAttributeValue(null, "executer"));
-						if (xpp.getAttributeValue(null, "executer").equals(new String("true")))
-						{
-							//System.out.println("Did lua");
-							L.LdoString(xpp.getAttributeValue(null, "lua"));
-						} else {
-							//System.out.println("Skipped");
-						}
-						
-					} else {
-						//s = xpp.getName()+" Echoué";
-					}
-				}
-				xpp.next();
-			}
-		} catch (Throwable t) {
-		}*/
-		
+				
 	}
 	
 	/*--- Fluxus ---*/
@@ -126,6 +107,15 @@ public class JoueurIA implements IJoueur
 		return b;
 	}
 	
+	public void fluxusToSyso()
+	{
+		//System.out.println(this.checkFluxus());
+		while (!this.fluxusVide())
+		{
+			System.out.println(this.popFluxus());
+		}
+	}
+	
 	/*--- Gestion des paramètres du joueur ---*/
 	public void setNomDuJoueur(String s)
 	{
@@ -140,20 +130,18 @@ public class JoueurIA implements IJoueur
 	/*--- Methodes "demander" ---*/
 	public Contrat demanderAnnonce(Contrat contrat)
 	{
-		//this.updateLObjects();
-		//this.chargerLegal();
 		this.chargerMain();
 		L.LdoString("cont,flal = tarot.demander.annonce()");
 		int c = (int) L.getLuaObject("cont").getNumber();
-		//int c = (int) Math.floor(Math.random()*5);
 		System.out.println("Je m'appelle "+this.pNom+".\nMa main est ");
 		D.getMain().affiche();
 		System.out.println("et je fais le contrat numero "+c);
 		int flal = (int) L.getLuaObject("flal").getNumber();
 		System.out.println("Mon flal est "+flal);
+		fluxusToSyso();
 		switch (c){
 		case 0:
-			return Contrat.PETITE;
+			return Contrat.PASSE;
 		case 1:
 			return Contrat.PETITE;
 		case 2:
@@ -184,6 +172,7 @@ public class JoueurIA implements IJoueur
 			//System.out.println(new Carte(c).toString());
 			ecart.add(new Carte(c));
 		}
+		//fluxusToSyso();
 		return ecart;
 	}
 	
@@ -263,7 +252,9 @@ public class JoueurIA implements IJoueur
 		c = (int) L.getLuaObject("c").getNumber();
 		//D.getMain().affiche();
 		System.out.println(this.pNom+" "+new Carte(c).toString());
+		fluxusToSyso();
 		return new Carte(c);
+		
 	}
 	
 	public Carte demanderAppelAuRoi()

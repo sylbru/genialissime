@@ -24,13 +24,13 @@ public class TestKevinActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		testy = new JoueurIA("Archimède", getResources().getXml(R.xml.intelligence), 3);
-		JoueurIA testy2 = new JoueurIA("Bertrand", getResources().getXml(R.xml.intelligence), 3);
-		JoueurIA testy3 = new JoueurIA("Clovis", getResources().getXml(R.xml.intelligence), 3);
-		JoueurIA testy4 = new JoueurIA("Dartagnan", getResources().getXml(R.xml.intelligence), 3);
-		P = new Partie();
+		testy = new JoueurIA("Archimède", 3);
+		JoueurIA testy2 = new JoueurIA("Bertrand", 3);
+		JoueurIA testy3 = new JoueurIA("Clovis", 3);
+		JoueurIA testy4 = new JoueurIA("Dartagnan", 3);
+		//P = new Partie();
 		
-		P.lancerPartie4JoueursIA(testy, testy2, testy3, testy4);
+		//P.lancerPartie4JoueursIA(testy, testy2, testy3, testy4);
 		//Partie.testPartie(testy, testy, testy, testy);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.kevlayout);
@@ -54,7 +54,8 @@ public class TestKevinActivity extends Activity {
 				
 				String s = "Pas reçu d'objet depuis Lua";
 				while (!testy.fluxusVide())
-				{
+				{	
+					System.out.println("Pop");
 					Toast.makeText(getBaseContext(),
         				testy.popFluxus(),Toast.LENGTH_SHORT).show();
 				}
