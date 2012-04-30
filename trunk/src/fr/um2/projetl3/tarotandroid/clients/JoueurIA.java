@@ -47,7 +47,13 @@ public class JoueurIA implements IJoueur
 			System.out.println("OMFG Exception!");
 			e.printStackTrace();
 		}
-		System.out.println("Normalement, c'est bon...");
+		Boolean charged = L.getLuaObject("scriptloaded").getBoolean();
+		if (charged)
+		{
+			System.out.println("Normalement, c'est bon...");
+		} else {
+			System.out.println("Script incorrect");
+		}
 		//fluxusToSyso();
 		
 
@@ -172,7 +178,7 @@ public class JoueurIA implements IJoueur
 			//System.out.println(new Carte(c).toString());
 			ecart.add(new Carte(c));
 		}
-		//fluxusToSyso();
+		fluxusToSyso();
 		return ecart;
 	}
 	
