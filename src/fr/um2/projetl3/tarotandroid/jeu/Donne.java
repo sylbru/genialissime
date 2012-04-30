@@ -26,6 +26,10 @@ public class Donne
 	protected Vector<Carte> plisAttaque; 
 	protected Vector<Carte> plisDefense;
 	private int numDonneur; // celui qui distribue dans la donne (utilisé pour le premier tour)
+	//pour l'echange de l'excuse a la fin du pli si il n'a pas ete possible avant
+	private int ExcuseARemplacer =-1;
+	private Vector<Carte> vecteurrecevantExcuse;
+	private Vector<Carte> vecteurcontenantExcuse;
 	
 	private int numJoueurEnContact; // le joueur avec lequel on est en communication (utilisé pour savoir de qui on parle quand un joueur demande « sa » main)
 	
@@ -313,6 +317,9 @@ public class Donne
 			if(v1.size()==0)
 			{
 				System.out.println("le plis est vide on ne peut pas encore remplacer l'excuse");
+				ExcuseARemplacer = a;
+				vecteurrecevantExcuse = v1;
+				vecteurcontenantExcuse = v2;
 				return;
 			}
 			else
@@ -333,13 +340,22 @@ public class Donne
 					{
 						if(i<v1.size())
 						i++;
-						else return;
+						else
+						{
+							ExcuseARemplacer = a;
+							vecteurrecevantExcuse = v1;
+							vecteurcontenantExcuse = v2;
+							return;
+						}
 					}
 				}
 			}
 			if(!echange)
 			{
 				System.out.println("On a pas trouve de carte a echanger");
+				ExcuseARemplacer = a;
+				vecteurrecevantExcuse = v1;
+				vecteurcontenantExcuse = v2;
 			}
 		}
 	}
@@ -367,7 +383,7 @@ public class Donne
 
 			
 			//plisEnCours.insertElementAt(demanderCarteJoueur((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()), (numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
-			plisEnCours.get((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).set(demanderCarteJoueur((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).uid());
+			plisEnCours.get((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).set(croupier.demanderCarteJoueur((numJoueur+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).uid());
 			nbCartesPosees++;
 			
 			System.out.println("Taille du pli "+plisEnCours.size());
@@ -385,6 +401,10 @@ public class Donne
 				plisDefense.addAll(plisEnCours);
 		plisPrecedent = (Vector<Carte>) plisEnCours.clone(); // transfert de pliEnCours dans pliPrecedent
 		plisEnCours.clear();
+		if(ExcuseARemplacer!=-1)
+		{
+			remplacerExcuse(vecteurrecevantExcuse,vecteurcontenantExcuse,excuseDansleVecteur(vecteurcontenantExcuse));
+		}
 		numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagné le pli entame au tour suivant
 	
 	}
@@ -394,6 +414,15 @@ public class Donne
 		for(int i=0; i< P.getNombreDeJoueurs(); i++ )
 		{
 			if(plisEnCours.get(i).isExcuse())
+				return i;
+		}
+		return -1;
+	}
+	public int excuseDansleVecteur(Vector<Carte> v)
+	{
+		for(int i=0; i< v.size(); i++ )
+		{
+			if(v.get(i).isExcuse())
 				return i;
 		}
 		return -1;
@@ -430,7 +459,7 @@ public class Donne
 			System.out.println(numJoueurEntame+" "+numJ);
 			for(int i=numJoueurEntame; i!=numJ; i=P.getNumJoueurApres(i))
 			{
-				System.out.println("Yoppe je get de "+i);
+				//System.out.println("Yoppe je get de "+i);
 				if (plisEnCours.get((i+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).isAtout() && plisEnCours.get((i+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).getOrdre() > atoutMax.getOrdre())
 				{
 					atoutMax = plisEnCours.get((i+P.getNombreDeJoueurs())%P.getNombreDeJoueurs());
