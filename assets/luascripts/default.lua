@@ -291,5 +291,6 @@ function tarot.demander.annonce()
 	end
 end	
 
+scriptloaded = true
 
 
