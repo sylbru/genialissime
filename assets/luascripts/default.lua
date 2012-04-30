@@ -232,55 +232,61 @@ function tarot.demander.annonce()
 		if nbrAtout > 4 then
 			c=(c+(nbrAtout*2))
 		end				
-		for i=1,4 do
-			nbrCarteParCouleur[i] = 0
-			if maMain[j+14] and maMain[j + 13] then 
-				c=(c+1)
-			end
-			if maMain[j+14] then 
-				c=(c+6)
-			end
-			if maMain[j + 13] then 
-				c=(c+3)
-			end
-			if maMain[j + 12] then 
-				c=(c+2)
-			end
-			if maMain[j + 11] then 
-				c=(c+1)
-			end
-			
-			for k=1,14 do
-				if maMain[j+k] then 
-					nbrCarteParCouleur[i] = nbrCarteParCouleur[i]+1
-				end
-			end
-			
-			if nbrCarteParCouleur[i] == 0 then 
-				c=(c+6)
-			elseif nbrCarteParCouleur[i] == 1 then 
-				c=(c+3)
-			elseif nbrCarteParCouleur[i] == 5 then 
-				c=(c+5)
-			elseif nbrCarteParCouleur[i] == 6 then 
-				c=(c+7)
-			elseif nbrCarteParCouleur[i] >= 7 then 
-				c=(c+9)
-			end
-			
-			j = j + 14
+	end
+	for i=1,4 do
+		nbrCarteParCouleur[i] = 0
+		if maMain[j+14] and maMain[j + 13] then 
+			c=(c+1)
 		end
+		if maMain[j+14] then 
+			c=(c+6)
+		end
+		if maMain[j + 13] then 
+			c=(c+3)
+		end
+		if maMain[j + 12] then 
+			c=(c+2)
+		end
+		if maMain[j + 11] then 
+			c=(c+1)
+		end
+		
+		for k=1,14 do
+			if maMain[j+k] then 
+				nbrCarteParCouleur[i] = nbrCarteParCouleur[i]+1
+			end
+		end
+		
+		if nbrCarteParCouleur[i] == 0 then 
+			c=(c+6)
+		elseif nbrCarteParCouleur[i] == 1 then 
+			c=(c+3)
+		elseif nbrCarteParCouleur[i] == 5 then 
+			c=(c+5)
+		elseif nbrCarteParCouleur[i] == 6 then 
+			c=(c+7)
+		elseif nbrCarteParCouleur[i] >= 7 then 
+			c=(c+9)
+		end
+		
+		j = j + 14
 	end
 	flal=c
+	fluxus:push("Mon flal est "..flal)
 	if c > 80 then 
+		fluxus:push("Je garde contre")
 		return 4, flal
-	elseif c > 70 then 
+	elseif c > 70 then
+		fluxus:push("Je garde sans") 
 		return 3, flal
 	elseif c > 55 then
+		fluxus:push("Je garde")
 		return 2, flal
 	elseif c > 40 then 
+		fluxus:push("Je petite")
 		return 1, flal
 	else
+		fluxus:push("Je passe")
 		return 0, flal
 	end
 end	

@@ -71,9 +71,9 @@ public class EcranJeu extends Activity
 			{
 				P = new Partie();
 				moi = new JoueurGraphique("Moi", EcranJeu.this);
-				ia1 = new JoueurIA("IA1", getResources().getXml(R.xml.intelligence), 42);
-				ia2 = new JoueurIA("IA2", getResources().getXml(R.xml.intelligence), 42);
-				ia3 = new JoueurIA("IA3", getResources().getXml(R.xml.intelligence), 42);
+				ia1 = new JoueurIA("IA1", 42);
+				ia2 = new JoueurIA("IA2", 43);
+				ia3 = new JoueurIA("IA3", 44);
 				P.setJoueur(0, moi);
 				P.setJoueur(1, ia1);
 				P.setJoueur(2, ia2);
