@@ -393,7 +393,7 @@ public class Donne
 		}
 		
 		numJoueurVainqueurPli = vainqueurDuPli(plisEnCours);
-		if(excuseDanslePlis()>=0)
+
 		croupier.direJoueursPliRemporté(plisEnCours, numJoueurVainqueurPli);
 		if(isJoueurAttaque(numJoueurVainqueurPli)) 
 				plisAttaque.addAll(plisEnCours);

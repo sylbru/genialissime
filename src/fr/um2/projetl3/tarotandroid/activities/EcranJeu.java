@@ -467,7 +467,6 @@ public class EcranJeu extends Activity
 		{
 			hh.post(new Runnable()
 			{
-				@Override
 				public void run()
 				{
 					tvAnnonce.setText(c.toString());
