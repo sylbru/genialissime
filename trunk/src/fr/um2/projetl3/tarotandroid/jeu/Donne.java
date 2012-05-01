@@ -25,13 +25,13 @@ public class Donne
 	// protected pour calculer les pts des plis Attaque/Defense
 	protected Vector<Carte> plisAttaque; 
 	protected Vector<Carte> plisDefense;
-	private int numDonneur; // celui qui distribue dans la donne (utilisé pour le premier tour)
+	private int numDonneur; // celui qui distribue dans la donne (utilis� pour le premier tour)
 	//pour l'echange de l'excuse a la fin du pli si il n'a pas ete possible avant
 	private int ExcuseARemplacer =-1;
 	private Vector<Carte> vecteurrecevantExcuse;
 	private Vector<Carte> vecteurcontenantExcuse;
 	
-	private int numJoueurEnContact; // le joueur avec lequel on est en communication (utilisé pour savoir de qui on parle quand un joueur demande « sa » main)
+	private int numJoueurEnContact; // le joueur avec lequel on est en communication (utilis� pour savoir de qui on parle quand un joueur demande « sa » main)
 	
 	/*
 	 * --------------------------------------------------------------------------------------------
@@ -111,7 +111,7 @@ public class Donne
 
 	/*
 	 * --------------------------------------------------------------------------------------------
-	 * ------------------------------------ Méthodes --------------------------------------------
+	 * ------------------------------------ M�thodes --------------------------------------------
 	 * --------------------------------------------------------------------------------------------
 	 */
 	 
@@ -119,7 +119,7 @@ public class Donne
 		croupier.reveleChien(chien);
 	}
  
-	 /** Méthode fini maisobject à tester
+	 /** M�thode fini maisobject à tester
 	  *  // TODO test
 	  * @author JB
 	  * @author hhachiche
@@ -186,7 +186,7 @@ public class Donne
 	 
 
 	 /**
-	  * Phase de jeu des cartes dans une donne, après les annonces et l’écart, avant le comptage des points.
+	  * Phase de jeu des cartes dans une donne, après les annonces et l’�cart, avant le comptage des points.
 	  * (pour info, l’expression « jeu de la carte », ça vient pas de moi,
 	  * voir http://www.fftarot.fr/index.php/Decouvrir/Le-Jeu-de-la-carte.html )
 	  */
@@ -194,7 +194,7 @@ public class Donne
 	protected void jeuDeLaCarte()
 	{
 		numJoueurEntame = P.getNumJoueurApres(numDonneur); // le premier à jouer (celui qui est après le donneur)
-		int nbCartesPosees; // cartes posées dans le tour (de 1 à 4, si 4 joueurs)
+		int nbCartesPosees; // cartes pos�es dans le tour (de 1 à 4, si 4 joueurs)
 		int numJoueur;
 		int numJoueurVainqueurPli;
 		
@@ -206,7 +206,7 @@ public class Donne
 			numJoueur = numJoueurEntame;
 			nbCartesPosees = 0;
 			
-			// assert vérifiant (à chaque tour) que les joueurs ont tous bien le même nombre de cartes
+			// assert v�rifiant (à chaque tour) que les joueurs ont tous bien le même nombre de cartes
 			assert	(mainsDesJoueurs[0].nbCartesRestantes() == mainsDesJoueurs[1].nbCartesRestantes())
 					&& (mainsDesJoueurs[1].nbCartesRestantes() == mainsDesJoueurs[2].nbCartesRestantes())
 					&& (mainsDesJoueurs[2].nbCartesRestantes() == mainsDesJoueurs[3].nbCartesRestantes())
@@ -216,14 +216,14 @@ public class Donne
 							+ mainsDesJoueurs[2].nbCartesRestantes()
 							+ mainsDesJoueurs[3].nbCartesRestantes());
 			
-			// TODO: On peut se débarrasser de nbCartesPosees en regardant si joueur après numJoueur = numJoueurEntame
+			// TODO: On peut se d�barrasser de nbCartesPosees en regardant si joueur après numJoueur = numJoueurEntame
 			for (int fillerup=0;fillerup<P.getNombreDeJoueurs();fillerup++)
 			{
 				plisEnCours.add(new Carte(21));
 			}
 			while (nbCartesPosees < P.getNombreDeJoueurs())
 			{
-				System.out.println("On a posé "+nbCartesPosees+" cartes");
+				System.out.println("On a pos� "+nbCartesPosees+" cartes");
 				System.out.println("Taille du pli "+plisEnCours.size());
 				System.out.println("Le joueur en cours est "+numJoueur);
 				
@@ -240,7 +240,7 @@ public class Donne
 			
 			numJoueurVainqueurPli = vainqueurDuPli(plisEnCours);
 			
-			croupier.direJoueursPliRemporté(plisEnCours, numJoueurVainqueurPli);
+			croupier.direJoueursPliRemport�(plisEnCours, numJoueurVainqueurPli);
 			if(isJoueurAttaque(numJoueurVainqueurPli)) 
 			{
 				int a;
@@ -285,7 +285,7 @@ public class Donne
 			
 			plisPrecedent = (Vector<Carte>) plisEnCours.clone(); // transfert de pliEnCours dans pliPrecedent
 			plisEnCours.clear();
-			numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagné le pli entame au tour suivant
+			numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagn� le pli entame au tour suivant
 		}
 		dernierPli(numJoueurEntame);
 	}
@@ -338,7 +338,7 @@ public class Donne
 					}
 					else
 					{
-						if(i<v1.size())
+						if(i<v1.size()-1)
 						i++;
 						else
 						{
@@ -378,7 +378,7 @@ public class Donne
 		while (nbCartesPosees < P.getNombreDeJoueurs())
 		{
 			System.out.println("Le joueur en cours est "+numJoueur);
-			System.out.println("On a posé "+nbCartesPosees+" cartes");
+			System.out.println("On a pos� "+nbCartesPosees+" cartes");
 			System.out.println("Taille du pli "+plisEnCours.size());
 
 			
@@ -393,8 +393,7 @@ public class Donne
 		}
 		
 		numJoueurVainqueurPli = vainqueurDuPli(plisEnCours);
-
-		croupier.direJoueursPliRemporté(plisEnCours, numJoueurVainqueurPli);
+		croupier.direJoueursPliRemport�(plisEnCours, numJoueurVainqueurPli);
 		if(isJoueurAttaque(numJoueurVainqueurPli)) 
 				plisAttaque.addAll(plisEnCours);
 		else
@@ -405,7 +404,7 @@ public class Donne
 		{
 			remplacerExcuse(vecteurrecevantExcuse,vecteurcontenantExcuse,excuseDansleVecteur(vecteurcontenantExcuse));
 		}
-		numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagné le pli entame au tour suivant
+		numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagn� le pli entame au tour suivant
 	
 	}
 	//retourne la position de l'excuse dans le plis et -1 si l'excuse n'est pas dans le pli
@@ -432,7 +431,7 @@ public class Donne
 	 * @author niavlys
 	 * @param c une carte
 	 * @param numJ un joueur
-	 * @return true si la carte posée par le joueur (paramètres) est légale 
+	 * @return true si la carte pos�e par le joueur (paramètres) est l�gale 
 	 * 
 	 */
 	public boolean isCarteLegale(Carte c, int numJ) // svp des noms de variable explicite ...
@@ -447,13 +446,13 @@ public class Donne
 			return true; // s’il joue l’excuse 
 		}
 		// TODO
-		// ! il ya un cas execptionnel ou il ne peut pas jouer l'excuse si autoriser3boutsDans1pli est à false et qu'il y a déja deux bout sur la table :)
+		// ! il ya un cas execptionnel ou il ne peut pas jouer l'excuse si autoriser3boutsDans1pli est à false et qu'il y a d�ja deux bout sur la table :)
 		// ! facile à implementer mais à faire au cas ou
 		// À mettre en tout premier (et pour n’importe quel bout, pas seulement l’excuse)
 		
 		else if (c.isAtout())
 		{
-			// on vérifie que l’atout est plus haut que les autres.
+			// on v�rifie que l’atout est plus haut que les autres.
 			// (calcul de l’atout le plus haut dans le pli en cours)
 			Carte atoutMax = new Carte(0);
 			System.out.println(numJoueurEntame+" "+numJ);
@@ -466,19 +465,19 @@ public class Donne
 				}
 			}
 			// System.out.println("Atout max : "+atoutMax);
-			// System.out.println("Atout proposé : "+c);
+			// System.out.println("Atout propos� : "+c);
 			
 			if (c.getOrdre() < atoutMax.getOrdre() && mainsDesJoueurs[numJ].possedeAtoutPlusGrand(atoutMax.getOrdre()))
 			{
 				// System.out.println("sortie atout mauvais, pas ok");
-				return false; // s’il n’a pas monté sur l’atout le plus haut alors qu’il pouvait
+				return false; // s’il n’a pas mont� sur l’atout le plus haut alors qu’il pouvait
 			}
-			else // il a monté sur l’atout le plus haut ou bien il n’a pas monté mais ne pouvait pas, reste à voir s’il pouvait jouer atout.
+			else // il a mont� sur l’atout le plus haut ou bien il n’a pas mont� mais ne pouvait pas, reste à voir s’il pouvait jouer atout.
 			{
 				if (plisEnCours.get((numJoueurEntame+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).isAtout() || (plisEnCours.get((numJoueurEntame+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).isExcuse() && plisEnCours.get(P.getNumJoueurApres(numJoueurEntame)).isAtout()))
 				{
-					// System.out.println("sortie atout demandé, ok");
-					return true; // si la 1re carte est Atout, ou bien Excuse puis Atout, c’est donc Atout demandé donc ok
+					// System.out.println("sortie atout demand�, ok");
+					return true; // si la 1re carte est Atout, ou bien Excuse puis Atout, c’est donc Atout demand� donc ok
 				}
 				else // Reste cas où 1re carte est Couleur, ou bien Excuse et la 2e est Couleur
 				{
@@ -491,8 +490,8 @@ public class Donne
 					{
 						coulDemandee = plisEnCours.get((numJoueurEntame+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).getCouleur();
 					}
-					// il faut que le joueur ne possède pas la couleur demandée pour pouvoir jouer atout :
-					// System.out.println("sortie couleur demandée, "+!mainsDesJoueurs[numJ].possedeCouleur(coulDemandee));
+					// il faut que le joueur ne possède pas la couleur demand�e pour pouvoir jouer atout :
+					// System.out.println("sortie couleur demand�e, "+!mainsDesJoueurs[numJ].possedeCouleur(coulDemandee));
 					return !mainsDesJoueurs[(numJ+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()].possedeCouleur(coulDemandee);					
 				}
 			}
@@ -516,7 +515,7 @@ public class Donne
 	
 
 	/**
-	 * Demande au joueur de jouer une carte et vérifie si elle est légale (redemande si besoin). 
+	 * Demande au joueur de jouer une carte et v�rifie si elle est l�gale (redemande si besoin). 
 	 * @param num La position du joueur
 	 */
 	protected Carte demanderCarteJoueur(int num) 
@@ -539,9 +538,9 @@ public class Donne
 	
 	/**
 	 * 
-	 * @return un vecteur contenant les Cartes possibles (légales) à jouer pour le joueur numJoueur
+	 * @return un vecteur contenant les Cartes possibles (l�gales) à jouer pour le joueur numJoueur
 	 * Actuellement ça regarde toutes ses cartes et fait appel à isCarteLegale() pour chacune.
-	 * Est-ce que ce serait plus efficace de procéder plus intelligemment ? À voir.
+	 * Est-ce que ce serait plus efficace de proc�der plus intelligemment ? À voir.
 	 */
 	public Vector<Carte> indiquerCartesLegalesJoueur()
 	{
@@ -552,7 +551,7 @@ public class Donne
 			{
 				if(isCarteLegale(c, (numJoueurEnContact+P.getNombreDeJoueurs())%P.getNombreDeJoueurs() ))
 				{
-					//System.out.println(c.toString()+" est légal");
+					//System.out.println(c.toString()+" est l�gal");
 					cartesLegales.add(c);
 				}
 			}
@@ -562,7 +561,7 @@ public class Donne
 	
 	/**
 	 * 
-	 * @return un vecteur contenant les cartes possibles pour l’écart
+	 * @return un vecteur contenant les cartes possibles pour l’�cart
 	 */
 	public Vector<Carte> indiquerCartesLegalesEcart()
 	{
@@ -597,10 +596,10 @@ public class Donne
 		else if (contratEnCours != Contrat.AUCUN)
 		{
 			System.out.println("Plis attaque : "+plisAttaque);
-			System.out.println("Plis défense : "+plisDefense);
+			System.out.println("Plis d�fense : "+plisDefense);
 			
 			
-			Random rand = new Random(); // TODO: À déplacer à un niveau plus haut pour pas en recréer un à chaque fois
+			Random rand = new Random(); // TODO: À d�placer à un niveau plus haut pour pas en recr�er un à chaque fois
 			if(rand.nextBoolean())
 			{
 				nouveauTas.addAll(plisAttaque);
@@ -615,20 +614,20 @@ public class Donne
 			plisDefense.clear();
 			
 			
-			System.out.println("Nouveau tas non rotaté : "+nouveauTas);
+			System.out.println("Nouveau tas non rotat� : "+nouveauTas);
 			// Coupe
 			Random rGauss = new Random();
 			int coupe;
 			do
 			{
 				coupe = (int) Math.round(Constantes.NOMBRE_CARTES_TOTALES/2 + rGauss.nextGaussian()*5);
-				// Gauss avec moyenne = 39 (78/2), variance = 5 (donne des résultats satisfaisants)
+				// Gauss avec moyenne = 39 (78/2), variance = 5 (donne des r�sultats satisfaisants)
 			}
-			while(coupe < 3 || coupe > 75); // on réessaie si jamais on a un résultat trop petit ou trop grand (statistiquement possible)
-			System.out.println("Coupe à la carte numéro " + coupe);
+			while(coupe < 3 || coupe > 75); // on r�essaie si jamais on a un r�sultat trop petit ou trop grand (statistiquement possible)
+			System.out.println("Coupe à la carte num�ro " + coupe);
 			Collections.rotate(nouveauTas, coupe); 
 			
-			System.out.println("Nouveau tas rotaté : "+nouveauTas);
+			System.out.println("Nouveau tas rotat� : "+nouveauTas);
 			
 			P.setTas(nouveauTas);
 			System.out.println(nouveauTas.size());
@@ -689,11 +688,11 @@ public class Donne
 	
 	/**
 	 * @author niavlys
-	 * Utilisé par un client (IJoueur) pour demander sa main.
+	 * Utilis� par un client (IJoueur) pour demander sa main.
 	 *  
 	 * Renommer en getMaMain() ?
 	 * 
-	 * @return la main du joueur de numéro numJoueurEnContact
+	 * @return la main du joueur de num�ro numJoueurEnContact
 	 */
 	public Main getMain()
 	{
@@ -711,7 +710,7 @@ public class Donne
 	public boolean isJoueurAttaque(int num)
 	{
 		return num == preneur || (P.getNombreDeJoueurs() == 5 && num == appelee);
-		// ? est-ce que getID() correspond bien à la position/au numéro ?
+		// ? est-ce que getID() correspond bien à la position/au num�ro ?
 	}
 	
 	public boolean isJoueurDefense(int num)
@@ -738,9 +737,9 @@ public class Donne
 	
 	/**
 	 * @author niavlys
-	 * Sert à incrémenter numDonneur pour le passer au joueur suivant.
-	 * Utilisé à chaque début de donne.
-	 * TODO: déplacer dans Partie ?
+	 * Sert à incr�menter numDonneur pour le passer au joueur suivant.
+	 * Utilis� à chaque d�but de donne.
+	 * TODO: d�placer dans Partie ?
 	 */
 	public void incrementerNumDonneur()
 	{
@@ -782,7 +781,7 @@ public class Donne
 	{
 		for(Carte c : chien)
 		{
-			System.out.println("Carte du chien donnée au preneur : "+c);
+			System.out.println("Carte du chien donn�e au preneur : "+c);
 			mainsDesJoueurs[preneur].addCarte(c);
 		}
 	}
@@ -839,7 +838,7 @@ public class Donne
 	
 	public static void main(String[] args)
 	{/*
-		 Donne donne = new Donne(); // bon c’est le bordel entre les méthodes statiques et les non-statiques,
+		 Donne donne = new Donne(); // bon c’est le bordel entre les m�thodes statiques et les non-statiques,
 									// faudra en discuter.
 		
 		 /*
