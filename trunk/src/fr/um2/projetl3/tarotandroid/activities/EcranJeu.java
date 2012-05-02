@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -38,6 +39,7 @@ import fr.um2.projetl3.tarotandroid.jeu.Carte;
 import fr.um2.projetl3.tarotandroid.jeu.CarteGraphique;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
 import fr.um2.projetl3.tarotandroid.jeu.Partie;
+import fr.um2.projetl3.tarotandroid.jeu.PrefsRegles;
 
 public class EcranJeu extends Activity
 {
@@ -69,6 +71,7 @@ public class EcranJeu extends Activity
 		{
 			public void onClick(View view)
 			{
+				PrefsRegles.sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 				P = new Partie();
 				moi = new JoueurGraphique("Moi", EcranJeu.this);
 				ia1 = new JoueurIA("IA1", 42);
