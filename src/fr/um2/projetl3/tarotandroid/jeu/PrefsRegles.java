@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge de la liaison graphique pour les préférences
 						// (niavlys) de toute façon cette classe ne va rien contenir de graphique normalement 
 {
-	
+	public static SharedPreferences sp;
 	/**
 	 * ---------------------------------------------------------------------------------------------------
 	 * ---------------------------------- Sens du jeu-------------------------------------------------
@@ -108,23 +108,41 @@ public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge d
 		
 		public static void preferencesActives()  //Methode permettant de, au moment d'une partie, de prendre en compte toutes les préférences
 		{
-	    	//SharedPreferences pm = applicationContext.getSharedPreferences(name, mode).getPreferenceManager().getDefaultSharedPreferences(applicationContext);
-			SharedPreferences pm = PreferenceManager.getDefaultSharedPreferences(applicationContext);
-	    	PrefsRegles.sensInverseAiguillesMontre = pm.getBoolean("SDJ", false);
-	    	PrefsRegles.autoriserParole = pm.getBoolean("PAR", false);
-	    	PrefsRegles.autoriserPetite = pm.getBoolean("PET", false);
-	    	PrefsRegles.autoriserPousse = pm.getBoolean("POU", false);
-	    	PrefsRegles.autoriserGAE = pm.getBoolean("GAE", false);
+	    	PrefsRegles.sensInverseAiguillesMontre = sp.getBoolean("SDJ", false);
+	    	PrefsRegles.autoriserParole = sp.getBoolean("PAR", false);
+	    	PrefsRegles.autoriserPetite = sp.getBoolean("PET", false);
+	    	PrefsRegles.autoriserPousse = sp.getBoolean("POU", false);
+	    	PrefsRegles.autoriserGAE = sp.getBoolean("GAE", false);
 	    	
-	    	if (pm.getString("SDJ", "Kevin")== "Kevin")
+	    	if (sp.getString("SDJ", "Kevin")== "Kevin")
 	    	{
 	    		PrefsRegles.ManiereDeCompter = false;
 	    	}
 	    	else PrefsRegles.ManiereDeCompter = true;
 	    	
-	    	PrefsRegles.compterMisere = pm.getBoolean("MIS", false);
-	    	PrefsRegles.petitAuBout = pm.getBoolean("PAB", false);
-	    	PrefsRegles.roiAuBout = pm.getBoolean("RAB", false);
+	    	PrefsRegles.compterMisere = sp.getBoolean("MIS", false);
+	    	PrefsRegles.petitAuBout = sp.getBoolean("PAB", false);
+	    	PrefsRegles.roiAuBout = sp.getBoolean("RAB", false);
+	    	PrefsRegles.autoriser3boutsDans1pli = sp.getBoolean("A3BDP", false);
+	    	
+	    	if (sp.getString("ARR", "Ne pas arrondir") == "Ne pas arrondir")
+	    	{
+	    		PrefsRegles.nePasArrondir = true;
+	    		PrefsRegles.arrondirA5 = false;
+	    		PrefsRegles.arrondirA10 = false;
+	    	}
+	    	else if (sp.getString("ARR", "Ne pas arrondir") == "Arrondir à 5")
+	    	{
+	    		PrefsRegles.nePasArrondir = false;
+	    		PrefsRegles.arrondirA5 = true;
+	    		PrefsRegles.arrondirA10 = false;
+	    	}
+	    	else
+	    	{
+	    		PrefsRegles.nePasArrondir = false;
+	    		PrefsRegles.arrondirA5 = false;
+	    		PrefsRegles.arrondirA10 = true;
+	    	}
 	    	
 	    	
 		}	
