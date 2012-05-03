@@ -80,32 +80,6 @@ flal = 5
 
 
 
--- Script : Fonctions sur les cartes
----- 
-
-
-function tarot.main.rndGetCard()
-	return tarot.main[math.random(1, #tarot.main)]
-end
-function tarot.main.rndPopCard()
-	return tarot.main:pop(math.random(#tarot.main))
-end
-	
-fluxus:push('Fonctions sur la main créés')
-
-
-
--- Script : Contrats
----- WOOHOO
-
-
-function tarot.rndContrat()
-	return math.random(0,4)
-end 
-
-
-
-
 -- Script : Tables standard
 ---- Utilisés par l'IA par défaut et utilisables par des IA customisés
 
@@ -131,7 +105,7 @@ end
 tarot.demander = {}
 tarot.dire = {}
 	
-function tarot.demander.annonce2()
+function tarot.demander.annonce()
 	return math.random(0,4)
 end
 	

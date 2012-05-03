@@ -1,6 +1,5 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Stack;

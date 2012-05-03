@@ -6,7 +6,8 @@ import java.io.*;
 import fr.um2.projetl3.tarotandroid.exceptions.entreeNulleException;
 import fr.um2.projetl3.tarotandroid.jeu.Carte;
 
-public class Serverthread extends Thread {
+public class Serverthread extends Thread 
+{
     private Socket socket = null;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
@@ -15,9 +16,12 @@ public class Serverthread extends Thread {
 	private Carte carte;
 	
 
-    public Serverthread(Socket socket) {
-	super("ServerThread");
-	this.socket = socket;
+
+    Serverthread(Socket socket) 
+    {
+		super("ServerThread");
+		this.socket = socket;
+
     }
 
     public ObjectOutputStream getOutputStream() throws IOException
@@ -38,7 +42,9 @@ public class Serverthread extends Thread {
     			out = sp.traiterEntreeDonnes(null);
     			out.flush();
     			
-    		} catch (IOException e) {
+    		} 
+    		catch (IOException e) 
+    		{
 				e.printStackTrace();
 			}
     		finally{
@@ -56,17 +62,19 @@ public class Serverthread extends Thread {
     	}
     	public void sendMessage(Object message)
     	{
-    		try{
+    		try
+    		{
     			out.writeObject(message);
     			out.flush();
     			//System.out.println("server>" + message);
     		}
-    		catch(IOException ioException){
+    		catch(IOException ioException)
+    		{
     			ioException.printStackTrace();
     		}
     	}
     	/*
-    	 * envoier message sert a envoier des message au joueurs a partir du jeu
+    	 * envoiermessage() sert a envoier des message au joueurs a partir du jeu
     	 * ces message ne sont pas supposé engendrer une reponse si l'id vaut 5 (tous les joueuers)
     	 * par exemple :	- envoier le chien au joueurs pour l'affiche
     	 * 				 	- envoier le score pour l'afficher

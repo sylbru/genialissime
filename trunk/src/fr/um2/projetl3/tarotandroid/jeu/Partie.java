@@ -433,6 +433,7 @@ public class Partie extends Thread
 		lancerPartie(false);
 	}	
 	
+
 	public void lancerPartieDistante()
 	{
 		setNombreDeJoueurs(4);
@@ -441,6 +442,7 @@ public class Partie extends Thread
 		
 	}
 	
+
 	//! TODO Cette méthode est à SUPPRIMER quand l'application sera finie
 	//! Breche de sécurité importante, utile uniquement pour tests.
 	public static void testPartie(IJoueur a, IJoueur b, IJoueur c, IJoueur d)
@@ -492,6 +494,8 @@ public class Partie extends Thread
 		//P.lancerPartie4JoueursTexte();
 
 		P.lancerPartie4JoueursTexte();
+		
+		
 		System.out.println("coucou1");
 	
 	}
