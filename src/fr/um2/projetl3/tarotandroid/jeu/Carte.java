@@ -26,7 +26,7 @@ public class Carte implements Serializable
 		if (ordreCarte < 0 || ordreCarte > 77) // Erreur
 		{
 			this.carteCouleur = false;
-			this.ordre = -1;
+			this.ordre = 12;
 		} else if (ordreCarte < 22) // Atout
 		{
 			this.carteCouleur = false;
@@ -67,7 +67,7 @@ public class Carte implements Serializable
 		if (ordreCarte < 0 || ordreCarte > 77) // Erreur
 		{
 			this.carteCouleur = false;
-			this.ordre = -1;
+			this.ordre = 12;
 		} else if (ordreCarte < 22) // Atout
 		{
 			this.carteCouleur = false;

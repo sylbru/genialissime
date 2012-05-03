@@ -31,7 +31,7 @@ public class JoueurIA implements IJoueur
 	{
 		L = LuaStateFactory.newLuaState();
 		L.openLibs();
-		System.out.println("Jusqu'ici tout va bien");
+		//System.out.println("Jusqu'ici tout va bien");
 		try {
 			InputStream is = fr.um2.projetl3.tarotandroid.activities.Contexts.applicationContext.getAssets().open("luascripts/default.lua");
 			int size = is.available();
@@ -40,19 +40,19 @@ public class JoueurIA implements IJoueur
 			is.close();
 			String script = new String(buffer);
 			//System.out.println(script);
-			System.out.println("Script chargé?");
+			System.out.println("Script présent");
 			L.LdoString(script);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("OMFG Exception!");
+			System.out.println("Script absent");
 			e.printStackTrace();
 		}
 		Boolean charged = L.getLuaObject("scriptloaded").getBoolean();
 		if (charged)
 		{
-			System.out.println("Normalement, c'est bon...");
+			System.out.println("Script chargé et interprété sans problèmes");
 		} else {
-			System.out.println("Script incorrect");
+			System.out.println("Script incorrect ou absent");
 		}
 		//fluxusToSyso();
 		
@@ -139,11 +139,11 @@ public class JoueurIA implements IJoueur
 		this.chargerMain();
 		L.LdoString("cont,flal = tarot.demander.annonce()");
 		int c = (int) L.getLuaObject("cont").getNumber();
-		System.out.println("Je m'appelle "+this.pNom+".\nMa main est ");
-		D.getMain().affiche();
-		System.out.println("et je fais le contrat numero "+c);
-		int flal = (int) L.getLuaObject("flal").getNumber();
-		System.out.println("Mon flal est "+flal);
+		//System.out.println("Je m'appelle "+this.pNom+".\nMa main est ");
+		//D.getMain().affiche();
+		//System.out.println("et je fais le contrat numero "+c);
+		//int flal = (int) L.getLuaObject("flal").getNumber();
+		//System.out.println("Mon flal est "+flal);
 		fluxusToSyso();
 		switch (c){
 		case 0:
@@ -252,12 +252,17 @@ public class JoueurIA implements IJoueur
 	public Carte demanderCarte()
 	{
 		this.chargerLegal();
+		this.chargerMain();
 		int c;
+		System.out.println("Ma main");
+		D.getMain().affiche();
+		System.out.println("Mes cartes légales");
+		System.out.println(D.indiquerCartesLegalesJoueur().size());
 		//this.updateLObjects();
 		L.LdoString("c = tarot.demander.carte()");
 		c = (int) L.getLuaObject("c").getNumber();
 		//D.getMain().affiche();
-		System.out.println(this.pNom+" "+new Carte(c).toString());
+		//System.out.println(this.pNom+" "+new Carte(c).toString());
 		fluxusToSyso();
 		return new Carte(c);
 		
