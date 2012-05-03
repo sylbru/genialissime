@@ -24,9 +24,11 @@ public class TestKevinActivity extends Activity {
 	JoueurIA testy2;
 	JoueurIA testy3;
 	JoueurIA testy4;
+	int partiesFinis;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		partiesFinis = 0;
 		testy = new JoueurIA("Archimède", 3);
 		testy2 = new JoueurIA("Bertrand", 3);
 		testy3 = new JoueurIA("Clovis", 3);
@@ -53,8 +55,8 @@ public class TestKevinActivity extends Activity {
 				
 				P.lancerPartie4JoueursIA(testy, testy2, testy3, testy4);
 				Partie.testPartie(testy, testy, testy, testy);
-				
-				String s = "Pas reçu d'objet depuis Lua";
+				partiesFinis++;
+				String s = "Partie "+partiesFinis+" finie (check le logcat)";
 				while (!testy.fluxusVide())
 				{	
 					System.out.println("Pop");

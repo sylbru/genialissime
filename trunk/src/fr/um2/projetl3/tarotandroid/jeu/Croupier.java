@@ -85,7 +85,7 @@ public class Croupier {
 	public Carte demanderCarteJoueur(int num)
 	{
 		Carte carteProposee;
-
+			
 			System.out.println("demande carte joueur croupier");
 			System.out.println("Demandons au joueur "+num+ " soit "+(num%P.getNombreDeJoueurs()));
 			carteProposee = P.getJoueur(num%P.getNombreDeJoueurs()).demanderCarte();

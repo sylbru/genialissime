@@ -116,9 +116,26 @@ function tarot.demander.ecart()
 	end
 	return ecart
 end
-	
+
+lastplayed = 100
+
 function tarot.demander.carte()
-	return tarot.legal:pop(math.random(0,#tarot.legal))
+	fluxus:push("J'ai "..#tarot.main.." cartes dans la main, dont "..#tarot.legal.." légales")
+	--c = tarot.legal:pop(math.random(1,#tarot.legal))
+	if #tarot.legal == 0 then
+		fluxus:push("OMFG, I'm illegal!")
+		c = math.random(0,77)
+	else
+		c = tarot.legal:pop(math.random(1,#tarot.legal))
+	end
+	fluxus:push("Je veux jouer la carte numéro "..c)
+	if lastplayed == c then
+		fluxus:push("Oh my god, I already played "..c.." I'm going to cheat and play 21")
+		c = 21
+	else
+		lastplayed = c
+	end
+	return c
 end
 	
 function tarot.dire.chien(chien)
