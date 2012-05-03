@@ -49,7 +49,7 @@ public class Croupier {
 	}
 	/**
 	 * @author niavlys
-	 * Informe les joueurs du fait qu’une carte a été jouée par un joueur
+	 * Informe les joueurs du fait qu'une carte a été jouée par un joueur
 	 * @param c La carte jouée
 	 * @param joueur Le joueur qui a joué la carte
 	 */
@@ -63,7 +63,7 @@ public class Croupier {
 	}
 	/**
 	 * @author niavlys
-	 * Informe les joueurs du fait qu’un pli a été remporté
+	 * Informe les joueurs du fait qu'un pli a été remporté
 	 * @param pli le contenu du pli remporté
 	 * @param joueur Le joueur qui a remporté le pli
 	 */
