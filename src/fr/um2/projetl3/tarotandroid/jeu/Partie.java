@@ -482,7 +482,7 @@ public class Partie extends Thread
 	public void run()
 	{
 		// vérifier que les joueurs sont settés et tout ?
-		lancerPartie(false); //true par ce que on passe par l'IG, mais false parce que ça marche pas encore
+		lancerPartie(true); //true par ce que on passe par l'IG, mais false parce que ça marche pas encore
 	}
 
 	public static void main(String[] args)
