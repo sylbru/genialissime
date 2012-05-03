@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="carte">
+        <item name="android:animationDuration">200</item>
+        <item name="android:bottomOffset">10dp</item>
+        <item name="android:clickable">true</item>
+        <!--<item name="android:horizontalSpacing">-50dp</item>
+        <item name="android:paddingLeft">-70dp</item>
+        <item name="android:cropToPadding">true</item>
+        <item name=""-->
+    </style>
+</resources>
