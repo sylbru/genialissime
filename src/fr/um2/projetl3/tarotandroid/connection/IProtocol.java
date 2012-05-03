@@ -22,9 +22,3 @@ public interface IProtocol {
     
     public Object traiterEntreeDonnes(ObjectInputStream entree);
 }
-
-    
-    
-    
-
-

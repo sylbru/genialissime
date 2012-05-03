@@ -11,30 +11,30 @@ private static final long serialVersionUID = 356469922603334998L;
 private int message;
 private String compl;
  
- public MessageObjet(int mess)
- {
-	 message = mess;
-	 compl=null;
- }
-
- public MessageObjet(int mess, String c)
- {
-	 message = mess;
-	 compl = c;
- }
- 
- public void setmessage(int mess ){
-	 message = mess;
- }
- public int getmessage(){
-	 return message;
- }
- public void setcomp(String c ){
-	 compl = c;
- }
- public String getcompl(){
-	 return compl;
- }
+	 public MessageObjet(int mess)
+	 {
+		 message = mess;
+		 compl=null;
+	 }
+	
+	 public MessageObjet(int mess, String c)
+	 {
+		 message = mess;
+		 compl = c;
+	 }
+	 
+	 public void setmessage(int mess ){
+		 message = mess;
+	 }
+	 public int getmessage(){
+		 return message;
+	 }
+	 public void setcomp(String c ){
+		 compl = c;
+	 }
+	 public String getcompl(){
+		 return compl;
+	 }
  
 }
 

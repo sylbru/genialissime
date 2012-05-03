@@ -70,37 +70,9 @@ public class JoueurDistant implements IJoueur{
 	
 	public Carte demanderCarte()
 	{
+		//TONODO
 		Carte c = null;
-
-		try {
-			if((message = (MessageObjet) server.liremessage())!=null) // on commence par regarder si le joueur n'a pas fait une requette
-			{
-				effectuerRequetteJoueur(message);					//si oui on la traite
-			}	
-				message = new MessageObjet(1,"premiere demande de carte"); // sinon on demande leu jeu d'une carte
-				server.sendMessage(message);
-				message = (MessageObjet) server.liremessage(); 
-				if(message.getmessage()!= 0)						//on controle si le joueur n'a pas fait un autre requette 0 signifie que le joueur a bien recu la demande
-				{
-					effectuerRequetteJoueur(message);
-					message = (MessageObjet) server.liremessage();  // on lit si'il a bien recu la demande 
-				}
-				c = (Carte) server.liremessage();         // on attend la carte
-				
-			
-		} catch (OptionalDataException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
 		return c;
-		
 	}
 	public Carte demanderAppelAuRoi(){return null;}
 	public Carte demanderUneCartePourLecart(){return null;}
