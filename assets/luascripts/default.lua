@@ -132,6 +132,7 @@ function tarot.demander.carte()
 	if lastplayed == c then
 		fluxus:push("Oh my god, I already played "..c.." I'm going to cheat and play 21")
 		c = 21
+		lastplayed = 21
 	else
 		lastplayed = c
 	end

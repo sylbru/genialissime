@@ -25,10 +25,12 @@ public class JoueurIA implements IJoueur
 	private Main pMain;		// Peut-être inutile
 	private String pNom;	// Nom du joueur, arbitraire et sans incidence
 	private LuaState L;		// Instance de la machine virtuelle Lua
+	private boolean bavard;
 	
 	/*--- Constructeurs ---*/
 	public JoueurIA(String pNom, int pID)
 	{
+		bavard = false;
 		L = LuaStateFactory.newLuaState();
 		L.openLibs();
 		//System.out.println("Jusqu'ici tout va bien");
@@ -40,25 +42,32 @@ public class JoueurIA implements IJoueur
 			is.close();
 			String script = new String(buffer);
 			//System.out.println(script);
-			System.out.println("Script présent");
+			if (bavard) {
+				System.out.println("Script présent");
+			}
 			L.LdoString(script);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Script absent");
+			if (bavard) System.out.println("Script absent");
 			e.printStackTrace();
 		}
 		Boolean charged = L.getLuaObject("scriptloaded").getBoolean();
 		if (charged)
 		{
-			System.out.println("Script chargé et interprété sans problèmes");
+			if (bavard) System.out.println("Script chargé et interprété sans problèmes");
 		} else {
-			System.out.println("Script incorrect ou absent");
+			if (bavard) System.out.println("Script incorrect ou absent");
 		}
 		//fluxusToSyso();
 		
 
 		this.pNom = pNom;
 				
+	}
+	
+	public void setBavard(boolean b)
+	{
+		bavard = b;
 	}
 	
 	/*--- Fluxus ---*/
@@ -118,7 +127,7 @@ public class JoueurIA implements IJoueur
 		//System.out.println(this.checkFluxus());
 		while (!this.fluxusVide())
 		{
-			System.out.println(this.popFluxus());
+			if (bavard) System.out.println(this.popFluxus()); else this.popFluxus();
 		}
 	}
 	
@@ -254,10 +263,10 @@ public class JoueurIA implements IJoueur
 		this.chargerLegal();
 		this.chargerMain();
 		int c;
-		System.out.println("Ma main");
-		D.getMain().affiche();
-		System.out.println("Mes cartes légales");
-		System.out.println(D.indiquerCartesLegalesJoueur().size());
+		if (bavard) System.out.println("Ma main");
+		if (bavard) D.getMain().affiche();
+		if (bavard) System.out.println("Mes cartes légales");
+		if (bavard) System.out.println(D.indiquerCartesLegalesJoueur().size());
 		//this.updateLObjects();
 		L.LdoString("c = tarot.demander.carte()");
 		c = (int) L.getLuaObject("c").getNumber();
