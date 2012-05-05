@@ -25,21 +25,12 @@ public class Donne
 	// protected pour calculer les pts des plis Attaque/Defense
 	protected Vector<Carte> plisAttaque; 
 	protected Vector<Carte> plisDefense;
-//<<<<<<< .mine
 	private int numDonneur; // celui qui distribue dans la donne (utilisé pour le premier tour)
-//=======
-//	private int numDonneur; // celui qui distribue dans la donne (utilisï¿œ pour le premier tour)
-//>>>>>>> .r232
 	//pour l'echange de l'excuse a la fin du pli si il n'a pas ete possible avant
 	private int ExcuseARemplacer =-1;
 	private Vector<Carte> vecteurrecevantExcuse;
 	private Vector<Carte> vecteurcontenantExcuse;
-	
-//<<<<<<< .mine
 	private int numJoueurEnContact; // le joueur avec lequel on est en communication (utilisé pour savoir de qui on parle quand un joueur demande « sa » main)
-//=======
-//	private int numJoueurEnContact; // le joueur avec lequel on est en communication (utilisï¿œ pour savoir de qui on parle quand un joueur demande Â« sa Â» main)
-//>>>>>>> .r232
 	
 	/*
 	 * --------------------------------------------------------------------------------------------
@@ -343,7 +334,7 @@ public class Donne
 		Carte c;
 		System.out.println("Taille de v2: "+v2.size()+" a="+a);
 		c= v2.get(a);
-		v2.remove(a);
+		//v2.remove(a);
 		boolean echange=false;
 		System.out.println("remplace excuse l'escuse se a l'endroit "+a);
 		System.out.println("cartes dans v1");
@@ -382,6 +373,7 @@ public class Donne
 						v2.add(c2);
 						v1.remove(c2);
 						v1.add(c);
+						v2.remove(a);
 						echange=true;
 						return;
 					}
