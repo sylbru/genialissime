@@ -363,31 +363,26 @@ function tarot.demander.annonce()
 	end
 end	
 
---[[
+
 function tarot.demander.ecart()
 	local ecart = cue.new()
 	CR = 6 -- nbr de Carte Restante a mettre au chien 
 
-	maMain = tarot.main:getTruthTable()
+	maMain = tarot.main:getTruthTable() -- récuperation de la main
 
 	while not (CR == 0) do
 		local l = math.random(1,4)
 		for j=1,10 do
 			if maMain[l*j+21] then
-				fluxus:push("Je mets "..l*j+21.." à l'écart")
+				fluxus:push("Je mets "..(l*j+21).." à l'écart")
 				ecart:push(l*j+21)
 				CR = CR - 1
+				maMain[l*j+21] = false
 			end
 		end
 	end
-
 	return ecart
 end
-]]
 
--- TEST
 
 scriptloaded = true
-
-
-
