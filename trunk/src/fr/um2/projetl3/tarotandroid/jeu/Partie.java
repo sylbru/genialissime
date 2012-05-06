@@ -10,7 +10,7 @@ import java.util.Vector;
 
 import fr.um2.projetl3.tarotandroid.R;
 import fr.um2.projetl3.tarotandroid.clients.IJoueur;
-import fr.um2.projetl3.tarotandroid.clients.JoueurIA;
+
 import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
 import fr.um2.projetl3.tarotandroid.connection.MultiServeur;
 
@@ -489,8 +489,7 @@ public class Partie extends Thread
 
 	public static void main(String[] args)
 	{
-		P = new Partie();
-		
+		P = new Partie();	
 		//P.lancerPartie4JoueursTexte();
 
 		P.lancerPartie4JoueursTexte();
