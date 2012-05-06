@@ -8,6 +8,7 @@ import fr.um2.projetl3.tarotandroid.clients.IJoueur;
 
 public class Croupier {
 
+	public boolean bavard = false;
 	/**
 	 * @author JB
 	 * 
@@ -85,11 +86,17 @@ public class Croupier {
 	public Carte demanderCarteJoueur(int num)
 	{
 		Carte carteProposee;
-			
+		if (bavard)
+		{
 			System.out.println("demande carte joueur croupier");
 			System.out.println("Demandons au joueur "+num+ " soit "+(num%P.getNombreDeJoueurs()));
+		}
 			carteProposee = P.getJoueur(num%P.getNombreDeJoueurs()).demanderCarte();
+		if (bavard)
+		{
 			System.out.println(P.getJoueur(num%P.getNombreDeJoueurs()).getNomDuJoueur()+" "+carteProposee.toString());
+		}
+		
 
 		return carteProposee;
 	}

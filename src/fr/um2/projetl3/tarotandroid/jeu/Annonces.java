@@ -5,6 +5,7 @@ import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
 
 public class Annonces 
 {
+	public static boolean bavard = false; 
 	
 	private static Contrat[] tableauDesContrats;
 	
@@ -26,8 +27,8 @@ public class Annonces
 		tableauDesContrats = new Contrat[nombreDeJoueurs];
 		
 		int numeroDuJoueur = P.getNumJoueurApres(D.getNumDonneur());
-		System.out.print("Le donneur était " + P.getNomNumJoueur(D.getNumDonneur()) + ", ");
-		System.out.println("le premier à parler est " + P.getNomNumJoueur(numeroDuJoueur));
+		if (bavard) System.out.print("Le donneur était " + P.getNomNumJoueur(D.getNumDonneur()) + ", ");
+		if (bavard) System.out.println("le premier à parler est " + P.getNomNumJoueur(numeroDuJoueur));
 		
 		Contrat contrat = Contrat.AUCUN;
 		Contrat contratMax = Contrat.AUCUN;
@@ -51,14 +52,14 @@ public class Annonces
 				if(joueurQuiVaPrendre==numeroDuJoueur) // sortie d'annonce : la boucle est revenu sur le joueur qui veux prendre
 				{
 					conditionArret = false;
-					System.out.println("sortie d'annonce : la boucle est revenu sur le joueur qui veux prendre");
+					if (bavard) System.out.println("sortie d'annonce : la boucle est revenu sur le joueur qui veux prendre");
 				}
 				else
 				{
 					D.setNumJoueurEnContact(numeroDuJoueur);
-					//System.out.println("Je demande l'annonce du joueur "+numeroDuJoueur);
+					//if (bavard) System.out.println("Je demande l'annonce du joueur "+numeroDuJoueur);
 					contrat = demanderAnnonceJoueur(numeroDuJoueur, contratMax);  // demande au joueur quel contrat il veut faire et renvoie un contrat valide
-					System.out.println("coucou");
+					
 					direJoueursAnnonce(contrat, numeroDuJoueur);
 					
 					if (contrat.getPoids() > contratMax.getPoids())
@@ -76,7 +77,7 @@ public class Annonces
 						{
 							joueurQuiVaPrendre = numeroDuJoueur;
 							conditionArret = false;
-							System.out.println("sortie d'annonce : garde contre");
+							if (bavard) System.out.println("sortie d'annonce : garde contre");
 						}
 						else 
 						{
@@ -86,19 +87,19 @@ public class Annonces
 					}
 					if(numeroDuJoueur == numDernierJoueur) // si on as fait un tour d'annonce
 					{
-						System.out.println("4");
+						
 						// si il y a une seule prise on lance la partie
 						if (combienVeulentPrendre == 0) // dans ce cas l� �a veux dire que tout le monde � passer
 						{
 							contrat = Contrat.AUCUN;
 							conditionArret = false ;
 							
-							System.out.println("sortie d'annonce : tlm passe");
+							if (bavard) System.out.println("sortie d'annonce : tlm passe");
 						}
 						else if (combienVeulentPrendre == 1)
 						{
 							conditionArret = false;
-							System.out.println("sortie d'annonce : un seul veux prendre");
+							if (bavard) System.out.println("sortie d'annonce : un seul veux prendre");
 						}
 						else if(combienVeulentPrendre > 1) // si plusieur joueur veulent prendre on refait un tour des joueur qui voulaient prendre
 						{
@@ -109,9 +110,9 @@ public class Annonces
 							// Pour que la boucle s'arrete lorsque l'on retombe sur le dernier joueur à vouloir prendre
 							
 							/*	Test
-							System.out.println("\tnumero du joueur : "+ numeroDuJoueur);
-							System.out.println("\tnumero du dernier : "+ numDernierJoueur);
-							System.out.println("\tnumero du dernier temporaire : "+ numDernierJoueurTemporaire);
+							if (bavard) System.out.println("\tnumero du joueur : "+ numeroDuJoueur);
+							if (bavard) System.out.println("\tnumero du dernier : "+ numDernierJoueur);
+							if (bavard) System.out.println("\tnumero du dernier temporaire : "+ numDernierJoueurTemporaire);
 							*/
 						}
 					}
@@ -120,8 +121,8 @@ public class Annonces
 			numeroDuJoueur = P.getNumJoueurApres(numeroDuJoueur);
 		}
 		
-		System.out.println("Joueur qui va prendre : "+joueurQuiVaPrendre);
-		System.out.println(nombreDeJoueurs);
+		if (bavard) System.out.println("Joueur qui va prendre : "+joueurQuiVaPrendre);
+		if (bavard) System.out.println(nombreDeJoueurs);
 		
 		if(joueurQuiVaPrendre != -1)
 		{
@@ -143,7 +144,7 @@ public class Annonces
 	{
 		for(int i=0; i<P.getNombreDeJoueurs(); i++) // on part de 0 donc pas besoin de modulo
 		{
-			System.out.println("Joueur "+i+" : "+tableauDesContrats[i].getName());
+			if (bavard) System.out.println("Joueur "+i+" : "+tableauDesContrats[i].getName());
 		}
 	}
 
@@ -164,13 +165,13 @@ public class Annonces
 			{
 				annonceProposée = Contrat.PASSE;
 			}
-			System.out.println(num+" annonce "+annonceProposée.getName());
+			if (bavard) System.out.println(num+" annonce "+annonceProposée.getName());
 		}
 		while(!annonceValide(annonceProposée) && tentative < 3);
 		
 		if (tentative == 3)
 		{
-			System.out.println("Trop d'annonce invalide donc contrat := Passe");
+			if (bavard) System.out.println("Trop d'annonce invalide donc contrat := Passe");
 			annonceProposée = Contrat.PASSE;
 		}
 		
