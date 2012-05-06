@@ -65,9 +65,63 @@ tarot={}
 tarot.main=cue.new()
 tarot.legal=cue.new()
 tarot.pli=cue.new()
+tarot.utile = {}
 fluxus:push('Namespaces créés')
 
+function tarot.utile.getCouleur(carte)
+	if carte < 0 or carte >=78 then
+		return "erreur"
+	elseif carte < 22 then
+		return "atout"
+	elseif carte < 36 then
+		return "coeur"
+	elseif carte < 50 then
+		return "pique"
+	elseif carte < 64 then
+		return "carreau"
+	else
+		return "trefle"
+	end
+end
 
+function tarot.utile.getValeur(carte)
+	local couleur = tarot.getCouleur(carte)
+	if couleur == "atout" then
+		return carte
+	else
+		local decalage = 0
+		if couleur == "coeur" then
+			decalage = 21
+		elseif couleur == "pique" then
+			decalage = 35
+		elseif couleur == "carreau" then
+			decalage = 49
+		else
+			decalage = 63
+		end
+		return carte - decalage
+	end
+end
+
+function tarot.utile.newCarte(couleur, valeur)
+	local couleur = couleur or "atout"
+	local valeur = valeur or 1
+	if couleur == "atout" then
+		return valeur
+	else
+		local decalage = 0
+		if couleur == "coeur" then
+			decalage = 21
+		elseif couleur == "pique" then
+			decalage = 35
+		elseif couleur == "carreau" then
+			decalage = 49
+		else
+			decalage = 63
+		end
+		return decalage + valeur
+	end
+end
 
 -- Script : Carte aléatoire
 ---- 
