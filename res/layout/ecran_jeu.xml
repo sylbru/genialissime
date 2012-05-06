@@ -54,7 +54,7 @@
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView1"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
+        android:layout_height="120dp"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal"
         android:fillViewport="false" >
@@ -71,7 +71,6 @@
                 android:id="@+id/imageCarte0"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="-30dp"
                 android:layout_marginRight="-30dp"
                 style="@style/carte" />
             

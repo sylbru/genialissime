@@ -95,6 +95,7 @@ public class EcranJeu extends Activity
 	/**/
 	public void afficherMain(final Vector<Carte> main)
 	{
+		//final Vector<Carte> cartesLegales = P.donne().indiquerCartesLegalesJoueur();
 		runOnUiThread(new Runnable()
 		{
 			public void run()
@@ -104,6 +105,8 @@ public class EcranJeu extends Activity
 					int imageViewId = 0;
 					Carte card = (i >= main.size()) ? null : main.get(i);
 					String imageViewIdName = "imageCarte"+Integer.toString(i);
+					//Carte cardL = (i >= cartesLegales.size()) ? null : main.get(i);
+					//System.out.println(cardL + "est une carte legale!");
 			
 					try {
 						imageViewId = R.id.class.getDeclaredField(imageViewIdName).getInt(null);
@@ -131,6 +134,7 @@ public class EcranJeu extends Activity
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+			            							
 					}
 					
 				}
@@ -370,6 +374,7 @@ public class EcranJeu extends Activity
 	            for(Carte c: cartesLegales)
 	            {
 	            	vListeCartesLegalesCS.add(c.toStringShort());
+	            	
 	            }
 	            
 	            final CharSequence[] listeCarteLegales = new CharSequence[vListeCartesLegalesCS.size()];
@@ -404,6 +409,7 @@ public class EcranJeu extends Activity
 		lp.addRule(RelativeLayout.ABOVE, R.id.horizontalScrollView1);
 		lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		
+		afficherMain(P.donne().indiquerCartesLegalesJoueur());
 		runOnUiThread(new Runnable()
 		{
 			
@@ -425,7 +431,7 @@ public class EcranJeu extends Activity
 		});
 		
 		System.out.println("On va retourner "+resultatCarte);
-		afficherMain(P.donne().indiquerCartesLegalesJoueur());
+		//afficherMain(P.donne().indiquerCartesLegalesJoueur());
 		return resultatCarte;
 	}
 	
