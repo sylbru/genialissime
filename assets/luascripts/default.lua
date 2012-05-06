@@ -384,6 +384,9 @@ function tarot.demander.ecart()
 	return ecart
 end
 ]]
+
+-- TEST
+
 scriptloaded = true
 
 
