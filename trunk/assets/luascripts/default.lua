@@ -123,6 +123,32 @@ function tarot.utile.newCarte(couleur, valeur)
 	end
 end
 
+function tarot.utile.getNom(carte)
+	if tarot.utile.getCouleur(carte)=="atout" then
+		if carte == 0 then
+			return "Excuse"
+		elseif carte == 1 then
+			return "Petit"
+		else
+			return carte.." d'atout"
+		end
+	else
+		if tarot.utile.getValeur(carte)<11 then
+			return tarot.utile.getValeur(carte).." de "..tarot.utile.getCouleur()
+		else
+			if tarot.utile.getValeur(carte)==11 then
+				return "Valet de "..tarot.utile.getCouleur()
+			elseif tarot.utile.getValeur(carte)==12 then
+				return "Cavalier de "..tarot.utile.getCouleur()
+			elseif tarot.utile.getValeur(carte)==13 then
+				return "Dame de "..tarot.utile.getCouleur()
+			else
+				return "Roi de "..tarot.utile.getCouleur()
+			end
+		end
+	end
+end
+
 -- Script : Carte aléatoire
 ---- 
 
@@ -182,9 +208,9 @@ function tarot.demander.carte()
 	else
 		c = tarot.legal:pop(math.random(1,#tarot.legal))
 	end
-	fluxus:push("Je veux jouer la carte numéro "..c)
+	fluxus:push("Je veux jouer la carte numéro "..tarot.utile.getNom(c))
 	if lastplayed == c then
-		fluxus:push("Oh my god, I already played "..c.." I'm going to cheat and play 21")
+		fluxus:push("Oh my god, I already played "..tarot.utile.getNom(c).." I'm going to cheat and play 21")
 		c = 21
 		lastplayed = 21
 	else
