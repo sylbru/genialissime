@@ -28,6 +28,8 @@
             <ListPreference android:key="CDS" android:title="Conditions"
                 			android:entries="@array/listCdsEntrees" android:entryValues="@array/listCdsValeurs"
                 			android:defaultValue="1" android:negativeButtonText="Annuler"></ListPreference>
+            <EditTextPreference android:key="SMAX" android:title="Score maximal" android:summary="Si condition Score maximum est activée"/>
+            <EditTextPreference android:key="DMAX" android:summary="Si condition donnes maximales est activée" android:title="Entrez nombre de donnes maximales"/>
         </PreferenceScreen>
     </PreferenceScreen>
     <PreferenceScreen android:key="PA" android:title="Préférences Application">
