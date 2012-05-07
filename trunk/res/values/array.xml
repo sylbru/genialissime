@@ -28,4 +28,18 @@
     
 </string-array>
 
+<string-array name="listCdsEntrees">
+    <item>Conditions par défaut</item>
+    <item>Score maximum</item>
+    <item>Donnes maximales</item>
+    
+</string-array>
+
+<string-array name="listCdsValeurs">
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    
+</string-array>
+
 </resources>
