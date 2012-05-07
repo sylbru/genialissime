@@ -13,15 +13,13 @@ public class Donne
 	private Main mainsDesJoueurs[];
 	private Vector<Carte> chien;
 	private Croupier croupier;
-	private Partie P; // la partie à  laquelle appartient cette donne
-	
+	private Partie P; // la partie � laquelle appartient cette donne
 	private Contrat contratEnCours;
 	private int preneur;
 	private int appelee;// LE joueur appele dans le mode a 5 joueurs
 	private Vector<Carte> plisEnCours;
 	private Vector<Carte> plisPrecedent;
-	
-	private int numJoueurEntame; // premier à  jouer dans le pli
+	private int numJoueurEntame; // premier � jouer dans le pli
 	// protected pour calculer les pts des plis Attaque/Defense
 	protected Vector<Carte> plisAttaque; 
 	protected Vector<Carte> plisDefense;
@@ -110,7 +108,7 @@ public class Donne
 			 j += 3;
 			 numeroDuJoueur = P.getNumJoueurApres(numeroDuJoueur);
 		 }
-		 for(int i=0; i<4; i++)
+		 for(int i=0; i<P.getNombreDeJoueurs(); i++)
 		 {
 			 P.getJoueur(i).direMain(mainsDesJoueurs[i].getCartes());
 		 }
@@ -118,24 +116,14 @@ public class Donne
 	}
 
 	/*
-	 * --------------------------------------------------------------------------------------------
-//<<<<<<< .mine
+	 * 
 	 * ------------------------------------ Méthodes --------------------------------------------
-//=======
-	 * ------------------------------------ Mï¿œthodes --------------------------------------------
-//>>>>>>> .r232
-	 * --------------------------------------------------------------------------------------------
-	 */
-	 
+	*/
 	void reveleChien(){
 		croupier.reveleChien(chien);
 	}
  
-//<<<<<<< .mine
-	 /** Méthode fini maisobject à tester
-//=======
 	 /** Méthode fini maisobject à  tester
-//>>>>>>> .r232
 	  *  // TODO test
 	  * @author JB
 	  * @author hhachiche
@@ -202,26 +190,16 @@ public class Donne
 	 
 
 	 /**
-//<<<<<<< .mine
 	  * Phase de jeu des cartes dans une donne, après les annonces et l’écart, avant le comptage des points.
 	  * (pour info, l’expression « jeu de la carte », ça vient pas de moi,
-//=======
-	  * Phase de jeu des cartes dans une donne, après les annonces et l'écart, avant le comptage des points.
-	  * (pour info, l'expression " jeu de la carte ", ça vient pas de moi,
-//>>>>>>> .r232
 	  * voir http://www.fftarot.fr/index.php/Decouvrir/Le-Jeu-de-la-carte.html )
 	 * @return TODO
 	  */
 	@SuppressWarnings("unchecked")
 	protected boolean jeuDeLaCarte()
 	{
-//<<<<<<< .mine
-		numJoueurEntame = P.getNumJoueurApres(numDonneur); // le premier à jouer (celui qui est après le donneur)
-		int nbCartesPosees; // cartes posées dans le tour (de 1 à 4, si 4 joueurs)
-//=======
 		numJoueurEntame = P.getNumJoueurApres(numDonneur); // le premier à  jouer (celui qui est après le donneur)
-//		int nbCartesPosees; // cartes posées dans le tour (de 1 à  4, si 4 joueurs)
-//>>>>>>> .r232
+		int nbCartesPosees; // cartes posées dans le tour (de 1 à  4, si 4 joueurs)
 		int numJoueur;
 		int numJoueurVainqueurPli;
 		
@@ -229,13 +207,16 @@ public class Donne
 		{
 			 // un tour de jeu, on commence à  numJoueur = numJoueurEntame
 			numJoueurEnContact = numJoueurEntame;
-			
+			numJoueur = numJoueurEntame;
+			nbCartesPosees = 0;
+			// assert v�rifiant (� chaque tour) que les joueurs ont tous bien le m�me nombre de cartes
+			/*assert	(mainsDesJoueurs[0].nbCartesRestantes() == mainsDesJoueurs[1].nbCartesRestantes()
 			numJoueur = numJoueurEntame;
 			nbCartesPosees = 0;			
 			// Vérification (à chaque tour) que les joueurs ont tous bien le même nombre de cartes
 			if (!((mainsDesJoueurs[0].nbCartesRestantes() == mainsDesJoueurs[1].nbCartesRestantes())
 					&& (mainsDesJoueurs[1].nbCartesRestantes() == mainsDesJoueurs[2].nbCartesRestantes())
-					&& (mainsDesJoueurs[2].nbCartesRestantes() == mainsDesJoueurs[3].nbCartesRestantes())))
+					&& (mainsDesJoueurs[2].nbCartesRestantes() == mainsDesJoueurs[3].nbCartesRestantes()));
 			{
 				System.out.println("nb de cartes : "
 							+ mainsDesJoueurs[0].nbCartesRestantes() + "\n"
@@ -244,7 +225,15 @@ public class Donne
 							+ mainsDesJoueurs[3].nbCartesRestantes() + "\n");
 				return false;
 			}
-			if (mainsDesJoueurs[0].nbCartesRestantes()<=1 ||
+			*/
+			/*if (mainsDesJoueurs[0].nbCartesRestantes()<=1 || mainsDesJoueurs[1].nbCartesRestantes()<=1 || mainsDesJoueurs[2].nbCartesRestantes()<=1 || mainsDesJoueurs[3].nbCartesRestantes()<=1)
+			{
+				System.out.println("Un joueur a une main vide");
+				return false;
+			}
+			*/
+			// TODO: On peut se d�barrasser de nbCartesPosees en regardant si joueur apr�s numJoueur = numJoueurEntame
+			/*if (mainsDesJoueurs[0].nbCartesRestantes()<=1 ||
 					mainsDesJoueurs[1].nbCartesRestantes()<=1 ||
 					mainsDesJoueurs[2].nbCartesRestantes()<=1 ||
 					mainsDesJoueurs[3].nbCartesRestantes()<=1)
@@ -252,7 +241,7 @@ public class Donne
 				System.out.println("Un joueur a une main vide");
 				return false;
 			}
-			
+			*/
 			// TODO: On peut se débarrasser de nbCartesPosees en regardant si joueur après numJoueur = numJoueurEntame
 			for (int fillerup=0;fillerup<P.getNombreDeJoueurs();fillerup++)
 			{
@@ -277,7 +266,7 @@ public class Donne
 			
 			numJoueurVainqueurPli = vainqueurDuPli(plisEnCours);
 			
-			croupier.direJoueursPliRemporté(plisEnCours, numJoueurVainqueurPli);
+			croupier.direJoueursPliRemport�(plisEnCours, numJoueurVainqueurPli);
 			if(isJoueurAttaque(numJoueurVainqueurPli)) 
 			{
 				int a;
@@ -322,7 +311,7 @@ public class Donne
 			
 			plisPrecedent = (Vector<Carte>) plisEnCours.clone(); // transfert de pliEnCours dans pliPrecedent
 			plisEnCours.clear();
-			numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagné le pli entame au tour suivant
+			numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagn� le pli entame au tour suivant
 		}
 		System.out.println("numero joueur entame = "+numJoueurEntame);
 		dernierPli(numJoueurEntame);
@@ -440,6 +429,7 @@ public class Donne
 		}
 		
 		numJoueurVainqueurPli = vainqueurDuPli(plisEnCours);
+
 		croupier.direJoueursPliRemporté(plisEnCours, numJoueurVainqueurPli);
 		if(isJoueurAttaque(numJoueurVainqueurPli)) 
 				plisAttaque.addAll(plisEnCours);
@@ -449,7 +439,6 @@ public class Donne
 		plisEnCours.clear();
 		if(ExcuseARemplacer!=-1)
 		{
-			System.out.println("Pli attaque: "+plisAttaque.size()+" Pli defense: "+plisDefense.size());
 			remplacerExcuse(vecteurrecevantExcuse,vecteurcontenantExcuse,excuseDansleVecteur(vecteurcontenantExcuse),null);
 		}
 		numJoueurEntame = numJoueurVainqueurPli; // celui qui a gagné le pli entame au tour suivant
@@ -477,8 +466,13 @@ public class Donne
 	/**
 	 * @author niavlys
 	 * @param c une carte
+<<<<<<< .mine
+	 * @param numJ un joueur
+	 * @return true si la carte pos�e par le joueur (param�tres) est l�gale 
+=======
 	 * @param numJ un joueur
 	 * @return true si la carte posée par le joueur (paramètres) est légale 
+>>>>>>> .r234
 	 * 
 	 */
 	public boolean isCarteLegale(Carte c, int numJ) // svp des noms de variable explicite ...
@@ -517,9 +511,9 @@ public class Donne
 			if (c.getOrdre() < atoutMax.getOrdre() && mainsDesJoueurs[numJ].possedeAtoutPlusGrand(atoutMax.getOrdre()))
 			{
 				// System.out.println("sortie atout mauvais, pas ok");
-				return false; // s’il n’a pas monté sur l’atout le plus haut alors qu’il pouvait
+				return false; // s'il n'a pas mont� sur l'atout le plus haut alors qu'il pouvait
 			}
-			else // il a monté sur l’atout le plus haut ou bien il n’a pas monté mais ne pouvait pas, reste à voir s’il pouvait jouer atout.
+			else // il a mont� sur l'atout le plus haut ou bien il n'a pas mont� mais ne pouvait pas, reste � voir s'il pouvait jouer atout.
 			{
 				if (plisEnCours.get((numJoueurEntame+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).isAtout() || (plisEnCours.get((numJoueurEntame+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).isExcuse() && plisEnCours.get(P.getNumJoueurApres(numJoueurEntame)).isAtout()))
 				{
@@ -537,8 +531,9 @@ public class Donne
 					{
 						coulDemandee = plisEnCours.get((numJoueurEntame+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()).getCouleur();
 					}
-					// il faut que le joueur ne possède pas la couleur demandée pour pouvoir jouer atout :
-					// System.out.println("sortie couleur demandée, "+!mainsDesJoueurs[numJ].possedeCouleur(coulDemandee));
+					// il faut que le joueur ne poss�de pas la couleur demand�e pour pouvoir jouer atout :
+					// System.out.println("sortie couleur demand�e, "+!mainsDesJoueurs[numJ].possedeCouleur(coulDemandee));
+
 					return !mainsDesJoueurs[(numJ+P.getNombreDeJoueurs())%P.getNombreDeJoueurs()].possedeCouleur(coulDemandee);					
 				}
 			}
@@ -586,6 +581,7 @@ public class Donne
 	}
 	
 	/**
+
 	 * 
 	 * @return un vecteur contenant les Cartes possibles (légales) à jouer pour le joueur numJoueur
 	 * Actuellement ça regarde toutes ses cartes et fait appel à isCarteLegale() pour chacune.
@@ -610,7 +606,9 @@ public class Donne
 	
 	/**
 	 * 
-	 * @return un vecteur contenant les cartes possibles pour l’écart
+
+	 * @return un vecteur contenant les cartes possibles pour l'�cart
+
 
 	 */
 	public Vector<Carte> indiquerCartesLegalesEcart()
@@ -631,16 +629,16 @@ public class Donne
 	
 	public boolean donneFinie()
 	{
-		if (mainsDesJoueurs[0].nbCartesRestantes()<=1 ||
-				mainsDesJoueurs[1].nbCartesRestantes()<=1 ||
-				mainsDesJoueurs[2].nbCartesRestantes()<=1 ||
-				mainsDesJoueurs[3].nbCartesRestantes()<=1)
+		boolean fini= false;
+		for(int i=0; i<P.getNombreDeJoueurs();i++)
 		{
-			System.out.println("Un joueur a une main vide");
-			return true;
-		} else {
-			return false;
+			if (mainsDesJoueurs[0].nbCartesRestantes()<=1) 
+			{
+				fini= fini || true;
+				System.out.println("Un joueur a une main vide");
+			}
 		}
+		return fini;
 		//return plisAttaque.size() + plisDefense.size() == Constantes.NOMBRE_CARTES_TOTALES-P.getNombreDeJoueurs();
 	}
 	
@@ -656,8 +654,10 @@ public class Donne
 		else if (contratEnCours != Contrat.AUCUN)
 		{
 			System.out.println("Plis attaque : "+plisAttaque);
-			System.out.println("Plis défense : "+plisDefense);
-			Random rand = new Random(); // TODO: À déplacer à un niveau plus haut pour pas en recréer un à chaque fois
+			System.out.println("Plis d�fense : "+plisDefense);
+
+			Random rand = new Random(); // TODO: �� d�placer � un niveau plus haut pour pas en recr�er un � chaque fois
+
 			if(rand.nextBoolean())
 			{
 				nouveauTas.addAll(plisAttaque);
@@ -767,7 +767,8 @@ public class Donne
 	public boolean isJoueurAttaque(int num)
 	{
 		return num == preneur || (P.getNombreDeJoueurs() == 5 && num == appelee);
-		// ? est-ce que getID() correspond bien à la position/au numéro ?
+		// ? est-ce que getID() correspond bien � la position/au num�ro ?
+
 	}
 	
 	public boolean isJoueurDefense(int num)
@@ -794,9 +795,8 @@ public class Donne
 	
 	/**
 	 * @author niavlys
-	 * Sert à incrémenter numDonneur pour le passer au joueur suivant.
-	 * Utilisé à chaque début de donne.
-	 * TODO: déplacer dans Partie ?
+	 * Sert � incr�menter numDonneur pour le passer au joueur suivant.
+	 * Utilis� � chaque d�but de donne.
 	 */
 	public void incrementerNumDonneur()
 	{
@@ -894,8 +894,14 @@ public class Donne
 
 	
 	public static void main(String[] args)
+
+	{/*
+		 Donne donne = new Donne(); // bon c'est le bordel entre les m�thodes statiques et les non-statiques,
+
+=======
 	{/*
 		 Donne donne = new Donne(); // bon c’est le bordel entre les méthodes statiques et les non-statiques,
+>>>>>>> .r234
 									// faudra en discuter.
 		
 		 /*

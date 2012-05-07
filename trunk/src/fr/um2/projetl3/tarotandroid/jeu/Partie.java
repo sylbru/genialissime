@@ -422,6 +422,28 @@ public class Partie extends Thread
 		lancerPartie(false);
 	}
 	
+	public void lancerPartie3JoueursTexte()
+	{
+		setNombreDeJoueurs(3);
+		setJoueur(0, new JoueurTexte("pol"));
+		setJoueur(1, new JoueurTexte("luc", true));
+		setJoueur(2, new JoueurTexte("flo", true));
+		
+		lancerPartie(false);
+	}
+	
+	public void lancerPartie5JoueursTexte()
+	{
+		setNombreDeJoueurs(5);
+		setJoueur(0, new JoueurTexte("Nord"));
+		setJoueur(1, new JoueurTexte("Est", true));
+		setJoueur(2, new JoueurTexte("Sud", true));
+		setJoueur(3, new JoueurTexte("Ouest", true));
+		setJoueur(4, new JoueurTexte("yoda", true));
+		
+		lancerPartie(false);
+	}
+	
 	public void lancerPartie4JoueursIA(IJoueur a, IJoueur b, IJoueur c, IJoueur d)
 	{
 		setNombreDeJoueurs(4);
@@ -442,9 +464,6 @@ public class Partie extends Thread
 		
 	}
 	
-
-	//! TODO Cette méthode est à SUPPRIMER quand l'application sera finie
-	//! Breche de sécurité importante, utile uniquement pour tests.
 	public static void testPartie(IJoueur a, IJoueur b, IJoueur c, IJoueur d)
 	{
 		P = new Partie();
@@ -483,8 +502,10 @@ public class Partie extends Thread
 	@Override
 	public void run()
 	{
+
 		// vérifier que les joueurs sont settés et tout ?
 		lancerPartie(true); //true par ce que on passe par l'IG, mais false parce que ça marche pas encore
+
 	}
 
 	public static void main(String[] args)
@@ -492,7 +513,9 @@ public class Partie extends Thread
 		P = new Partie();	
 		//P.lancerPartie4JoueursTexte();
 
-		P.lancerPartie4JoueursTexte();
+		//P.lancerPartie4JoueursTexte();
+		P.lancerPartie5JoueursTexte();
+		
 		
 		
 		System.out.println("coucou1");
