@@ -278,7 +278,7 @@ public class Scores
 				resultat = resultat - (resultat % 5) + 5;
 			}
 		}
-		else 
+		else if(PrefsRegles.arrondirA10) 
 		{
 			if(resultat % 10 < 5)
 			{
