@@ -9,14 +9,17 @@ function cue.new()
 
 	function self:push(data)
 		self[#self+1]=data
+		--fluxus:push("pushed "..data)
 	end
 
 	function self:getTruthTable()
 		local tab = {}
 		for i=0,77 do
 			tab[i]=false
+			--fluxus:push("init de la case "..i)
 		end
 		for i=1,#self do
+			--fluxus:push("J'ai le "..tarot.utile.getNom(i))
 			tab[self[i]]=true
 		end
 		return tab
@@ -85,7 +88,7 @@ function tarot.utile.getCouleur(carte)
 end
 
 function tarot.utile.getValeur(carte)
-	local couleur = tarot.getCouleur(carte)
+	local couleur = tarot.utile.getCouleur(carte)
 	if couleur == "atout" then
 		return carte
 	else
@@ -207,10 +210,10 @@ function tarot.demander.carte()
 		c = math.random(0,77)
 	else
 		c = tarot.legal:pop(math.random(1,#tarot.legal))
+		fluxus:push("Je veux jouer: "..tarot.utile.getNom(c))
 	end
-	fluxus:push("Je veux jouer la carte numéro "..tarot.utile.getNom(c))
 	if lastplayed == c then
-		fluxus:push("Oh my god, I already played "..tarot.utile.getNom(c).." I'm going to cheat and play 21")
+		fluxus:push("J'ai déjà joué "..tarot.utile.getNom(c).." a la place je joue le 21")
 		c = 21
 		lastplayed = 21
 	else
@@ -367,14 +370,34 @@ end
 function tarot.demander.ecart()
 	local ecart = cue.new()
 	CR = 6 -- nbr de Carte Restante a mettre au chien 
-
+	fluxus:push("Entré dans tarot.demander.ecart()")
 	maMain = tarot.main:getTruthTable() -- récuperation de la main
-
-	while not (CR == 0) do
+	--[[for i,v in ipairs(maMain) do
+		if v then
+			fluxus:push("J'ai le "..tarot.utile.getNom(i))
+		else
+			fluxus:push("J'ai n'ai pas le "..tarot.utile.getNom(i))
+		end
+	end]]
+	while CR ~= 0 do
+		fluxus:push("Je fais mon écart")
+		--local cand = tarot.main:pop(1,#tarot.main)
+		--fluxus:push("Candidat "..cand)
+		--fluxus:push("soit "..tarot.utile.getNom(cand))
+		--[[if tarot.utile.getValeur(cand)<11 then
+			--fluxus:push("Je veux ecarter le "..tarot.utile.getNom(cand))
+			if maMain[cand] then
+				ecart:push(cand)
+				CR = CR - 1
+				--fluxus:push(tarot.utile.getNom(cand).." est bon pour l'ecart")
+			end
+		end]]
 		local l = math.random(1,4)
 		for j=1,10 do
-			if maMain[l*j+21] then
+			--fluxus:push("Je vais jeter des cartes de couleur "..l)
+			if maMain[l*j+21] and CR~=0 then
 				fluxus:push("Je mets "..(l*j+21).." à l'écart")
+
 				ecart:push(l*j+21)
 				CR = CR - 1
 				maMain[l*j+21] = false
@@ -383,6 +406,5 @@ function tarot.demander.ecart()
 	end
 	return ecart
 end
-
 
 scriptloaded = true
