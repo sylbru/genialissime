@@ -144,7 +144,25 @@ public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge d
 	    		PrefsRegles.arrondirA10 = true;
 	    	}
 	    	
-	    	
+	    	if (sp.getString("CDS", "Conditions par défaut") == "Score maximum")
+	    	{
+	    		PrefsRegles.conditionFinDonnesMax = false;
+	    		PrefsRegles.conditionFinScoreMax = true;
+	    		PrefsRegles.scoreMax = sp.getInt("SMAX", 1500);
+	    	}
+	    	else if (sp.getString("CDS", "Conditions par défaut") == "Donnes maximales")
+	    	{
+	    		PrefsRegles.conditionFinDonnesMax = true;
+	    		PrefsRegles.conditionFinScoreMax = false;
+	    		PrefsRegles.donnesMax = sp.getInt("DMAX", 50);
+	    	}
+	    	else
+	    	{
+	    		PrefsRegles.conditionFinDonnesMax = true;
+	    		PrefsRegles.conditionFinScoreMax = true;
+	    		PrefsRegles.scoreMax = 1000;
+	    		PrefsRegles.donnesMax = 42;
+	    	}
 		}	
 	
 	
