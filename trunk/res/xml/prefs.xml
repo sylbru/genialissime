@@ -26,6 +26,7 @@
         <CheckBoxPreference android:summaryOff="Interdiction de poser les 3 bouts dans un pli" android:title="Autoriser 3 Bouts" android:key="A3BDP" android:summaryOn="Autorisation de poser les 3 bouts dans un pli"/>
         <PreferenceScreen android:key="CFP" android:title="Conditions de fin de partie">
             <ListPreference android:key="CDS" android:title="Conditions"
+                			android:summary="Conditions défaut : Premier à 1000pts ou Stop à 42 donnes"
                 			android:entries="@array/listCdsEntrees" android:entryValues="@array/listCdsValeurs"
                 			android:defaultValue="1" android:negativeButtonText="Annuler"></ListPreference>
             <EditTextPreference android:key="SMAX" android:title="Score maximal" android:summary="Si condition Score maximum est activée"/>
