@@ -95,7 +95,7 @@ public class Scores
 	
 	/**
 	 * @author niavlys
-	 * @return Retourne le nombre de donnes effectuÃ©es (taille du vecteur scores), utilisÃ© dans P.partieFinie()
+	 * @return Retourne le nombre de donnes effectuées (taille du vecteur scores), utilisé dans P.partieFinie()
 	 */
 	public int nbDonnes()
 	{
@@ -189,29 +189,71 @@ public class Scores
 		Integer[] lscore = new Integer[P.getNombreDeJoueurs()];
 		if (joueurReussie)
 		{
-			for (int i = 0; i < P.getNombreDeJoueurs(); i++)
+			if(P.getNombreDeJoueurs()<=4 || joueurContrat == P.donne().getJoueurAppele())
 			{
-				if (i == joueurContrat)
+				for (int i = 0; i < P.getNombreDeJoueurs(); i++)
 				{
-					lscore[i] = valeurScore * (P.getNombreDeJoueurs() - 1);
+					if (i == joueurContrat )
+					{
+						lscore[i] = valeurScore * (P.getNombreDeJoueurs() - 1);
+					} 
+					else
+					{
+						lscore[i] = -valeurScore;
+					}
 				} 
-				else
+			}
+			else
+			{				
+				for (int i = 0; i < P.getNombreDeJoueurs(); i++)
 				{
-					lscore[i] = -valeurScore;
+					if (i == joueurContrat)
+					{
+						lscore[i] = valeurScore * 2;
+					} 
+					else if (i == P.donne().getJoueurAppele())
+					{
+						lscore[i] = valeurScore;
+					}
+					else
+					{
+						lscore[i] = -valeurScore;
+					}
 				}
 			}
 		} 
 		else
 		{
-			for (int i = 0; i < P.getNombreDeJoueurs(); i++)
+			if(P.getNombreDeJoueurs()<=4 || joueurContrat == P.donne().getJoueurAppele())
 			{
-				if (i == joueurContrat)
+				for (int i = 0; i < P.getNombreDeJoueurs(); i++)
 				{
-					lscore[i] = -(valeurScore) * (P.getNombreDeJoueurs() - 1);
-				} 
-				else
+					if (i == joueurContrat)
+					{
+						lscore[i] = -(valeurScore) * (P.getNombreDeJoueurs() - 1);
+					} 
+					else
+					{
+						lscore[i] = valeurScore;
+					}
+				}
+			}
+			else
+			{
+				for (int i = 0; i < P.getNombreDeJoueurs(); i++)
 				{
-					lscore[i] = valeurScore;
+					if (i == joueurContrat)
+					{
+						lscore[i] = (-(valeurScore) *2);
+					} 
+					else if(i==P.donne().getJoueurAppele())
+					{
+						lscore[i] = -valeurScore;
+					}
+					else
+					{
+						lscore[i] = +valeurScore;
+					}
 				}
 			}
 		}
