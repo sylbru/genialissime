@@ -25,7 +25,9 @@
 </PreferenceScreen>
         <CheckBoxPreference android:summaryOff="Interdiction de poser les 3 bouts dans un pli" android:title="Autoriser 3 Bouts" android:key="A3BDP" android:summaryOn="Autorisation de poser les 3 bouts dans un pli"/>
         <PreferenceScreen android:key="CFP" android:title="Conditions de fin de partie">
-            <ListPreference />
+            <ListPreference android:key="CDS" android:title="Conditions"
+                			android:entries="@array/listCdsEntrees" android:entryValues="@array/listCdsValeurs"
+                			android:defaultValue="1" android:negativeButtonText="Annuler"></ListPreference>
         </PreferenceScreen>
     </PreferenceScreen>
     <PreferenceScreen android:key="PA" android:title="Préférences Application">
