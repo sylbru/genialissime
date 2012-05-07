@@ -18,8 +18,15 @@
                             android:defaultValue="1" android:negativeButtonText="Annuler"></ListPreference>
             <CheckBoxPreference android:title="Compter Misère" android:key="MIS"/>
             <CheckBoxPreference android:title="Compter Petit au bout" android:key="PAB" android:summaryOn="Seulement si Petit au dernier pli"/>
-            <CheckBoxPreference android:title="Compter Roi au bout" android:key="RAB" android:summaryOn="Seulement si Roi au dernier pli"></CheckBoxPreference></PreferenceScreen>
+            <CheckBoxPreference android:title="Compter Roi au bout" android:key="RAB" android:summaryOn="Seulement si Roi au dernier pli"></CheckBoxPreference>
+            <ListPreference android:key="ARR" android:title="Arrondissement"
+                			android:entries="@array/listArrEntrees" android:entryValues="@array/listArrValeurs"
+                			android:defaultValue="1" android:negativeButtonText="Annuler"></ListPreference>
+</PreferenceScreen>
         <CheckBoxPreference android:summaryOff="Interdiction de poser les 3 bouts dans un pli" android:title="Autoriser 3 Bouts" android:key="A3BDP" android:summaryOn="Autorisation de poser les 3 bouts dans un pli"/>
+        <PreferenceScreen android:key="CFP" android:title="Conditions de fin de partie">
+            <ListPreference />
+        </PreferenceScreen>
     </PreferenceScreen>
     <PreferenceScreen android:key="PA" android:title="Préférences Application">
         <EditTextPreference android:title="Nom du joueur 1" android:key="NJ"/>

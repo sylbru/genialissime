@@ -12,5 +12,20 @@
 <item>1</item>
 <item>2</item>
 
-</string-array>  
+</string-array>
+
+<string-array name="listArrEntrees">
+    <item>Ne pas arrondir</item>
+    <item>Arrondir à 5</item>
+    <item>Arrondir à 10</item>
+    
+</string-array>
+
+<string-array name="listArrValeurs">
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    
+</string-array>
+
 </resources>
