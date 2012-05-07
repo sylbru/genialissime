@@ -88,8 +88,8 @@ public class Croupier {
 		Carte carteProposee;
 		if (bavard)
 		{
-			System.out.println("demande carte joueur croupier");
-			System.out.println("Demandons au joueur "+num+ " soit "+(num%P.getNombreDeJoueurs()));
+			//System.out.println("demande carte joueur croupier");
+			//System.out.println("Demandons au joueur "+num+ " soit "+(num%P.getNombreDeJoueurs()));
 		}
 			carteProposee = P.getJoueur(num%P.getNombreDeJoueurs()).demanderCarte();
 		if (bavard)

@@ -31,7 +31,7 @@ public class JoueurIA implements IJoueur
 	/*--- Constructeurs ---*/
 	public JoueurIA(String pNom, int pID)
 	{
-		bavard = false;
+		bavard = true;
 		bavardecart = true;
 		L = LuaStateFactory.newLuaState();
 		L.openLibs();
@@ -176,6 +176,7 @@ public class JoueurIA implements IJoueur
 	public Vector<Carte> demanderEcart()
 	{
 		this.chargerMain();
+		
 		//this.updateLObjects();
 		if (bavardecart)
 		{
@@ -192,10 +193,15 @@ public class JoueurIA implements IJoueur
 			L.LdoString("c = ecart:pop()");
 			c = (int) L.getLuaObject("c").getNumber();
 			//c = (int) Math.floor(Math.random()*78);
-			//System.out.println(new Carte(c).toString());
+			fluxusToSyso();
+			System.out.println("Lua me dit que j'ecarte"+new Carte(c).toString());
 			ecart.add(new Carte(c));
 		}
-		//fluxusToSyso();
+		for (int i=0; i<6; i++)
+		{
+			System.out.println(ecart.elementAt(i).toString());
+		}
+		fluxusToSyso();
 		if (bavardecart)
 		{
 			while (!this.fluxusVide())
@@ -210,6 +216,8 @@ public class JoueurIA implements IJoueur
 	private void chargerMain(){
 		L.LdoString("tarot.main:clear()");
 		//System.out.println("Je suis "+pNom+" et je demande ma main");
+		fluxusToSyso();
+		System.out.println("Début création main");
 		Vector<Carte> vCartes = D.getMain().getCartes();
 		for (int i=0;i<vCartes.size();i++)
 		{
@@ -217,6 +225,7 @@ public class JoueurIA implements IJoueur
 				L.pushObjectValue(vCartes.elementAt(i).uid());
 				L.setGlobal("input");
 				L.LdoString("tarot.main:push(input)");
+				fluxusToSyso();
 				//System.out.println("Pushed a "+vCartes.elementAt(i).toString());
 			} catch (LuaException e) {
 				// TODO Auto-generated catch block
