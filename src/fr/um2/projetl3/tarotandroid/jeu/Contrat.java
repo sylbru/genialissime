@@ -23,7 +23,7 @@ public class Contrat
 	 */
 	private Contrat(boolean autorisé, String nom, int poids)
 	{
-		this.autorisé = true;
+		this.autorisé = autorisé;
 		this.nom = nom;
 		this.poids = poids;
 		// ! la valeur de chienRevele et de chienPourAttaque depende du nom de contrat é modifier :
@@ -95,20 +95,30 @@ public class Contrat
 		return valeurContrat;
 	}
 	
-	private void autoriser()
+	public void setAutorisé(boolean valeur)
 	{
-		this.autorisé = true;
-		listeContratsDisponibles.add(this);
+		// System.out.println("On fait un setAutorisé de "+this.nom+" à "+valeur);
+		this.autorisé = valeur;
 	}
 	
-	private void interdire()
+	public void autoriser()
 	{
-		this.autorisé = false;
-		listeContratsDisponibles.remove(this);
+		setAutorisé(true);
+	}
+	
+	public void interdire()
+	{
+		setAutorisé(false);
+	}
+	
+	public boolean getAutorisé()
+	{
+		return autorisé;
 	}
 	
 	public String toString()
 	{
+		// return super.toString() + " " + getName();
 		return getName();
 	}
 	
@@ -152,16 +162,34 @@ public class Contrat
 	public static Contrat GARDE_SANS = new Contrat(true, "Garde sans", 6, false);
 	public static Contrat GARDE_CONTRE = new Contrat(true, "Garde contre", 7, false, false);
 
-	public static Vector<Contrat> listeContratsDisponibles = new Vector<Contrat>();
+	public static Vector<Contrat> listeContrats = new Vector<Contrat>();
 	static
 	{
-		listeContratsDisponibles.add(Contrat.PASSE);
-		listeContratsDisponibles.add(Contrat.GARDE);
-		listeContratsDisponibles.add(Contrat.GARDE_SANS);
-		listeContratsDisponibles.add(Contrat.GARDE_CONTRE);
+		listeContrats.add(Contrat.PASSE);
+		listeContrats.add(Contrat.PAROLE);
+		listeContrats.add(Contrat.PETITE);
+		listeContrats.add(Contrat.POUSSE);
+		listeContrats.add(Contrat.GAE);
+		listeContrats.add(Contrat.GARDE);
+		listeContrats.add(Contrat.GARDE_SANS);
+		listeContrats.add(Contrat.GARDE_CONTRE);
 	}
 	public static Vector<Contrat> getListeContratsDisponibles()
 	{
+		Vector<Contrat> listeContratsDisponibles = new Vector<Contrat>();
+		listeContratsDisponibles = (Vector<Contrat>) listeContrats.clone();
+		System.out.println("tous : "+listeContratsDisponibles);
+		
+		for(Contrat c: listeContrats)
+		{
+			if(!c.autorisé)
+			{
+				System.out.println("On enlève "+c);
+				listeContratsDisponibles.remove(c);
+			} else
+				System.out.println("On garde "+c);
+		}
+		
 		return listeContratsDisponibles;
 	}
 	
@@ -196,6 +224,7 @@ public class Contrat
 			Contrat.GARDE_SANS.setFacteur(4);
 			Contrat.GARDE_CONTRE.setFacteur(6);
 			
+			System.out.println("Interdiction de la Pousse car ManiereDeCompter == true");
 			Contrat.POUSSE.interdire();
 			/*
 			 * Alors je pense que je doit m'expliquer :

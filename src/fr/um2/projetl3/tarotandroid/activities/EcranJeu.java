@@ -1,6 +1,7 @@
 package fr.um2.projetl3.tarotandroid.activities;
 
 import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
+import static fr.um2.projetl3.tarotandroid.activities.Contexts.*;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
+import android.text.Html.TagHandler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -61,35 +63,21 @@ public class EcranJeu extends Activity
 		
 		// RelativeLayout principal (plateau)
 		rl = (RelativeLayout) findViewById(R.id.mainLayout);		
-		//setContentView(rl); // bizarre, on remplace tout le layout ecran_jeu par le RelativeLayout qui était dedans
-							// à changer peut-être 
-							// Il est possible de le faire en xml et ce serait plus propre, non ?
+
+		// Lancement de la partie
+		PrefsRegles.sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		P = new Partie();
+		moi = new JoueurGraphique("Moi", EcranJeu.this);
+		ia1 = new JoueurIA("IA1", 42);
+		ia2 = new JoueurIA("IA2", 43);
+		ia3 = new JoueurIA("IA3", 44);
+		P.setJoueur(0, moi);
+		P.setJoueur(1, ia1);
+		P.setJoueur(2, ia2);
+		P.setJoueur(3, ia3);
 		
-		// Bouton pour lancer la partie
-		final Button bLancer = (Button)findViewById(R.id.bLancer);
-		bLancer.setOnClickListener(new View.OnClickListener()
-		{
-			public void onClick(View view)
-			{
-				PrefsRegles.sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-				P = new Partie();
-				moi = new JoueurGraphique("Moi", EcranJeu.this);
-				ia1 = new JoueurIA("IA1", 42);
-				ia2 = new JoueurIA("IA2", 43);
-				ia3 = new JoueurIA("IA3", 44);
-				P.setJoueur(0, moi);
-				P.setJoueur(1, ia1);
-				P.setJoueur(2, ia2);
-				P.setJoueur(3, ia3);
-				
-				log("Lancement de la partie");
-				
-				// P.start() permet de lancer le thread, fait appel à P.run(), lequel fait appel à P.lancerPartie()
-				P.start();
-				
-				rl.removeView(bLancer);
-			}
-		});		
+		// P.start() permet de lancer le thread, fait appel à P.run(), lequel fait appel à P.lancerPartie()
+		P.start();
 	}
 	
 	/**/
@@ -154,7 +142,10 @@ public class EcranJeu extends Activity
 				AlertDialog.Builder alert = new AlertDialog.Builder(EcranJeu.this);
 				alert.setTitle("Annonce");
 				
-				Vector<Contrat> listeAnnoncesDispo = Contrat.getListeContratsDisponibles();
+				Log.d(TAG, "Passage dans afficherDemandeAnnonce");
+				
+				Vector<Contrat> listeAnnoncesDispo = (Vector<Contrat>) Contrat.getListeContratsDisponibles().clone();
+				Log.d(TAG, "dispos : "+listeAnnoncesDispo.toString());
 				Contrat contratMax = Annonces.getContratMax();
 				Vector<CharSequence> listeAnnoncesCS = new Vector<CharSequence>();
 				for(Contrat c: listeAnnoncesDispo)
@@ -164,8 +155,10 @@ public class EcranJeu extends Activity
 						listeAnnoncesCS.add((CharSequence)c.toString());
 					}
 				}
+				Log.d(TAG, "autorisés : "+listeAnnoncesCS.toString());
 				
 				final CharSequence[] listeAnnonces = new CharSequence[listeAnnoncesCS.size()];
+				
 				listeAnnoncesCS.toArray(listeAnnonces);
 				alert.setSingleChoiceItems(listeAnnonces, -1, new DialogInterface.OnClickListener()
 				{	
