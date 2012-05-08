@@ -232,11 +232,11 @@ public class Partie extends Thread
 		{
 			if(PrefsRegles.conditionFinDonnesMax)
 			{
-				return (scores.nbDonnes() >= PrefsRegles.donnesMax);
+				return (scores.nbDonnes() >= PrefsRegles.donnesMax) || stopPartie;
 			}
 			else if(PrefsRegles.conditionFinScoreMax)
 			{
-				return (scores.meilleurScore() >= PrefsRegles.scoreMax);
+				return (scores.meilleurScore() >= PrefsRegles.scoreMax) || stopPartie;
 			}
 			else
 				return true; // comme ça on verra tout de suite si on arrive dans ce cas (pas normal)
@@ -362,9 +362,9 @@ public class Partie extends Thread
 		{
 			PrefsRegles.preferencesActives();// methode de Prefs.Regles permettant ainsi d'activer les préférences
 		}
+		System.out.println("> Manière de compter : "+PrefsRegles.ManiereDeCompter);
 		initialisationPartie();
-		Contrat.initialiserContrats();
-		//donneEnCours.init();
+		
 		while(!partieFinie())
 		{
 			donne = new Donne();
