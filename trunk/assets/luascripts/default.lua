@@ -321,6 +321,7 @@ function tarot.demander.annonce()
 			c=(c+(nbrAtout*2))
 		end				
 	end
+	
 	for i=1,4 do
 		nbrCarteParCouleur[i] = 0
 		if maMain[j+14] and maMain[j + 13] then 
@@ -382,9 +383,11 @@ end
 
 function tarot.demander.ecart()
 	local ecart = cue.new()
-	CR = 6 -- nbr de Carte Restante a mettre au chien 
+	local CR = 6 -- nbr de Carte Restante a mettre au chien 
+	local nbrJoueur = 4
 	fluxus:push("Entré dans tarot.demander.ecart()")
 	maMain = tarot.main:getTruthTable() -- récuperation de la main
+	
 	--[[for i,v in ipairs(maMain) do
 		if v then
 			fluxus:push("J'ai le "..tarot.utile.getNom(i))
@@ -392,8 +395,8 @@ function tarot.demander.ecart()
 			fluxus:push("J'ai n'ai pas le "..tarot.utile.getNom(i))
 		end
 	end]]
-	while CR ~= 0 do
-		fluxus:push("Je fais mon écart")
+	
+		--fluxus:push("Je fais mon écart")
 		--local cand = tarot.main:pop(1,#tarot.main)
 		--fluxus:push("Candidat "..cand)
 		--fluxus:push("soit "..tarot.utile.getNom(cand))
@@ -405,9 +408,105 @@ function tarot.demander.ecart()
 				--fluxus:push(tarot.utile.getNom(cand).." est bon pour l'ecart")
 			end
 		end]]
+		
+-------------------------------------------FAIRE UNE COUPE ANS TOUS LES CAS------------------------------------------------
+------------------------------------------ENLEVE LA COULEUR ON IL Y A LE MOINS DE CARTES
+	local min = {}
+	local minc1 = 1
+	local minc2 = 1
+	local max1 = 1
+	local max2 = 1
+	for i=2,4 do
+		if nbrCarteParCouleur[i] < nbrCarteParCouleur[minc1] then
+			minc1 = i
+		end
+
+	end	
+	for i=1,4 do
+		if nbrCarteParCouleur[i] > nbrCarteParCouleur[minc1]   then
+			if nbrCarteParCouleur[i] < nbrCarteParCouleur[minc2] or minc1 == minc2 then
+				minc2 = i
+			end
+		end
+	end
+	
+	--[[	
+	for i=2,4 do
+		if nbrCarteParCouleur[i] > nbrCarteParCouleur[max1] then
+			max1 = i
+		end
+
+	end	
+	for i=1,4 do
+		if nbrCarteParCouleur[i] < nbrCarteParCouleur[max1]   then
+			if nbrCarteParCouleur[i] > nbrCarteParCouleur[max2] or max1 == max2 then
+				max2 = i
+			end
+		end
+	end
+
+	fluxus:push("classement des couleur"..minc1..minc2..max2..max1)
+	
+	minc1 = (minc1 - 1)*14
+	minc2 = (minc2 - 1)*14
+	max1 = (max1 - 1)*14
+	max2 = (max2 - 1)*14
+	
+	minc[1] = min1 
+	minc[2] = min2
+	minc[3] = max2
+	minc[4] = max1
+	
+	fluxus:push("classement des couleur"..minc[1]..minc[2]..minc[3]..minc[4])
+]]
+	
+	minc1 = (minc1 - 1)*14
+	minc2 = (minc2 - 1)*14
+	fluxus:push("Numero de la couleur que j'ai le moins"..(minc1))
+	local Brq
+	if maMain[minc1+13+21] and maMain[minc1+14+21] then
+	Brq = true
+	else
+	Brq = false
+		for j=1,13 do
+			if maMain[minc1+j+21] and CR~=0 then
+				fluxus:push("Je mets "..(minc1+j+21).." à l'écart")
+				ecart:push(minc1+j+21)
+				CR = CR - 1
+				maMain[minc1+j+21] = false
+			end
+		end
+	end
+	
+	if Brq or nbrAtout > (22/nbrJoueur) then
+		for j=1,13 do
+			if maMain[minc2+j+21] and CR~=0 then
+				fluxus:push("Je mets "..(minc2+j+21).." à l'écart")
+				ecart:push(minc2+j+21)
+				CR = CR - 1
+				maMain[minc2+j+21] = false
+			end
+		end
+	end
+
+----------------------------------------------------------------------------------------------		
+	if CR == 0 then
+		return ecart
+	end
+
+--------------------------------------------------------------------
+		
+	if nbrAtout > (22/nbrJoueur) then
+--			faire une deuxieme coupe
+
+	end
+			
+
+		
+	while CR > 0 do
 		local rand = math.random(0,3)
 		local l = rand*14
-		for j=1,10 do
+		for j=1,13 do
 			--fluxus:push("Je vais jeter des cartes de couleur "..l)
 			if maMain[l+j+21] and CR~=0 then
 				fluxus:push("Je mets "..(l+j+21).." à l'écart")

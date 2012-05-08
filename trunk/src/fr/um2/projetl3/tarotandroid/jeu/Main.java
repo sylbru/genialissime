@@ -6,6 +6,7 @@ import fr.um2.projetl3.tarotandroid.clients.IJoueur;
 import fr.um2.projetl3.tarotandroid.clients.JoueurTexte;
 import fr.um2.projetl3.tarotandroid.connection.Cartes;
 
+@SuppressWarnings("unused")
 public class Main
 {
 	private Vector<Carte> cartes;

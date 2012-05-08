@@ -24,6 +24,7 @@ public class Partie extends Thread
 	private Stack<Carte> tas; // le tas de cartes, repris à la fin d’une donne pour être redistribué
 	private Donne donne; // la donne en cours
 	private boolean stopPartie; 
+	public static boolean bavard = false;
 	
 	/*
 	 * --------------------------------------------------------------------------------------------
@@ -112,7 +113,7 @@ public class Partie extends Thread
 		}
 		if(!trouvé)
 		{
-			System.out.println("Appel de getNumeroJoueur avec joueur inexistant");
+			if (bavard) System.out.println("Appel de getNumeroJoueur avec joueur inexistant");
 			return -1;
 		}
 		else
@@ -139,7 +140,7 @@ public class Partie extends Thread
 		}
 		else
 		{
-			System.out.println("Nombre de joueurs " + nombreDeJoueurs
+			if (bavard) System.out.println("Nombre de joueurs " + nombreDeJoueurs
 					+ " invalide, on met à 4.");
 
 			this.nombreDeJoueurs = 4;
@@ -185,10 +186,10 @@ public class Partie extends Thread
 		// Test
 		/**
 		for (i = 0; i < 78; i++)
-			System.out.print(tas[i].toString() + ", ");
-		System.out.println();
+			if (bavard) System.out.print(tas[i].toString() + ", ");
+		if (bavard) System.out.println();
 		/**/
-		System.out.println(tas.size());
+		if (bavard) System.out.println(tas.size());
 		Collections.shuffle(tas); // on mélange (avant la première donne)
 	}
 
@@ -205,9 +206,13 @@ public class Partie extends Thread
 	protected void setTas(Stack<Carte> nouveauTas)
 	{
 		if(tas.size() > 0)
-			System.out.println("Erreur : tentative de setTas() avec tas non vide");
+		{
+			if (bavard) System.out.println("Erreur : tentative de setTas() avec tas non vide");
+		}
 		else
+		{
 			tas = nouveauTas;
+		}
 	}
 
 	/**
@@ -311,7 +316,7 @@ public class Partie extends Thread
 			
 			donne().setNumJoueurEnContact(donne().getNumDonneur()+1);
 			
-			System.out.println("TEST CHIEN");
+			if (bavard) System.out.println("TEST CHIEN");
 			
 			for(int i=0; i<P.nombreDeCartesPourLeChien; i++)
 			{
@@ -387,17 +392,17 @@ public class Partie extends Thread
 			 */
 			donne.distribution();
 			Annonces.phaseAnnonce(); // à voir (il faudrait que ce soit lié à donneEnCours d’une manière ou d’une autre)
-			System.out.println(donne.getContratEnCours());
+			if (bavard) System.out.println(donne.getContratEnCours());
 			if(donne.getContratEnCours() != Contrat.AUCUN) // si il n'y a pas de contrat il faut arreter la donne.
 			{
-				System.out.println("Contrat en cours : "+donne.getContratEnCours()+" par "+P.getNomNumJoueur(D.getPreneur()));
+				if (bavard) System.out.println("Contrat en cours : "+donne.getContratEnCours()+" par "+P.getNomNumJoueur(D.getPreneur()));
 				phaseChienEcart();
 				donne.jeuDeLaCarte();
 				scores.phaseScore();
 			}
 			else
 			{
-				System.out.println("Aucun contrat de fait => nouvelle donne");
+				if (bavard) System.out.println("Aucun contrat de fait => nouvelle donne");
 				// C’est le cas où tout le monde a passé.
 			}
 			donne.reformerTas();
@@ -515,12 +520,6 @@ public class Partie extends Thread
 
 		//P.lancerPartie4JoueursTexte();
 		P.lancerPartie5JoueursTexte();
-		
-		
-		
-		System.out.println("coucou1");
 	
 	}
-
-
 }
