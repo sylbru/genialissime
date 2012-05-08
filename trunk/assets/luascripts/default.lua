@@ -392,15 +392,15 @@ function tarot.demander.ecart()
 				--fluxus:push(tarot.utile.getNom(cand).." est bon pour l'ecart")
 			end
 		end]]
-		local l = math.random(1,4)
+		local rand = math.random(0,3)
+		local l = rand*14
 		for j=1,10 do
 			--fluxus:push("Je vais jeter des cartes de couleur "..l)
-			if maMain[l*j+21] and CR~=0 then
-				fluxus:push("Je mets "..(l*j+21).." à l'écart")
-
-				ecart:push(l*j+21)
+			if maMain[l+j+21] and CR~=0 then
+				fluxus:push("Je mets "..(l+j+21).." à l'écart")
+				ecart:push(l+j+21)
 				CR = CR - 1
-				maMain[l*j+21] = false
+				maMain[l+j+21] = false
 			end
 		end
 	end
