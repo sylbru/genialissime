@@ -35,7 +35,7 @@ public class JoueurIA implements IJoueur
 		bavardecart = true;
 		L = LuaStateFactory.newLuaState();
 		L.openLibs();
-		//System.out.println("Jusqu'ici tout va bien");
+		//System.out.println(pNom+": "+"Jusqu'ici tout va bien");
 		try {
 			InputStream is = fr.um2.projetl3.tarotandroid.activities.Contexts.applicationContext.getAssets().open("luascripts/default.lua");
 			int size = is.available();
@@ -43,22 +43,22 @@ public class JoueurIA implements IJoueur
 			is.read(buffer);
 			is.close();
 			String script = new String(buffer);
-			//System.out.println(script);
+			//System.out.println(pNom+": "+script);
 			if (bavard) {
-				System.out.println("Script présent");
+				System.out.println(pNom+": "+"Script présent");
 			}
 			L.LdoString(script);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			if (bavard) System.out.println("Script absent");
+			if (bavard) System.out.println(pNom+": "+"Script absent");
 			e.printStackTrace();
 		}
 		Boolean charged = L.getLuaObject("scriptloaded").getBoolean();
 		if (charged)
 		{
-			if (bavard) System.out.println("Script chargé et interprété sans problèmes");
+			if (bavard) System.out.println(pNom+": "+"Script chargé et interprété sans problèmes");
 		} else {
-			if (bavard) System.out.println("Script incorrect ou absent");
+			if (bavard) System.out.println(pNom+": "+"Script incorrect ou absent");
 		}
 		//fluxusToSyso();
 		
@@ -126,10 +126,10 @@ public class JoueurIA implements IJoueur
 	
 	public void fluxusToSyso()
 	{
-		//System.out.println(this.checkFluxus());
+		//System.out.println(pNom+": "+this.checkFluxus());
 		while (!this.fluxusVide())
 		{
-			if (bavard) System.out.println(this.popFluxus()); else this.popFluxus();
+			if (bavard) System.out.println(pNom+": "+this.popFluxus()); else this.popFluxus();
 		}
 	}
 	
@@ -150,11 +150,11 @@ public class JoueurIA implements IJoueur
 		this.chargerMain();
 		L.LdoString("cont,flal = tarot.demander.annonce()");
 		int c = (int) L.getLuaObject("cont").getNumber();
-		//System.out.println("Je m'appelle "+this.pNom+".\nMa main est ");
+		//System.out.println(pNom+": "+"Je m'appelle "+this.pNom+".\nMa main est ");
 		//D.getMain().affiche();
-		//System.out.println("et je fais le contrat numero "+c);
+		//System.out.println(pNom+": "+"et je fais le contrat numero "+c);
 		//int flal = (int) L.getLuaObject("flal").getNumber();
-		//System.out.println("Mon flal est "+flal);
+		//System.out.println(pNom+": "+"Mon flal est "+flal);
 		fluxusToSyso();
 		switch (c){
 		case 0:
@@ -187,37 +187,52 @@ public class JoueurIA implements IJoueur
 		L.LdoString("ecart = tarot.demander.ecart()");
 		int c;
 		Vector<Carte> ecart = new Vector<Carte>();
-		//System.out.println("Mon écart qui tue:");
+		//System.out.println(pNom+": "+"Mon écart qui tue:");
 		for (int i=1; i<=6; i++)
 		{	
 			L.LdoString("c = ecart:pop()");
 			c = (int) L.getLuaObject("c").getNumber();
 			//c = (int) Math.floor(Math.random()*78);
 			fluxusToSyso();
-			System.out.println("Lua me dit que j'ecarte"+new Carte(c).toString());
+			System.out.println(pNom+": "+"Lua me dit que j'ecarte"+new Carte(c).toString());
 			ecart.add(new Carte(c));
 		}
 		for (int i=0; i<6; i++)
 		{
-			System.out.println(ecart.elementAt(i).toString());
+			System.out.println(pNom+": "+ecart.elementAt(i).toString());
 		}
 		fluxusToSyso();
 		if (bavardecart)
 		{
 			while (!this.fluxusVide())
 			{
-				System.out.println(this.popFluxus());
+				System.out.println(pNom+": "+this.popFluxus());
 			}
 		}
 		
 		return ecart;
 	}
 	
+	
+	private void chargerPreneur(){
+		//L.LdoString("tarot.main:clear()");
+		//System.out.println(pNom+": "+"Je suis "+pNom+" et je demande ma main");
+		fluxusToSyso();
+		try {
+			if (bavard) System.out.println(pNom+": "+"le preneur est "+D.getPreneur());
+			L.pushObjectValue(D.getPreneur());
+			L.setGlobal("input");
+			L.LdoString("tarot.preneur = input");
+			fluxusToSyso();
+			//System.out.println(pNom+": "+"Pushed a "+vCartes.elementAt(i).toString());
+		} catch (LuaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	private void chargerMain(){
 		L.LdoString("tarot.main:clear()");
-		//System.out.println("Je suis "+pNom+" et je demande ma main");
-		fluxusToSyso();
-		System.out.println("Début création main");
 		Vector<Carte> vCartes = D.getMain().getCartes();
 		for (int i=0;i<vCartes.size();i++)
 		{
@@ -225,13 +240,14 @@ public class JoueurIA implements IJoueur
 				L.pushObjectValue(vCartes.elementAt(i).uid());
 				L.setGlobal("input");
 				L.LdoString("tarot.main:push(input)");
-				fluxusToSyso();
-				//System.out.println("Pushed a "+vCartes.elementAt(i).toString());
+				//System.out.println(pNom+": "+"Pushed a "+vCartes.elementAt(i).toString());
 			} catch (LuaException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		//L.LdoString("for i,v in ipairs(tarot.main) do fluxus:push('test main '..v) end");
+		fluxusToSyso();
 	}
 	
 	private void chargerLegal(){
@@ -243,7 +259,7 @@ public class JoueurIA implements IJoueur
 				L.pushObjectValue(vCartes.elementAt(i).uid());
 				L.setGlobal("input");
 				L.LdoString("tarot.legal:push(input)");
-				//System.out.println("Pushed a "+vCartes.elementAt(i).toString());
+				//System.out.println(pNom+": "+"Pushed a "+vCartes.elementAt(i).toString());
 			} catch (LuaException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -254,13 +270,13 @@ public class JoueurIA implements IJoueur
 	private void chargerPli(){
 		L.LdoString("tarot.pli:clear()");
 		Vector<Carte> vCartes = new Vector<Carte>();
-		//System.out.println("Chargement du pli");
+		//System.out.println(pNom+": "+"Chargement du pli");
 		for (int i=0; i<4; i++)
 		{
-			//System.out.println("Carte du pli numero "+i);
+			//System.out.println(pNom+": "+"Carte du pli numero "+i);
 			if (D.getPlisEnCours().get(i) != null)
 			{
-				//System.out.println(D.getPlisEnCours()[i].toString());
+				//System.out.println(pNom+": "+D.getPlisEnCours()[i].toString());
 				vCartes.add(D.getPlisEnCours().get(i));
 			}
 		}
@@ -270,12 +286,12 @@ public class JoueurIA implements IJoueur
 			try {
 				if (vCartes.elementAt(i) != null)
 				{
-					//System.out.println("Poussage de "+i);
+					//System.out.println(pNom+": "+"Poussage de "+i);
 					L.pushObjectValue(vCartes.elementAt(i).uid());
 					L.setGlobal("input");
 					L.LdoString("tarot.pli:push(input)");
 				}
-				//System.out.println("Pushed a "+vCartes.elementAt(i).toString());
+				//System.out.println(pNom+": "+"Pushed a "+vCartes.elementAt(i).toString());
 			} catch (LuaException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -287,17 +303,19 @@ public class JoueurIA implements IJoueur
 	{
 		this.chargerLegal();
 		this.chargerMain();
+		this.chargerPreneur();
+		this.chargerPli();
 		int c;
-		if (bavard) System.out.println("Ma main");
+		if (bavard) System.out.println(pNom+": "+"Ma main");
 		if (bavard) D.getMain().affiche();
-		if (bavard) System.out.println("Mes cartes légales");
-		if (bavard) System.out.println(D.indiquerCartesLegalesJoueur().size());
+		if (bavard) System.out.println(pNom+": "+"Mes cartes légales");
+		if (bavard) System.out.println(pNom+": "+D.indiquerCartesLegalesJoueur().size());
 		//this.updateLObjects();
 		L.LdoString("c = tarot.demander.carte()");
 		c = (int) L.getLuaObject("c").getNumber();
 		//D.getMain().affiche();
-		//System.out.println(this.pNom+" "+new Carte(c).toString());
 		fluxusToSyso();
+		System.out.println(pNom+": Je joue le "+new Carte(c).toString());
 		return new Carte(c);
 		
 	}
@@ -356,7 +374,7 @@ public class JoueurIA implements IJoueur
 		}
 				
 		//L.LdoString("tarot.dire.main(tarot.main)");
-		//System.out.println(new Main(m).toString());
+		//System.out.println(pNom+": "+new Main(m).toString());
 
 		
 		// TODO Auto-generated method stub
