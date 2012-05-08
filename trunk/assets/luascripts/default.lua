@@ -87,6 +87,19 @@ function tarot.utile.getCouleur(carte)
 	end
 end
 
+function tarot.utile.possede(tab, carte, ...)
+	if carte==nil then
+		return false
+	else
+		for i,v in ipairs(tab) do
+			if carte == v then
+				return carte
+			end
+		end
+		return tarot.utile.possede(tab, ...)
+	end
+end
+
 function tarot.utile.getValeur(carte)
 	local couleur = tarot.utile.getCouleur(carte)
 	if couleur == "atout" then
@@ -405,6 +418,74 @@ function tarot.demander.ecart()
 		end
 	end
 	return ecart
+end
+
+function tarot.demander.carte()
+	table.sort(tarot.legal)
+
+	-- Avant dernier tour et j'ai toujours l'excuse, je le BALANCE
+	if #tarot.main == 2 and tarot.utile.possede(tarot.legal, 0) then
+		return 0
+	end
+	-- J'ouvre le pli
+	if #tarot.pli == 0 then
+		return tarot.legal[#tarot.legal]
+	end
+
+	-- Quelqu'un joue après moi
+	if #tarot.pli == 1 or #tarot.pli==2 then
+
+
+		-- Jeter une merde mais pas l'excuse
+		if tarot.utile.possede(tarot.legal, 0) then
+			return tarot.legal[2]
+		else
+			return tarot.legal[1]
+		end
+	end
+
+	-- Je termine ce pli, faudrait que je place des points s'ils passent, ou que je tente de remporter le pli si il y a des points dedans et que c'est pas ma team qui a la main, ou que ma team a la main, mais c'est mieux si j'ai la main. Sinon, je tej' de la merde
+	if #tarot.pli == 3 then
+		-- Si je peux sauver mon petit, je le sauve
+		if tarot.utile.possede(tarot.legal, 1) and not tarot.utile.possede(tarot.pli, 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21) then
+			return 1
+		end
+
+		-- Jeter une merde mais pas l'excuse ni le petit
+		local d = 1
+		if tarot.utile.possede(tarot.legal, 1) then
+			d = d+1
+		end
+		if tarot.utile.possede(tarot.legal, 0) then
+			d = d+1
+		end
+		return tarot.legal[d] or tarot.legal[1]
+	end
+
+	-- Comportements "spéciaux"
+		-- Jeu du petit
+
+		-- Jeu de l'excuse DONE
+
+		-- Chasse au petit
+
+		-- Ambulance
+
+	-- Identifier les cartes à "proteger" c'est à dire jouer à un moment avec une forte probabilité de garder la carte
+
+		-- Si une carte à proteger a une forte chance de passer, jouer cette carte
+	
+	-- Si premier du pli
+		-- Tenter une ouverture si avant le preneur
+
+		-- Identifier les coupes des joueurs autour de la table
+	
+			-- Jouer une carte sur une coupe adverse
+
+		-- Jouer une carte basse et sans valeur, à la couleur la plus longue
+
+
+
 end
 
 scriptloaded = true
