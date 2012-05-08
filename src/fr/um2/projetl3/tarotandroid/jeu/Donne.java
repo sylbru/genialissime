@@ -266,7 +266,7 @@ public class Donne
 			
 			numJoueurVainqueurPli = vainqueurDuPli(plisEnCours);
 			
-			croupier.direJoueursPliRemport�(plisEnCours, numJoueurVainqueurPli);
+			croupier.direJoueursPliRemporté(plisEnCours, numJoueurVainqueurPli);
 			if(isJoueurAttaque(numJoueurVainqueurPli)) 
 			{
 				int a;
