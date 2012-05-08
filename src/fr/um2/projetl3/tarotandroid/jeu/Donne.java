@@ -5,9 +5,6 @@ import java.util.Random;
 import java.util.Stack;
 import java.util.Vector;
 
-
-import fr.um2.projetl3.tarotandroid.clients.IJoueur;
-
 public class Donne
 {
 	private Main mainsDesJoueurs[];
@@ -29,8 +26,8 @@ public class Donne
 	private Vector<Carte> vecteurrecevantExcuse;
 	private Vector<Carte> vecteurcontenantExcuse;
 	private int numJoueurEnContact; // le joueur avec lequel on est en communication (utilisé pour savoir de qui on parle quand un joueur demande « sa » main)
+	public static boolean bavard = false;
 	
-	private boolean bavard;
 	
 	/*
 	 * --------------------------------------------------------------------------------------------
@@ -118,17 +115,17 @@ public class Donne
 	}
 
 	/*
-	 * 
+	 * --------------------------------------------------------------------------------------------
 	 * ------------------------------------ Méthodes --------------------------------------------
-	*/
+	 * --------------------------------------------------------------------------------------------
+	 */
+	 
 	void reveleChien(){
 		croupier.reveleChien(chien);
 	}
- 
+
 	 /** Méthode fini maisobject à  tester
-	  *  // TODO test
 	  * @author JB
-	  * @author hhachiche
 	  * 	
 	  * @param vecteurContenantLePli
 	  * @return l'indice du tableau ou se trouve la carte qui remporte le plis grà¢ce à  à§a on peut retrouver qui remporte le plis
@@ -192,16 +189,17 @@ public class Donne
 	 
 
 	 /**
-	  * Phase de jeu des cartes dans une donne, après les annonces et l’écart, avant le comptage des points.
-	  * (pour info, l’expression « jeu de la carte », ça vient pas de moi,
+	  * Phase de jeu des cartes dans une donne, après les annonces et l'écart, avant le comptage des points.
+	  * (pour info, l'expression " jeu de la carte ", ça vient pas de moi,
 	  * voir http://www.fftarot.fr/index.php/Decouvrir/Le-Jeu-de-la-carte.html )
-	 * @return TODO
+	 * @return 
 	  */
 	@SuppressWarnings("unchecked")
 	protected boolean jeuDeLaCarte()
 	{
-		numJoueurEntame = P.getNumJoueurApres(numDonneur); // le premier à  jouer (celui qui est après le donneur)
-		int nbCartesPosees; // cartes posées dans le tour (de 1 à  4, si 4 joueurs)
+		numJoueurEntame = P.getNumJoueurApres(numDonneur); // le premier à jouer (celui qui est après le donneur)
+		int nbCartesPosees; // cartes posées dans le tour (de 1 à 4, si 4 joueurs)
+
 		int numJoueur;
 		int numJoueurVainqueurPli;
 		
@@ -234,7 +232,6 @@ public class Donne
 				return false;
 			}
 			*/
-			// TODO: On peut se d�barrasser de nbCartesPosees en regardant si joueur apr�s numJoueur = numJoueurEntame
 			/*if (mainsDesJoueurs[0].nbCartesRestantes()<=1 ||
 					mainsDesJoueurs[1].nbCartesRestantes()<=1 ||
 					mainsDesJoueurs[2].nbCartesRestantes()<=1 ||
@@ -392,6 +389,7 @@ public class Donne
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void dernierPli(int numJoueurEntame)
 	{
 		if (bavard) System.out.println("on entre dans le dernier pli ici  : le joueur qui entame est le joueeur numero : "+numJoueurEntame);
@@ -468,13 +466,8 @@ public class Donne
 	/**
 	 * @author niavlys
 	 * @param c une carte
-<<<<<<< .mine
 	 * @param numJ un joueur
 	 * @return true si la carte pos�e par le joueur (param�tres) est l�gale 
-=======
-	 * @param numJ un joueur
-	 * @return true si la carte posée par le joueur (paramètres) est légale 
->>>>>>> .r234
 	 * 
 	 */
 	public boolean isCarteLegale(Carte c, int numJ) // svp des noms de variable explicite ...
@@ -573,8 +566,14 @@ public class Donne
 			/*
 			 * test des condition de la boucle 
 			 * */
-			 if(mainsDesJoueurs[num].possede(carteProposee)) if (bavard) System.out.println("contains !!!");
-			if(isCarteLegale(carteProposee, num)) if (bavard) System.out.println("cartelegale");
+			 if(mainsDesJoueurs[num].possede(carteProposee))
+			{
+				 if (bavard) System.out.println("contains !!!");
+			}
+			if(isCarteLegale(carteProposee, num))
+			{
+				if (bavard) System.out.println("cartelegale");
+			}
 		}
 		while(!(mainsDesJoueurs[num].possede(carteProposee)&& isCarteLegale(carteProposee, num)));
 		mainsDesJoueurs[num].removeCarte(carteProposee);

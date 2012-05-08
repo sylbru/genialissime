@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import fr.um2.projetl3.tarotandroid.exceptions.CarteUIDInvalideException;
 
+@SuppressWarnings("serial")
 public class CarteGraphique extends Carte{
 
 	public ImageView mImageView;

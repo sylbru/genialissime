@@ -4,7 +4,6 @@ import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
 import static fr.um2.projetl3.tarotandroid.activities.Contexts.*;
 
 import java.util.Arrays;
-import java.util.Random;
 import java.util.Vector;
 
 import android.app.Activity;
@@ -18,7 +17,6 @@ import android.preference.PreferenceManager;
 import android.text.Html.TagHandler;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -43,6 +41,7 @@ import fr.um2.projetl3.tarotandroid.jeu.Contrat;
 import fr.um2.projetl3.tarotandroid.jeu.Partie;
 import fr.um2.projetl3.tarotandroid.jeu.PrefsRegles;
 
+@SuppressWarnings("unused")
 public class EcranJeu extends Activity
 {
 	IJoueur moi, ia1, ia2, ia3;
@@ -51,7 +50,7 @@ public class EcranJeu extends Activity
 	ScrollView logSV;
 	RelativeLayout rl;
 	
-	@Override
+
     public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);

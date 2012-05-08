@@ -8,6 +8,7 @@ public class Scores
 	
 	
 	private Vector<Integer[]> scores;
+	public static boolean bavard = true;
 
 	/*
 	 * ----------------------------------------------------------------------------------
@@ -95,7 +96,7 @@ public class Scores
 	
 	/**
 	 * @author niavlys
-	 * @return Retourne le nombre de donnes effectuées (taille du vecteur scores), utilisé dans P.partieFinie()
+	 * @return Retourne le nombre de donnes effectuï¿½es (taille du vecteur scores), utilisï¿½ dans P.partieFinie()
 	 */
 	public int nbDonnes()
 	{
@@ -110,7 +111,7 @@ public class Scores
 	{	
 		int Gain =  calculGain(calculDesPointsDansLeVecteurAttaque(), calculNombreDeBoutsDansVecteurAttaque());
 		
-		System.out.println("Affichage du gain : "+Gain);
+		if (bavard) System.out.println("Affichage du gain : "+Gain);
 
 		calculDerniereLigneScore(P.donne().getContratEnCours(), Gain, joueurReussi(Gain), P.donne().getPreneur());
 		
@@ -291,7 +292,7 @@ public class Scores
 		case 3: //
 			return Points - 36;
 		default:
-			System.out.println("nombre de bouts incorrect");
+			if (bavard) System.out.println("nombre de bouts incorrect");
 			return 0;
 		}
 
@@ -348,7 +349,7 @@ public class Scores
 	 */
     public void affiche()
     {
-    	System.out.println("Scores : ");
+    	if (bavard) System.out.println("Scores : ");
         int J = P.getNombreDeJoueurs();
         int I = scores.size();
         /*
@@ -356,16 +357,16 @@ public class Scores
          * 
          * for(int i = 0; i<J ; i++) {
          * 
-         * System.out.print(getNomJoueur(i)); } /*
+         * if (bavard) System.out.print(getNomJoueur(i)); } /*
          */
         for (int i = 0; i < I; i++)
         {
                 for (int j = 0; j < J; j++)
                 {
-                        System.out.print(scores.get(i)[j]);
-                        System.out.print("\t");
+                        if (bavard) System.out.print(scores.get(i)[j]);
+                        if (bavard) System.out.print("\t");
                 }
-                System.out.println();
+                if (bavard) System.out.println();
         }
 
     }

@@ -31,7 +31,7 @@ public class JoueurIA implements IJoueur
 	/*--- Constructeurs ---*/
 	public JoueurIA(String pNom, int pID)
 	{
-		bavard = true;
+		bavard = false;
 		bavardecart = true;
 		L = LuaStateFactory.newLuaState();
 		L.openLibs();
