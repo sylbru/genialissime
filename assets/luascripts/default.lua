@@ -422,45 +422,62 @@ end
 
 function tarot.demander.carte()
 	table.sort(tarot.legal)
-
+	local pos = #tarot.pli%4
+	
+	for i,v in ipairs(tarot.main) do
+		print("Flolilol"..v)
+	end
 	-- Avant dernier tour et j'ai toujours l'excuse, je le BALANCE
+	fluxus:push("J'ai "..#tarot.main.." cartes dans la main, dont "..#tarot.legal.." légales")
+	--fluxus:push("Il reste "..#tarot.main.." cartes dans ma main")
 	if #tarot.main == 2 and tarot.utile.possede(tarot.legal, 0) then
+		fluxus:push("Je balance l'excuse!")
 		return 0
 	end
 	-- J'ouvre le pli
-	if #tarot.pli == 0 then
+	if pos == 0 then
+		fluxus:push("Je joue la derniere carte légale (parce que je peux)")
 		return tarot.legal[#tarot.legal]
 	end
 
 	-- Quelqu'un joue après moi
-	if #tarot.pli == 1 or #tarot.pli==2 then
+	if pos == 1 or pos == 2 then
 
 
 		-- Jeter une merde mais pas l'excuse
 		if tarot.utile.possede(tarot.legal, 0) then
+			fluxus:push("J'ai l'excuse, je joue une merde")
 			return tarot.legal[2]
 		else
+			fluxus:push("Je joue une merde")
 			return tarot.legal[1]
 		end
 	end
 
 	-- Je termine ce pli, faudrait que je place des points s'ils passent, ou que je tente de remporter le pli si il y a des points dedans et que c'est pas ma team qui a la main, ou que ma team a la main, mais c'est mieux si j'ai la main. Sinon, je tej' de la merde
-	if #tarot.pli == 3 then
+	if pos == 3 then
 		-- Si je peux sauver mon petit, je le sauve
 		if tarot.utile.possede(tarot.legal, 1) and not tarot.utile.possede(tarot.pli, 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21) then
+			fluxus:push("Je sauve le petit")
 			return 1
 		end
 
 		-- Jeter une merde mais pas l'excuse ni le petit
 		local d = 1
 		if tarot.utile.possede(tarot.legal, 1) then
+			fluxus:push("J'ai le petit")
 			d = d+1
 		end
 		if tarot.utile.possede(tarot.legal, 0) then
+			fluxus:push("J'ai l'excuse")
 			d = d+1
 		end
+		fluxus:push("Je joue ma plus petite carte légale")
 		return tarot.legal[d] or tarot.legal[1]
 	end
+
+	fluxus:push("Euh... il y a "..#tarot.pli.." cartes dans le pli")
+	return tarot.legal[#tarot.legal]
 
 	-- Comportements "spéciaux"
 		-- Jeu du petit
@@ -483,7 +500,6 @@ function tarot.demander.carte()
 			-- Jouer une carte sur une coupe adverse
 
 		-- Jouer une carte basse et sans valeur, à la couleur la plus longue
-
 
 
 end

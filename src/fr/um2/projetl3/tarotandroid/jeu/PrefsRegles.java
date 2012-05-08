@@ -107,7 +107,7 @@ public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge d
 		public static int scoreMax = 1000;
 		
 		public static boolean conditionFinDonnesMax = false;
-		public static int donnesMax = 42;
+		public static int donnesMax = 10;
 		
 		public static void preferencesActives()  //Methode permettant de, au moment d'une partie, de prendre en compte toutes les préférences
 		{
@@ -177,7 +177,7 @@ public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge d
 	    	{
 	    		PrefsRegles.conditionFinDonnesMax = true;
 	    		PrefsRegles.conditionFinScoreMax = false;
-	    		PrefsRegles.donnesMax = sp.getInt("DMAX", 42);
+	    		PrefsRegles.donnesMax = sp.getInt("DMAX", 10);
 	    	}
 	    	else
 	    	{
