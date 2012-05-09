@@ -4,14 +4,11 @@ import static fr.um2.projetl3.tarotandroid.jeu.Context.D;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.Vector;
 import org.keplerproject.luajava.LuaException;
 import org.keplerproject.luajava.LuaState;
 import org.keplerproject.luajava.LuaStateFactory;
-
-import android.widget.Toast;
 
 //import android.content.Context;
 //import android.content.res.AssetManager;
@@ -27,6 +24,7 @@ public class JoueurIA implements IJoueur
 	private LuaState L;		// Instance de la machine virtuelle Lua
 	private boolean bavard;
 	private boolean bavardecart;
+	private int delai = 0;
 	
 	/*--- Constructeurs ---*/
 	public JoueurIA(String pNom, int pID)
@@ -65,6 +63,12 @@ public class JoueurIA implements IJoueur
 
 		this.pNom = pNom;
 				
+	}
+	
+	public JoueurIA(String pNom, int pID, int delai)
+	{
+		this(pNom, pID);
+		this.delai = delai; 
 	}
 	
 	public void setBavard(boolean b)
@@ -147,6 +151,13 @@ public class JoueurIA implements IJoueur
 	/*--- Methodes "demander" ---*/
 	public Contrat demanderAnnonce(Contrat contrat)
 	{
+		try
+		{
+			Thread.sleep(delai);
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 		this.chargerMain();
 		L.LdoString("cont,flal = tarot.demander.annonce()");
 		int c = (int) L.getLuaObject("cont").getNumber();
@@ -301,6 +312,13 @@ public class JoueurIA implements IJoueur
 
 	public Carte demanderCarte()
 	{
+		try
+		{
+			Thread.sleep(delai);
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 		this.chargerLegal();
 		this.chargerMain();
 		this.chargerPreneur();
