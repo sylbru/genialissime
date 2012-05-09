@@ -96,7 +96,7 @@ public class EcranJeu extends Activity
 				{
 					System.out.println("i : " + i);
 					int imageViewId = 0;
-					Carte card = (i >= main.size()) ? null : main.get(i);
+					final Carte card = (i >= main.size()) ? null : main.get(i);
 					String imageViewIdName = "imageCarte"+Integer.toString(i);
 					//Carte cardL = (i >= cartesLegales.size()) ? null : main.get(i);
 					//System.out.println(cardL + "est une carte legale!");
@@ -154,6 +154,7 @@ public class EcranJeu extends Activity
 						            public void onClick(View v) {
 										imageView.startAnimation(avancer);
 										imageView.setVisibility(View.GONE);
+										resultatCarte = card;
 						            }
 						        });
 							}							
@@ -424,7 +425,7 @@ public class EcranJeu extends Activity
     public Carte demanderCarte()
 	{
 		resultatCarte = null;		
-		final Button bDemandeCarte = new Button(this);
+		/*final Button bDemandeCarte = new Button(this);
 		bDemandeCarte.setText("Jouer une carte");
 		bDemandeCarte.setOnClickListener(new View.OnClickListener()
 		{
@@ -433,31 +434,31 @@ public class EcranJeu extends Activity
 			{
 				afficherDemandeCarte();
 			}
-		});
-		final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		});*/
+		/*final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		lp.addRule(RelativeLayout.ABOVE, R.id.horizontalScrollView1);
-		lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		lp.addRule(RelativeLayout.CENTER_HORIZONTAL);*/
 		
 		afficherMain(P.donne().getMain().getCartes());
-		runOnUiThread(new Runnable()
+		/*runOnUiThread(new Runnable()
 		{
 			
 			public void run()
 			{
 				rl.addView(bDemandeCarte, lp);
 			}
-		});
+		});*/
 		
 		while(resultatCarte == null)
 		{} // On attend.
 		
-		runOnUiThread(new Runnable()
+		/*runOnUiThread(new Runnable()
 		{
 			public void run()
 			{
 				rl.removeView(bDemandeCarte);
 			}
-		});
+		});*/
 		
 		System.out.println("On va retourner "+resultatCarte);
 		//afficherMain(P.donne().indiquerCartesLegalesJoueur());
@@ -519,6 +520,7 @@ public class EcranJeu extends Activity
 		{
 			public void run()
 			{
+				
 				String imageViewIdName = "carte";
 				int imageViewId = -1;
 				switch(j)
