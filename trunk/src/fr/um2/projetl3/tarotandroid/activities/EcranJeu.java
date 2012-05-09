@@ -6,11 +6,13 @@ import static fr.um2.projetl3.tarotandroid.activities.Contexts.*;
 import java.util.Arrays;
 import java.util.Vector;
 
+import android.R.color;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.AvoidXfermode.Mode;
+import android.graphics.ColorFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -165,6 +167,73 @@ public class EcranJeu extends Activity
 			}
 		});
 	}/**/
+	
+	public void afficherMainEcart(final Vector<Carte> main)
+	{
+		runOnUiThread(new Runnable()
+		{
+			public void run()
+			{
+				for(int i = 0; (i < 26); ++i)
+				{
+					
+					int imageViewId = 0;
+					final Carte card = (i >= main.size()) ? null : main.get(i);
+					String imageViewIdName = "imageCarte"+Integer.toString(i);
+					//Carte cardL = (i >= cartesLegales.size()) ? null : main.get(i);
+					//System.out.println(cardL + "est une carte legale!");
+			
+					try {
+						imageViewId = R.id.class.getDeclaredField(imageViewIdName).getInt(null);
+						//System.out.println("id = " + imageViewId);
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (SecurityException e) {
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					} catch (NoSuchFieldException e) {
+						e.printStackTrace();
+					}
+			
+					final ImageView imageView = (ImageView) findViewById(imageViewId);
+					//System.out.println("imageview : " + imageViewIdName);
+					if (card == null) {
+						imageView.setVisibility(View.GONE);
+					} else {
+						imageView.setVisibility(View.VISIBLE);
+						// si visible on lui donne la bonne image....
+						//imageView.setDrawableResource(card.getResource());
+						try {
+							imageView.setImageDrawable((new CarteGraphique(card.uid())).mImageView.getDrawable());
+							imageView.setColorFilter(Color.GRAY, android.graphics.PorterDuff.Mode.MULTIPLY);	
+							imageView.setClickable(false);
+							//System.out.println("uid" + card.uid());
+						} catch (CarteUIDInvalideException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}						
+					}
+					if(card != null){
+						imageView.clearColorFilter();
+						imageView.setClickable(true);
+						imageView.setOnClickListener(new OnClickListener(){
+						public void onClick(View v) {
+							if(!(resultatEcart.contains(card))){
+								resultatEcart.add(card);
+								imageView.setColorFilter(Color.GREEN, android.graphics.PorterDuff.Mode.MULTIPLY);
+								}
+							else{
+								resultatEcart.remove(card);
+								imageView.clearColorFilter();
+							}
+							}
+						});
+					}							
+				}
+			}
+		});
+	}
 
 	private Contrat resultatAnnonce;
 	private boolean ecartOK;
@@ -283,6 +352,7 @@ public class EcranJeu extends Activity
 		resultatEcart.clear();
 		ecartOK = false;
 		final Vector<Carte> cartesLegalesEcart = P.donne().indiquerCartesLegalesEcart();
+		afficherMainEcart(cartesLegalesEcart);
 		checked = new boolean[cartesLegalesEcart.size()];
 		Arrays.fill(checked, false);
 				
