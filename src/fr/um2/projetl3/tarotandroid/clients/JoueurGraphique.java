@@ -93,6 +93,7 @@ public class JoueurGraphique implements IJoueur {
 	
 	public void direCarteJouee(Carte c, int j) {
 		ecran.log(P.getNomNumJoueur(j) + " joue " + c);
+		ecran.direCarteJouee(c, j);
 	}
 
 	
