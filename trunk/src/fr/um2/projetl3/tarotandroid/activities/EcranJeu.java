@@ -68,9 +68,9 @@ public class EcranJeu extends Activity
 		PrefsRegles.sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		P = new Partie();
 		moi = new JoueurGraphique("Moi", EcranJeu.this);
-		ia1 = new JoueurIA("IA1", 42);
-		ia2 = new JoueurIA("IA2", 43);
-		ia3 = new JoueurIA("IA3", 44);
+		ia1 = new JoueurIA("IA1", 42, 500);
+		ia2 = new JoueurIA("IA2", 43, 500);
+		ia3 = new JoueurIA("IA3", 44, 500);
 		P.setJoueur(0, moi);
 		P.setJoueur(1, ia1);
 		P.setJoueur(2, ia2);
@@ -500,48 +500,52 @@ public class EcranJeu extends Activity
 		}
 	}
 
-	public void direCarteJouee(Carte c, int j)
+	public void direCarteJouee(final Carte c, final int j)
 	{
-		String imageViewIdName = "carte";
-		int imageViewId = -1;
-		switch(j)
+		runOnUiThread(new Runnable()
 		{
-		case 0:
-			imageViewIdName += "S";
-			break;
-		case 1:
-			imageViewIdName += "O";
-			break;
-		case 2:
-			imageViewIdName += "N";
-			break;
-		case 3:
-			imageViewIdName += "E";
-			break;
-		}
-		//Carte cardL = (i >= cartesLegales.size()) ? null : main.get(i);
-		//System.out.println(cardL + "est une carte legale!");
+			public void run()
+			{
+				String imageViewIdName = "carte";
+				int imageViewId = -1;
+				switch(j)
+				{
+				case 0:
+					imageViewIdName += "S";
+					break;
+				case 1:
+					imageViewIdName += "O";
+					break;
+				case 2:
+					imageViewIdName += "N";
+					break;
+				case 3:
+					imageViewIdName += "E";
+					break;
+				}
+			
+				try {
+					imageViewId = R.id.class.getDeclaredField(imageViewIdName).getInt(null);
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (SecurityException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (NoSuchFieldException e) {
+					e.printStackTrace();
+				}
 	
-		try {
-			imageViewId = R.id.class.getDeclaredField(imageViewIdName).getInt(null);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		}
-	
-		ImageView imageView = (ImageView) findViewById(imageViewId);
-	
-		try {
-			imageView.setImageDrawable((new CarteGraphique(c.uid())).mImageView.getDrawable());
-		} catch (CarteUIDInvalideException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+				ImageView imageView = (ImageView) findViewById(imageViewId);
+				
+				try {
+					imageView.setImageDrawable((new CarteGraphique(c.uid())).mImageView.getDrawable());
+				} catch (CarteUIDInvalideException e) {
+					e.printStackTrace();
+				}
+				rl.bringChildToFront(imageView);
+			}
+		});
         							
 	}
 	

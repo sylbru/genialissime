@@ -330,31 +330,37 @@
         android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <ImageView
-        android:id="@+id/carteS"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="-50dp"
-        android:src="@drawable/border" />
+    <!-- Emplacements des cartes jouées par les joueurs (pli en cours) -->
+    
+    <FrameLayout 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:layout_centerInParent="true"
+    android:paddingLeft="-60dp">
+        <ImageView
+	        android:id="@+id/carteS"
+	        android:layout_width="wrap_content"
+	        android:layout_height="120dp"
+	        android:src="@drawable/border" />
+	</FrameLayout>
     <ImageView
         android:id="@+id/carteO"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         android:layout_centerInParent="true"
         android:layout_marginLeft="-30dp"
         android:src="@drawable/border" />
     <ImageView
         android:id="@+id/carteE"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         android:layout_centerInParent="true"
         android:layout_marginRight="-30dp"
         android:src="@drawable/border" />
     <ImageView
-        android:id="@+id/carteO"
+        android:id="@+id/carteN"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         android:layout_centerInParent="true"
         android:layout_marginTop="-50dp"
         android:src="@drawable/border" />
