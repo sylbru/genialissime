@@ -128,7 +128,15 @@ public class EcranJeu extends Activity
 						}
 						
 					}
-					final Vector<Carte> cartesLegales = P.donne().indiquerCartesLegalesJoueur();
+					Vector<Carte> cartesLegales;
+					try
+					{
+						cartesLegales = P.donne().indiquerCartesLegalesJoueur();
+					}
+					catch(ArrayIndexOutOfBoundsException e)
+					{
+						cartesLegales = main;
+					}
 					for(Carte c : cartesLegales)
 					{
 						System.out.println("uid L : " + c.uid());
@@ -492,6 +500,51 @@ public class EcranJeu extends Activity
 		}
 	}
 
+	public void direCarteJouee(Carte c, int j)
+	{
+		String imageViewIdName = "carte";
+		int imageViewId = -1;
+		switch(j)
+		{
+		case 0:
+			imageViewIdName += "S";
+			break;
+		case 1:
+			imageViewIdName += "O";
+			break;
+		case 2:
+			imageViewIdName += "N";
+			break;
+		case 3:
+			imageViewIdName += "E";
+			break;
+		}
+		//Carte cardL = (i >= cartesLegales.size()) ? null : main.get(i);
+		//System.out.println(cardL + "est une carte legale!");
+	
+		try {
+			imageViewId = R.id.class.getDeclaredField(imageViewIdName).getInt(null);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		}
+	
+		ImageView imageView = (ImageView) findViewById(imageViewId);
+	
+		try {
+			imageView.setImageDrawable((new CarteGraphique(c.uid())).mImageView.getDrawable());
+		} catch (CarteUIDInvalideException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        							
+	}
+	
 	Handler hh = new Handler();
 	
 	public void makeToast(String s, boolean court)
@@ -529,6 +582,7 @@ public class EcranJeu extends Activity
 			}
 		});
 	}
+
 
 
 }

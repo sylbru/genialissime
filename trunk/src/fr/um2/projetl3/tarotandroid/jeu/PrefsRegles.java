@@ -1,12 +1,7 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
 import static fr.um2.projetl3.tarotandroid.jeu.Context.*;
-import static fr.um2.projetl3.tarotandroid.activities.Contexts.applicationContext;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
-
-@SuppressWarnings("unused")
 public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge de la liaison graphique pour les préférences
 						// (niavlys) de toute façon cette classe ne va rien contenir de graphique normalement 
 {
@@ -88,7 +83,8 @@ public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge d
 	}
 	
 	public static boolean ManiereDeCompter = true;
-	// il faudrait aussi implementer la façon de compter les points quel méthode on utilise ? voilà apres faut choisir 
+	// true == officielle == « JB »
+	// false == populaire == « Kevin »
 	
 	// jeu
 	public static boolean autoriser3boutsDans1pli = true;
@@ -107,21 +103,41 @@ public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge d
 		public static int scoreMax = 1000;
 		
 		public static boolean conditionFinDonnesMax = false;
-		public static int donnesMax = 42;
+		public static int donnesMax = 10;
 		
 		public static void preferencesActives()  //Methode permettant de, au moment d'une partie, de prendre en compte toutes les préférences
 		{
 	    	PrefsRegles.sensInverseAiguillesMontre = sp.getBoolean("SDJ", false);
-	    	PrefsRegles.autoriserParole = sp.getBoolean("PAR", false);
-	    	PrefsRegles.autoriserPetite = sp.getBoolean("PET", false);
-	    	PrefsRegles.autoriserPousse = sp.getBoolean("POU", false);
-	    	PrefsRegles.autoriserGAE = sp.getBoolean("GAE", false);
 	    	
-	    	if (sp.getString("SDJ", "Kevin")== "Kevin")
+	    	PrefsRegles.autoriserParole = sp.getBoolean("PAR", false);
+	    	//Contrat.PAROLE.setAutorisé(autoriserParole);
+	    	//System.out.println("parole à "+sp.getBoolean("PAR", false));
+	    	
+	    	PrefsRegles.autoriserPetite = sp.getBoolean("PET", false);
+	    	//Contrat.PETITE.setAutorisé(autoriserPetite);
+	    	//System.out.println("petite à "+sp.getBoolean("PET", false));
+	    	
+	    	PrefsRegles.autoriserPousse = sp.getBoolean("POU", false);
+	    	//Contrat.POUSSE.setAutorisé(autoriserPousse);
+	    	//System.out.println("pousse à "+sp.getBoolean("POU", false));
+	    	//System.out.println("autoriserPousse à "+autoriserPousse);
+	    	
+	    	PrefsRegles.autoriserGAE = sp.getBoolean("GAE", false);
+	    	//Contrat.GAE.setAutorisé(autoriserGAE);
+	    	//System.out.println("gae à "+sp.getBoolean("GAE", false));
+	    	
+	    	if(sp.getString("Compt-Pts", "-1").equals("1"))
+	    	{
+	    		PrefsRegles.ManiereDeCompter = true;
+	    	}
+	    	else if(sp.getString("Compt-Pts", "-1").equals("2"))
 	    	{
 	    		PrefsRegles.ManiereDeCompter = false;
 	    	}
-	    	else PrefsRegles.ManiereDeCompter = true;
+	    	else
+	    	{
+	    		System.out.println("?");
+	    	}
 	    	
 	    	PrefsRegles.compterMisere = sp.getBoolean("MIS", false);
 	    	PrefsRegles.petitAuBout = sp.getBoolean("PAB", false);
@@ -157,7 +173,7 @@ public class PrefsRegles // ! à ne pas toucher graphiquement Heykel se charge d
 	    	{
 	    		PrefsRegles.conditionFinDonnesMax = true;
 	    		PrefsRegles.conditionFinScoreMax = false;
-	    		PrefsRegles.donnesMax = sp.getInt("DMAX", 42);
+	    		PrefsRegles.donnesMax = sp.getInt("DMAX", 10);
 	    	}
 	    	else
 	    	{
