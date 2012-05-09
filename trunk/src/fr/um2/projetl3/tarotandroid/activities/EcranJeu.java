@@ -19,7 +19,10 @@ import android.text.Html.TagHandler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -83,6 +86,7 @@ public class EcranJeu extends Activity
 	/**/
 	public void afficherMain(final Vector<Carte> main)
 	{
+		final Animation avancer = AnimationUtils.loadAnimation(this, R.anim.avancercarte);
 		//final Vector<Carte> cartesLegales = P.donne().indiquerCartesLegalesJoueur();
 		runOnUiThread(new Runnable()
 		{
@@ -110,7 +114,7 @@ public class EcranJeu extends Activity
 						e.printStackTrace();
 					}
 			
-					ImageView imageView = (ImageView) findViewById(imageViewId);
+					final ImageView imageView = (ImageView) findViewById(imageViewId);
 					//System.out.println("imageview : " + imageViewIdName);
 					if (card == null) {
 						imageView.setVisibility(View.GONE);
@@ -120,8 +124,9 @@ public class EcranJeu extends Activity
 						//imageView.setDrawableResource(card.getResource());
 						try {
 							imageView.setImageDrawable((new CarteGraphique(card.uid())).mImageView.getDrawable());
-							imageView.setColorFilter(Color.GRAY, android.graphics.PorterDuff.Mode.MULTIPLY);							
-							System.out.println("uid" + card.uid());
+							imageView.setColorFilter(Color.GRAY, android.graphics.PorterDuff.Mode.MULTIPLY);	
+							imageView.setClickable(false);
+							//System.out.println("uid" + card.uid());
 						} catch (CarteUIDInvalideException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -139,10 +144,18 @@ public class EcranJeu extends Activity
 					}
 					for(Carte c : cartesLegales)
 					{
+						
 						System.out.println("uid L : " + c.uid());
 						if(card != null){
 							if(c.uid() == card.uid()){
 								imageView.clearColorFilter();
+								imageView.setClickable(true);
+								imageView.setOnClickListener(new OnClickListener(){
+						            public void onClick(View v) {
+										imageView.startAnimation(avancer);
+										imageView.setVisibility(View.GONE);
+						            }
+						        });
 							}							
 						}
 					}
