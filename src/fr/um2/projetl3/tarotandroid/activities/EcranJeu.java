@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.AvoidXfermode.Mode;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -89,6 +90,7 @@ public class EcranJeu extends Activity
 			{
 				for(int i = 0; (i < 26); ++i)
 				{
+					System.out.println("i : " + i);
 					int imageViewId = 0;
 					Carte card = (i >= main.size()) ? null : main.get(i);
 					String imageViewIdName = "imageCarte"+Integer.toString(i);
@@ -97,6 +99,7 @@ public class EcranJeu extends Activity
 			
 					try {
 						imageViewId = R.id.class.getDeclaredField(imageViewIdName).getInt(null);
+						//System.out.println("id = " + imageViewId);
 					} catch (IllegalArgumentException e) {
 						e.printStackTrace();
 					} catch (SecurityException e) {
@@ -108,7 +111,7 @@ public class EcranJeu extends Activity
 					}
 			
 					ImageView imageView = (ImageView) findViewById(imageViewId);
-			
+					//System.out.println("imageview : " + imageViewIdName);
 					if (card == null) {
 						imageView.setVisibility(View.GONE);
 					} else {
@@ -117,11 +120,23 @@ public class EcranJeu extends Activity
 						//imageView.setDrawableResource(card.getResource());
 						try {
 							imageView.setImageDrawable((new CarteGraphique(card.uid())).mImageView.getDrawable());
+							imageView.setColorFilter(Color.GRAY, android.graphics.PorterDuff.Mode.MULTIPLY);							
+							System.out.println("uid" + card.uid());
 						} catch (CarteUIDInvalideException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-			            							
+						
+					}
+					final Vector<Carte> cartesLegales = P.donne().indiquerCartesLegalesJoueur();
+					for(Carte c : cartesLegales)
+					{
+						System.out.println("uid L : " + c.uid());
+						if(card != null){
+							if(c.uid() == card.uid()){
+								imageView.clearColorFilter();
+							}							
+						}
 					}
 					
 				}
@@ -236,6 +251,7 @@ public class EcranJeu extends Activity
 		
 		// resultatAnnonce != Contrat.AUCUN
 		System.out.println("On va retourner "+resultatAnnonce);
+		
 		return resultatAnnonce;
 	}
 	
@@ -386,7 +402,7 @@ public class EcranJeu extends Activity
 	}
     public Carte demanderCarte()
 	{
-		resultatCarte = null;
+		resultatCarte = null;		
 		final Button bDemandeCarte = new Button(this);
 		bDemandeCarte.setText("Jouer une carte");
 		bDemandeCarte.setOnClickListener(new View.OnClickListener()
@@ -401,7 +417,7 @@ public class EcranJeu extends Activity
 		lp.addRule(RelativeLayout.ABOVE, R.id.horizontalScrollView1);
 		lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		
-		afficherMain(P.donne().indiquerCartesLegalesJoueur());
+		afficherMain(P.donne().getMain().getCartes());
 		runOnUiThread(new Runnable()
 		{
 			
@@ -437,7 +453,7 @@ public class EcranJeu extends Activity
 		}
 		makeToast(texteMain);
 		log(texteMain); /**/
-		afficherMain(main);
+		afficherMain(P.donne().indiquerCartesLegalesJoueur());
 	}
 	
 	public void direAnnonce(final Contrat c, int j)
