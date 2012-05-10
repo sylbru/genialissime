@@ -46,5 +46,6 @@ public class PrefsApplication {
 	 * ---------------------------------------------------------------------------------------------------
 	 */
 	
-	static boolean triCroissant = true;
+	public static boolean triCroissant = true;
+	public static boolean triDansAnnonce = false;
 }
