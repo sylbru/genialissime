@@ -356,7 +356,7 @@ public class EcranJeu extends Activity
 		checked = new boolean[cartesLegalesEcart.size()];
 		Arrays.fill(checked, false);
 				
-		final Button bDemandeEcart = new Button(this);
+		/*final Button bDemandeEcart = new Button(this);
 		bDemandeEcart.setText("Faire son écart");
 		bDemandeEcart.setOnClickListener(new View.OnClickListener()
 		{
@@ -364,7 +364,7 @@ public class EcranJeu extends Activity
 			{
 				afficherDemandeEcart(cartesLegalesEcart);
 			}
-		});
+		});*/
 		final Button bValideEcart = new Button(this);
 		bValideEcart.setText("Valider");
 		bValideEcart.setOnClickListener(new View.OnClickListener()
@@ -391,7 +391,7 @@ public class EcranJeu extends Activity
 			public void run()
 			{
 				rl.addView(llEcart, lp);
-				llEcart.addView(bDemandeEcart);
+				//llEcart.addView(bDemandeEcart);
 				llEcart.addView(bValideEcart);
 			}
 		});
