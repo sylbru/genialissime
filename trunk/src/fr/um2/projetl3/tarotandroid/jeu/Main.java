@@ -1,5 +1,6 @@
 package fr.um2.projetl3.tarotandroid.jeu;
 
+import java.util.Collections;
 import java.util.Vector;
 
 import fr.um2.projetl3.tarotandroid.clients.IJoueur;
@@ -22,6 +23,16 @@ public class Main
 	public Main(Vector<Carte> vCartes)
 	{
 		cartes = vCartes;
+	}
+	
+	
+	
+	public Vector<Carte> triMain()
+	{
+		Vector<Carte> cartesTrier = new Vector<Carte>();
+		cartesTrier.addAll(cartes);
+		Collections.sort(cartesTrier);
+		return cartesTrier;
 	}
 	
 	/**

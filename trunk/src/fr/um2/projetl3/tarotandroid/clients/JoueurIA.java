@@ -47,7 +47,6 @@ public class JoueurIA implements IJoueur
 			}
 			L.LdoString(script);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			if (bavard) System.out.println(pNom+": "+"Script absent");
 			e.printStackTrace();
 		}

@@ -96,7 +96,7 @@ public class EcranJeu extends Activity
 			{
 				for(int i = 0; (i < 26); ++i)
 				{
-					System.out.println("i : " + i);
+					//System.out.println("i : " + i);
 					int imageViewId = 0;
 					final Carte card = (i >= main.size()) ? null : main.get(i);
 					String imageViewIdName = "imageCarte"+Integer.toString(i);
@@ -147,7 +147,7 @@ public class EcranJeu extends Activity
 					for(Carte c : cartesLegales)
 					{
 						
-						System.out.println("uid L : " + c.uid());
+						//System.out.println("uid L : " + c.uid());
 						if(card != null){
 							if(c.uid() == card.uid()){
 								imageView.clearColorFilter();
@@ -509,7 +509,7 @@ public class EcranJeu extends Activity
 		lp.addRule(RelativeLayout.ABOVE, R.id.horizontalScrollView1);
 		lp.addRule(RelativeLayout.CENTER_HORIZONTAL);*/
 		
-		afficherMain(P.donne().getMain().getCartes());
+		afficherMain(P.donne().getMain().triMain());
 		/*runOnUiThread(new Runnable()
 		{
 			
