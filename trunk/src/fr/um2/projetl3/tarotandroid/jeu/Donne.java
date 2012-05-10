@@ -807,6 +807,17 @@ public class Donne
 	public int getPreneur() {
 		return preneur;
 	}
+	
+	public int getPreneurOff()
+	{
+		return ((preneur-numJoueurEnContact)+P.getNombreDeJoueurs()) % P.getNombreDeJoueurs();
+	}
+	
+	public int getJoueurEntameOff()
+	{
+		return ((numJoueurEntame-numJoueurEnContact)+P.getNombreDeJoueurs()) % P.getNombreDeJoueurs();
+	}
+	
 	public void setPreneur(int preneur) {
 		this.preneur = preneur;
 	}

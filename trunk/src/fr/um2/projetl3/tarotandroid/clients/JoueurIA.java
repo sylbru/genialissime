@@ -30,7 +30,7 @@ public class JoueurIA implements IJoueur
 	public JoueurIA(String pNom, int pID)
 	{
 		bavard = false;
-		bavardecart = true;
+		bavardecart = false;
 		L = LuaStateFactory.newLuaState();
 		L.openLibs();
 		//System.out.println(pNom+": "+"Jusqu'ici tout va bien");
@@ -205,12 +205,12 @@ public class JoueurIA implements IJoueur
 			c = (int) L.getLuaObject("c").getNumber();
 			//c = (int) Math.floor(Math.random()*78);
 			fluxusToSyso();
-			System.out.println(pNom+": "+"Lua me dit que j'ecarte"+new Carte(c).toString());
+			if (bavard) System.out.println(pNom+": "+"Lua me dit que j'ecarte"+new Carte(c).toString());
 			ecart.add(new Carte(c));
 		}
 		for (int i=0; i<6; i++)
 		{
-			System.out.println(pNom+": "+ecart.elementAt(i).toString());
+			if (bavard) System.out.println(pNom+": "+ecart.elementAt(i).toString());
 		}
 		fluxusToSyso();
 		if (bavardecart)
@@ -230,7 +230,7 @@ public class JoueurIA implements IJoueur
 		//System.out.println(pNom+": "+"Je suis "+pNom+" et je demande ma main");
 		fluxusToSyso();
 		try {
-			if (bavard) System.out.println(pNom+": "+"le preneur est "+D.getPreneur());
+			if (bavard) System.out.println(pNom+": "+"le preneur est "+D.getPreneurOff());
 			L.pushObjectValue(D.getPreneur());
 			L.setGlobal("input");
 			L.LdoString("tarot.preneur = input");
@@ -308,6 +308,15 @@ public class JoueurIA implements IJoueur
 				e.printStackTrace();
 			}
 		}
+		
+		try {
+			L.pushObjectValue(D.getJoueurEntameOff());
+		} catch (LuaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		L.setGlobal("input");
+		L.LdoString("tarot.entame = input");
 	}
 
 	public Carte demanderCarte()
@@ -333,7 +342,7 @@ public class JoueurIA implements IJoueur
 		c = (int) L.getLuaObject("c").getNumber();
 		//D.getMain().affiche();
 		fluxusToSyso();
-		System.out.println(pNom+": Je joue le "+new Carte(c).toString());
+		if (bavard) System.out.println(pNom+": Je suis JAVA et je joue le "+new Carte(c).toString());
 		return new Carte(c);
 		
 	}
