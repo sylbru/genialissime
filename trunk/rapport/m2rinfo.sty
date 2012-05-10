@@ -1,0 +1,69 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% page de titre de Master Recherche
+% dérivée de
+% Page de garde de these LIRMM/UM2
+% V0.2 Jean Privat <privat@lirmm.fr>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% \title{Titre du mémoire}
+% \subtitle{Sous-titre du mémoire}
+% \author{Nom de l'auteur}
+% \date{Date de soutenance ou de version}
+% \director{Chercheurs responsables}
+% \laboratory{Laboratoire où s'est effectué le stage} par défaut LIRMM/INFO
+%
+% \maketitle
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\@subtitle}{}
+\newcommand{\subtitle}[1]{\def\@subtitle{#1}}
+\newcommand{\@laboratory}{laboratoire LIRMM/INFO}
+\newcommand{\laboratory}[1]{\def\@laboratory{#1}}
+\newcommand{\@director}{}
+\newcommand{\director}[1]{\def\@director{#1}}
+
+\RequirePackage{ifthen}
+
+\renewcommand{\maketitle}{
+\thispagestyle{empty}
+\begin{center}
+
+{\large\textsc{Acad\'emie de Montpellier}\par}%
+{\Large\textsc{\makebox[0.9\width][s]{\textbf{U} n i v e r s i t é ~ \textbf{M} o n t p e l l i e r ~ \textbf{I I}}}\par}%
+{\large\textsc{--- \textbf{S}ciences et \textbf{T}echniques du \textbf{L}anguedoc ---}}
+
+\vfill %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\huge\bf\textsc{Rapport de projet informatique de Licence 3 (GLIN601)}}
+
+\vspace{1cm}
+
+
+\vspace{1cm}
+
+{effectué à l'\@laboratory{}\\---\\
+sous la direction de \textsc{\@director}}
+
+
+\vfill %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\Large\bf\@title\par}%
+{\large\bf\@subtitle\par}%
+\vspace{0.7cm}%
+par\par%
+\vspace{0.7cm}%
+{\Large\bf\@author\par}
+
+\vfill %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\small%
+Soutenue le \@date}
+~\\
+~\\
+
+\includegraphics[scale=0.5]{Images/logo_um2.png}
+\includegraphics[scale=0.5]{Images/ufr.png}
+\end{center}
+\clearpage
+}
