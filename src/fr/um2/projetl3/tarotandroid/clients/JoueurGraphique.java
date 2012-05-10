@@ -104,6 +104,8 @@ public class JoueurGraphique implements IJoueur {
 	
 	public void direPliRemporté(Vector<Carte> pli, int joueur) {
 		ecran.log("Pli remporté par " + P.getNomNumJoueur(joueur));
+		ecran.direPliRemporté(pli, joueur);
+		//pli.clear();
 	}
 
 	private void recupererMain() {
@@ -124,6 +126,7 @@ public class JoueurGraphique implements IJoueur {
 	}
 
 	public void direScore() {
+		ecran.direScore();
 		// TODO Auto-generated method stub
 		
 	}
