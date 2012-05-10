@@ -45,6 +45,7 @@ import fr.um2.projetl3.tarotandroid.jeu.Carte;
 import fr.um2.projetl3.tarotandroid.jeu.CarteGraphique;
 import fr.um2.projetl3.tarotandroid.jeu.Contrat;
 import fr.um2.projetl3.tarotandroid.jeu.Partie;
+import fr.um2.projetl3.tarotandroid.jeu.PrefsApplication;
 import fr.um2.projetl3.tarotandroid.jeu.PrefsRegles;
 
 @SuppressWarnings("unused")
@@ -544,8 +545,19 @@ public class EcranJeu extends Activity
 			texteMain += c.toStringShort() + ", ";
 		}
 		makeToast(texteMain);
-		log(texteMain); /**/
-		afficherMain(P.donne().indiquerCartesLegalesJoueur());
+		log(texteMain); 
+		/**/
+		if (PrefsApplication.triDansAnnonce)
+		{
+			afficherMain(P.donne().getMain().triMain());
+		}
+		else
+		{
+			afficherMain(P.donne().indiquerCartesLegalesJoueur());
+		}
+		
+		
+		
 	}
 	
 	public void direAnnonce(final Contrat c, int j)
