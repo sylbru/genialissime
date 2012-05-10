@@ -364,7 +364,7 @@ public class Scores
                 for (int j = 0; j < J; j++)
                 {
                         if (bavard) System.out.print(scores.get(i)[j]);
-                        if (bavard) System.out.print("\t");
+                        if (bavard) System.out.print(" \t");
                 }
                 if (bavard) System.out.println();
         }

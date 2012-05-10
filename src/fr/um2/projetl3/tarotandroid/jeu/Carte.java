@@ -6,7 +6,7 @@ import fr.um2.projetl3.tarotandroid.exceptions.CarteUIDInvalideException;
 
 // test42
 
-public class Carte implements Serializable
+public class Carte implements Serializable,Comparable<Carte>
 {
 
 	private static final long serialVersionUID = 1L;
@@ -348,6 +348,18 @@ public class Carte implements Serializable
 				return "Excuse";
 			else
 				return Integer.toString(ordre) + " d'atout";
+		}
+	}
+
+	public int compareTo(Carte c) {
+		// TODO Auto-generated method stub
+		if (PrefsApplication.triCroissant)
+		{
+			return this.uid() - c.uid();
+		}
+		else 
+		{
+			return c.uid() - this.uid();
 		}
 	}
 
