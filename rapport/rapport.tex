@@ -789,15 +789,15 @@ Si une couleur est jouée c’est la couleur demandée. Les joueurs doivent donc
 		En premier lieu, nous voulions offrir la possibilité aux utilisateurs de créer leurs propres intelligences artificielles, simplement, et jouer contre ces intelligences sans avoir à 			recompiler ni même redémarrer le programme. Pour arriver à cette fin, il faut donc utiliser un langage interprété.\\
 Il nous fallait d’autant plus un langage facile à apprendre, simple d’utilisation, mais assez puissant pour permettre la création d’intelligences artificielles.\\
 		Le langage Lua a été conçu en 1993 à l’Université Pontificale Catholique de Rio de Janeiro (PUC-Rio), dans leur département Tecgraf.\\
-		Tecgraf avait besoin d’un outil flexible et facile à enseigner pour développer et scripter leurs projets de technologie d’infographie, flexibilité et simplicité sont restés maîtres mots 			dans la philosophie du développement de Lua.\\
+		Tecgraf avait besoin d’un outil flexible et facile à enseigner pour développer et scripter leurs projets de technologie d’infographie, flexibilité et simplicité sont restés maîtres mots dans la philosophie du développement de Lua.\\
 		
-		La simplicité du langage est reflété dans sa syntaxe naturelle et sa sémantique limitée, voici par éxemple une implémentation de la fonction factoriel en Lua:\\
+		La simplicité du langage est reflété dans sa syntaxe naturelle et sa sémantique limitée. Cependant la sémantique est extensible, formant un langage puissant. Voici par éxemple une implémentation de la fonction factoriel en Lua:\\
 		\begin{verbatim}
 			function fact(n)
 			    if n==0 then
-				return 1
+					return 1
 			    else
-				return n + fact(n - 1)
+					return n + fact(n - 1)
 			    end
 			end
 		\end{verbatim}
@@ -854,7 +854,7 @@ Nous avons ici crée une “classe” de structure de données de type file nomm
 
 Il existe d’autres façons d’implémenter les éléments de l’orienté-objet. Par éxemple en utilisant une fonction de clonage d’objet, on peut créer un prototype d’un objet que l’on clonera pour l’instancier.\\
 		\begin{verbatim}
-		function cloner(t)
+function cloner(t)
     local clone = {}
     for k,v in pairs(t) do
         if type(t)==”table” then
@@ -893,9 +893,11 @@ Ici, nous avons crée une fonction de clonage, et un objet prototype nommé “p
 
 			Nous avons donc créé un API qui informe de la situation du jeu, et propose des méthodes qui permettent des réponses.\\
 
-			Pour informer de la situation du jeu, il y a deux interfaces:\\
-
-			En premier lieu, une série d'objets Lua, manipulés directement par le programme Java :\\
+			\begin{center}
+					\includegraphics[scale=0.3]{Images/javalua.png}
+			\end{center}
+			\nopagebreak
+			Nous avon donc créé une table d'informations relative à la donne en cours, manipulés directement par le programme Java :\\
 			\begin{itemize}
 
 			\item tarot.main : une table qui représente la main du joueur en question;
@@ -905,21 +907,24 @@ Ici, nous avons crée une fonction de clonage, et un objet prototype nommé “p
 			\item tarot.pli : un table indiquant le pli en cours;
 
 			\item tarot.contrats : une table contenant les contrats par chaque joueur
+			
+			\item tarot.preneur : la position du joueur preneur
+		
+			\item tarot.entame : la position du joueur ayant entamé le pli
+			 
 			\end{itemize}
 			Ensuite une série de fonctions, dites “demander”, qui seront appelées par le programme Java, demandant une réponse de la part de l’IA:\\
 			\begin{itemize}
 			    \item tarot.demander.contrat : doit renvoyer l’entier représentant le contrat souhaité
 			    \item tarot.demander.ecart : doit renvoyer une table de 6 cartes
 			    \item tarot.demander.carte : doit renvoyer une carte légale à jouer
-				\item tarot.preneur : la position du joueur preneur
-				\item tarot.entame : la position du joueur ayant entamé le pli
 			\end{itemize}
 			Ecrire une intelligence artificielle dans ce contexte consiste à redéfinir les trois fonctions “demander” afin de créer le comportement souhaité.\\
 
 			Lorsque un joueur IA est créé, il exécute un script par défaut qui initialise ces objets, et définit un comportement par défaut. Ensuite, un peut passer un nouveau script qui 				contient une définition des fonctions “demander” qui remplacera la version par défaut. Ainsi il n’est pas nécessaire d’écrire une IA complète pour définir un comportement simple.
 
 
-Les stratégies du joueur par défaut:
+\subsection{Les stratégies du joueur par défaut:}
 
 Le tarot est un jeu relativement complexe, et les stratégies utilisées relèvent plus de l’instinct du joueur, d’estimation de probabilités, et d’expérience que de calcul. Nous avons donc pris la décision d'implémenter un comportement de jeu semblable aux conseils donnés à nouveau joueur.\\
 Notre IA utilisera donc des stratégies relativement simples et peu risquées, mais aura l’avantage de savoir mieux compter les cartes jouées. On espère ainsi créer une IA qui jouera correctement.\\
@@ -954,11 +959,6 @@ L’excuse: La carte de l’excuse est un cas particulier. Il peut être joué �
 L’IA affecte une priorité à ses cartes en fonction de leur valeur dans le jeu (le petit et les têtes) et jouera l’excuse pour éviter de jouer une de ces cartes si il risque de la perdre, et tentera de se débarrasser de l’excuse lors d’un pli qu’il ne peut affecter lorsqu’il n’aura plus de cartes à protéger. En dernier recours il jouera l’excuse à l’avant dernier pli afin d’éviter de le donner à l’adversaire.\\
 
 Au total 7 comportements spéciaux sont programmés, fournissant à l’IA assez de subtilité pour permettre un jeu intéressant et éviter d’avoir une IA “frustrante” qui joue des cartes causant l'échec de son équipe.\\
-
-				\begin{center}
-					\includegraphics[scale=0.3]{Images/javalua.png}
-				\end{center}
-
 
 	\section{Interface graphique}
 		Le plugin Android disponible dans Eclipse permet de simplifier la création d'interface graphique.
