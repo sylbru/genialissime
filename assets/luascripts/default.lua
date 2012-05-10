@@ -9,17 +9,17 @@ function cue.new()
 
 	function self:push(data)
 		self[#self+1]=data
-		--fluxus:push("pushed "..data)
+		----fluxus:push("pushed "..data)
 	end
 
 	function self:getTruthTable()
 		local tab = {}
 		for i=0,77 do
 			tab[i]=false
-			--fluxus:push("init de la case "..i)
+			----fluxus:push("init de la case "..i)
 		end
 		for i=1,#self do
-			--fluxus:push("J'ai le "..tarot.utile.getNom(i))
+			----fluxus:push("J'ai le "..tarot.utile.getNom(i))
 			tab[self[i]]=true
 		end
 		return tab
@@ -56,7 +56,7 @@ end
 
 fluxus = cue.new()
 	
-fluxus:push('Fluxus initialisé')			
+--fluxus:push('Fluxus initialisé')			
 
 
 
@@ -69,7 +69,7 @@ tarot.main=cue.new()
 tarot.legal=cue.new()
 tarot.pli=cue.new()
 tarot.utile = {}
-fluxus:push('Namespaces créés')
+--fluxus:push('Namespaces créés')
 
 function tarot.utile.getCouleur(carte)
 	if carte < 0 or carte >=78 then
@@ -122,7 +122,9 @@ end
 function tarot.utile.newCarte(couleur, valeur)
 	local couleur = couleur or "atout"
 	local valeur = valeur or 1
+	----fluxus:push("Nouvelle carte de couleur "..couleur.." et valeur "..valeur)
 	if couleur == "atout" then
+		----fluxus:push("Soit l'UID "..valeur)
 		return valeur
 	else
 		local decalage = 0
@@ -135,6 +137,7 @@ function tarot.utile.newCarte(couleur, valeur)
 		else
 			decalage = 63
 		end
+		----fluxus:push("Soit l'UID "..(decalage+valeur))
 		return decalage + valeur
 	end
 end
@@ -160,6 +163,56 @@ function tarot.utile.getNom(carte)
 				return "Dame de "..tarot.utile.getCouleur()
 			else
 				return "Roi de "..tarot.utile.getCouleur()
+			end
+		end
+	end
+end
+
+function tarot.utile.cartesACouleur(main, couleur)
+	c = 0
+	if couleur == "atout" then
+		for i=0,21 do
+			if tarot.utile.possede(main, i) then
+				c = c+1
+			end
+		end
+	else
+		for i=1,14 do
+			if tarot.utile.possede(main, tarot.utile.newCarte(couleur,i)) then
+				c = c+1
+			end
+		end
+	end
+	return c
+end
+
+function tarot.utile.plusPetitACouleur(main, couleur)
+	if couleur == "atout" then
+		for i=0,21 do
+			if tarot.utile.possede(main, i) then
+				return i
+			end
+		end
+	else
+		for i=1,14 do
+			if tarot.utile.possede(main, tarot.utile.newCarte(couleur,i)) then
+				return tarot.utile.newCarte(couleur, i)
+			end
+		end
+	end
+end
+
+function tarot.utile.plusGrandACouleur(main, couleur)
+	if couleur == "atout" then
+		for i=0,21 do
+			if tarot.utile.possede(main, 21-i) then
+				return 21-i
+			end
+		end
+	else
+		for i=1,14 do
+			if tarot.utile.possede(main, tarot.utile.newCarte(couleur,15-i)) then
+				return tarot.utile.newCarte(couleur, 15-i)
 			end
 		end
 	end
@@ -216,17 +269,17 @@ end
 lastplayed = 100
 
 function tarot.demander.carte()
-	fluxus:push("J'ai "..#tarot.main.." cartes dans la main, dont "..#tarot.legal.." légales")
+	--fluxus:push("J'ai "..#tarot.main.." cartes dans la main, dont "..#tarot.legal.." légales")
 	--c = tarot.legal:pop(math.random(1,#tarot.legal))
 	if #tarot.legal == 0 then
-		fluxus:push("OMFG, I'm illegal!")
+		--fluxus:push("OMFG, I'm illegal!")
 		c = math.random(0,77)
 	else
 		c = tarot.legal:pop(math.random(1,#tarot.legal))
-		fluxus:push("Je veux jouer: "..tarot.utile.getNom(c))
+		--fluxus:push("Je veux jouer: "..tarot.utile.getNom(c))
 	end
 	if lastplayed == c then
-		fluxus:push("J'ai déjà joué "..tarot.utile.getNom(c).." a la place je joue le 21")
+		--fluxus:push("J'ai déjà joué "..tarot.utile.getNom(c).." a la place je joue le 21")
 		c = 21
 		lastplayed = 21
 	else
@@ -258,7 +311,7 @@ end
 ---- Script sans réelle utilité, ne sert que pour vérifier que Lua est chargé.
 
 
-fluxus:push('Script de test chargé')
+--fluxus:push('Script de test chargé')
 
 
 
@@ -361,21 +414,21 @@ function tarot.demander.annonce()
 		j = j + 14
 	end
 	flal=c
-	fluxus:push("Mon flal est "..flal)
+	--fluxus:push("Mon flal est "..flal)
 	if c > 80 then 
-		fluxus:push("Je garde contre")
+		--fluxus:push("Je garde contre")
 		return 4, flal
 	elseif c > 70 then
-		fluxus:push("Je garde sans") 
+		--fluxus:push("Je garde sans") 
 		return 3, flal
 	elseif c > 55 then
-		fluxus:push("Je garde")
+		--fluxus:push("Je garde")
 		return 2, flal
 	elseif c > 40 then 
-		fluxus:push("Je petite")
+		--fluxus:push("Je petite")
 		return 1, flal
 	else
-		fluxus:push("Je passe")
+		--fluxus:push("Je passe")
 		return 0, flal
 	end
 end	
@@ -385,27 +438,27 @@ function tarot.demander.ecart()
 	local ecart = cue.new()
 	local CR = 6 -- nbr de Carte Restante a mettre au chien 
 	local nbrJoueur = 4
-	fluxus:push("Entré dans tarot.demander.ecart()")
+	--fluxus:push("Entré dans tarot.demander.ecart()")
 	maMain = tarot.main:getTruthTable() -- récuperation de la main
 	
 	--[[for i,v in ipairs(maMain) do
 		if v then
-			fluxus:push("J'ai le "..tarot.utile.getNom(i))
+			--fluxus:push("J'ai le "..tarot.utile.getNom(i))
 		else
-			fluxus:push("J'ai n'ai pas le "..tarot.utile.getNom(i))
+			--fluxus:push("J'ai n'ai pas le "..tarot.utile.getNom(i))
 		end
 	end]]
 	
-		--fluxus:push("Je fais mon écart")
+		----fluxus:push("Je fais mon écart")
 		--local cand = tarot.main:pop(1,#tarot.main)
-		--fluxus:push("Candidat "..cand)
-		--fluxus:push("soit "..tarot.utile.getNom(cand))
+		----fluxus:push("Candidat "..cand)
+		----fluxus:push("soit "..tarot.utile.getNom(cand))
 		--[[if tarot.utile.getValeur(cand)<11 then
-			--fluxus:push("Je veux ecarter le "..tarot.utile.getNom(cand))
+			----fluxus:push("Je veux ecarter le "..tarot.utile.getNom(cand))
 			if maMain[cand] then
 				ecart:push(cand)
 				CR = CR - 1
-				--fluxus:push(tarot.utile.getNom(cand).." est bon pour l'ecart")
+				----fluxus:push(tarot.utile.getNom(cand).." est bon pour l'ecart")
 			end
 		end]]
 		
@@ -445,7 +498,7 @@ function tarot.demander.ecart()
 		end
 	end
 
-	fluxus:push("classement des couleur"..minc1..minc2..max2..max1)
+	--fluxus:push("classement des couleur"..minc1..minc2..max2..max1)
 	
 	minc1 = (minc1 - 1)*14
 	minc2 = (minc2 - 1)*14
@@ -457,12 +510,12 @@ function tarot.demander.ecart()
 	minc[3] = max2
 	minc[4] = max1
 	
-	fluxus:push("classement des couleur"..minc[1]..minc[2]..minc[3]..minc[4])
+	--fluxus:push("classement des couleur"..minc[1]..minc[2]..minc[3]..minc[4])
 ]]
 	
 	minc1 = (minc1 - 1)*14
 	minc2 = (minc2 - 1)*14
-	fluxus:push("Numero de la couleur que j'ai le moins"..(minc1))
+	--fluxus:push("Numero de la couleur que j'ai le moins"..(minc1))
 	local Brq
 	if maMain[minc1+13+21] and maMain[minc1+14+21] then
 	Brq = true
@@ -470,7 +523,7 @@ function tarot.demander.ecart()
 	Brq = false
 		for j=1,13 do
 			if maMain[minc1+j+21] and CR~=0 then
-				fluxus:push("Je mets "..(minc1+j+21).." à l'écart")
+				--fluxus:push("Je mets "..(minc1+j+21).." à l'écart")
 				ecart:push(minc1+j+21)
 				CR = CR - 1
 				maMain[minc1+j+21] = false
@@ -481,7 +534,7 @@ function tarot.demander.ecart()
 	if Brq or nbrAtout > (22/nbrJoueur) then
 		for j=1,13 do
 			if maMain[minc2+j+21] and CR~=0 then
-				fluxus:push("Je mets "..(minc2+j+21).." à l'écart")
+				--fluxus:push("Je mets "..(minc2+j+21).." à l'écart")
 				ecart:push(minc2+j+21)
 				CR = CR - 1
 				maMain[minc2+j+21] = false
@@ -507,9 +560,9 @@ function tarot.demander.ecart()
 		local rand = math.random(0,3)
 		local l = rand*14
 		for j=1,13 do
-			--fluxus:push("Je vais jeter des cartes de couleur "..l)
+			----fluxus:push("Je vais jeter des cartes de couleur "..l)
 			if maMain[l+j+21] and CR~=0 then
-				fluxus:push("Je mets "..(l+j+21).." à l'écart")
+				--fluxus:push("Je mets "..(l+j+21).." à l'écart")
 				ecart:push(l+j+21)
 				CR = CR - 1
 				maMain[l+j+21] = false
@@ -519,63 +572,138 @@ function tarot.demander.ecart()
 	return ecart
 end
 
+monIA = {}
+
 function tarot.demander.carte()
-	table.sort(tarot.legal)
-	local pos = #tarot.pli%4
-	
-	for i,v in ipairs(tarot.main) do
-		print("Flolilol"..v)
+	if #tarot.main == 18 then -- Premier pli
+		--fluxus:push("C'est le premier pli")
+		monIA.couleurJouee = {}
+		monIA.couleurJouee.pique = false
+		monIA.couleurJouee.coeur = false
+		monIA.couleurJouee.trefle = false
+		monIA.couleurJouee.carreau = false
+		monIA.petitTombe = false
+		monIA.cartesJouees = {}
+		for i=0,77 do
+			monIA.cartesJouees[i]=-1 -- -1 pas joué, 0-3 joué par joueur en question
+		end
 	end
+	-- Randomiser l'ordre des couleurs, parce que je peux
+	local col = {"pique", "coeur", "trefle", "carreau"}
+	local rcol = {}
+	while #col>0 do
+		local i = math.random(1,#col)
+		table.insert(rcol, col[i])
+		table.remove(col, i)
+	end
+
+	-- Identifier le nombre de cartes à chaque couleur
+	monIA.cartesACouleur = {}
+	monIA.cartesACouleur.atout = tarot.utile.cartesACouleur(tarot.main, "atout")
+	monIA.cartesACouleur.pique = tarot.utile.cartesACouleur(tarot.main, "pique")
+	monIA.cartesACouleur.coeur = tarot.utile.cartesACouleur(tarot.main, "coeur")
+	monIA.cartesACouleur.trefle = tarot.utile.cartesACouleur(tarot.main, "trefle")
+	monIA.cartesACouleur.carreau = tarot.utile.cartesACouleur(tarot.main, "carreau")
+
+	table.sort(tarot.legal)
+		
+	--for i,v in ipairs(tarot.main) do
+	--	--fluxus:push(v)
+	--end
 	-- Avant dernier tour et j'ai toujours l'excuse, je le BALANCE
-	fluxus:push("J'ai "..#tarot.main.." cartes dans la main, dont "..#tarot.legal.." légales")
-	--fluxus:push("Il reste "..#tarot.main.." cartes dans ma main")
+	--fluxus:push("J'ai "..#tarot.main.." cartes dans la main, dont "..#tarot.legal.." légales")
+	----fluxus:push("Il reste "..#tarot.main.." cartes dans ma main")
 	if #tarot.main == 2 and tarot.utile.possede(tarot.legal, 0) then
-		fluxus:push("Je balance l'excuse!")
+		--fluxus:push("Je balance l'excuse!")
 		return 0
 	end
-	-- J'ouvre le pli
-	if pos == 0 then
-		fluxus:push("Je joue la derniere carte légale (parce que je peux)")
-		return tarot.legal[#tarot.legal]
+	-- J'ouvre le pli, si preneur = 0 ou 3, ne PAS faire d'ouverture, si preneur = 1 FAIRE des ouvertures
+	if tarot.entame == 0 then
+		--fluxus:push("Ma pos est 0")
+		-- Ouverture de couleur
+		if tarot.preneur == 1 then
+			--fluxus:push("Je suis avant le preneur")
+			-- Tenter une ouverture
+			for i = 1,4 do
+				if not monIA.couleurJouee[rcol[i]] then
+					--fluxus:push("On n'a pas joué"..rcol[i])
+					--fluxus:push(monIA.cartesACouleur[rcol[i]])
+					if monIA.cartesACouleur[rcol[i]]>0 then
+						--fluxus:push("Je fais une ouverture à "..rcol[i])
+						cand = tarot.utile.plusPetitACouleur(tarot.main, rcol[i])
+						if tarot.utile.getValeur(cand)<11 then
+							return tarot.utile.plusPetitACouleur(tarot.main, rcol[i])
+						end
+					end
+					--fluxus:push("Do I even get here?")
+				end
+			end
+			--fluxus:push("Je joue nawak")
+			for i = 1,4 do
+				if tarot.utile.plusPetitACouleur(tarot.main, rcol[i]) then
+					--fluxus:push("Je joue une carte à "..rcol[i])
+					return tarot.utile.plusPetitACouleur(tarot.main, rcol[i])
+				end
+			end
+			--fluxus:push("Je joue une carte légale")
+			return tarot.legal[math.random(1,#tarot.main)]
+
+		-- En face du preneur
+		elseif tarot.preneur == 2 then
+			--fluxus:push("Je suis en face du preneur")
+
+		-- Si je DOIS ouvrir, je fais attention
+		elseif tarot.preneur == 3 then
+			--fluxus:push("Je suis après le preneur")
+
+		-- Je suis le preneur, si je DOIS ouvrir, je le fais à un roi qui est fort
+		else
+			--fluxus:push("Je suis le preneur")
+		end
+		--fluxus:push("Bleaaargh!")
+		carte = tarot.legal[math.random(1,#tarot.legal)]
+		--fluxus:push(carte)
+		return carte
 	end
 
 	-- Quelqu'un joue après moi
-	if pos == 1 or pos == 2 then
-
+	if tarot.entame == 3 or tarot.entame == 2 then
+		--fluxus:push("Ma pos est"..tarot.entame)
 
 		-- Jeter une merde mais pas l'excuse
 		if tarot.utile.possede(tarot.legal, 0) then
-			fluxus:push("J'ai l'excuse, je joue une merde")
+			--fluxus:push("J'ai l'excuse, je joue une merde")
 			return tarot.legal[2]
 		else
-			fluxus:push("Je joue une merde")
+			--fluxus:push("Je joue une merde")
 			return tarot.legal[1]
 		end
 	end
 
 	-- Je termine ce pli, faudrait que je place des points s'ils passent, ou que je tente de remporter le pli si il y a des points dedans et que c'est pas ma team qui a la main, ou que ma team a la main, mais c'est mieux si j'ai la main. Sinon, je tej' de la merde
-	if pos == 3 then
+	if tarot.entame == 1 then
+		--fluxus:push("Ma pos est 1")
 		-- Si je peux sauver mon petit, je le sauve
 		if tarot.utile.possede(tarot.legal, 1) and not tarot.utile.possede(tarot.pli, 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21) then
-			fluxus:push("Je sauve le petit")
+			--fluxus:push("Je sauve le petit")
 			return 1
 		end
 
 		-- Jeter une merde mais pas l'excuse ni le petit
 		local d = 1
 		if tarot.utile.possede(tarot.legal, 1) then
-			fluxus:push("J'ai le petit")
+			--fluxus:push("J'ai le petit")
 			d = d+1
 		end
 		if tarot.utile.possede(tarot.legal, 0) then
-			fluxus:push("J'ai l'excuse")
+			--fluxus:push("J'ai l'excuse")
 			d = d+1
 		end
-		fluxus:push("Je joue ma plus petite carte légale")
+		--fluxus:push("Je joue ma plus petite carte légale")
 		return tarot.legal[d] or tarot.legal[1]
 	end
 
-	fluxus:push("Euh... il y a "..#tarot.pli.." cartes dans le pli")
+	--fluxus:push("Euh... il y a "..#tarot.pli.." cartes dans le pli")
 	return tarot.legal[#tarot.legal]
 
 	-- Comportements "spéciaux"
