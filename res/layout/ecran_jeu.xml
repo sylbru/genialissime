@@ -345,8 +345,7 @@
     	    android:id="@+id/carteS"
     	    android:layout_width="80dp"
     	    android:layout_height="120dp"
-    	    android:layout_gravity="center|bottom"
-    	    android:src="@drawable/border" />
+    	    android:layout_gravity="center|bottom" />
 
     	<ImageView
     	    android:id="@+id/carteO"
@@ -354,8 +353,7 @@
     	    android:layout_height="120dp"
     	    android:layout_centerInParent="true"
     	    android:layout_gravity="center"
-    	    android:layout_marginLeft="-30dp"
-    	    android:src="@drawable/border" />
+    	    android:layout_marginLeft="-30dp" />
     	
     	<ImageView
     	    android:id="@+id/carteE"
@@ -363,16 +361,14 @@
     	    android:layout_height="120dp"
     	    android:layout_centerInParent="true"
     	    android:layout_gravity="center"
-    	    android:layout_marginRight="-30dp"
-    	    android:src="@drawable/border" />
+    	    android:layout_marginRight="-30dp" />
     	
     	<ImageView
     	    android:id="@+id/carteN"
     	    android:layout_width="80dp"
     	    android:layout_height="120dp"
     	    android:layout_centerInParent="true"
-    	    android:layout_gravity="center|top"
-    	    android:src="@drawable/border" />
+    	    android:layout_gravity="center|top" />
     	
     </FrameLayout>
  </RelativeLayout>
