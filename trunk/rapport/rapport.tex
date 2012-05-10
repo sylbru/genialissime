@@ -102,8 +102,8 @@ Thill Fabrice}
 	\section{Jeu de la carte}
 		Le premier joueur, celui qui doit entamer, est celui à avoir reçu les premières cartes lors de la distribution.
 Il doit jouer une de ses cartes, celle-ci va déterminer ce que les autres joueurs doivent jouées.\\
-Si cette carte est un atout les joueurs doivent posé un atout, l’atout doit être supérieur à l’atout le plus fort jouer dans ce tour, si le joueur ne possède pas d’atout supérieur il doit quand même jouer un de ses atouts. S’il n’a pas d’atout alors il peut jouer n’importe quelle carte.\\
-Si une couleur est jouer c’est la couleur demande. Les joueurs doivent donc jouer une cartes de la couleur demander. Si ils n’ont plus de cartes de la couleur demander ils doivent “couper”. Ce terme signifie que le joueur doit posé de l’atout, cet atout doit être supérieur aux atouts déjà présent si d’autres joueurs ont déjà couper dans le tour. Si le joueur n’as plus d’atout il peut jouer n’importe quel carte.\\
+Si cette carte est un atout les joueurs doivent poser un atout, l’atout doit être supérieur à l’atout le plus fort joué dans ce tour, si le joueur ne possède pas d’atout supérieur il doit quand même jouer un de ses atouts. S’il n’a pas d’atout alors il peut jouer n’importe quelle carte.\\
+Si une couleur est jouée c’est la couleur demandée. Les joueurs doivent donc jouer une carte de la couleur demandée. S'ils n’ont plus de carte de la couleur demandée ils doivent “couper”. Ce terme signifie que le joueur doit poser de l’atout, cet atout doit être supérieur aux atouts déjà présents si d’autres joueurs ont déjà coupé dans le tour. Si le joueur n’a plus d’atout il peut jouer n’importe quelle carte.\\
 		Exemple d'un pli:
 			\begin{center}
 				\includegraphics[scale=0.15]{Images/2.jpg}
@@ -113,7 +113,7 @@ Si une couleur est jouer c’est la couleur demande. Les joueurs doivent donc jo
 	\section{Les scores}
 		
 		Les scores se calculent de la manière différente suivant les préférences des joueurs.\\
-		Il y a deux grande manières de compter les points qui se démarquent. Une qui est devenue officielle et une qui est restée grandement utilisée.\\
+		Il y a deux grandes manières de compter les points qui se démarquent. Une qui est devenue officielle et une qui est restée grandement utilisée.\\
 		\\ 
 		Il faut savoir que seul le nombre de bouts détermine le nombre de points à réaliser pour remplir le contrat.\\
 		En effet à la fin d’une donne on voit combien de bouts a le preneur, et le nombre de points qu’il doit faire pour réussir suit les règles suivantes :\\
@@ -195,7 +195,7 @@ Si une couleur est jouer c’est la couleur demande. Les joueurs doivent donc jo
 				La façon de compter les points de la FFT permet de plus tenir compte des points faits par le preneur mais elle est un peu plus compliquée à calculer.\\
 				Tandis que celle utilisée par beaucoup de gens est bien plus simple à calculer.\\
 				La version officieuse du calcul des scores permet de faire rapidement les calculs des scores de tête, et évite les confusions lors de l’ajout aux scores précédents.\\
-				En effet dans une partie de tarot on fait généralement plusieurs donnes, chaque score est ajouté aux précédents pour savoir à la fin d’un partie qui a gagné. (Celui 					qui gagne n’est donc pas forcément celui qui a remporté le plus de donnes.)\\
+				En effet dans une partie de tarot on fait généralement plusieurs donnes, chaque score est ajouté aux précédents pour savoir à la fin d’une partie qui a gagné. (Celui 					qui gagne n’est donc pas forcément celui qui a remporté le plus de donnes.)\\
 
 
 
@@ -313,13 +313,13 @@ Si une couleur est jouer c’est la couleur demande. Les joueurs doivent donc jo
 			\subsubsection{Les éléments d’une application}
 				Une application Android est composée des éléments suivants:\\
 				\begin{itemize}
-					\item des activités (android.app.Activity): il s'agit d'une partie de l'application présentant une vue à l'utilisateur
-					\item des services (android.app.Service): il s'agit d'une activité tâche de fondsans vue associée
+					\item des activités (android.app.Activity) : il s'agit d'une partie de l'application présentant une vue à l'utilisateur
+					\item des services (android.app.Service) : il s'agit d'une activité tâche de fond sans vue associée
 					\item des fournisseurs de contenus (android.content.ContentProvider): permet le partage d'informations au sein ou entre applications
-					\item des widgets (android.appwidget.*): une vue accrochée au Bureau d'Android
-					\item des Intents (android.content.Intent): permet d'envoyer un message pour un composant externe sans le nommer explicitement
-					\item des récepteurs d'Intents (android.content.BroadcastReceiver): permet de déclarer être capable de répondre à des Intents
-					\item des notifications (android.app.Notifications): permet de notifier l'utilisateur de la survenue d'événements
+					\item des widgets (android.appwidget.*) : une vue accrochée au Bureau d'Android
+					\item des Intents (android.content.Intent) : permet d'envoyer un message pour un composant externe sans le nommer explicitement
+					\item des récepteurs d'Intents (android.content.BroadcastReceiver) : permet de déclarer être capable de répondre à des Intents
+					\item des notifications (android.app.Notifications) : permet de notifier l'utilisateur de la survenue d'événements
 				\end{itemize}
 			
 			\subsubsection{Le manifest}
@@ -504,7 +504,7 @@ Si une couleur est jouer c’est la couleur demande. Les joueurs doivent donc jo
 			</LinearLayout>
 			\end{verbatim}
 			\begin{itemize}
-				\item android :orientation: définit l'orientation
+				\item android :orientation : définit l'orientation
 	  			\item android:gravity : définit l'alignement des éléments
 				\item android:layout\_width="fill\_parent" : l'élément remplit tout l'élément parent
 			\end{itemize}
@@ -764,23 +764,23 @@ Si une couleur est jouer c’est la couleur demande. Les joueurs doivent donc jo
 					\includegraphics[scale=0.9]{Images/rep.png}
 				\end{center}
 				Les joueurs n’ont aucune influence sur la distribution, mais les cartes sont tout de même distribuées à partir d’une position et le premier à commencer l’annonce sera un 					joueur ayant une position adjacente.
-				Nous avons fait le choix d’automatiser la distribution car la distribution d’un grand nombre de carte sur un petit écran peut rapidement devenir très frustrant et 					n’apporte rien au jeu de tarot. Une fois les mains et le chien faits on les donnent au joueurs et on passe à la phase d’annonce
+				Nous avons fait le choix d’automatiser la distribution car la distribution d’un grand nombre de cartes sur un petit écran peut rapidement devenir très frustrant et 					n’apporte rien au jeu de tarot. Une fois les mains et le chien faits, on les donnent au joueurs et on passe à la phase d’annonces.
 
 
 		\subsection{Communications et généricité : le Croupier}
-			Le moteur de jeu communique avec le joueur grâce à la classe ;Croupier, qui se charge de la communication. De cette façon un jeu de tarot peut être lancé avec des types de 				joueurs différents et il est facile car on a pu implémenter le joueurs de façon complètement indépendante au moteur de jeu. Le premier type de joueurs que nous avons développé 			est une classe joueur texte. Celle ci nous permettait de faire de test du moteur avec une entrée clavier et une sortie écran.
-			Ensuite on a le joueurGraphique qui permet d'offrir une interface graphique a une personne sur Android et le joueur IA qui est une intelligence artificielle qui joue au tarot.
+			Le moteur de jeu communique avec le joueur grâce à la classe ;Croupier, qui se charge de la communication. De cette façon un jeu de tarot peut être lancé avec des types de 				joueurs différents et il est facile car on a pu implémenter le joueur de façon complètement indépendante au moteur de jeu. Le premier type de joueur que nous avons développé 			est une classe JoueurTexte. Celle-ci nous permettait de faire le test du moteur avec une entrée clavier et une sortie écran.
+			Ensuite on a le joueur graphique qui permet d'offrir une interface graphique à une personne sur Android et le joueur IA qui est une intelligence artificielle qui joue au tarot.
 				\begin{center}
 					\includegraphics[scale=0.7]{Images/croupier.png}
 				\end{center}
-			Le développement du moteur même c'est fait de façon assez intuitive. Comme on peut le voir sur le flowchart, une fois une partie lancée, on entre dans une boucle, a l'intérieur 				de laquelle on retrouve une fonction qui se charge de la distribution de cartes, suivi d'une phase d'annonce, une phase de jeu et une phase de de score.
-			La phase annonce se charge de gérer les annonces. Nous avons fait le choix de traiter la passe comme une annonce de plus bas niveau. La phase annonce s’assure que toute annonce 				faite est légale c'est-à-dire que toute nouvelle annonce est plus forte que les annonces précédentes, la seule exception étant la passe.
-			Une fois que tout le monde a fait son annonce et que personne ne surenchérit, celui qui a l'annonce la plus forte devient preneur. Si il a fait une annonce plus faible ou égale a 				la garde, il doit faire son écart, c’est à dire que les cartes posées au chien lors de la distribution sont rajoutés à la main, puis le joueur doit choisir le même nombre de 				cartes à reposer pour que sa main ait la même taille que les autres joueurs.
+			Le développement du moteur même s'est fait de façon assez intuitive. Comme on peut le voir sur le flowchart, une fois une partie lancée, on entre dans une boucle, a l'intérieur 				de laquelle on retrouve une fonction qui se charge de la distribution de cartes, suivi d'une phase d'annonces, une phase de jeu et une phase de score.
+			La phase annonce se charge de gérer les annonces. Nous avons fait le choix de traiter la passe comme une annonce de plus bas niveau. La phase annonce s’assure que toute annonce 				faite est légale c'est-à-dire que toute nouvelle annonce est plus forte que les annonces précédentes, la seule exception étant l'annonce passe.
+			Une fois que tout le monde a fait son annonce et que personne ne surenchérit, celui qui a l'annonce la plus forte devient preneur. S'il a fait une annonce plus faible ou égale à 				la garde, il doit faire son écart, c’est à dire que les cartes posées au chien lors de la distribution sont rajoutées à la main, puis le joueur doit choisir le même nombre de 				cartes à reposer pour que sa main ait la même taille que les autres joueurs.
 			Le contrôleur n’accepte que des écarts corrects et refuse tous les autres. Si le joueur essaye de faire un écart incorrect, il lui est redemandé de faire un écart.
 			Ensuite commence le jeu de la carte. Chaque joueur se voit demander une carte à jouer, qui est contrôlée, puis on détermine qui a gagné le pli. Si le preneur a remporté le pli, les 				cartes sont placées dans son tas, sinon elles sont placées dans le tas de la défense. Si un joueur essaye de jouer une carte qu’il ne possède pas ou qui est illégale elle est 				refusée et il doit jouer une autre carte.
 			Le dernier pli est traité de façon différente que les autres, à cause du comportement particulier de cartes comme l’excuse ou le petit s'ils sont jouées dans le dernier 			pli. En effet jouer le petit au dernier pli peut remporter des points supplémentaire au joueur pour récompenser le risque. L’excuse jouée au dernier pli revient au camp adverse.
 
-			Le choix de ne pas autoriser des cartes illégales a été motivé par le fait que la triche n’est pas un apport au jeu et est toujours remarquée. En effet pour faire des choix 				intelligents au tarot on est oblige de retenir les cartes posées par les joueurs opposants, et donc si quelqu’un essaye de tricher pour remporter un pli valant beaucoup de 				point, quelqu’un le remarquera quelques plis plus tard. Malheureusement la seule solution contre la triche est l’annulation de la partie qui n’est plaisante pour aucun des 				participants.
+			Le choix de ne pas autoriser des cartes illégales a été motivé par le fait que la triche n’est pas un apport au jeu et est toujours remarquée. En effet pour faire des choix 				intelligents au tarot on est obligé de retenir les cartes posées par les joueurs opposants, et donc si quelqu’un essaye de tricher pour remporter un pli valant beaucoup de 				points, quelqu’un le remarquera quelques plis plus tard. Malheureusement la seule solution contre la triche est l’annulation de la partie qui n’est plaisante pour aucun des 				participants.
 
 			Une fois toutes les cartes jouées, les scores sont calculés et affichés et la boucle recommence si les conditions d'arrêt ne sont pas encore vérifiés.
 	\section{Intelligence artificielle}
