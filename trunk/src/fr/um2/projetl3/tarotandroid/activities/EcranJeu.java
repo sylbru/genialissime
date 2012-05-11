@@ -1,35 +1,26 @@
 package fr.um2.projetl3.tarotandroid.activities;
 
-import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
 import static fr.um2.projetl3.tarotandroid.activities.Contexts.*;
+import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
 
 import java.util.Arrays;
 import java.util.Vector;
 
-import android.R.color;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.AvoidXfermode.Mode;
-import android.graphics.ColorFilter;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.preference.PreferenceManager;
-import android.text.Html.TagHandler;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ScrollView;
@@ -90,20 +81,19 @@ public class EcranJeu extends Activity
 	public void afficherMain(final Vector<Carte> main)
 	{
 		final Animation avancer = AnimationUtils.loadAnimation(this, R.anim.avancercarte);
-		//final Vector<Carte> cartesLegales = P.donne().indiquerCartesLegalesJoueur();
+
 		runOnUiThread(new Runnable()
 		{
 			public void run()
 			{
 				for(int i = 0; (i < 26); ++i)
 				{
-					//System.out.println("i : " + i);
+					// System.out.println("i : " + i);
 					int imageViewId = 0;
 					final Carte card = (i >= main.size()) ? null : main.get(i);
 					String imageViewIdName = "imageCarte"+Integer.toString(i);
 					//Carte cardL = (i >= cartesLegales.size()) ? null : main.get(i);
 					//System.out.println(cardL + "est une carte legale!");
-			
 					try {
 						imageViewId = R.id.class.getDeclaredField(imageViewIdName).getInt(null);
 						//System.out.println("id = " + imageViewId);
@@ -183,7 +173,7 @@ public class EcranJeu extends Activity
 					String imageViewIdName = "imageCarte"+Integer.toString(i);
 					//Carte cardL = (i >= cartesLegales.size()) ? null : main.get(i);
 					//System.out.println(cardL + "est une carte legale!");
-			
+					
 					try {
 						imageViewId = R.id.class.getDeclaredField(imageViewIdName).getInt(null);
 						//System.out.println("id = " + imageViewId);
@@ -367,7 +357,7 @@ public class EcranJeu extends Activity
 			}
 		});*/
 		final Button bValideEcart = new Button(this);
-		bValideEcart.setText("Valider");
+		bValideEcart.setText("Valider l’écart");
 		bValideEcart.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View v)
@@ -538,6 +528,7 @@ public class EcranJeu extends Activity
 	
 	public void direMain(Vector<Carte> main)
 	{
+		afficherMain(P.donne().indiquerCartesLegalesJoueur());
 		/* *
 		String texteMain = "Main : ";
 		for(Carte c: main)
@@ -634,16 +625,126 @@ public class EcranJeu extends Activity
 				}
 	
 				ImageView imageView = (ImageView) findViewById(imageViewId);
-				
+				// System.out.println("Affichage de la carte "+c+" en "+imageViewId);
+				imageView.setVisibility(View.VISIBLE);
+				rl.bringChildToFront(imageView);
 				try {
 					imageView.setImageDrawable((new CarteGraphique(c.uid())).mImageView.getDrawable());
 				} catch (CarteUIDInvalideException e) {
 					e.printStackTrace();
 				}
-				rl.bringChildToFront(imageView);
 			}
 		});
         							
+	}
+	
+	public boolean attendrePli;
+	public void direPliRemporté(Vector<Carte> pli, int joueur)
+	{
+		attendrePli = true;
+		(new Thread()
+		{
+			public void run()
+			{
+				try
+				{
+					sleep(1000);
+					attendrePli = false;
+				} catch (InterruptedException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).run();
+		
+		while(attendrePli)
+		{}
+		
+		runOnUiThread(new Runnable()
+		{
+			public void run()
+			{
+				ImageView carteS = (ImageView) findViewById(R.id.carteS);
+				ImageView carteO = (ImageView) findViewById(R.id.carteO);
+				ImageView carteN = (ImageView) findViewById(R.id.carteN);
+				ImageView carteE = (ImageView) findViewById(R.id.carteE);
+				
+				carteS.setVisibility(View.GONE);
+				carteO.setVisibility(View.GONE);
+				carteN.setVisibility(View.GONE);
+				carteE.setVisibility(View.GONE);	
+			}
+		});
+	}
+	
+	public boolean okChien;
+	public Button bOKChien;
+	public void direChien(final Vector<Carte> chien)
+	{
+		okChien = false;
+		runOnUiThread(new Runnable()
+		{
+			public void run()
+			{
+				LinearLayout ll = (LinearLayout) findViewById(R.id.zoneChien);
+				ll.setVisibility(View.VISIBLE);
+				for(int i=0; i<6; i++)
+				{
+					int imageViewId = 0;
+					String imageViewIdName = "chien"+Integer.toString(i);
+					try {
+						imageViewId = R.id.class.getDeclaredField(imageViewIdName).getInt(null);
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (SecurityException e) {
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					} catch (NoSuchFieldException e) {
+						e.printStackTrace();
+					}
+			
+					final ImageView imageView = (ImageView) findViewById(imageViewId);
+					try
+					{
+						imageView.setImageDrawable((new CarteGraphique(chien.get(i).uid())).mImageView.getDrawable());
+					} catch (CarteUIDInvalideException e)
+					{
+						e.printStackTrace();
+					}
+				}
+				
+				bOKChien = new Button(applicationContext);
+				bOKChien.setText("OK");
+				bOKChien.setOnClickListener(new View.OnClickListener()
+				{
+					public void onClick(View v)
+					{
+						okChien = true;
+					}
+				});
+			
+				final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				lp.addRule(RelativeLayout.BELOW, R.id.zoneChien);
+				lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+				rl.addView(bOKChien, lp);
+			}
+		});
+		
+		while(!okChien)
+		{}
+		
+		runOnUiThread(new Runnable()
+		{
+			public void run()
+			{
+				rl.removeView(bOKChien);
+				LinearLayout ll = (LinearLayout) findViewById(R.id.zoneChien);
+				ll.setVisibility(View.GONE);
+			}
+		});
+		
 	}
 	
 	Handler hh = new Handler();
@@ -670,6 +771,11 @@ public class EcranJeu extends Activity
 	
 	public void log(String s)
 	{
+		log(s, false);
+	}
+	
+	public void log(String s, final boolean important)
+	{
 		//System.out.println("Log : "+s);
 		final String msg = s;
 		runOnUiThread(new Runnable()
@@ -677,7 +783,10 @@ public class EcranJeu extends Activity
 			public void run()
 			{
 				Log.d("Genialissime","Log : "+msg);
-				logT.append((CharSequence)"\n"+msg);
+				if(important)
+				{
+					logT.append((CharSequence)"\n"+msg);
+				}
 				logSV.fullScroll(ScrollView.FOCUS_DOWN);
 				
 			}

@@ -360,36 +360,19 @@ public class Partie extends Thread
 	 * --------------------------------------------------------------------------------------------------
 	 */
 	
-	// niavlys : remis en public parce qu’il y a bien besoin de lancer la partie depuis l’interface graphique
 	public void lancerPartie(boolean pref) //ajout d'un parametre pour savoir si on lance le jeu en prenant encompte les preferences ou non
 	{
 		if(pref)
 		{
 			PrefsRegles.preferencesActives();// methode de Prefs.Regles permettant ainsi d'activer les préférences
 		}
-		System.out.println("> Manière de compter : "+PrefsRegles.ManiereDeCompter);
+		// System.out.println("> Manière de compter : "+PrefsRegles.ManiereDeCompter);
 		initialisationPartie();
 		
 		while(!partieFinie())
 		{
 			donne = new Donne();
 			D = donne;
-			/*
-			 * Je vois plutôt toute la partie suivante dans Donne pourquoi :
-			 * toutes les phases suivant sont des parties integrantes d'une donne et non d'une partie entiere
-			 * logiquement on as une partie qui contient X donne et une donne peut ou peut ne pas être jouer
-			 * 
-			 *   Alors ? quelqu'un en pense quelque chose ?
-			 *   
-			 *   non je pense que c'est meiu de le laisser là pourqui :
-			 *   dans l while(!partieFinie)
-			 *   	on à les phase d'une donne répéter tant que la partie n'est pas finie
-			 * 
-			 * 	faudrait arreter de mettre des choses dans donne sinon on va se retrouver avec 1K de ligen de code et se sera un peu la erde pour si retrouver
-			 *  dans partie il n'y apas tant de ligne que ça et ça ne dérage pas.
-			 *  
-			 *  c'est plus d'un point de vue pratique que je préfére que ça reste ici
-			 */
 			donne.distribution();
 			Annonces.phaseAnnonce(); // à voir (il faudrait que ce soit lié à donneEnCours d’une manière ou d’une autre)
 			if (bavard) System.out.println(donne.getContratEnCours());

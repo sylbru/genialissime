@@ -26,19 +26,9 @@ public class Accueil extends Activity
 	 * Les 3 boutons instanciés dans Accueil.xml 
 	 */
 	Button boutonCommencer;
-	Button boutonReprendre;
-	Button boutonTest;
 	Button boutonOptions;
-	
-    private void setLayout(int orientation) {
- 
-    	final int res = (orientation == Configuration.ORIENTATION_LANDSCAPE ? 
-    	    	    	     R.layout.accueil_horizontal : 
-    	    	    	     R.layout.accueil_vertical);
- 
-    	setContentView(res);
-    }
-	
+	Button boutonTest;
+		
     /**
      * Affichage des 3 boutons ainsi que les écouteurs
      * @see SplashScreen.java
@@ -49,34 +39,17 @@ public class Accueil extends Activity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.accueil);
-        setLayout(getResources().getConfiguration().orientation);
+        setContentView(R.layout.accueil_horizontal);
         applicationContext = getApplicationContext();
         
         boutonCommencer = (Button) findViewById(R.id.boutonCommencer);
-        boutonReprendre = (Button) findViewById(R.id.boutonReprendre);
-        boutonTest = (Button) findViewById(R.id.boutonTest);
         boutonOptions = (Button) findViewById(R.id.butOptions);
+        boutonTest = (Button) findViewById(R.id.boutonTest);
         
         boutonCommencer.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
     			Intent Intent = new Intent(getApplicationContext(), EcranJeu.class);
     			startActivity(Intent);
-        	}
-        });
- 
-        boutonReprendre.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		Toast.makeText(getBaseContext(),
-        				"Vous allez reprendre la partie sauvegardée !",Toast.LENGTH_SHORT).show();
-        	}
-        });
- 
-        boutonTest.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		Toast.makeText(getBaseContext(),
-        				"Heu...",Toast.LENGTH_SHORT).show();
-        		startActivity(new Intent(getApplicationContext(), TestKevinActivity.class));
         	}
         });
         
@@ -88,6 +61,11 @@ public class Accueil extends Activity
 			}
 		});
         
+        boutonTest.setOnClickListener(new View.OnClickListener() {
+        	public void onClick(View v) {
+        		startActivity(new Intent(getApplicationContext(), TestKevinActivity.class));
+        	}
+        });
     }
     
 	@Override
@@ -111,11 +89,5 @@ public class Accueil extends Activity
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {        
-        super.onConfigurationChanged(newConfig);
- 
-        setLayout(newConfig.orientation);
-    }
+
 }
