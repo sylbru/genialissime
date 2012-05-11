@@ -485,7 +485,7 @@ function tarot.demander.ecart()
 		end
 	end
 	
-	
+--[[
 	for i=2,4 do
 		if nbrCarteParCouleur[i] > nbrCarteParCouleur[max1] then
 			max1 = i
@@ -513,7 +513,7 @@ function tarot.demander.ecart()
 	minc[4] = max1
 	
 	--fluxus:push("classement des couleur"..minc[1]..minc[2]..minc[3]..minc[4])
-]
+]]
 	
 	minc1 = (minc1 - 1)*14
 	minc2 = (minc2 - 1)*14
