@@ -458,4 +458,11 @@ public class JoueurIA implements IJoueur
 		return pNom;
 	}
 
+	@Override
+	public void direScore(Vector<Integer[]> scores)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
 }

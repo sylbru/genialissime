@@ -101,6 +101,21 @@ public class Croupier {
 		return carteProposee;
 	}
 	
+	/**
+	 * @author JB
+	 * 
+	 * Dit le chien à tout le monde 
+	 * inclure donner le chien au preneur ?
+	 * 
+	 */
+	public void direScoresJoueurs(Vector<Integer[]> scores)
+	{
+		for(IJoueur j: P.getJoueurs())
+		{
+			j.direScore(scores);
+		}
+	}
+	
 	public Croupier(){}
 
 }

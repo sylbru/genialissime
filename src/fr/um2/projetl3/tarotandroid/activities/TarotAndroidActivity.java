@@ -67,7 +67,7 @@ public class TarotAndroidActivity extends Activity
 			startActivity(myIntent);
 			
 			return true;
-		case R.id.dummy:
+		case R.id.quitter:
 			Toast.makeText(getApplicationContext(), "Texte bidon", 2).show();
 			return true;
 		default:

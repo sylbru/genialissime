@@ -498,11 +498,9 @@ public class Partie extends Thread
 
 	public static void main(String[] args)
 	{
-		P = new Partie();	
-		//P.lancerPartie4JoueursTexte();
+		P = new Partie();
 
 		//P.lancerPartie4JoueursTexte();
 		P.lancerPartie5JoueursTexte();
-	
 	}
 }

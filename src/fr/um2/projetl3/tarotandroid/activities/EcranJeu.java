@@ -1,6 +1,7 @@
 package fr.um2.projetl3.tarotandroid.activities;
 
-import static fr.um2.projetl3.tarotandroid.activities.Contexts.*;
+import static fr.um2.projetl3.tarotandroid.activities.Contexts.TAG;
+import static fr.um2.projetl3.tarotandroid.activities.Contexts.applicationContext;
 import static fr.um2.projetl3.tarotandroid.jeu.Context.P;
 
 import java.util.Arrays;
@@ -8,7 +9,9 @@ import java.util.Vector;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,8 +19,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,6 +48,7 @@ public class EcranJeu extends Activity
 	TextView logT;
 	ScrollView logSV;
 	RelativeLayout rl;
+	SharedPreferences sp;
 	
 
     public void onCreate(Bundle savedInstanceState) 
@@ -65,14 +67,19 @@ public class EcranJeu extends Activity
 		PrefsRegles.sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		P = new Partie();
 		moi = new JoueurGraphique("Moi", EcranJeu.this);
-		ia1 = new JoueurIA("IA1", 42, 500);
-		ia2 = new JoueurIA("IA2", 43, 500);
-		ia3 = new JoueurIA("IA3", 44, 500);
+		ia1 = new JoueurIA("IA1", 42, 00); // 500
+		ia2 = new JoueurIA("IA2", 43, 00);
+		ia3 = new JoueurIA("IA3", 44, 00);
 		P.setJoueur(0, moi);
 		P.setJoueur(1, ia1);
 		P.setJoueur(2, ia2);
 		P.setJoueur(3, ia3);
 		
+		premierPli = true;
+		sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		((TextView) findViewById(R.id.annonceO)).setText(sp.getString("AD1", "Ouest"));
+		((TextView) findViewById(R.id.annonceN)).setText(sp.getString("AD2", "Nord"));
+		((TextView) findViewById(R.id.annonceE)).setText(sp.getString("AD3", "Est"));
 		// P.start() permet de lancer le thread, fait appel à P.run(), lequel fait appel à P.lancerPartie()
 		P.start();
 	}
@@ -80,7 +87,7 @@ public class EcranJeu extends Activity
 	/**/
 	public void afficherMain(final Vector<Carte> main)
 	{
-		final Animation avancer = AnimationUtils.loadAnimation(this, R.anim.avancercarte);
+		// final Animation avancer = AnimationUtils.loadAnimation(this, R.anim.avancercarte);
 
 		runOnUiThread(new Runnable()
 		{
@@ -145,9 +152,12 @@ public class EcranJeu extends Activity
 								imageView.setClickable(true);
 								imageView.setOnClickListener(new OnClickListener(){
 						            public void onClick(View v) {
-										imageView.startAnimation(avancer);
+						            	if(resultatAnnonce != Contrat.AUCUN)
+						            	{
+										// imageView.startAnimation(avancer);
 										imageView.setVisibility(View.GONE);
 										resultatCarte = card;
+						            	}
 						            }
 						        });
 							}							
@@ -485,41 +495,12 @@ public class EcranJeu extends Activity
 	}
     public Carte demanderCarte()
 	{
-		resultatCarte = null;		
-		/*final Button bDemandeCarte = new Button(this);
-		bDemandeCarte.setText("Jouer une carte");
-		bDemandeCarte.setOnClickListener(new View.OnClickListener()
-		{
-			
-			public void onClick(View v)
-			{
-				afficherDemandeCarte();
-			}
-		});*/
-		/*final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		lp.addRule(RelativeLayout.ABOVE, R.id.horizontalScrollView1);
-		lp.addRule(RelativeLayout.CENTER_HORIZONTAL);*/
+		resultatCarte = null;
 		
 		afficherMain(P.donne().getMain().triMain());
-		/*runOnUiThread(new Runnable()
-		{
-			
-			public void run()
-			{
-				rl.addView(bDemandeCarte, lp);
-			}
-		});*/
-		
+
 		while(resultatCarte == null)
 		{} // On attend.
-		
-		/*runOnUiThread(new Runnable()
-		{
-			public void run()
-			{
-				rl.removeView(bDemandeCarte);
-			}
-		});*/
 		
 		System.out.println("On va retourner "+resultatCarte);
 		//afficherMain(P.donne().indiquerCartesLegalesJoueur());
@@ -529,15 +510,7 @@ public class EcranJeu extends Activity
 	public void direMain(Vector<Carte> main)
 	{
 		afficherMain(P.donne().indiquerCartesLegalesJoueur());
-		/* *
-		String texteMain = "Main : ";
-		for(Carte c: main)
-		{
-			texteMain += c.toStringShort() + ", ";
-		}
-		makeToast(texteMain);
-		log(texteMain); 
-		/**/
+
 		if (PrefsApplication.triDansAnnonce)
 		{
 			afficherMain(P.donne().getMain().triMain());
@@ -546,9 +519,6 @@ public class EcranJeu extends Activity
 		{
 			afficherMain(P.donne().indiquerCartesLegalesJoueur());
 		}
-		
-		
-		
 	}
 	
 	public void direAnnonce(final Contrat c, int j)
@@ -558,7 +528,8 @@ public class EcranJeu extends Activity
 		switch(j)
 		{
 		case 0:
-			tvAnnonce = (TextView) findViewById(R.id.annonceS);
+			tvAnnonce = null;
+			// tvAnnonce = (TextView) findViewById(R.id.annonceS);
 			break;
 		case 1:
 			tvAnnonce = (TextView) findViewById(R.id.annonceO);
@@ -581,18 +552,29 @@ public class EcranJeu extends Activity
 			{
 				public void run()
 				{
-					tvAnnonce.setText(c.toString());
+					if(tvAnnonce != null)
+					{
+						tvAnnonce.setText(c.toString());
+					}
 				}
 			});
 		}
 	}
 
+	public boolean premierPli;
 	public void direCarteJouee(final Carte c, final int j)
 	{
 		runOnUiThread(new Runnable()
 		{
 			public void run()
 			{
+				if(premierPli)
+				{
+					((TextView) findViewById(R.id.annonceO)).setText(sp.getString("AD1", "Ouest"));
+					((TextView) findViewById(R.id.annonceN)).setText(sp.getString("AD2", "Nord"));
+					((TextView) findViewById(R.id.annonceE)).setText(sp.getString("AD3", "Est"));
+					premierPli = false;
+				}
 				
 				String imageViewIdName = "carte";
 				int imageViewId = -1;
@@ -627,6 +609,7 @@ public class EcranJeu extends Activity
 				ImageView imageView = (ImageView) findViewById(imageViewId);
 				// System.out.println("Affichage de la carte "+c+" en "+imageViewId);
 				imageView.setVisibility(View.VISIBLE);
+				imageView.bringToFront();
 				rl.bringChildToFront(imageView);
 				try {
 					imageView.setImageDrawable((new CarteGraphique(c.uid())).mImageView.getDrawable());
@@ -745,6 +728,46 @@ public class EcranJeu extends Activity
 			}
 		});
 		
+	}
+	
+	public Dialog dialogScore;
+	
+	public void direScore(final Vector<Integer[]> scores)
+	{
+		runOnUiThread(new Runnable()
+		{
+			public void run()
+			{
+				dialogScore = new Dialog(EcranJeu.this);
+				dialogScore.setContentView(R.layout.scores_layout);
+				dialogScore.setTitle("Scores");
+				TextView tvScores = (TextView) dialogScore.findViewById(R.id.textScores);
+				
+				tvScores.append("Moi\t\t"+sp.getString("AD1", "Ouest")+"\t\t"+sp.getString("AD2", "Nord")+"\t\t"+sp.getString("AD3", "Est")+"\n");
+				for(Integer[] s: scores)
+				{
+					if(s != scores.firstElement())
+					{
+						for(int i=0; i<P.getNombreDeJoueurs(); i++)
+						{
+							tvScores.append(""+s[i]+"\t\t");
+						}
+						tvScores.append("\n");
+					}
+				}
+				
+				Button bFermerScores = (Button) dialogScore.findViewById(R.id.bFermerScores);
+				bFermerScores.setOnClickListener(new View.OnClickListener()
+				{
+					public void onClick(View v)
+					{
+						dialogScore.dismiss();
+					}
+				});
+				
+				dialogScore.show();
+			}
+		});
 	}
 	
 	Handler hh = new Handler();

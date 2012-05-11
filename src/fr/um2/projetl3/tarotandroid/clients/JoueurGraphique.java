@@ -127,8 +127,8 @@ public class JoueurGraphique implements IJoueur {
 		ecran.direMain(main);
 	}
 
-	public void direScore() {
-		//!ecran.direScore();
+	public void direScore(Vector<Integer[]> scores) {
+		ecran.direScore(scores);
 		// TODO Auto-generated method stub
 		
 	}

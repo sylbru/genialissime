@@ -117,6 +117,8 @@ public class Scores
 		
 		affiche();
 		
+		P.donne().getCroupier().direScoresJoueurs(scores);
+		
 	}
 	
 	public int meilleurScore()
