@@ -1,18 +1,15 @@
 package fr.um2.projetl3.tarotandroid.activities;
 
+import static fr.um2.projetl3.tarotandroid.activities.Contexts.*;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
 import fr.um2.projetl3.tarotandroid.R;
-import static fr.um2.projetl3.tarotandroid.activities.Contexts.applicationContext;
 
 /**
  * Seconde page appelée après la page de garde
@@ -84,6 +81,9 @@ public class Accueil extends Activity
 		case R.id.itemprefs:
 			Intent myIntent = new Intent(getApplicationContext(), PreferencesActivity.class);
 			startActivity(myIntent);
+			return true;
+		case R.id.quitter:
+			finish();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

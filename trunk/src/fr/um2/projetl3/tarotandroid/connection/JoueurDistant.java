@@ -123,5 +123,11 @@ public class JoueurDistant implements IJoueur{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void direScore(Vector<Integer[]> scores)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

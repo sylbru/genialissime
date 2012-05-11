@@ -827,6 +827,11 @@ public class Donne
 	public void setPreneur(int preneur) {
 		this.preneur = preneur;
 	}
+	
+	public Croupier getCroupier()
+	{
+		return croupier;
+	}
 
 	public Vector<Carte> getPlisPrecedent() {
 		return plisPrecedent;

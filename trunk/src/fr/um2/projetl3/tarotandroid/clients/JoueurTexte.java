@@ -348,5 +348,11 @@ public class JoueurTexte implements IJoueur
 		
 	}
 
+	public void direScore(Vector<Integer[]> scores)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

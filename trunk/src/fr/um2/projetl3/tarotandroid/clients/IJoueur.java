@@ -28,7 +28,7 @@ public interface IJoueur
 	void direAnnonce(Contrat c, int j);
 	void direPliRemporté(Vector<Carte> pli, int joueur);
 	void direMain(Vector<Carte> m);
-	void direScore();
+	void direScore(Vector<Integer[]> scores);
 	
 	/*
 	 * ------------------------------------------------------------------------------------------
