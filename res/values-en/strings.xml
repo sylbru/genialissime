@@ -2,7 +2,7 @@
 <resources>
     
 <!--  English version -->
-    <string name="app_name"> TarotAndroid </string>
+    <string name="app_name"> Genialissime Tarot </string>
     <string name="exit"> Exit </string>
     <string name="preferencesTitre"> Settings </string>
     <string name="itemprefs"> Settings </string>
@@ -20,65 +20,69 @@
     
     <!-- Ecran de jeu -->
     
-    <string name="bEcart"> Valider lécart </string>
-	<string name="bannoncer"> Annoncer </string>
+    <string name="bEcart"> Confirm Aside </string>
+	<string name="bannoncer"> Announce Bid </string>
 	
     <!-- Preference -->
     
-    <string name="prReg"> Préférences Règles</string>
-    	<string name="prRegSens"> Sens du Jeu</string>
+    <string name="prReg"> Rule preferences </string>
+    	<string name="prRegSens">Turn order</string>
+    		<string name="prRegSens1"> Counter-Clockwise </string>
+    		<string name="prRegSens2"> Clockwise </string>
     	
-    	<string name="prRegCo"> Contrat </string>
+    	<string name="prRegCo"> Contracts </string>
     		<string name="prRegCoParole"> Parole </string>
-    			<string name="prRegCoParoleO"> Le contrat Parole est autorisé </string>
-    			<string name="prRegCoParoleN"> Le contrat Parole nest pas autorisé </string>
-    		<string name="prRegCoPetite"> Petite </string>
-    			<string name="prRegCoPetiteO"> Le contrat Petite est autorisé </string>
-    			<string name="prRegCoPetiteN"> Le contrat Petite nest pas autorisé </string>
+    			<string name="prRegCoParoleO"> Parole authorised </string>
+    			<string name="prRegCoParoleN"> Parole forbidden </string>
+    		<string name="prRegCoPetite"> Petite  </string>
+    			<string name="prRegCoPetiteO"> Petite authorised </string>
+    			<string name="prRegCoPetiteN"> Petite forbidden </string>
     		<string name="prRegCoPousse"> Pousse </string>
-    			<string name="prRegCoPousseO"> Le contrat Pousse est autorisé </string>
-    			<string name="prRegCoPousseN"> Le contrat Pousse nest pas autorisé </string>
+    			<string name="prRegCoPousseO"> Pousse authorised </string>
+    			<string name="prRegCoPousseN"> Pousse forbidden </string>
     		<string name="prRegCoGAE"> GAE </string>
-    			<string name="prRegCoGAEO"> Le contrat GAE est autorisé </string>
-    			<string name="prRegCoGAEN"> Le contrat GAE nest pas autorisé </string>
+    			<string name="prRegCoGAEO"> GAE authorised </string>
+    			<string name="prRegCoGAEN"> GAE forbidden </string>
     			
     	<string name="prRegSc"> Scores </string>
-    		<string name="prRegScCpt"> Méthode pour compter </string>
-    			<string name="prRegScCptL"> Officielle </string>
-    			<string name="prRegScCptS"> Officieuse </string>
-    		<string name="prRegScMi"> Misère </string>
-    		<string name="prRegScPeB"> Petit au bout </string>
-    		<string name="prRegScRoB"> Roi au bout </string>
-    		<string name="prRegScArr"> Arrondir </string>
-    			<string name="prRegScArr0"> Ne pas arrondir </string>
-    			<string name="prRegScArr5"> Arrondir à 5 </string>
-    			<string name="prRegScArr10"> Arrondir à 10 </string>
-    			<string name="prRegScArrAnn"> Annuler </string>
+    		<string name="prRegScCpt"> Score counting method </string>
+    			<string name="prRegScCptL"> Official </string>
+    			<string name="prRegScCptS"> Marseille style </string>
+    		<string name="prRegScMi"> Misery </string>
+    		<string name="prRegScPeB"> Petit \"au bout\" </string>
+    			<string name="prRegScPeBEx"> Points for last-trick petit </string>
+    		<string name="prRegScRoB"> King \"au bout\" </string>
+    			<string name="prRegScRoBEx"> Points for last-trick king </string>
+    		<string name="prRegScArr"> Score rounding </string>
+    			<string name="prRegScArr0"> No rounding </string>
+    			<string name="prRegScArr5"> Round to 5 </string>
+    			<string name="prRegScArr10"> Round to 10 </string>
+    			<string name="prRegScArrAnn"> Cancel </string>
     			
-    	<string name="prRegBt"> 3 bouts</string>
-    		<string name="prRegBtO"> 3 bouts dans un pli autorisé</string>
-    		<string name="prRegBtN"> 3 bouts dans un pli interdit</string>
-    	<string name="prRegFi"> Conditions de fin de partie </string>
+    	<string name="prRegBt"> 3 oudlers </string>
+    		<string name="prRegBtO"> 3 oudlers in a trick authorised </string>
+    		<string name="prRegBtN"> 3 oudlers in a trick forbidden </string>
+    	<string name="prRegFi"> End game conditions </string>
     		<string name="prRegFiCo"> Conditions </string>
-    			<string name="prRegFiCoSc"> Score maximum </string>
-    			<string name="prRegFiCoDo"> Donnes maximales </string>
-    			<string name="prRegFiCoEx"> Condition par défaut : premier à 1000 points</string>
-    		<string name="prRegFiSc"> Score maximal </string>
-    			<string name="prRegFiScEx"> Si score maximal activé </string>
-    		<string name="prRegFiDo"> Donne maximal </string>
-    			<string name="prRegFiDoEx"> Si donne maximal activé </string>
+    			<string name="prRegFiCoSc"> Maximum score </string>
+    			<string name="prRegFiCoDo"> Maximum rounds </string>
+    			<string name="prRegFiCoEx"> Default : first to 1000 points</string>
+    		<string name="prRegFiSc"> Maximum score </string>
+    			<string name="prRegFiScEx"> If maximum score </string>
+    		<string name="prRegFiDo"> Maximum rounds </string>
+    			<string name="prRegFiDoEx"> If maximum rounds </string>
     			
-	<string name="prApp"> Préférences Application</string>
-		<string name="prAppNmJ"> Noms des Joueurs </string>
-			<string name="prAppNmJ1"> Votre nom </string>
-			<string name="prAppNmJ2"> Nom du deuxième joueu </string>
-			<string name="prAppNmJ3"> Nom du troisième joueur </string>
-			<string name="prAppNmJ4"> Nom du qatrième joueur </string>
-		<string name="prAppTr"> Tri des Cartes </string>
-			<string name="prAppTrAvAO"> La main est trier lors de lannonce </string>
-			<string name="prAppTrAvAN"> La Main est trier lors de lanonce </string>	
+	<string name="prApp"> Application Preferences </string>
+		<string name="prAppNmJ"> Player names </string>
+			<string name="prAppNmJ1"> Your name </string>
+			<string name="prAppNmJ2"> Player two </string>
+			<string name="prAppNmJ3"> Player three </string>
+			<string name="prAppNmJ4"> Player four </string>
+		<string name="prAppTr"> Sort cards </string>
+			<string name="prAppTrAvAO"> Sort cards before bidding </string>
+			<string name="prAppTrAvAN"> Sort cards after bidding </string>	
 			<string name="prAppTrCaTest"> plop </string>
-				<string name="prAppTrCaC"> Croissant </string>
-				<string name="prAppTrCaD"> Décroissant </string>			
+				<string name="prAppTrCaC"> Ascending </string>
+				<string name="prAppTrCaD"> Descending </string>			
 	
 </resources>
