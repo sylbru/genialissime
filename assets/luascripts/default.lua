@@ -561,7 +561,7 @@ function tarot.demander.ecart()
 	while CR > 0 do
 		local rand = math.random(0,3)
 		local l = rand*14
-		for j=13,1 do
+		for j=1,13 do
 			----fluxus:push("Je vais jeter des cartes de couleur "..l)
 			if maMain[l+j+21] and CR~=0 then
 				--fluxus:push("Je mets "..(l+j+21).." à l'écart")
