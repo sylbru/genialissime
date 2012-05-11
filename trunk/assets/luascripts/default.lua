@@ -153,16 +153,16 @@ function tarot.utile.getNom(carte)
 		end
 	else
 		if tarot.utile.getValeur(carte)<11 then
-			return tarot.utile.getValeur(carte).." de "..tarot.utile.getCouleur()
+			return tarot.utile.getValeur(carte).." de "..tarot.utile.getCouleur(carte)
 		else
 			if tarot.utile.getValeur(carte)==11 then
-				return "Valet de "..tarot.utile.getCouleur()
+				return "Valet de "..tarot.utile.getCouleur(carte)
 			elseif tarot.utile.getValeur(carte)==12 then
-				return "Cavalier de "..tarot.utile.getCouleur()
+				return "Cavalier de "..tarot.utile.getCouleur(carte)
 			elseif tarot.utile.getValeur(carte)==13 then
-				return "Dame de "..tarot.utile.getCouleur()
+				return "Dame de "..tarot.utile.getCouleur(carte)
 			else
-				return "Roi de "..tarot.utile.getCouleur()
+				return "Roi de "..tarot.utile.getCouleur(carte)
 			end
 		end
 	end
@@ -596,6 +596,7 @@ function tarot.demander.carte()
 		table.insert(rcol, col[i])
 		table.remove(col, i)
 	end
+	
 
 	-- Identifier le nombre de cartes à chaque couleur
 	monIA.cartesACouleur = {}
@@ -606,6 +607,7 @@ function tarot.demander.carte()
 	monIA.cartesACouleur.carreau = tarot.utile.cartesACouleur(tarot.main, "carreau")
 
 	table.sort(tarot.legal)
+	table.sort(tarot.main)
 		
 	--for i,v in ipairs(tarot.main) do
 	--	--fluxus:push(v)
@@ -618,7 +620,7 @@ function tarot.demander.carte()
 		return 0
 	end
 	-- J'ouvre le pli, si preneur = 0 ou 3, ne PAS faire d'ouverture, si preneur = 1 FAIRE des ouvertures
-	if tarot.entame == 0 then
+	if tarot.entame == 0 or (tarot.entame == 3 and tarot.pli[1]==0) then
 		--fluxus:push("Ma pos est 0")
 		-- Ouverture de couleur
 		if tarot.preneur == 1 then
@@ -626,6 +628,12 @@ function tarot.demander.carte()
 			-- Tenter une ouverture
 			for i = 1,4 do
 				if not monIA.couleurJouee[rcol[i]] then
+					fluxus:push("Jet de roi défense")
+					fluxus:push(tarot.utile.newCarte(rcol[i],14))
+					if tarot.utile.possede(tarot.legal, tarot.utile.newCarte(rcol[i],14)) and monIA.cartesACouleur[rcol[i]]<=3 then
+						fluxus:push("Ouaip, ")
+						return tarot.utile.newCarte(rcol[i],14)
+					end
 					--fluxus:push("On n'a pas joué"..rcol[i])
 					--fluxus:push(monIA.cartesACouleur[rcol[i]])
 					if monIA.cartesACouleur[rcol[i]]>0 then
@@ -654,17 +662,30 @@ function tarot.demander.carte()
 
 		-- Si je DOIS ouvrir, je fais attention
 		elseif tarot.preneur == 3 then
-			--fluxus:push("Je suis après le preneur")
+		--fluxus:push("Je suis après le preneur")
 
 		-- Je suis le preneur, si je DOIS ouvrir, je le fais à un roi qui est fort
 		else
 			--fluxus:push("Je suis le preneur")
+			for i = 1,4 do
+				if not monIA.couleurJouee[rcol[i]] then
+					--fluxus:push("On n'a pas joué"..rcol[i])
+					--fluxus:push(monIA.cartesACouleur[rcol[i]])
+					fluxus:push("Jet de roi preneur")
+					if tarot.utile.possede(tarot.legal, tarot.utile.newCarte(rcol[i],14)) and monIA.cartesACouleur[rcol[i]]<6 then
+						return tarot.utile.newCarte(rcol[i],14)
+					end
+					--fluxus:push("Do I even get here?")
+				end
+			end
 		end
 		--fluxus:push("Bleaaargh!")
 		carte = tarot.legal[math.random(1,#tarot.legal)]
 		--fluxus:push(carte)
 		return carte
 	end
+
+	-- Observer le pli, identifier la personne remportant ce pli, la couleur, etc...
 
 	-- Quelqu'un joue après moi
 	if tarot.entame == 3 or tarot.entame == 2 then
