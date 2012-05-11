@@ -4,7 +4,7 @@
 
     
     
-    <PreferenceScreen android:id="@+id/valide" android:key="PR" android:title="Préférences Règles">
+    <PreferenceScreen android:id="@+id/valide" android:key="PR" android:title="vef">
         <CheckBoxPreference android:summaryOn="Sens Inverse des aiguilles d'une montre" android:key="SDJ" android:summaryOff="Sens des aiguilles d'une montre" android:title="Sens du jeu"/>
         <PreferenceScreen android:key="CTR" android:title="Contrats">
             <CheckBoxPreference android:key="PAR" android:title="Autoriser Parole" android:summaryOff="Le Contrat Parole n'est pas autorisé" android:summaryOn="Le Contrat Parole est autorisé"/>

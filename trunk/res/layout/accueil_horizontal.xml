@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="Commencer une partie" />
+        android:text="@string/commencer" />
 
     <Button
         android:id="@+id/butOptions"
@@ -20,7 +20,7 @@
         android:layout_alignRight="@+id/boutonCommencer"
         android:layout_below="@+id/boutonCommencer"
         android:layout_marginTop="20dp"
-        android:text="Options" />
+        android:text="@string/bOption" />
 
     <Button
         android:id="@+id/boutonTest"
@@ -30,7 +30,7 @@
         android:layout_alignRight="@+id/butOptions"
         android:layout_below="@+id/butOptions"
         android:layout_marginTop="22dp"
-        android:text="Partie à 0 joueurs" />
+        android:text="@string/test" />
 
     <ImageView
         android:id="@+id/imageView1"
