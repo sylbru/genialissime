@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--  English version -->
+    <string name="app_name"> TarotAndroid </string>
+    <string name="exit"> Exit </string>
+    <string name="preferencesTitre">Preferencies</string>
+    <string name="itemprefs">Preferencies</string>
+    <string name="testlua">s=\"This is a test from strings.xml\"</string>
+    
+
+    
+    <!-- Ecran d'accueil -->
+    
+    
+    <string name="commencer"> Start a game </string>
+    <string name="boption"> Options </string>
+    <string name="test"> Game with 0 player </string>
+    
+    <!-- Preference -->
+    
+    <string name="prReg"> Préférences Règles</string>
+    	<string name="prRegSens"> Sens du Jeu</string>
+    	
+    	<string name="prRegCo"> Contrat </string>
+    		<string name="prRegCoParole"> Parole </string>
+    			<string name="prRegCoParoleO"> Le contrat Parole est autorisé </string>
+    			<string name="prRegCoParoleN"> Le contrat Parole nest pas autorisé </string>
+    		<string name="prRegCoPetite"> Petite </string>
+    			<string name="prRegCoPetiteO"> Le contrat Petite est autorisé </string>
+    			<string name="prRegCoPetiteN"> Le contrat Petite nest pas autorisé </string>
+    		<string name="prRegCoPousse"> Pousse </string>
+    			<string name="prRegCoPousseO"> Le contrat Pousse est autorisé </string>
+    			<string name="prRegCoPousseN"> Le contrat Pousse nest pas autorisé </string>
+    		<string name="prRegCoGAE"> GAE </string>
+    			<string name="prRegCoGAEO"> Le contrat GAE est autorisé </string>
+    			<string name="prRegCoGAEN"> Le contrat GAE nest pas autorisé </string>
+    			
+    	<string name="prRegSc"> Scores </string>
+    		<string name="prRegScCpt"> Méthode pour compter </string>
+    			<string name="prRegScCptL"> Officielle </string>
+    			<string name="prRegScCptS"> Officieuse </string>
+    		<string name="prRegScMi"> Misère </string>
+    		<string name="prRegScPeB"> Petit au bout </string>
+    		<string name="prRegScRoB"> Roi au bout </string>
+    		<string name="prRegScArr"> Arrondir </string>
+    			<string name="prRegScArr0"> Ne pas arrondir </string>
+    			<string name="prRegScArr5"> Arrondir à 5 </string>
+    			<string name="prRegScArr10"> Arrondir à 10 </string>
+    			<string name="prRegScArrAnn"> Annuler </string>
+    			
+    	<string name="prRegBt"> 3 bouts</string>
+    		<string name="prRegBtO"> 3 bouts dans un pli autorisé</string>
+    		<string name="prRegBtN"> 3 bouts dans un pli interdit</string>
+	<string name="prApp"> Préférences Application</string>
+		<string name="prAppNmJ"> Noms des Joueurs </string>
+			<string name="prAppNmJ1"> </string>
+			<string name="prAppNmJ2"> </string>
+			<string name="prAppNmJ3"> </string>
+			<string name="prAppNmJ4"> </string>
+		<string name="prAppTr"> Tri des Cartes </string>
+			<string name="prAppTrAvA"> </string>
+			<string name="prAppTrCa"> </string>
+				<string name="prAppTrCaC"> Croissant </string>
+				<string name="prAppTrCaD"> Décroissant </string>			
+	
+</resources>
