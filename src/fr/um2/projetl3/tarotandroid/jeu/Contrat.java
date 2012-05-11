@@ -14,6 +14,8 @@ public class Contrat
 	
 	private int facteur;
 	private int valeurContrat;
+	
+	public static boolean bavard = false;
 
 	private boolean autorisé; // cool si pas de problème avec l’accent (en tout cas ça semble autorisé en Java)
 
@@ -98,7 +100,7 @@ public class Contrat
 	
 	public void setAutorisé(boolean valeur)
 	{
-		// System.out.println("On fait un setAutorisé de "+this.nom+" à "+valeur);
+		// if (bavard) System.out.println("On fait un setAutorisé de "+this.nom+" à "+valeur);
 		this.autorisé = valeur;
 	}
 	
@@ -179,16 +181,16 @@ public class Contrat
 	{
 		Vector<Contrat> listeContratsDisponibles = new Vector<Contrat>();
 		listeContratsDisponibles = (Vector<Contrat>) listeContrats.clone();
-		System.out.println("tous : "+listeContratsDisponibles);
+		if (bavard) System.out.println("tous : "+listeContratsDisponibles);
 		
 		for(Contrat c: listeContrats)
 		{
 			if(!c.autorisé)
 			{
-				System.out.println("On enlève "+c);
+				if (bavard) System.out.println("On enlève "+c);
 				listeContratsDisponibles.remove(c);
 			} else
-				System.out.println("On garde "+c);
+				if (bavard) System.out.println("On garde "+c);
 		}
 		
 		return listeContratsDisponibles;
@@ -225,7 +227,7 @@ public class Contrat
 			Contrat.GARDE_SANS.setFacteur(4);
 			Contrat.GARDE_CONTRE.setFacteur(6);
 			
-			System.out.println("Interdiction de la Pousse car ManiereDeCompter == true");
+			if (bavard) System.out.println("Interdiction de la Pousse car ManiereDeCompter == true");
 			Contrat.POUSSE.interdire();
 			/*
 			 * Alors je pense que je doit m'expliquer :

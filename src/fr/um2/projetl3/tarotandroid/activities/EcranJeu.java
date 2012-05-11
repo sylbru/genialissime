@@ -298,7 +298,7 @@ public class EcranJeu extends Activity
 	{
 		resultatAnnonce = Contrat.AUCUN;
 		final Button bDemandeAnnonce = new Button(this);
-		bDemandeAnnonce.setText("Annoncer");
+		bDemandeAnnonce.setText(getString(R.string.bannoncer));
 		bDemandeAnnonce.setOnClickListener(new View.OnClickListener()
 		{
 			
@@ -357,7 +357,7 @@ public class EcranJeu extends Activity
 			}
 		});*/
 		final Button bValideEcart = new Button(this);
-		bValideEcart.setText("Valider l’écart");
+		bValideEcart.setText(getString(R.string.bEcart));
 		bValideEcart.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View v)

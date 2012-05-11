@@ -4,40 +4,53 @@
 
     
     
-    <PreferenceScreen android:id="@+id/valide" android:key="PR" android:title="">
-        <CheckBoxPreference android:summaryOn="Sens Inverse des aiguilles d'une montre" android:key="SDJ" android:summaryOff="Sens des aiguilles d'une montre" android:title="Sens du jeu"/>
-        <PreferenceScreen android:key="CTR" android:title="Contrats">
-            <CheckBoxPreference android:key="PAR" android:title="Autoriser Parole" android:summaryOff="Le Contrat Parole n'est pas autorisé" android:summaryOn="Le Contrat Parole est autorisé"/>
-            <CheckBoxPreference android:key="PET" android:title="Autoriser Petite" android:summaryOff="Le Contrat Petite n'est pas autorisé" android:summaryOn="Le Contrat Petite est autorisé"/>
-            <CheckBoxPreference android:key="POU" android:title="Autoriser Pousse" android:summaryOff="Le Contrat Pousse n'est pas autorisé" android:summaryOn="Le Contrat Pousse est autorisé"/>
-            <CheckBoxPreference android:title="Autoriser GAE" android:key="GAE" android:summaryOff="Le Contrat GAE n'est pas autorisé" android:summaryOn="Le Contrat GAE est autorisé"/>
+    <PreferenceScreen android:id="@+id/valide" android:key="PR" android:title="@string/prReg">
+        <CheckBoxPreference android:summaryOn="@string/prRegSens1" android:key="SDJ" android:summaryOff="@string/prRegSens2" android:title="@string/prRegSens"/>
+        <PreferenceScreen android:key="CTR" android:title="@string/prRegCo">
+            <CheckBoxPreference android:key="PAR" android:title="@string/prRegCoParole" android:summaryOff="@string/prRegCoParoleN" android:summaryOn="@string/prRegCoParoleO"/>
+            <CheckBoxPreference android:key="PET" android:title="@string/prRegCoPetite" android:summaryOff="@string/prRegCoPetiteN" android:summaryOn="@string/prRegCoPetiteO"/>
+            <CheckBoxPreference android:key="POU" android:title="@string/prRegCoPousse" android:summaryOff="@string/prRegCoPousseN" android:summaryOn="@string/prRegCoPousseO"/>
+            <CheckBoxPreference android:title="Autoriser GAE" android:key="@string/prRegCoGAE" android:summaryOff="@string/prRegCoGAEO" android:summaryOn="@string/prRegCoGAEO"/>
         </PreferenceScreen>
-        <PreferenceScreen android:key="SCO" android:title="Scores">
-            <ListPreference android:title="Manière de compter" android:key="Compt-Pts"
+        <PreferenceScreen android:key="SCO" android:title="@string/prRegSc">
+            <ListPreference android:title="@string/prRegScCpt" android:key="Compt-Pts"
                             android:entries="@array/listTEntries" android:entryValues="@array/listTValues"
-                            android:defaultValue="1" android:negativeButtonText="Annuler"></ListPreference>
-            <CheckBoxPreference android:title="Compter Misère" android:key="MIS"/>
-            <CheckBoxPreference android:title="Compter Petit au bout" android:key="PAB" android:summaryOn="Seulement si Petit au dernier pli"/>
-            <CheckBoxPreference android:title="Compter Roi au bout" android:key="RAB" android:summaryOn="Seulement si Roi au dernier pli"></CheckBoxPreference>
-            <ListPreference android:key="ARR" android:title="Arrondissement"
+                            android:defaultValue="1" android:negativeButtonText="@string/Cancel"></ListPreference>
+            <CheckBoxPreference android:title="@string/prRegScMi" android:key="MIS"/>
+            <CheckBoxPreference android:title="@string/prRegScPeB" android:key="PAB" android:summaryOn="prRegScPeBEx"/>
+            <CheckBoxPreference android:title="@string/prRegScRoB" android:key="RAB" android:summaryOn="prRegScRoBEx"></CheckBoxPreference>
+            <ListPreference android:key="ARR" android:title="@string/prRegScArr"
                 			android:entries="@array/listArrEntrees" android:entryValues="@array/listArrValeurs"
-                			android:defaultValue="1" android:negativeButtonText="Annuler"></ListPreference>
+                			android:defaultValue="1" android:negativeButtonText="@string/Cancel"></ListPreference>
 </PreferenceScreen>
-        <CheckBoxPreference android:summaryOff="Interdiction de poser les 3 bouts dans un pli" android:title="Autoriser 3 Bouts" android:key="A3BDP" android:summaryOn="Autorisation de poser les 3 bouts dans un pli"/>
-        <PreferenceScreen android:key="CFP" android:title="Conditions de fin de partie">
-            <ListPreference android:key="CDS" android:title="Conditions"
-                			android:summary="Conditions défaut : Premier à 1000pts ou Stop à 42 donnes"
+        <CheckBoxPreference android:summaryOff="@string/prRegBtN" android:title="@string/prRegBt" android:key="A3BDP" android:summaryOn="@string/prRegBtO"/>
+        <PreferenceScreen android:key="CFP" android:title="@string/prRegFi">
+            <ListPreference android:key="CDS" android:title="@string/prRegFiCo"
+                			android:summary="@string/prRegFiCoEx"
                 			android:entries="@array/listCdsEntrees" android:entryValues="@array/listCdsValeurs"
-                			android:defaultValue="1" android:negativeButtonText="Annuler"></ListPreference>
-            <EditTextPreference android:key="SMAX" android:title="Score maximal" android:summary="Si condition Score maximum est activée"/>
-            <EditTextPreference android:key="DMAX" android:summary="Si condition donnes maximales est activée" android:title="Entrez nombre de donnes maximales"/>
+                			android:defaultValue="1" android:negativeButtonText="@string/Cancel">
+            </ListPreference>
+            <EditTextPreference android:key="SMAX" android:title="@string/prRegFiSc" android:summary="@string/prRegFiScEx"/>
+            <EditTextPreference android:key="DMAX" android:summary="@string/prRegFiDo" android:title="@string/prRegFiDoEx"/>
         </PreferenceScreen>
     </PreferenceScreen>
-    <PreferenceScreen android:key="PA" android:title="Préférences Application">
-        <EditTextPreference android:title="Nom du joueur 1" android:key="NJ"/>
-        <EditTextPreference android:key="AD1" android:title="Nom du joueur 2"/>
-        <EditTextPreference android:key="AD2" android:title="Nom du joueur 3"/>
-        <EditTextPreference android:title="Nom du joueur 4" android:key="AD3"/>
+    <PreferenceScreen android:key="PA" android:title="@string/prApp">
+        
+		<PreferenceScreen android:key="Noms" android:title="@string/prAppNmJ">
+            <EditTextPreference android:key="NJ"  android:title="@string/prAppNmJ1"/>
+		        <EditTextPreference android:key="AD1" android:title="@string/prAppNmJ2"/>
+		        <EditTextPreference android:key="AD2" android:title="@string/prAppNmJ3"/>
+		        <EditTextPreference android:key="AD3" android:title="@string/prAppNmJ4"/>
+		</PreferenceScreen>
+        
+        <PreferenceScreen android:key="Tri" android:title="@string/prAppTr">
+        	<CheckBoxPreference android:key="TriPRAnn" android:title="@string/prAppTr" android:summaryOff="@string/prAppTrAvAN" android:summaryOn="@string/prAppTrAvAO"/>
+        	<ListPreference android:key="CDSTri" 
+        	    			android:title="@string/prAppTrCaTest"
+                			android:entries="@array/listCDSTri" android:entryValues="@array/listCDSTri"
+                			android:defaultValue="1" android:negativeButtonText="@string/Cancel">
+        	</ListPreference>
+        </PreferenceScreen>
         
     </PreferenceScreen>
 	
