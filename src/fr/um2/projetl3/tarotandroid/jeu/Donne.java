@@ -131,8 +131,14 @@ public class Donne
 	  * @return l'indice du tableau ou se trouve la carte qui remporte le plis grà¢ce à  à§a on peut retrouver qui remporte le plis
 	 * @throws Throwable 
 	  */
-	 public int vainqueurDuPli(Vector<Carte> vecteurContenantLePli)
-	 {
+	public int vainqueurDuPliOff(Vector<Carte> vecteurContenantLePli)
+	{
+		int v = vainqueurDuPli(vecteurContenantLePli);
+		return (v-numJoueurEnContact+P.getNombreDeJoueurs())%P.getNombreDeJoueurs();
+	}
+	
+	public int vainqueurDuPli(Vector<Carte> vecteurContenantLePli)
+	{
 		int indice = -1;
 		int nombreDeJoueur = P.getNombreDeJoueurs();
 		int i;
@@ -191,7 +197,7 @@ public class Donne
 	 /**
 	  * Phase de jeu des cartes dans une donne, après les annonces et l'écart, avant le comptage des points.
 	  * (pour info, l'expression " jeu de la carte ", ça vient pas de moi,
-	  * voir http://www.fftarot.fr/index.php/Decouvrir/Le-Jeu-de-la-carte.html )
+	  * voir http:P.getNombreDeJoueurs()//www.fftarot.fr/index.php/Decouvrir/Le-Jeu-de-la-carte.html )
 	 * @return 
 	  */
 	@SuppressWarnings("unchecked")
@@ -824,6 +830,16 @@ public class Donne
 
 	public Vector<Carte> getPlisPrecedent() {
 		return plisPrecedent;
+	}
+	
+	public Vector<Carte> getPlisPrecedentOff() {
+		Vector<Carte> rpli = plisPrecedent;
+		for (int i=0;i<P.getNombreDeJoueurs();i++)
+		{
+			rpli.add((i-numJoueurEnContact+P.getNombreDeJoueurs())%P.getNombreDeJoueurs(), plisPrecedent.elementAt(i));
+		}
+		
+		return rpli;
 	}
 	@SuppressWarnings("unused")
 	private void setPlisPrecedent(Vector<Carte> plisPrecedent) {

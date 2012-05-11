@@ -23,13 +23,15 @@ public class JoueurIA implements IJoueur
 	private String pNom;	// Nom du joueur, arbitraire et sans incidence
 	private LuaState L;		// Instance de la machine virtuelle Lua
 	private boolean bavard;
+	private boolean bavardfluxus;
 	private boolean bavardecart;
 	private int delai = 0;
 	
 	/*--- Constructeurs ---*/
 	public JoueurIA(String pNom, int pID)
 	{
-		bavard = false;
+		bavard = true;
+		bavardfluxus = true;
 		bavardecart = false;
 		L = LuaStateFactory.newLuaState();
 		L.openLibs();
@@ -132,7 +134,7 @@ public class JoueurIA implements IJoueur
 		//System.out.println(pNom+": "+this.checkFluxus());
 		while (!this.fluxusVide())
 		{
-			if (bavard) System.out.println(pNom+": "+this.popFluxus()); else this.popFluxus();
+			if (bavardfluxus) System.out.println(pNom+": "+this.popFluxus()); else this.popFluxus();
 		}
 	}
 	
@@ -188,9 +190,9 @@ public class JoueurIA implements IJoueur
 		this.chargerMain();
 		
 		//this.updateLObjects();
+		fluxusToSyso();
 		if (bavardecart)
 		{
-			fluxusToSyso();
 			D.getMain().affiche();
 		}
 		
@@ -260,6 +262,34 @@ public class JoueurIA implements IJoueur
 		fluxusToSyso();
 	}
 	
+	private void chargerPliPrecedant(){
+		L.LdoString("tarot.pliPrec:clear()");
+		Vector<Carte> vCartes = D.getPlisPrecedentOff();
+		int v = D.vainqueurDuPliOff(D.getPlisPrecedent());
+		for (int i=0;i<vCartes.size();i++)
+		{
+			try {
+				L.pushObjectValue(vCartes.elementAt(i).uid());
+				L.setGlobal("input");
+				L.LdoString("tarot.main:pliPrec(input)");
+				//System.out.println(pNom+": "+"Pushed a "+vCartes.elementAt(i).toString());
+			} catch (LuaException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		try {
+			L.pushObjectValue(v);
+		} catch (LuaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		L.setGlobal("tarot.vainqueurPrec");
+		
+		//L.LdoString("for i,v in ipairs(tarot.main) do fluxus:push('test main '..v) end");
+		fluxusToSyso();
+	}
+	
 	private void chargerLegal(){
 		L.LdoString("tarot.legal:clear()");
 		Vector<Carte> vCartes = D.indiquerCartesLegalesJoueur();
@@ -281,12 +311,13 @@ public class JoueurIA implements IJoueur
 		L.LdoString("tarot.pli:clear()");
 		Vector<Carte> vCartes = new Vector<Carte>();
 		//System.out.println(pNom+": "+"Chargement du pli");
-		for (int i=0; i<4; i++)
+		
+		for (int i=0; i<(-D.getJoueurEntameOff()+4)%4; i++)
 		{
 			//System.out.println(pNom+": "+"Carte du pli numero "+i);
 			if (D.getPlisEnCours().get(i) != null)
 			{
-				//System.out.println(pNom+": "+D.getPlisEnCours()[i].toString());
+				if (bavard) System.out.println(pNom+": "+D.getPlisEnCours().elementAt(i).toString());
 				vCartes.add(D.getPlisEnCours().get(i));
 			}
 		}
