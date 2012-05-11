@@ -33,6 +33,7 @@ public class JoueurIA implements IJoueur
 		bavard = true;
 		bavardfluxus = true;
 		bavardecart = false;
+
 		L = LuaStateFactory.newLuaState();
 		L.openLibs();
 		//System.out.println(pNom+": "+"Jusqu'ici tout va bien");

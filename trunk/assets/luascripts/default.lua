@@ -460,7 +460,9 @@ function tarot.demander.ecart()
 				CR = CR - 1
 				----fluxus:push(tarot.utile.getNom(cand).." est bon pour l'ecart")
 			end
-		end]]
+		end
+		
+]]
 		
 -------------------------------------------FAIRE UNE COUPE ANS TOUS LES CAS------------------------------------------------
 ------------------------------------------ENLEVE LA COULEUR ON IL Y A LE MOINS DE CARTES
@@ -483,7 +485,7 @@ function tarot.demander.ecart()
 		end
 	end
 	
-	--[[	
+	
 	for i=2,4 do
 		if nbrCarteParCouleur[i] > nbrCarteParCouleur[max1] then
 			max1 = i
@@ -511,7 +513,7 @@ function tarot.demander.ecart()
 	minc[4] = max1
 	
 	--fluxus:push("classement des couleur"..minc[1]..minc[2]..minc[3]..minc[4])
-]]
+]
 	
 	minc1 = (minc1 - 1)*14
 	minc2 = (minc2 - 1)*14
@@ -559,7 +561,7 @@ function tarot.demander.ecart()
 	while CR > 0 do
 		local rand = math.random(0,3)
 		local l = rand*14
-		for j=1,13 do
+		for j=13,1 do
 			----fluxus:push("Je vais jeter des cartes de couleur "..l)
 			if maMain[l+j+21] and CR~=0 then
 				--fluxus:push("Je mets "..(l+j+21).." à l'écart")
@@ -572,7 +574,11 @@ function tarot.demander.ecart()
 	return ecart
 end
 
+
+
+
 monIA = {}
+
 
 function tarot.demander.carte()
 	if #tarot.main == 18 then -- Premier pli
@@ -585,7 +591,7 @@ function tarot.demander.carte()
 		monIA.petitTombe = false
 		monIA.cartesJouees = {}
 		for i=0,77 do
-			monIA.cartesJouees[i]=-1 -- -1 pas joué, 0-3 joué par joueur en question
+			monIA.cartesJouees[i] = -1 -- -1 pas joué, 0-3 joué par joueur en question
 		end
 	end
 	-- Randomiser l'ordre des couleurs, parce que je peux
@@ -751,5 +757,7 @@ function tarot.demander.carte()
 
 
 end
+
+
 
 scriptloaded = true

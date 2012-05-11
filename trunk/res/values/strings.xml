@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <!--  version française -->
+
+	<!-- général -->
     <string name="app_name">TarotAndroid</string>
     <string name="exit">Quitter</string>
     <string name="preferencesTitre">Préférences</string>
     <string name="itemprefs">Préférences</string>
     <string name="testlua">s=\"This is a test from strings.xml\"</string>
-    
-
+    <string name="Cancel"> Annuler </string> <!-- à rajouter en anglais -->
+	<string name="Close"> Fermer </string> <!-- à rajouter en anglais -->
     
     <!-- Ecran d'accueil -->
     
@@ -15,11 +17,20 @@
     <string name="commencer"> Commencer une partie </string>
     <string name="test"> Partie à 0 joueurs </string>
     
+
+    <!-- Ecran de jeu -->
+    
+    <string name="bEcart"> Valider lécart </string>
+	<string name="bannoncer"> Annoncer </string>
+
+    
     <!-- Preference -->
     
     <string name="prReg"> Préférences Règles</string>
     	<string name="prRegSens"> Sens du Jeu</string>
-    	
+    		<string name="prRegSens1"> Sens inverse des aiguilles dune montre </string>
+    		<string name="prRegSens2"> Sens des aiguilles dune montre </string>
+    		
     	<string name="prRegCo"> Contrat </string>
     		<string name="prRegCoParole"> Parole </string>
     			<string name="prRegCoParoleO"> Le contrat Parole est autorisé </string>
@@ -40,7 +51,11 @@
     			<string name="prRegScCptS"> Officieuse </string>
     		<string name="prRegScMi"> Misère </string>
     		<string name="prRegScPeB"> Petit au bout </string>
+    			<string name="prRegScPeBEx"> Seulement si Petit au dernier pli </string> <!-- à rajouter en anglais -->
+    		
     		<string name="prRegScRoB"> Roi au bout </string>
+    			<string name="prRegScRoBEx"> Seulement si le Roi au dernier pli </string> <!-- à rajouter en anglais -->
+    			
     		<string name="prRegScArr"> Arrondir </string>
     			<string name="prRegScArr0"> Ne pas arrondir </string>
     			<string name="prRegScArr5"> Arrondir à 5 </string>
@@ -50,15 +65,28 @@
     	<string name="prRegBt"> 3 bouts</string>
     		<string name="prRegBtO"> 3 bouts dans un pli autorisé</string>
     		<string name="prRegBtN"> 3 bouts dans un pli interdit</string>
+    		
+
+    	<string name="prRegFi"> Conditions de fin de partie </string>
+    		<string name="prRegFiCo"> Conditions </string>
+    			<string name="prRegFiCoSc"> Score maximum </string>
+    			<string name="prRegFiCoDo"> Donnes maximales </string>
+    			<string name="prRegFiCoEx"> Condition par défaut : premier à 1000 points</string>
+    		<string name="prRegFiSc"> Score maximal </string>
+    			<string name="prRegFiScEx"> Si score maximal activé </string>
+    		<string name="prRegFiDo"> Donne maximal </string>
+    			<string name="prRegFiDoEx"> Si donne maximal activé </string>
+    	
 	<string name="prApp"> Préférences Application</string>
 		<string name="prAppNmJ"> Noms des Joueurs </string>
-			<string name="prAppNmJ1"> </string>
-			<string name="prAppNmJ2"> </string>
-			<string name="prAppNmJ3"> </string>
-			<string name="prAppNmJ4"> </string>
+			<string name="prAppNmJ1"> Votre nom </string>
+			<string name="prAppNmJ2"> Nom du deuxième joueu </string>
+			<string name="prAppNmJ3"> Nom du troisième joueur </string>
+			<string name="prAppNmJ4"> Nom du qatrième joueur </string>
 		<string name="prAppTr"> Tri des Cartes </string>
-			<string name="prAppTrAvA"> </string>
-			<string name="prAppTrCa"> </string>
+			<string name="prAppTrAvAO"> La main est trier lors de lannonce </string>
+			<string name="prAppTrAvAN"> La Main est trier lors de lanonce </string>	
+			<string name="prAppTrCaTest"> plop </string>
 				<string name="prAppTrCaC"> Croissant </string>
 				<string name="prAppTrCaD"> Décroissant </string>			
 	
