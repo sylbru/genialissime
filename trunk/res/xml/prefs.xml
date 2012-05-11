@@ -17,8 +17,8 @@
                             android:entries="@array/listTEntries" android:entryValues="@array/listTValues"
                             android:defaultValue="1" android:negativeButtonText="@string/Cancel"></ListPreference>
             <CheckBoxPreference android:title="@string/prRegScMi" android:key="MIS"/>
-            <CheckBoxPreference android:title="@string/prRegScPeB" android:key="PAB" android:summaryOn="prRegScPeBEx"/>
-            <CheckBoxPreference android:title="@string/prRegScRoB" android:key="RAB" android:summaryOn="prRegScRoBEx"></CheckBoxPreference>
+            <CheckBoxPreference android:title="@string/prRegScPeB" android:key="PAB" android:summaryOn="@string/prRegScPeBEx"/>
+            <CheckBoxPreference android:title="@string/prRegScRoB" android:key="RAB" android:summaryOn="@string/prRegScRoBEx"></CheckBoxPreference>
             <ListPreference android:key="ARR" android:title="@string/prRegScArr"
                 			android:entries="@array/listArrEntrees" android:entryValues="@array/listArrValeurs"
                 			android:defaultValue="1" android:negativeButtonText="@string/Cancel"></ListPreference>

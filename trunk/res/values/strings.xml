@@ -3,7 +3,7 @@
 <!--  version française -->
 
 	<!-- général -->
-    <string name="app_name">TarotAndroid</string>
+    <string name="app_name">Genialissime Tarot</string>
     <string name="exit">Quitter</string>
     <string name="preferencesTitre">Préférences</string>
     <string name="itemprefs">Préférences</string>
@@ -20,7 +20,7 @@
 
     <!-- Ecran de jeu -->
     
-    <string name="bEcart"> Valider lécart </string>
+    <string name="bEcart"> Valider l\'écart </string>
 	<string name="bannoncer"> Annoncer </string>
 
     
@@ -28,8 +28,8 @@
     
     <string name="prReg"> Préférences Règles</string>
     	<string name="prRegSens"> Sens du Jeu</string>
-    		<string name="prRegSens1"> Sens inverse des aiguilles dune montre </string>
-    		<string name="prRegSens2"> Sens des aiguilles dune montre </string>
+    		<string name="prRegSens1"> Sens inverse des aiguilles d\'une montre </string>
+    		<string name="prRegSens2"> Sens des aiguilles d\'une montre </string>
     		
     	<string name="prRegCo"> Contrat </string>
     		<string name="prRegCoParole"> Parole </string>
@@ -48,7 +48,7 @@
     	<string name="prRegSc"> Scores </string>
     		<string name="prRegScCpt"> Méthode pour compter </string>
     			<string name="prRegScCptL"> Officielle </string>
-    			<string name="prRegScCptS"> Officieuse </string>
+    			<string name="prRegScCptS"> À la Marseillaise </string>
     		<string name="prRegScMi"> Misère </string>
     		<string name="prRegScPeB"> Petit au bout </string>
     			<string name="prRegScPeBEx"> Seulement si Petit au dernier pli </string> <!-- à rajouter en anglais -->
@@ -80,13 +80,13 @@
 	<string name="prApp"> Préférences Application</string>
 		<string name="prAppNmJ"> Noms des Joueurs </string>
 			<string name="prAppNmJ1"> Votre nom </string>
-			<string name="prAppNmJ2"> Nom du deuxième joueu </string>
+			<string name="prAppNmJ2"> Nom du deuxième joueur </string>
 			<string name="prAppNmJ3"> Nom du troisième joueur </string>
-			<string name="prAppNmJ4"> Nom du qatrième joueur </string>
+			<string name="prAppNmJ4"> Nom du quatrième joueur </string>
 		<string name="prAppTr"> Tri des Cartes </string>
-			<string name="prAppTrAvAO"> La main est trier lors de lannonce </string>
-			<string name="prAppTrAvAN"> La Main est trier lors de lanonce </string>	
-			<string name="prAppTrCaTest"> plop </string>
+			<string name="prAppTrAvAO"> La main est trié avant les annonces </string>
+			<string name="prAppTrAvAN"> La Main est trié après les annonces </string>	
+			<string name="prAppTrCaTest"> Ordre de tri </string>
 				<string name="prAppTrCaC"> Croissant </string>
 				<string name="prAppTrCaD"> Décroissant </string>			
 	
