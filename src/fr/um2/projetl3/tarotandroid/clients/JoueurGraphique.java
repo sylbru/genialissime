@@ -87,7 +87,8 @@ public class JoueurGraphique implements IJoueur {
 
 	
 	public void direChien(Vector<Carte> chien) {
-		ecran.log("Chien : "+chien.toString());
+		ecran.log("Chien : "+chien.toString(), false);
+		ecran.direChien(chien);
 	}
 
 	
@@ -103,7 +104,8 @@ public class JoueurGraphique implements IJoueur {
 
 	
 	public void direPliRemporté(Vector<Carte> pli, int joueur) {
-		ecran.log("Pli remporté par " + P.getNomNumJoueur(joueur));
+		//ecran.log("Pli remporté par " + P.getNomNumJoueur(joueur));
+		ecran.direPliRemporté(pli, joueur);
 		//!ecran.direPliRemporté(pli, joueur);
 		//pli.clear();
 	}

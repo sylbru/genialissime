@@ -49,7 +49,8 @@
         </activity>
         <activity
             android:name="fr.um2.projetl3.tarotandroid.activities.PreferencesActivity"
-            android:label="@string/preferencesTitre" >
+            android:label="@string/preferencesTitre"
+            android:screenOrientation="landscape" >
             <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,7 +59,7 @@
         </activity>
         <activity
             android:name="fr.um2.projetl3.tarotandroid.activities.TestKevinActivity"
-            android:label="Kevin a la classe" >
+            android:label="Test IA" >
         </activity>
     </application>
 

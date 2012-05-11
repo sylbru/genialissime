@@ -371,4 +371,40 @@
     	    android:layout_gravity="center|top" />
     	
     </FrameLayout>
+    
+    <!-- Cartes du chien une fois révélé -->
+    
+    <LinearLayout
+        android:id="@+id/zoneChien"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp">
+        
+        <ImageView
+    	    android:id="@+id/chien0"
+    	    android:layout_width="70dp"
+    	    android:layout_height="120dp" />           
+        <ImageView
+    	    android:id="@+id/chien1"
+    	    android:layout_width="70dp"
+    	    android:layout_height="120dp" />        
+        <ImageView
+    	    android:id="@+id/chien2"
+    	    android:layout_width="70dp"
+    	    android:layout_height="120dp" />        
+        <ImageView
+    	    android:id="@+id/chien3"
+    	    android:layout_width="70dp"
+    	    android:layout_height="120dp" />        
+        <ImageView
+    	    android:id="@+id/chien4"
+    	    android:layout_width="70dp"
+    	    android:layout_height="120dp" />        
+        <ImageView
+    	    android:id="@+id/chien5"
+    	    android:layout_width="70dp"
+    	    android:layout_height="120dp" />     
+    </LinearLayout>
+    	
  </RelativeLayout>
